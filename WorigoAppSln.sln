@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B246FAB8-A069-4D11-A25C-70E60CFB2139}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{460B5045-A005-411C-A478-4F0A4B31F50D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{33006530-0B5E-4A83-8502-97887054CC29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Domain", "WorigoApp.Domain\WorigoApp.Domain.csproj", "{48E731F3-B93E-4C6E-A844-D6C484221A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Application", "WorigoApp.Application\WorigoApp.Application.csproj", "{B85C2515-99AC-4467-96FE-708A2CA2A593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Infrastructure", "WorigoApp.Infrastructure\WorigoApp.Infrastructure.csproj", "{F945E6D8-E151-4444-B0A8-0F2121B19554}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Persistence", "WorigoApp.Persistence\WorigoApp.Persistence.csproj", "{C22E96D8-2D73-452D-A04E-582987EC40D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Api", "WorigoApp.Api\WorigoApp.Api.csproj", "{BDA58F27-7D7A-430D-8C71-A42D05006940}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48E731F3-B93E-4C6E-A844-D6C484221A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E731F3-B93E-4C6E-A844-D6C484221A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E731F3-B93E-4C6E-A844-D6C484221A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E731F3-B93E-4C6E-A844-D6C484221A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B85C2515-99AC-4467-96FE-708A2CA2A593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B85C2515-99AC-4467-96FE-708A2CA2A593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B85C2515-99AC-4467-96FE-708A2CA2A593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B85C2515-99AC-4467-96FE-708A2CA2A593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F945E6D8-E151-4444-B0A8-0F2121B19554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F945E6D8-E151-4444-B0A8-0F2121B19554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F945E6D8-E151-4444-B0A8-0F2121B19554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F945E6D8-E151-4444-B0A8-0F2121B19554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C22E96D8-2D73-452D-A04E-582987EC40D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C22E96D8-2D73-452D-A04E-582987EC40D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C22E96D8-2D73-452D-A04E-582987EC40D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C22E96D8-2D73-452D-A04E-582987EC40D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDA58F27-7D7A-430D-8C71-A42D05006940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDA58F27-7D7A-430D-8C71-A42D05006940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDA58F27-7D7A-430D-8C71-A42D05006940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDA58F27-7D7A-430D-8C71-A42D05006940}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{48E731F3-B93E-4C6E-A844-D6C484221A1F} = {B246FAB8-A069-4D11-A25C-70E60CFB2139}
+		{B85C2515-99AC-4467-96FE-708A2CA2A593} = {B246FAB8-A069-4D11-A25C-70E60CFB2139}
+		{F945E6D8-E151-4444-B0A8-0F2121B19554} = {460B5045-A005-411C-A478-4F0A4B31F50D}
+		{C22E96D8-2D73-452D-A04E-582987EC40D5} = {460B5045-A005-411C-A478-4F0A4B31F50D}
+		{BDA58F27-7D7A-430D-8C71-A42D05006940} = {33006530-0B5E-4A83-8502-97887054CC29}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D308097-1533-4286-A137-6F0087BD34C2}
+	EndGlobalSection
+EndGlobal

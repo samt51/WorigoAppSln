@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Companies\Exceptions\" />
+    <Folder Include="Features\ContentsOfFoods\Commands\" />
+    <Folder Include="Features\ContentsOfFoods\Exceptions\" />
+    <Folder Include="Features\EmployeeTypes\Exceptions\" />
+    <Folder Include="Features\Employees\Exceptions\" />
+    <Folder Include="Features\FoodMenuCategories\Commands\" />
+    <Folder Include="Features\FoodMenuCategories\Exceptions\" />
+    <Folder Include="Features\FoodTypes\Commands\" />
+    <Folder Include="Features\FoodTypes\Exceptions\" />
+    <Folder Include="Features\Foods\Commands\" />
+    <Folder Include="Features\Foods\Exceptions\" />
+    <Folder Include="Features\Hotels\Commands\" />
+    <Folder Include="Features\Hotels\Exceptions\" />
+    <Folder Include="Features\ImageCategories\Commands\" />
+    <Folder Include="Features\ImageCategories\Exceptions\" />
+    <Folder Include="Features\Images\Commands\" />
+    <Folder Include="Features\Images\Exceptions\" />
+    <Folder Include="Features\RoomTypes\Commands\" />
+    <Folder Include="Features\RoomTypes\Exceptions\" />
+    <Folder Include="Features\Rooms\Commands\" />
+    <Folder Include="Features\Rooms\Exceptions\" />
+    <Folder Include="Features\ServiceOfFeatures\Commands\" />
+    <Folder Include="Features\ServiceOfFeatures\Exceptions\" />
+    <Folder Include="Features\ServiceOfValues\Commands\" />
+    <Folder Include="Features\ServiceOfValues\Exceptions\" />
+    <Folder Include="Features\Services\Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SendGrid" Version="9.29.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WorigoApp.Domain\WorigoApp.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
