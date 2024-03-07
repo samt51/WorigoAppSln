@@ -8,29 +8,18 @@
 
   <ItemGroup>
     <Folder Include="Features\Companies\Exceptions\" />
-    <Folder Include="Features\ContentsOfFoods\Commands\" />
-    <Folder Include="Features\ContentsOfFoods\Exceptions\" />
     <Folder Include="Features\EmployeeTypes\Exceptions\" />
     <Folder Include="Features\Employees\Exceptions\" />
-    <Folder Include="Features\FoodMenuCategories\Commands\" />
     <Folder Include="Features\FoodMenuCategories\Exceptions\" />
-    <Folder Include="Features\FoodTypes\Commands\" />
     <Folder Include="Features\FoodTypes\Exceptions\" />
-    <Folder Include="Features\Foods\Commands\" />
     <Folder Include="Features\Foods\Exceptions\" />
-    <Folder Include="Features\Hotels\Commands\" />
     <Folder Include="Features\Hotels\Exceptions\" />
-    <Folder Include="Features\ImageCategories\Commands\" />
     <Folder Include="Features\ImageCategories\Exceptions\" />
-    <Folder Include="Features\Images\Commands\" />
     <Folder Include="Features\Images\Exceptions\" />
     <Folder Include="Features\RoomTypes\Commands\" />
     <Folder Include="Features\RoomTypes\Exceptions\" />
-    <Folder Include="Features\Rooms\Commands\" />
     <Folder Include="Features\Rooms\Exceptions\" />
-    <Folder Include="Features\ServiceOfFeatures\Commands\" />
     <Folder Include="Features\ServiceOfFeatures\Exceptions\" />
-    <Folder Include="Features\ServiceOfValues\Commands\" />
     <Folder Include="Features\ServiceOfValues\Exceptions\" />
     <Folder Include="Features\Services\Exceptions\" />
   </ItemGroup>

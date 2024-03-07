@@ -4,9 +4,10 @@ namespace WorigoApp.Application.Features.EmployeeTypes.Queries.GetAllEmployeeTyp
 {
     public class GetAllEmployeeTypesQueryRequest : IRequest<IList<GetAllEmployeeTypesQueryResponse>>
     {
-        public GetAllEmployeeTypesQueryRequest()
+        public int DepartmentId { get; }
+        public GetAllEmployeeTypesQueryRequest(int departmentId)
         {
-
+            this.DepartmentId = departmentId;
         }
     }
 }
