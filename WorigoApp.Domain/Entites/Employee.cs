@@ -11,12 +11,14 @@ namespace WorigoApp.Domain.Entites
         public string Name { get; set; }
         public string Surname { get; set; }
         public string ImageUrl { get; set; }
-        public int EmployeeTypeId { get; set; }
+        public int? EmployeeTypeId { get; set; }
         public EmployeeType EmployeeType { get; set; }
-        public int HotelId { get; set; }
+        public int? HotelId { get; set; }
         public Hotel Hotel { get; set; }
         public EmployeeDetail EmployeeDetail { get; set; }
-        public Employee(int id, string name, string surName, string imageUrl, int employeeTypeId, int hotelId)
+        public int UserId { get; }
+        public Users User { get; }
+        public Employee(int id, string name, string surName, string imageUrl, int employeeTypeId, int hotelId, int userId)
         {
             this.Id = id;
             this.Name = name;
@@ -24,6 +26,7 @@ namespace WorigoApp.Domain.Entites
             this.ImageUrl = imageUrl;
             this.EmployeeTypeId = employeeTypeId;
             this.HotelId = hotelId;
+            UserId = userId;
         }
     }
 }

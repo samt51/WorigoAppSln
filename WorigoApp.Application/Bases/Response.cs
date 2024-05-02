@@ -27,6 +27,11 @@
             Errors.Add(errors);
             return new Response<T> { Data = data, Errors = Errors, StatusCode = statusCode, IsSuccess = false };
         }
+        public Response<T> Fail(string errors, int statusCode)
+        {
+            Errors.Add(errors);
+            return new Response<T> { Errors = Errors, StatusCode = statusCode, IsSuccess = false };
+        }
 
     }
 }

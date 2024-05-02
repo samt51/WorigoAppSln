@@ -17,7 +17,7 @@ namespace WorigoApp.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -54,19 +54,19 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(6084),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3014),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(6099),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3027),
                             Name = "Worigo"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(6102),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3029),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(6102),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3030),
                             Name = "Ramada"
                         });
                 });
@@ -146,122 +146,122 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7184),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3983),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7186),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3984),
                             Name = "Ön Büro Resepsiyon Departmanı"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7188),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3986),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7188),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3986),
                             Name = "Housekeeping Departmanı"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7189),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3987),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7189),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3987),
                             Name = "Yiyecek İçecek ve Mutfak Departmanı"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7190),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3988),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7190),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3988),
                             Name = "Teknik Servis Departmanı"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7191),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3990),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7191),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3990),
                             Name = "İnsan Kaynakları Departmanı"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7191),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3990),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7192),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3991),
                             Name = "Muhasebe Departmanı"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7192),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3991),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7193),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3991),
                             Name = "Satınalma Departmanı"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7193),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3992),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7193),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3992),
                             Name = "Satış ve Pazarlama Departmanı"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7194),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3992),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7194),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3993),
                             Name = "Bilgi İşlem Departmanı "
                         },
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7195),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3993),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7195),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3994),
                             Name = "Güvenlik Departmanı"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7196),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3994),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(7196),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(3994),
                             Name = "Sağlık Kulübü & Spa Departmanı"
                         });
                 });
@@ -277,10 +277,10 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EmployeeTypeId")
+                    b.Property<int?>("EmployeeTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HotelId")
+                    b.Property<int?>("HotelId")
                         .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
@@ -509,47 +509,480 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8033),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4572),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8035),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4573),
                             RoomFoodTypeEnum = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8036),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4574),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8036),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4574),
                             RoomFoodTypeEnum = 2
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8037),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4574),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8037),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4575),
                             RoomFoodTypeEnum = 3
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8038),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4575),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8038),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4576),
                             RoomFoodTypeEnum = 4
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8039),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4576),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8039),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(4577),
                             RoomFoodTypeEnum = 5
+                        });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.BellBoy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BellBoy");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5016),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5017),
+                            Name = "Bagaj Taşıma"
+                        });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.Connection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FlootNo")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Connection");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5449),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5450),
+                            Name = "1q2w3e4r5t"
+                        });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.DryCleaner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DryCleaner");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.HotelInformationAndAnnouncements", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HotelInformationAndAnnouncements");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.HouseKeeping", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HouseKeeping");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5827),
+                            ImageUrl = "",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5828),
+                            Name = "Havlu değişimi veya eksiği"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5830),
+                            ImageUrl = "",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5830),
+                            Name = "Oda Genel temizlik"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5831),
+                            ImageUrl = "",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(5831),
+                            Name = "Çarşaf veya yatak yüzü değişimi"
+                        });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.SpaMassage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpaMassage");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(6243),
+                            Description = "Uzak Doğu Masajı",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(6244),
+                            Name = "Uzak Doğu"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(6246),
+                            Description = "Tailand Masajı",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(6246),
+                            Name = "Tailand Masajı"
+                        });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.SpaMassageValue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SpaMassageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpaMassageId");
+
+                    b.ToTable("SpaMassageValue");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.TechnicalNeed", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TechnicalNeed");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7018),
+                            Description = "Klima ile arıza durumları",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7019),
+                            Name = "Klima"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7022),
+                            Description = "TV ile arıza durumları",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7022),
+                            Name = "TV"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7023),
+                            Description = "Minibar ile arıza durumları",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7023),
+                            Name = "Minibar"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7023),
+                            Description = "Kapı ile arıza durumları",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7024),
+                            Name = "Kapı"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7024),
+                            Description = "Elektirk ile arıza durumları",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7025),
+                            Name = "Elektrik"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7025),
+                            Description = "Aydınlatma ile arıza durumları",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7026),
+                            Name = "Aydınlatma"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7026),
+                            Description = "Aydınlatma ile arıza durumları",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7026),
+                            Name = "Duş Ve Tuvalet"
                         });
                 });
 
@@ -611,12 +1044,12 @@ namespace WorigoApp.Persistence.Migrations
                             Id = 1,
                             Adress = "Bağcılar",
                             Companyid = 2,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8768),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7384),
                             Email = "tekstilkent@ramada.com",
                             IsActive = true,
                             IsDeleted = false,
                             Location = "Giyimkent",
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(8769),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(7384),
                             Name = "Tekstilkent",
                             NumberOfStar = 4,
                             PhoneNumber = "02126733520"
@@ -689,6 +1122,91 @@ namespace WorigoApp.Persistence.Migrations
                     b.HasIndex("HotelId");
 
                     b.ToTable("ImageCategory");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.Roles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8303),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8308),
+                            Name = "SystemAdmin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8309),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8309),
+                            Name = "HotelAdmin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8310),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8310),
+                            Name = "Management"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8310),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8311),
+                            Name = "DepartmentManager"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8359),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8360),
+                            Name = "Employee"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8360),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(8361),
+                            Name = "Reception"
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Room", b =>
@@ -766,105 +1284,105 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9432),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9094),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9433),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9095),
                             RoomTypeEnum = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9434),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9096),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9435),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9096),
                             RoomTypeEnum = 2
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9435),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9097),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9436),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9097),
                             RoomTypeEnum = 3
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9436),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9097),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9437),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9098),
                             RoomTypeEnum = 4
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9437),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9098),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9437),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9099),
                             RoomTypeEnum = 5
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9438),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9099),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9438),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9099),
                             RoomTypeEnum = 6
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9439),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9100),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9439),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9100),
                             RoomTypeEnum = 7
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9440),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9101),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9440),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9101),
                             RoomTypeEnum = 8
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9441),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9102),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9441),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9102),
                             RoomTypeEnum = 9
                         },
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9442),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9102),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9442),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9103),
                             RoomTypeEnum = 10
                         },
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9443),
+                            CreatedDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9103),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 3, 6, 2, 27, 44, 521, DateTimeKind.Local).AddTicks(9443),
+                            ModifyDate = new DateTime(2024, 5, 2, 8, 59, 26, 354, DateTimeKind.Local).AddTicks(9104),
                             RoomTypeEnum = 11
                         });
                 });
 
-            modelBuilder.Entity("WorigoApp.Domain.Entites.Service", b =>
+            modelBuilder.Entity("WorigoApp.Domain.Entites.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -875,10 +1393,7 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("HotelId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -891,88 +1406,18 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("HotelId");
-
-                    b.ToTable("Service");
-                });
-
-            modelBuilder.Entity("WorigoApp.Domain.Entites.ServiceOfFeature", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ServiceId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("RoleId");
 
-                    b.ToTable("ServiceOfFeature");
-                });
-
-            modelBuilder.Entity("WorigoApp.Domain.Entites.ServiceOfValue", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("ModifyDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ServiceOfFeatureId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("ServiceOfFeatureId");
-
-                    b.ToTable("ServiceOfValue");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.ContentsOfFood", b =>
@@ -1001,15 +1446,11 @@ namespace WorigoApp.Persistence.Migrations
                 {
                     b.HasOne("WorigoApp.Domain.Entites.EmployeeType", "EmployeeType")
                         .WithMany("Employees")
-                        .HasForeignKey("EmployeeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeTypeId");
 
                     b.HasOne("WorigoApp.Domain.Entites.Hotel", "Hotel")
                         .WithMany("Employees")
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HotelId");
 
                     b.Navigation("EmployeeType");
 
@@ -1058,6 +1499,17 @@ namespace WorigoApp.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Hotel");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.SpaMassageValue", b =>
+                {
+                    b.HasOne("WorigoApp.Domain.Entites.GServices.SpaMassage", "SpaMassage")
+                        .WithMany("SpaMassageValues")
+                        .HasForeignKey("SpaMassageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SpaMassage");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Hotel", b =>
@@ -1120,41 +1572,15 @@ namespace WorigoApp.Persistence.Migrations
                     b.Navigation("RoomType");
                 });
 
-            modelBuilder.Entity("WorigoApp.Domain.Entites.Service", b =>
+            modelBuilder.Entity("WorigoApp.Domain.Entites.Users", b =>
                 {
-                    b.HasOne("WorigoApp.Domain.Entites.Hotel", "Hotel")
-                        .WithMany()
-                        .HasForeignKey("HotelId")
+                    b.HasOne("WorigoApp.Domain.Entites.Roles", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Hotel");
-                });
-
-            modelBuilder.Entity("WorigoApp.Domain.Entites.ServiceOfFeature", b =>
-                {
-                    b.HasOne("WorigoApp.Domain.Entites.Service", "Service")
-                        .WithMany("ServiceOfFeatures")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Service");
-                });
-
-            modelBuilder.Entity("WorigoApp.Domain.Entites.ServiceOfValue", b =>
-                {
-                    b.HasOne("WorigoApp.Domain.Entites.Service", "Service")
-                        .WithMany("ServiceOfValues")
-                        .HasForeignKey("ServiceId");
-
-                    b.HasOne("WorigoApp.Domain.Entites.ServiceOfFeature", "ServiceOfFeature")
-                        .WithMany("ServiceOfValues")
-                        .HasForeignKey("ServiceOfFeatureId");
-
-                    b.Navigation("Service");
-
-                    b.Navigation("ServiceOfFeature");
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Company", b =>
@@ -1193,6 +1619,11 @@ namespace WorigoApp.Persistence.Migrations
                     b.Navigation("Rooms");
                 });
 
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.SpaMassage", b =>
+                {
+                    b.Navigation("SpaMassageValues");
+                });
+
             modelBuilder.Entity("WorigoApp.Domain.Entites.Hotel", b =>
                 {
                     b.Navigation("Departments");
@@ -1211,21 +1642,14 @@ namespace WorigoApp.Persistence.Migrations
                     b.Navigation("Images");
                 });
 
+            modelBuilder.Entity("WorigoApp.Domain.Entites.Roles", b =>
+                {
+                    b.Navigation("Users");
+                });
+
             modelBuilder.Entity("WorigoApp.Domain.Entites.RoomType", b =>
                 {
                     b.Navigation("Rooms");
-                });
-
-            modelBuilder.Entity("WorigoApp.Domain.Entites.Service", b =>
-                {
-                    b.Navigation("ServiceOfFeatures");
-
-                    b.Navigation("ServiceOfValues");
-                });
-
-            modelBuilder.Entity("WorigoApp.Domain.Entites.ServiceOfFeature", b =>
-                {
-                    b.Navigation("ServiceOfValues");
                 });
 #pragma warning restore 612, 618
         }

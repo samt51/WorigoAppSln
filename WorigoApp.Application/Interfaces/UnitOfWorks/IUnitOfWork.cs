@@ -9,6 +9,7 @@ namespace WorigoApp.Application.Interfaces.UnitOfWorks
         IWriteRepository<T> GetWriteRepository<T>() where T : class, IEntityBase, new();
         void OpenTransaction();
         Task<int> SaveAsync();
+        Task SaveAsync1();
         void Commit();
         void RollBack();
         int Save();

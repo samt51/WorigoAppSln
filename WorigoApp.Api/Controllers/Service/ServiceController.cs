@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WorigoApp.Application.Features.Services.Commands.CreateService;
+
 
 namespace WorigoApp.Api.Controllers.Service
 {
@@ -14,11 +14,6 @@ namespace WorigoApp.Api.Controllers.Service
         {
             this._mediator = mediator;
         }
-        [HttpPost]
-        public async Task<IActionResult> Create(CreateServiceCommandRequest request)
-        {
-            var response = await _mediator.Send(request);
-            return Ok(response);
-        }
+      
     }
 }

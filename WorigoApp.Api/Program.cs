@@ -2,6 +2,8 @@ using Microsoft.OpenApi.Models;
 using WorigoApp.Persistence;
 using WorigoApp.Application;
 using WorigoApp.Application.Exceptions;
+using WorigoApp.Infrastructure;
+using WorigoApp.Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
 
@@ -23,6 +28,12 @@ builder.Configuration
 
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+
+builder.Services.AddDbContext<AppDbContext>();
+ 
+
+
 
 builder.Services.AddSwaggerGen(c =>
 {
