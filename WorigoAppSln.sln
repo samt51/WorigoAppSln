@@ -9,15 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{33006530-0B5E-4A83-8502-97887054CC29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Domain", "WorigoApp.Domain\WorigoApp.Domain.csproj", "{48E731F3-B93E-4C6E-A844-D6C484221A1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorigoApp.Domain", "WorigoApp.Domain\WorigoApp.Domain.csproj", "{48E731F3-B93E-4C6E-A844-D6C484221A1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Application", "WorigoApp.Application\WorigoApp.Application.csproj", "{B85C2515-99AC-4467-96FE-708A2CA2A593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorigoApp.Application", "WorigoApp.Application\WorigoApp.Application.csproj", "{B85C2515-99AC-4467-96FE-708A2CA2A593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Infrastructure", "WorigoApp.Infrastructure\WorigoApp.Infrastructure.csproj", "{F945E6D8-E151-4444-B0A8-0F2121B19554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorigoApp.Infrastructure", "WorigoApp.Infrastructure\WorigoApp.Infrastructure.csproj", "{F945E6D8-E151-4444-B0A8-0F2121B19554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Persistence", "WorigoApp.Persistence\WorigoApp.Persistence.csproj", "{C22E96D8-2D73-452D-A04E-582987EC40D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorigoApp.Persistence", "WorigoApp.Persistence\WorigoApp.Persistence.csproj", "{C22E96D8-2D73-452D-A04E-582987EC40D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorigoApp.Api", "WorigoApp.Api\WorigoApp.Api.csproj", "{BDA58F27-7D7A-430D-8C71-A42D05006940}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorigoApp.Api", "WorigoApp.Api\WorigoApp.Api.csproj", "{BDA58F27-7D7A-430D-8C71-A42D05006940}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

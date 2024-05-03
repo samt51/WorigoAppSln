@@ -1,11 +1,14 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.Employees.Commands.CreateEmployee;
+using WorigoApp.Application.Features.Employees.Commands.UpdateEmployee;
 using WorigoApp.Application.Features.Employees.Queries.GetAllEmployees;
-using WorigoApp.Application.Features.EmployeeTypes.Commands.UpdateEmployeeType;
 
 namespace WorigoApp.Api.Controllers.Employees
 {
+    [Authorize(Roles = "SystemAdmin")]
     [Route("[controller]/[action]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -16,22 +19,20 @@ namespace WorigoApp.Api.Controllers.Employees
         {
             this.mediator = mediator;
         }
-        [HttpGet]
-        public IActionResult Get(GetAllEmployeesQueryRequest request)
+        [HttpGet("{hotelId}")]
+        public async Task<Response<IList<GetAllEmployeesQueryResponse>>> GetAllAsync(int hotelId)
         {
-            return Ok(this.mediator.Send(request));
+            return await this.mediator.Send(new GetAllEmployeesQueryRequest(hotelId));
         }
         [HttpPost]
-        public async Task<IActionResult> Post(CreateEmployeeCommonRequest request)
+        public async Task<Response<CreateEmployeeCommonResponse>> AddAsync(CreateEmployeeCommonRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return await this.mediator.Send(request);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateEmployeeTypeCommonRequest request)
+        public async Task<Response<UpdateEmployeeCommonResponse>> UpdateAsync(UpdateEmployeeCommonRequest request)
         {
-            var response = await mediator.Send(request);
-            return Ok(response);
+            return await this.mediator.Send(request);
         }
     }
 }

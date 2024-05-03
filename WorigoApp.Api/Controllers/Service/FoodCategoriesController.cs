@@ -1,12 +1,14 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodMenuCategory;
 using WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodMenuCategory;
 using WorigoApp.Application.Features.FoodMenuCategories.Queries.GetAllFoodMenuCategories;
 
 namespace WorigoApp.Api.Controllers.Service
 {
+    [Authorize(Roles = "SystemAdmin")]
     [Route("[controller]/[action]")]
     [ApiController]
     public class FoodCategoriesController : ControllerBase
@@ -18,19 +20,19 @@ namespace WorigoApp.Api.Controllers.Service
             this.mediator = mediator;
         }
         [HttpGet("{hotelid}")]
-        public IActionResult Get(int hotelId)
+        public async Task<Response<IList<GetAllFoodMenuCategoriesQueryResponse>>> GetAllAsync(int hotelId)
         {
-            return Ok(this.mediator.Send(new GetAllFoodMenuCategoriesQueryRequest(hotelId)));
+            return await this.mediator.Send(new GetAllFoodMenuCategoriesQueryRequest(hotelId));
         }
         [HttpPost]
-        public IActionResult Post(CreateFoodMenuCategoryCommonRequest request)
+        public async Task<Response<CreateFoodMenuCategoryCommonResponse>> AddAsync(CreateFoodMenuCategoryCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return await this.mediator.Send(request);
         }
         [HttpPost]
-        public IActionResult Update(UpdateFoodMenuCategoryCommonRequest request)
+        public async Task<Response<UpdateFoodMenuCategoryCommonResponse>> UpdateAsync(UpdateFoodMenuCategoryCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return await this.mediator.Send(request);
         }
     }
 }

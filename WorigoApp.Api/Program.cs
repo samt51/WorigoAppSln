@@ -4,6 +4,7 @@ using WorigoApp.Application;
 using WorigoApp.Application.Exceptions;
 using WorigoApp.Infrastructure;
 using WorigoApp.Persistence.Context;
+using WorigoApp.Application.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,7 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddDbContext<AppDbContext>();
- 
+
 
 
 
@@ -74,8 +75,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
+app.UseHttpsRedirection();
+app.UseMiddleware<JwtExpirationMiddleware>();
 
 app.ConfigureExceptionHandlingMiddleware();
 app.UseAuthorization();

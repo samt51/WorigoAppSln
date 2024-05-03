@@ -1,7 +1,7 @@
 ﻿using WorigoApp.Application.Interfaces.Repositories;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
-using WorigoApp.Persistence.Context;
 using WorigoApp.Persistence.Concrete.Repositories;
+using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Persistence.Concrete.UnitOfWorks
 {
@@ -14,17 +14,21 @@ namespace WorigoApp.Persistence.Concrete.UnitOfWorks
             this.dbContext = dbContext;
         }
 
-
         public void Commit()
         {
-            dbContext.Database.CommitTransaction();
+            throw new NotImplementedException();
+        }
+
+        public async Task CommitAsync()
+        {
+            await dbContext.Database.CommitTransactionAsync();
         }
 
         public async ValueTask DisposeAsync() => await dbContext.DisposeAsync();
 
         public void OpenTransaction()
         {
-            dbContext.Database.BeginTransaction();
+            dbContext.Database.BeginTransactionAsync();
         }
 
         public void RollBack()
@@ -38,13 +42,14 @@ namespace WorigoApp.Persistence.Concrete.UnitOfWorks
 
             try
             {
-                return await dbContext.SaveChangesAsync();
+                var result = await dbContext.SaveChangesAsync(); ;
+                return result;
             }
             catch (Exception ex)
             {
                 RollBack();
                 throw new Exception(ex.Message);
-                
+
             }
         }
 

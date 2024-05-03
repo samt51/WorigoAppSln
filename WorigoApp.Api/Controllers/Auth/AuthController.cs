@@ -1,12 +1,15 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.Auth.Commands.Login;
 using WorigoApp.Application.Features.Auth.Commands.Register;
+using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Auth
 {
     [Route("[controller]/[action]")]
+    [AllowAnonymous]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -26,5 +29,7 @@ namespace WorigoApp.Api.Controllers.Auth
         {
             return await mediator.Send(request);
         }
+        [HttpPost]  
+        public async Task<IActionResult> Logout() => Ok();
     }
 }

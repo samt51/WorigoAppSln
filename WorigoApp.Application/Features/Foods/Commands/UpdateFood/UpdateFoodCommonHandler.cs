@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using WorigoApp.Application.Bases;
-using WorigoApp.Application.Features.Foods.Commands.CreateFood;
 using WorigoApp.Application.Features.Foods.Dto;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
