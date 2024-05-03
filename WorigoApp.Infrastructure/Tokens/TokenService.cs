@@ -8,7 +8,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using WorigoApp.Application;
+using WorigoApp.Application.Features.Auth.Commands.Login;
+using WorigoApp.Application.Features.Auth.Dtos;
 using WorigoApp.Application.Interfaces.Auth.Jwt.Tokens;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
@@ -19,12 +20,11 @@ namespace WorigoApp.Infrastructure.Tokens
     {
 
         private readonly TokenSettings tokenSettings;
-        private readonly IUnitOfWork _unitOfWork;
+       
         readonly IConfiguration configuration;
-        public TokenService(IOptions<TokenSettings> options, IUnitOfWork unitOfWork, IConfiguration configuration)
+        public TokenService(IOptions<TokenSettings> options, IConfiguration configuration)
         {
             tokenSettings = options.Value;
-            _unitOfWork = unitOfWork;
             this.configuration = configuration;
         }
         public async Task<JwtSecurityToken> CreateToken(Users user, IList<string> roles)
@@ -65,12 +65,12 @@ namespace WorigoApp.Infrastructure.Tokens
             return Convert.ToBase64String(randomNumber);
         }
 
-        public Task<GenerateTokenResponse> GenerateToken(GenerateTokenRequest roleRequest)
+        public Task<LoginCommandResponse> GenerateToken(GenerateTokenRequest roleRequest)
         {
 
             SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Secret"]));
 
-            var dateTimeNow = DateTime.UtcNow;
+            var dateTimeNow = DateTime.Now;
 
             JwtSecurityToken jwt = new JwtSecurityToken(
                     issuer: configuration["JWT:Issuer"],
@@ -81,14 +81,14 @@ namespace WorigoApp.Infrastructure.Tokens
                     new Claim("Id",roleRequest.Id.ToString())
                     },
                     notBefore: dateTimeNow,
-                    expires: dateTimeNow.Add(TimeSpan.FromMinutes(500)),
+                    expires: dateTimeNow.AddDays(2),
                     signingCredentials: new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256)
                 );
 
-            return Task.FromResult(new GenerateTokenResponse
+            return Task.FromResult(new LoginCommandResponse
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(jwt),
-                TokenExpireDate = dateTimeNow.Add(TimeSpan.FromSeconds(1))
+                TokenExpireDate = dateTimeNow.AddDays(2)
             });
         }
 

@@ -10,6 +10,7 @@ namespace WorigoApp.Application.Interfaces.UnitOfWorks
         void OpenTransaction();
         Task<int> SaveAsync();
         Task SaveAsync1();
+        Task CommitAsync();
         void Commit();
         void RollBack();
         int Save();

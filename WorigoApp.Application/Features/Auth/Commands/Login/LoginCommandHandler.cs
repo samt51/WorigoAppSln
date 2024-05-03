@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using WorigoApp.Application.Bases;
+using WorigoApp.Application.Features.Auth.Dtos;
 using WorigoApp.Application.Features.Auth.Rules;
 using WorigoApp.Application.Helpers;
 using WorigoApp.Application.Interfaces.Auth.Jwt.Tokens;
@@ -30,9 +31,7 @@ namespace WorigoApp.Application.Features.Auth.Commands.Login
 
             var token = await _tokenService.GenerateToken(new GenerateTokenRequest(user.Id, user.Email, user.Role.Name));
 
-            var map = mapper.Map<LoginCommandResponse, GenerateTokenResponse>(token);
-
-            return new Response<LoginCommandResponse>().Success(map);
+            return new Response<LoginCommandResponse>().Success(token);
         }
     }
 }

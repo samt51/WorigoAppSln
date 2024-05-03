@@ -1,13 +1,13 @@
-﻿namespace WorigoApp.Application
+﻿namespace WorigoApp.Application.Features.Auth.Dtos
 {
     public class GenerateTokenRequest
     {
-        public GenerateTokenRequest(int Id,string email,string role)
+        public GenerateTokenRequest(int Id, string email, string role)
         {
-            
+
             this.Id = Id;
-            this.Email = email;
-            this.Role = role;   
+            Email = email;
+            Role = role;
         }
         public int Id { get; set; }
         public string Email { get; set; }

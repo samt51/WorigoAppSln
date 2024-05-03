@@ -17,8 +17,11 @@ namespace WorigoApp.Persistence.Concrete.Repositories
 
         public async Task<T> AddAsync(T entity)
         {
-            var tab = await Table.AddAsync(entity);
+
+            var tab = await Table.AddAsync(entity).ConfigureAwait(false);
             return tab.Entity;
+
+
         }
 
         public async Task AddRangeAsync(IList<T> entities)

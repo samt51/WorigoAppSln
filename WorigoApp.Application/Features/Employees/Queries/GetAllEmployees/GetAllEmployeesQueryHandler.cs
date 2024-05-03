@@ -6,17 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Employees.Queries.GetAllEmployees
 {
-    public class GetAllEmployeesQueryHandler : BaseHandler, IRequestHandler<GetAllEmployeesQueryRequest, IList<GetAllEmployeesQueryResponse>>
+    public class GetAllEmployeesQueryHandler : BaseHandler, IRequestHandler<GetAllEmployeesQueryRequest, Response<IList<GetAllEmployeesQueryResponse>>>
     {
         public GetAllEmployeesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<IList<GetAllEmployeesQueryResponse>> Handle(GetAllEmployeesQueryRequest request, CancellationToken cancellationToken)
+        public async Task<Response<IList<GetAllEmployeesQueryResponse>>> Handle(GetAllEmployeesQueryRequest request, CancellationToken cancellationToken)
         {
             var employeeList = await unitOfWork.GetReadRepository<Employee>().GetAllAsync(x => x.HotelId == request.HotelId && !x.IsDeleted);
 
-            return mapper.Map<GetAllEmployeesQueryResponse, Employee>(employeeList);
+            var map = mapper.Map<GetAllEmployeesQueryResponse, Employee>(employeeList);
+
+            return new Response<IList<GetAllEmployeesQueryResponse>>().Success(map);
         }
     }
 }
