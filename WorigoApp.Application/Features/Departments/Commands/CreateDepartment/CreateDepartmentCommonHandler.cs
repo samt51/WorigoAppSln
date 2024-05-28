@@ -14,25 +14,19 @@ namespace WorigoApp.Application.Features.Departments.Commands.CreateDepartment
 
         public async Task<Response<CreateDepartmentCommonResponse>> Handle(CreateDepartmentCommonRequest request, CancellationToken cancellationToken)
         {
-            var hoteIsControll = await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId);
+            var hoteIsControll = await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
 
-            if (hoteIsControll is null)
-            {
-                return new Response<CreateDepartmentCommonResponse>().Fail(new CreateDepartmentCommonResponse(), "Hotel is Null", 200);
-            }
             var map = mapper.Map<EmployeeType, CreateDepartmentCommonRequest>(request);
 
             unitOfWork.OpenTransaction();
 
             var saveEntity = await unitOfWork.GetWriteRepository<EmployeeType>().AddAsync(map);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<CreateDepartmentCommonResponse>().Success();
-            }
-            return new Response<CreateDepartmentCommonResponse>().Fail(new CreateDepartmentCommonResponse(), "", 400);
+            await unitOfWork.SaveAsync();
 
+            await unitOfWork.CommitAsync();
+
+            return new Response<CreateDepartmentCommonResponse>().Success();
         }
     }
 }

@@ -14,12 +14,7 @@ namespace WorigoApp.Application.Features.Images.Commands.UpdateImage
 
         public async Task<Response<UpdateImageCommonResponse>> Handle(UpdateImageCommonRequest request, CancellationToken cancellationToken)
         {
-            var imageIsControll = await unitOfWork.GetReadRepository<Image>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
-
-            if (imageIsControll is null)
-            {
-                return new Response<UpdateImageCommonResponse>().Fail(new UpdateImageCommonResponse(), "Image Is Undifined", 400);
-            }
+            await unitOfWork.GetReadRepository<Image>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
             var entityMap = mapper.Map<Image, UpdateImageCommonRequest>(request);
 
@@ -27,12 +22,12 @@ namespace WorigoApp.Application.Features.Images.Commands.UpdateImage
 
             await unitOfWork.GetWriteRepository<Image>().UpdateAsync(entityMap);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<UpdateImageCommonResponse>().Success();
-            }
-            return new Response<UpdateImageCommonResponse>().Fail(new UpdateImageCommonResponse(), "", 400);
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateImageCommonResponse>().Success();
+
         }
     }
 }

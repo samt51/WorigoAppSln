@@ -13,12 +13,6 @@ namespace WorigoApp.Persistence.Concrete.UnitOfWorks
         {
             this.dbContext = dbContext;
         }
-
-        public void Commit()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task CommitAsync()
         {
             await dbContext.Database.CommitTransactionAsync();
@@ -30,6 +24,7 @@ namespace WorigoApp.Persistence.Concrete.UnitOfWorks
         {
             dbContext.Database.BeginTransactionAsync();
         }
+        
 
         public void RollBack()
         {
@@ -42,7 +37,7 @@ namespace WorigoApp.Persistence.Concrete.UnitOfWorks
 
             try
             {
-                var result = await dbContext.SaveChangesAsync(); ;
+                var result = await dbContext.SaveChangesAsync();
                 return result;
             }
             catch (Exception ex)
@@ -52,29 +47,8 @@ namespace WorigoApp.Persistence.Concrete.UnitOfWorks
 
             }
         }
-
-        public async Task SaveAsync1()
-        {
-            try
-            {
-                await dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-
-                var error = ex.InnerException?.Message;
-
-                throw;
-            }
-        }
-
         IReadRepository<T> IUnitOfWork.GetReadRepository<T>() => new ReadRepository<T>(dbContext);
+        IWriteRepository<T> IUnitOfWork.GetWriteRepository<T>() => new WriteRepository<T>(dbContext);
 
-
-
-        IWriteRepository<T> IUnitOfWork.GetWriteRepository<T>()
-        {
-            return new WriteRepository<T>(dbContext);
-        }
     }
 }

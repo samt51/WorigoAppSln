@@ -16,21 +16,16 @@ namespace WorigoApp.Application.Features.EmployeeTypes.Commands.UpdateEmployeeTy
         {
             var dataIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.Id);
 
-            if (dataIsControll is null)
-            {
-                return new Response<UpdateEmployeeTypeCommonResponse>().Fail(new UpdateEmployeeTypeCommonResponse(), "Data Undifined", 400);
-            }
-
             dataIsControll.Name = request.Name;
             unitOfWork.OpenTransaction();
 
-            var entity = await unitOfWork.GetWriteRepository<EmployeeType>().UpdateAsync(dataIsControll);
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<UpdateEmployeeTypeCommonResponse>().Success();
-            }
-            return new Response<UpdateEmployeeTypeCommonResponse>().Fail(new UpdateEmployeeTypeCommonResponse(), "", 400);
+            await unitOfWork.GetWriteRepository<EmployeeType>().UpdateAsync(dataIsControll);
+
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateEmployeeTypeCommonResponse>().Success();
         }
     }
 }

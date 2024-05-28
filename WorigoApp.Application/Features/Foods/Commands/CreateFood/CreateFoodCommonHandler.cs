@@ -15,12 +15,7 @@ namespace WorigoApp.Application.Features.Foods.Commands.CreateFood
 
         public async Task<Response<CreateFoodCommonResponse>> Handle(CreateFoodCommonRequest request, CancellationToken cancellationToken)
         {
-            var foodMenuCategoryIsControll = await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAsync(x => x.Id == request.FoodMenuCategoryId);
-
-            if (foodMenuCategoryIsControll is null)
-            {
-                return new Response<CreateFoodCommonResponse>().Fail(new CreateFoodCommonResponse(), "Undifined", 400);
-            }
+            await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAsync(x => x.Id == request.FoodMenuCategoryId);
 
             var entityMap = mapper.Map<Food, CreateFoodCommonRequest>(request);
 
@@ -36,11 +31,13 @@ namespace WorigoApp.Application.Features.Foods.Commands.CreateFood
                 }
 
                 await unitOfWork.GetWriteRepository<ContentsOfFood>().AddRangeAsync(contentOfFoodMap);
-                if (await unitOfWork.SaveAsync() > 0)
-                {
-                    unitOfWork.Commit();
-                    return new Response<CreateFoodCommonResponse>().Success();
-                }
+
+                await unitOfWork.SaveAsync();
+
+                await unitOfWork.CommitAsync();
+
+                return new Response<CreateFoodCommonResponse>().Success();
+
             }
 
             return new Response<CreateFoodCommonResponse>().Fail(new CreateFoodCommonResponse(), "", 400);

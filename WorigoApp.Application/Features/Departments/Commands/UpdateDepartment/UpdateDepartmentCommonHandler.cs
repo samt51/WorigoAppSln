@@ -14,25 +14,19 @@ namespace WorigoApp.Application.Features.Departments.Commands.UpdateDepartment
         public async Task<Response<UpdateDepartmentCommonResponse>> Handle(UpdateDepartmentCommonRequest request, CancellationToken cancellationToken)
         {
             var findData = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.Id);
-
-            if (findData is null)
-            {
-                return new Response<UpdateDepartmentCommonResponse>().Fail(new UpdateDepartmentCommonResponse(), "Deparment Unfined", 400);
-            }
+ 
             findData.Name = request.Name;
             findData.ModifyDate = DateTime.Now;
 
             unitOfWork.OpenTransaction();
 
-            var modifyEntity = await unitOfWork.GetWriteRepository<EmployeeType>().UpdateAsync(findData);
+            await unitOfWork.GetWriteRepository<EmployeeType>().UpdateAsync(findData);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<UpdateDepartmentCommonResponse>().Success();
-            }
-            return new Response<UpdateDepartmentCommonResponse>().Fail(new UpdateDepartmentCommonResponse(), "error", 400);
+            await unitOfWork.SaveAsync();
 
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateDepartmentCommonResponse>().Success();
         }
     }
 }

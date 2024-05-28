@@ -14,24 +14,20 @@ namespace WorigoApp.Application.Features.ImageCategories.Commands.CreateImageCat
 
         public async Task<Response<UpdateImageCategoryCommonResponse>> Handle(UpdateImageCategoryCommonRequest request, CancellationToken cancellationToken)
         {
-            var hotelIsControll = await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
+            await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
 
-            if (hotelIsControll is null)
-            {
-                return new Response<UpdateImageCategoryCommonResponse>().Fail(new UpdateImageCategoryCommonResponse(), "Hotel Is Undifined", 400);
-            }
             var entityMap = mapper.Map<ImageCategory, UpdateImageCategoryCommonRequest>(request);
 
             unitOfWork.OpenTransaction();
 
             await unitOfWork.GetWriteRepository<ImageCategory>().AddAsync(entityMap);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<UpdateImageCategoryCommonResponse>().Success();
-            }
-            return new Response<UpdateImageCategoryCommonResponse>().Fail(new UpdateImageCategoryCommonResponse(), "", 400);
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateImageCategoryCommonResponse>().Success();
+
         }
     }
 }

@@ -14,19 +14,18 @@ namespace WorigoApp.Application.Features.ImageCategories.Commands.UpdateImageCat
 
         public async Task<Response<UpdateImageCategoryCommonResponse>> Handle(UpdateImageCategoryCommonRequest request, CancellationToken cancellationToken)
         {
-             
+
             var entityMap = mapper.Map<ImageCategory, UpdateImageCategoryCommonRequest>(request);
 
             unitOfWork.OpenTransaction();
 
             await unitOfWork.GetWriteRepository<ImageCategory>().UpdateAsync(entityMap);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<UpdateImageCategoryCommonResponse>().Success();
-            }
-            return new Response<UpdateImageCategoryCommonResponse>().Fail(new UpdateImageCategoryCommonResponse(), "", 400);
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+            
+            return new Response<UpdateImageCategoryCommonResponse>().Success();
         }
     }
 }

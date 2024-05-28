@@ -48,7 +48,12 @@ namespace WorigoApp.Persistence.Concrete.Repositories
 
             //queryable.Where(predicate);
 
-            return await queryable.FirstOrDefaultAsync(predicate);
+            var data = await queryable.FirstOrDefaultAsync(predicate);
+            if (data is null)
+            {
+                throw new Exception($"{typeof(T).Name} Data Not Found");
+            }
+            return data;
         }
 
         public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
