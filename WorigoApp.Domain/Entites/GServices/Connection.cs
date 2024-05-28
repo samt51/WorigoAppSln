@@ -10,7 +10,6 @@ namespace WorigoApp.Domain.Entites.GServices
         }
         public string Name { get; set; }
         public int? FlootNo { get; set; }
-
         public Connection(int id, string name, int? flootNo)
         {
             this.Name = name;

@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="AOP\Validation\" />
+    <Folder Include="Features\AllServiceFeature\BellBoys\Queries\" />
+    <Folder Include="Features\AllServiceFeature\Connections\Commands\" />
+    <Folder Include="Features\AllServiceFeature\Connections\Queries\" />
+    <Folder Include="Features\AllServiceFeature\DryCleaners\Commands\" />
+    <Folder Include="Features\AllServiceFeature\DryCleaners\Queries\" />
+    <Folder Include="Features\AllServiceFeature\HotelInformationAndAnnouncement\Commands\" />
+    <Folder Include="Features\AllServiceFeature\HotelInformationAndAnnouncement\Queries\" />
+    <Folder Include="Features\AllServiceFeature\HouseKeepings\Commands\" />
+    <Folder Include="Features\AllServiceFeature\HouseKeepings\Queries\" />
+    <Folder Include="Features\AllServiceFeature\SpaMassagies\Commands\" />
+    <Folder Include="Features\AllServiceFeature\SpaMassagies\Queries\" />
+    <Folder Include="Features\AllServiceFeature\TechnicalNeeds\Commands\" />
+    <Folder Include="Features\AllServiceFeature\TechnicalNeeds\Queries\" />
     <Folder Include="Features\Auth\Commands\RefreshToken\" />
     <Folder Include="Features\Auth\Queries\" />
     <Folder Include="Features\Companies\Exceptions\" />
@@ -21,11 +35,15 @@
     <Folder Include="Features\RoomTypes\Commands\" />
     <Folder Include="Features\RoomTypes\Exceptions\" />
     <Folder Include="Features\Rooms\Exceptions\" />
+    <Folder Include="Features\UserFeature\Commands\" />
+    <Folder Include="Util\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="11.9.0" />
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
@@ -37,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WorigoApp.CrossCuttingConcerns\WorigoApp.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\WorigoApp.Domain\WorigoApp.Domain.csproj" />
   </ItemGroup>
 

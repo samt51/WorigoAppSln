@@ -14,9 +14,9 @@ namespace WorigoApp.Application.Features.Departments.Queries.GetAllDepartment
         }
         public async Task<Response<IList<GetAllDepartmentQueryResponse>>> Handle(GetAllDepartmentQueryRequest request, CancellationToken cancellationToken)
         {
-            var departments = await unitOfWork.GetReadRepository<Department>().GetAllAsync();
+            var departments = await unitOfWork.GetReadRepository<EmployeeType>().GetAllAsync();
 
-            var map = mapper.Map<GetAllDepartmentQueryResponse, Department>(departments);
+            var map = mapper.Map<GetAllDepartmentQueryResponse, EmployeeType>(departments);
 
             return new Response<IList<GetAllDepartmentQueryResponse>>().Success(map);
         }

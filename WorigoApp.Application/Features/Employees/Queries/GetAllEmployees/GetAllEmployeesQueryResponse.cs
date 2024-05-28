@@ -7,6 +7,5 @@
         public string ImageUrl { get; set; }
         public int EmployeeTypeId { get; set; }
         public int HotelId { get; set; }
-   
     }
 }

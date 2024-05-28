@@ -7,6 +7,10 @@ namespace WorigoApp.Persistence.Concrete.Mapping
     {
         public static List<TypePair> typePairs = new();
         private AutoMapper.IMapper MapperContainer;
+        public Mapper()
+        {
+            InitializeMapper();
+        }
         public TDestination Map<TDestination, TSource>(TSource source, string? ignore = null)
         {
             Config<TDestination, TSource>(5, ignore);
@@ -35,27 +39,45 @@ namespace WorigoApp.Persistence.Concrete.Mapping
             return MapperContainer.Map<IList<TDestination>>(source);
         }
 
-        protected void Config<TDestionation, TSource>(int depth = 5, string? ignore = null)
+        private void InitializeMapper()
         {
-            var typePair = new TypePair(typeof(TSource), typeof(TDestionation));
-
-            if (typePairs.Any(a => a.DestinationType == typePair.DestinationType && a.SourceType == typePair.SourceType) && ignore is null)
-                return;
-
-            typePairs.Add(typePair);
-
             var config = new MapperConfiguration(cfg =>
             {
-                foreach (var item in typePairs)
+                foreach (var typePair in typePairs)
                 {
-                    if (ignore is not null)
-                        cfg.CreateMap(item.SourceType, item.DestinationType).MaxDepth(depth).ForMember(ignore, x => x.Ignore()).ReverseMap();
-                    else
-                        cfg.CreateMap(item.SourceType, item.DestinationType).MaxDepth(depth).ReverseMap();
+                    CreateMapWithIgnore(cfg, typePair.SourceType, typePair.DestinationType);
                 }
-            });
 
+                cfg.AddProfile<MappingProfile>(); // Profilinizi burada yükleyin
+            });
             MapperContainer = config.CreateMapper();
+        }
+        private void CreateMapWithIgnore(IMapperConfigurationExpression cfg, Type sourceType, Type destinationType, string? ignore = null)
+        {
+            if (ignore != null)
+            {
+                cfg.CreateMap(sourceType, destinationType).ForMember(ignore, opt => opt.Ignore()).ReverseMap();
+            }
+            else
+            {
+                cfg.CreateMap(sourceType, destinationType).ReverseMap();
+            }
+        }
+        protected void Config<TDestionation, TSource>(int depth = 5, string? ignore = null)
+        {
+
+            var typePair = new TypePair(typeof(TSource), typeof(TDestionation));
+            if (!typePairs.Any(a => a.SourceType == typePair.SourceType && a.DestinationType == typePair.DestinationType))
+            {
+                typePairs.Add(typePair);
+                var config = new MapperConfiguration(cfg =>
+                {
+                    CreateMapWithIgnore(cfg, typeof(TSource), typeof(TDestionation), ignore);
+
+                    cfg.AddProfile<MappingProfile>(); // Profilinizi burada yükleyin
+                });
+                MapperContainer = config.CreateMapper();
+            }
         }
     }
 }

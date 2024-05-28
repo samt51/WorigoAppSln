@@ -45,12 +45,17 @@ namespace WorigoApp.Persistence.Context
         public DbSet<Connection> Connection { get; set; }
         public DbSet<HouseKeeping> HouseKeeping { get; set; }
         public DbSet<SpaMassage> SpaMassage { get; set; }
-        public DbSet<SpaMassageValue> SpaMassageValue { get; set; }
         public DbSet<TechnicalNeed> TechnicalNeed { get; set; }
         public DbSet<DryCleaner> DryCleaner { get; set; }
         public DbSet<HotelInformationAndAnnouncements> HotelInformationAndAnnouncements { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Roles> Roles { get; set; }
+        public DbSet<LogEntry> LogEntries { get; set; }
+        public DbSet<FeedBackAndSurvey> FeedBackAndSurveys { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<CommentAndRating> CommentAndRatings { get; set; }
+        public DbSet<Translation> Translations { get; set; }
 
         #endregion
     }

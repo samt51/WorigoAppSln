@@ -4,9 +4,9 @@ using WorigoApp.Domain.Entites.GServices;
 
 namespace WorigoApp.Persistence.Configurations.GServices
 {
-    public class SpaMassageValueConfiguration : IEntityTypeConfiguration<SpaMassageValue>
+    public class DryCleanerConfiguration : IEntityTypeConfiguration<DryCleaner>
     {
-        public void Configure(EntityTypeBuilder<SpaMassageValue> builder)
+        public void Configure(EntityTypeBuilder<DryCleaner> builder)
         {
          
         }

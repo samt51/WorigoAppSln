@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WorigoApp.Api.Controllers.CommonBase;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.Departments.Commands.CreateDepartment;
 using WorigoApp.Application.Features.Departments.Commands.UpdateDepartment;
@@ -9,15 +10,15 @@ using WorigoApp.Application.Features.Departments.Queries.GetAllDepartment;
 namespace WorigoApp.Api.Controllers.Departments
 {
     [Authorize(Roles = "SystemAdmin")]
-    [Route("[controller]/[action]")]
-    [ApiController]
-    public class DepartmentsController : ControllerBase
+    public class DepartmentsController : BaseController
     {
         private readonly IMediator mediator;
-        public DepartmentsController(IMediator mediator)
+
+        public DepartmentsController(IMediator mediator) : base(mediator)
         {
             this.mediator = mediator;
         }
+
         [HttpGet]
         public async Task<Response<IList<GetAllDepartmentQueryResponse>>> GetAllAsync()
         {
