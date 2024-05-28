@@ -16,21 +16,15 @@ namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodM
         {
             var foodMenu = await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
-            if (foodMenu is null)
-            {
-                return new Response<UpdateFoodMenuCategoryCommonResponse>().Fail(new UpdateFoodMenuCategoryCommonResponse(), "Undifined", 400);
-            }
-
             foodMenu.Name = request.Name;
 
             await unitOfWork.GetWriteRepository<FoodMenuCategory>().UpdateAsync(foodMenu);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<UpdateFoodMenuCategoryCommonResponse>().Success();
-            }
-            return new Response<UpdateFoodMenuCategoryCommonResponse>().Fail(new UpdateFoodMenuCategoryCommonResponse(), "", 400);
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateFoodMenuCategoryCommonResponse>().Success();
         }
     }
 }

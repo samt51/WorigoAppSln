@@ -14,24 +14,18 @@ namespace WorigoApp.Application.Features.Hotels.Commands.UpdateHotel
 
         public async Task<Response<UpdateHotelCommonResponse>> Handle(UpdateHotelCommonRequest request, CancellationToken cancellationToken)
         {
-            var hoteIsControll = await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
-
-            if (hoteIsControll is null)
-            {
-                return new Response<UpdateHotelCommonResponse>().Fail(new UpdateHotelCommonResponse(), "Hotel Is Undifined", 400);
-            }
+            await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
             var mapEntity = mapper.Map<Hotel, UpdateHotelCommonRequest>(request);
 
             await unitOfWork.GetWriteRepository<Hotel>().UpdateAsync(mapEntity);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
+            await unitOfWork.SaveAsync();
 
-                return new Response<UpdateHotelCommonResponse>().Success();
-            }
-            return new Response<UpdateHotelCommonResponse>().Fail(new UpdateHotelCommonResponse(), "", 400);
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateHotelCommonResponse>().Success();
+
         }
     }
 }

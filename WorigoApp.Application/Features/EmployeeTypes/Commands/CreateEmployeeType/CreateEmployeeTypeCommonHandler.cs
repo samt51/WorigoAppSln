@@ -14,26 +14,20 @@ namespace WorigoApp.Application.Features.EmployeeTypes.Commands.CreateEmployeeTy
 
         public async Task<Response<CreateEmployeeTypeCommonResponse>> Handle(CreateEmployeeTypeCommonRequest request, CancellationToken cancellationToken)
         {
-            var departmentIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.DepartmentId);
-
-            if (departmentIsControll is null)
-            {
-                return new Response<CreateEmployeeTypeCommonResponse>().Fail(new CreateEmployeeTypeCommonResponse(), "Department Undifined", 400);
-
-            }
+            await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.DepartmentId);
 
             var creatMapper = mapper.Map<EmployeeType, CreateEmployeeTypeCommonRequest>(request);
 
             unitOfWork.OpenTransaction();
 
-            var saveEntity = await unitOfWork.GetWriteRepository<EmployeeType>().AddAsync(creatMapper);
+            await unitOfWork.GetWriteRepository<EmployeeType>().AddAsync(creatMapper);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<CreateEmployeeTypeCommonResponse>().Success();
-            }
-            return new Response<CreateEmployeeTypeCommonResponse>().Fail(new CreateEmployeeTypeCommonResponse(), "", 400);
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            return new Response<CreateEmployeeTypeCommonResponse>().Success();
+
         }
     }
 }

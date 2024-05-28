@@ -14,23 +14,18 @@ namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodM
 
         public async Task<Response<CreateFoodMenuCategoryCommonResponse>> Handle(CreateFoodMenuCategoryCommonRequest request, CancellationToken cancellationToken)
         {
+
+            await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
+
             var foodMenuMap = mapper.Map<FoodMenuCategory, CreateFoodMenuCategoryCommonRequest>(request);
 
-            var hotelIsControll = await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId);
+            await unitOfWork.GetWriteRepository<FoodMenuCategory>().AddAsync(foodMenuMap);
 
-            if (hotelIsControll is null)
-            {
-                return new Response<CreateFoodMenuCategoryCommonResponse>().Fail(new CreateFoodMenuCategoryCommonResponse(), "Hotel Is Undifinied", 400);
-            }
+            await unitOfWork.SaveAsync();
 
-            var saveEntity = await unitOfWork.GetWriteRepository<FoodMenuCategory>().AddAsync(foodMenuMap);
+            await unitOfWork.CommitAsync();
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<CreateFoodMenuCategoryCommonResponse>().Success();
-            }
-            return new Response<CreateFoodMenuCategoryCommonResponse>().Fail(new CreateFoodMenuCategoryCommonResponse(), "", 400);
+            return new Response<CreateFoodMenuCategoryCommonResponse>().Success();
         }
     }
 }

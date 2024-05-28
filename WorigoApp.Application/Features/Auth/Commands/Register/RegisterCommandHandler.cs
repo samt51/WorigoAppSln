@@ -30,11 +30,11 @@ namespace WorigoApp.Application.Features.Auth.Commands.Register
 
             unitOfWork.OpenTransaction();
 
-            var saveEntity = await unitOfWork.GetWriteRepository<Users>().AddAsync(user);
+            await unitOfWork.GetWriteRepository<Users>().AddAsync(user);
 
             await unitOfWork.SaveAsync();
 
-            unitOfWork.Commit();
+            await unitOfWork.CommitAsync();
 
             return new Response<RegisterCommandResponse>().Success();
 

@@ -15,30 +15,24 @@ namespace WorigoApp.Application.Features.Employees.Commands.UpdateEmployee
 
         public async Task<Response<UpdateEmployeeCommonResponse>> Handle(UpdateEmployeeCommonRequest request, CancellationToken cancellationToken)
         {
-            var employeeTypeIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.Id);
-
-            if (employeeTypeIsControll == null)
-            {
-                return new Response<UpdateEmployeeCommonResponse>().Fail(new UpdateEmployeeCommonResponse(), "EmployeeType Is Undifined", 200);
-            }
+            var employeeTypeIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
             var employeeMap = mapper.Map<Employee, UpdateEmployeeCommonRequest>(request);
 
             var employeeDetailMap = mapper.Map<EmployeeDetail, EmployeeDetailRequestDto>(request.employeeDetailRequest);
 
-            var updateEmployee = await unitOfWork.GetWriteRepository<Employee>().UpdateAsync(employeeMap);
+            await unitOfWork.GetWriteRepository<Employee>().UpdateAsync(employeeMap);
 
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                var updateEmployeeDetail = await unitOfWork.GetWriteRepository<EmployeeDetail>().UpdateAsync(employeeDetailMap);
+            await unitOfWork.GetWriteRepository<EmployeeDetail>().UpdateAsync(employeeDetailMap);
 
-                if (await unitOfWork.SaveAsync() > 0)
-                {
-                    unitOfWork.Commit();
-                    return new Response<UpdateEmployeeCommonResponse>().Success();
-                }
-            }
-            return new Response<UpdateEmployeeCommonResponse>().Fail(new UpdateEmployeeCommonResponse(), "Error", 400);
+            unitOfWork.OpenTransaction();
+
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateEmployeeCommonResponse>().Success();
+
         }
     }
 }

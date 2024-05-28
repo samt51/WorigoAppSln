@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using MediatR.Pipeline;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
@@ -18,18 +17,17 @@ namespace WorigoApp.Application.Features.Companies.Commands.UpdateCompany
         {
             var dataFind = await unitOfWork.GetReadRepository<Company>().GetAsync(x => x.Id == request.Id);
 
-            if (dataFind is null)
-                return new Response<UpdateCompanyCommandResponse>().Fail(new UpdateCompanyCommandResponse(), "Data Is Null", 200);
-
             dataFind.Name = request.Name;
-            var update = await unitOfWork.GetWriteRepository<Company>().UpdateAsync(dataFind);
+
+            await unitOfWork.GetWriteRepository<Company>().UpdateAsync(dataFind);
+
             unitOfWork.OpenTransaction();
-            if (await unitOfWork.SaveAsync() > 0)
-            {
-                unitOfWork.Commit();
-                return new Response<UpdateCompanyCommandResponse>().Success();
-            }
-            return new Response<UpdateCompanyCommandResponse>();
+
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            return new Response<UpdateCompanyCommandResponse>().Success();
         }
     }
 }
