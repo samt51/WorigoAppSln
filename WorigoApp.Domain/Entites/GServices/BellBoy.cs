@@ -2,7 +2,9 @@
 
 namespace WorigoApp.Domain.Entites.GServices
 {
-    //bu kalkacak
+    /// <summary>
+    /// BellBoy
+    /// </summary>
     public class BellBoy : EntityBase
     {
         public BellBoy()
@@ -10,10 +12,12 @@ namespace WorigoApp.Domain.Entites.GServices
 
         }
         public string Name { get; set; }
-        public BellBoy(int id,string name)
+        public string ImageUrl { get; set; }
+        public BellBoy(int id, string name, string imageUrl)
         {
             this.Name = name;
-            this.Id = id;   
+            this.Id = id;
+            this.ImageUrl = imageUrl;
         }
     }
 }

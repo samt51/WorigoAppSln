@@ -20,11 +20,11 @@ namespace WorigoApp.Application.Features.Departments.Commands.CreateDepartment
             {
                 return new Response<CreateDepartmentCommonResponse>().Fail(new CreateDepartmentCommonResponse(), "Hotel is Null", 200);
             }
-            var map = mapper.Map<Department, CreateDepartmentCommonRequest>(request);
+            var map = mapper.Map<EmployeeType, CreateDepartmentCommonRequest>(request);
 
             unitOfWork.OpenTransaction();
 
-            var saveEntity = await unitOfWork.GetWriteRepository<Department>().AddAsync(map);
+            var saveEntity = await unitOfWork.GetWriteRepository<EmployeeType>().AddAsync(map);
 
             if (await unitOfWork.SaveAsync() > 0)
             {

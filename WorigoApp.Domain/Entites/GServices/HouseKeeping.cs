@@ -2,6 +2,9 @@
 
 namespace WorigoApp.Domain.Entites.GServices
 {
+    /// <summary>
+    /// Kat Hizmetleri
+    /// </summary>
     public class HouseKeeping : EntityBase
     {
         public HouseKeeping() { }

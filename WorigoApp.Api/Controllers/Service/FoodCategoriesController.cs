@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WorigoApp.Api.Controllers.CommonBase;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodMenuCategory;
 using WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodMenuCategory;
@@ -9,16 +10,15 @@ using WorigoApp.Application.Features.FoodMenuCategories.Queries.GetAllFoodMenuCa
 namespace WorigoApp.Api.Controllers.Service
 {
     [Authorize(Roles = "SystemAdmin")]
-    [Route("[controller]/[action]")]
-    [ApiController]
-    public class FoodCategoriesController : ControllerBase
+    public class FoodCategoriesController : BaseController
     {
         private readonly IMediator mediator;
 
-        public FoodCategoriesController(IMediator mediator)
+        public FoodCategoriesController(IMediator mediator) : base(mediator)
         {
-            this.mediator = mediator;
+            this.mediator = mediator;   
         }
+
         [HttpGet("{hotelid}")]
         public async Task<Response<IList<GetAllFoodMenuCategoriesQueryResponse>>> GetAllAsync(int hotelId)
         {

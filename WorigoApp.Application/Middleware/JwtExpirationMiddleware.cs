@@ -2,13 +2,15 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Caching.Memory;
+using WorigoApp.Application.Interfaces.UnitOfWorks;
+using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Middleware
 {
     public class JwtExpirationMiddleware
     {
         private readonly RequestDelegate _next;
-
         public JwtExpirationMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -17,6 +19,11 @@ namespace WorigoApp.Application.Middleware
         public async Task Invoke(HttpContext context)
         {
             var request = context.GetRouteValue("action");
+
+
+            //translation tablosunu cachte yoksa doldurur.
+            TransactionAddOrControllToCache(context);
+
 
             if (request.ToString() == "Logout")
             {
@@ -76,6 +83,7 @@ namespace WorigoApp.Application.Middleware
                 }
             }
         }
+
         public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
         {
             // Unix zaman damgası 1970-01-01 00:00:00 UTC tarihinden itibaren geçen saniye sayısını temsil eder
@@ -85,6 +93,27 @@ namespace WorigoApp.Application.Middleware
             DateTime localTime = unixEpoch.AddSeconds(unixTimeStamp).Add(timeZoneOffsetSpan);
 
             return localTime;
+        }
+        public async void TransactionAddOrControllToCache(HttpContext context)
+        {
+            var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
+            if (memoryCache != null)
+            {
+                var cache = memoryCache.Get<List<Translation>>("translation");
+                if (cache is null)
+                {
+                    var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
+                    if (unitOfWork != null)
+                    {
+                        var data = await unitOfWork.GetReadRepository<Translation>().GetAllAsync();
+                        memoryCache.Set<IList<Translation>>("translation", data, new MemoryCacheEntryOptions
+                        {
+                            AbsoluteExpiration = DateTime.Now.AddDays(1),
+                            Priority = CacheItemPriority.Normal,
+                        });
+                    }
+                }
+            }
         }
     }
 }

@@ -22,6 +22,10 @@
         {
             return new Response<T> { Data = data, Errors = errors, StatusCode = statusCode, IsSuccess = false };
         }
+        public Response<T> Fail(List<string> errors, int statusCode)
+        {
+            return new Response<T> {  Errors = errors, StatusCode = statusCode, IsSuccess = false };
+        }
         public Response<T> Fail(T data, string errors, int statusCode)
         {
             Errors.Add(errors);

@@ -14,7 +14,7 @@ namespace WorigoApp.Application.Features.EmployeeTypes.Commands.CreateEmployeeTy
 
         public async Task<Response<CreateEmployeeTypeCommonResponse>> Handle(CreateEmployeeTypeCommonRequest request, CancellationToken cancellationToken)
         {
-            var departmentIsControll = await unitOfWork.GetReadRepository<Department>().GetAsync(x => x.Id == request.DepartmentId);
+            var departmentIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.DepartmentId);
 
             if (departmentIsControll is null)
             {

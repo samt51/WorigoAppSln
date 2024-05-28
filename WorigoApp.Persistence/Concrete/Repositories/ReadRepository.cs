@@ -37,7 +37,6 @@ namespace WorigoApp.Persistence.Concrete.Repositories
             if (predicate is not null) queryable = queryable.Where(predicate);
             if (orderBy is not null)
                 return await orderBy(queryable).Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
-
             return await queryable.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
         }
 

@@ -6,7 +6,7 @@ namespace WorigoApp.Domain.Entites
     {
         public Hotel()
         {
-
+            
         }
         public string Name { get; set; }
         public string Location { get; set; }
@@ -20,7 +20,7 @@ namespace WorigoApp.Domain.Entites
         public IList<Employee> Employees { get; set; }
         public IList<FoodMenuCategory> FoodMenuCategories { get; set; }
         public IList<Room> Rooms { get; set; }
-        public IList<Department> Departments { get; set; }
+        public IList<EmployeeType> Departments { get; set; }
         public Hotel(int id, string name, string location, string adress, string phoneNumber, string email, int numberOfStart, int companyId)
         {
             this.Id = id;

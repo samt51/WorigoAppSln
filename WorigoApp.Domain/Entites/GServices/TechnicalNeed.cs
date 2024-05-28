@@ -2,6 +2,9 @@
 
 namespace WorigoApp.Domain.Entites.GServices
 {
+    /// <summary>
+    /// Teknik İhtiyaçlar
+    /// </summary>
     public class TechnicalNeed : EntityBase
     {
         public TechnicalNeed()

@@ -1,5 +1,4 @@
 ﻿using WorigoApp.Application.Features.FoodTypes.Queries.GetAllFoodTypes;
-using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Rooms.Queries.GetRooms
 {
