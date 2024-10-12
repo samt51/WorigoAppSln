@@ -16,19 +16,19 @@ namespace WorigoApp.Api.Controllers.Departments
             this.mediator = mediator;
         }
         [HttpGet]
-        public IActionResult Get(GetAllDepartmentQueryRequest request)
+        public async Task<IActionResult> Get()
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(new GetAllDepartmentQueryRequest()));
         }
         [HttpPost]
-        public IActionResult Post(CreateDepartmentCommonRequest request)
+        public async Task<IActionResult> Post(CreateDepartmentCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
         [HttpPost]
-        public IActionResult Update(UpdateDepartmentCommonRequest request)
+        public async Task<IActionResult> Update(UpdateDepartmentCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodMenuCategory;
 using WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodMenuCategory;
@@ -17,20 +16,20 @@ namespace WorigoApp.Api.Controllers.Service
         {
             this.mediator = mediator;
         }
-        [HttpGet("{hotelid}")]
-        public IActionResult Get(int hotelId)
+        [HttpGet("{hotelId}")]
+        public async Task<IActionResult> Get(int hotelId)
         {
-            return Ok(this.mediator.Send(new GetAllFoodMenuCategoriesQueryRequest(hotelId)));
+            return Ok(await this.mediator.Send(new GetAllFoodMenuCategoriesQueryRequest(hotelId)));
         }
         [HttpPost]
-        public IActionResult Post(CreateFoodMenuCategoryCommonRequest request)
+        public async Task<IActionResult> Post(CreateFoodMenuCategoryCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
         [HttpPost]
-        public IActionResult Update(UpdateFoodMenuCategoryCommonRequest request)
+        public async Task<IActionResult> Update(UpdateFoodMenuCategoryCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
     }
 }

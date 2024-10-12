@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Reflection;
 using WorigoApp.Application.Bases;
+using WorigoApp.Application.Beheviors;
 using WorigoApp.Application.Exceptions;
 
 namespace WorigoApp.Application
@@ -15,7 +17,13 @@ namespace WorigoApp.Application
 
             services.AddTransient<ExceptionMiddleware>();
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(assembly);
+
+            });
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+
             services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
 
             services.AddValidatorsFromAssembly(assembly);

@@ -12,6 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddMemoryCache();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
 
 
 var env = builder.Environment;
@@ -64,6 +70,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 
 
 app.ConfigureExceptionHandlingMiddleware();

@@ -2,16 +2,22 @@
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
+using WorigoApp.Application.Pipelines.Caching;
 using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Companies.Commands.CreateCompany
 {
-    public class CreateCompanyCommandHandler : BaseHandler, IRequestHandler<CreateCompanyCommandRequest, Response<CreateCompanyCommandResponse>>
+    public class CreateCompanyCommandHandler : BaseHandler, IRequestHandler<CreateCompanyCommandRequest, Response<CreateCompanyCommandResponse>>, ICacheRemoverRequest
     {
         public CreateCompanyCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
 
         }
+
+        public string CacheKey => throw new NotImplementedException();
+
+        public bool ByPassCache => throw new NotImplementedException();
+
         public async Task<Response<CreateCompanyCommandResponse>> Handle(CreateCompanyCommandRequest request, CancellationToken cancellationToken)
         {
             var map = mapper.Map<Company, CreateCompanyCommandRequest>(request);

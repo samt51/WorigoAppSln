@@ -6,21 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Queries.GetAllServices
 {
-    public class GetAllServicesQueryHandler : IRequestHandler<GetAllServicesQueryRequest, IList<GetAllServicesQueryResponse>>
+    public class GetAllServicesQueryHandler : BaseHandler, IRequestHandler<GetAllServicesQueryRequest, Response<IList<GetAllServicesQueryResponse>>>
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        public GetAllServicesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
+        public GetAllServicesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
-            this._mapper = mapper;
-            this._unitOfWork = unitOfWork;
         }
 
-        public async Task<IList<GetAllServicesQueryResponse>> Handle(GetAllServicesQueryRequest request, CancellationToken cancellationToken)
+        public async Task<Response<IList<GetAllServicesQueryResponse>>> Handle(GetAllServicesQueryRequest request, CancellationToken cancellationToken)
         {
-            var list = await _unitOfWork.GetReadRepository<Service>().GetAllAsync(x => x.HotelId == request.HotelId);
+            var list = await unitOfWork.GetReadRepository<Service>().GetAllAsync(x => x.HotelId == request.HotelId);
 
-            return _mapper.Map<GetAllServicesQueryResponse, Service>(list);
+            var mapping = mapper.Map<GetAllServicesQueryResponse, Service>(list);
+
+            return new Response<IList<GetAllServicesQueryResponse>>().Success(mapping);
         }
     }
 }

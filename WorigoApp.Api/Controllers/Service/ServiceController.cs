@@ -17,8 +17,8 @@ namespace WorigoApp.Api.Controllers.Service
         [HttpPost]
         public async Task<IActionResult> Create(CreateServiceCommandRequest request)
         {
-            var response = await _mediator.Send(request);
-            return Ok(response);
+            return Ok( await _mediator.Send(request));
+           
         }
     }
 }

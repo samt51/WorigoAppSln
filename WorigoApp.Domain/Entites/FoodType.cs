@@ -1,5 +1,4 @@
 ﻿using WorigoApp.Domain.Common;
-using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Domain.Entites
 {
@@ -7,13 +6,14 @@ namespace WorigoApp.Domain.Entites
     {
         public FoodType()
         {
-            
+
         }
-        public RoomFoodTypeEnum RoomFoodTypeEnum { get; set; }
-        public IList<Room> Rooms { get; set;}
-        public FoodType(RoomFoodTypeEnum roomFoodTypeEnum)
+        public string RoomFoodTypeValue { get; set; }
+        //public RoomFoodTypeEnum RoomFoodTypeEnum { get; set; }
+        public IList<Room> Rooms { get; set; }
+        public FoodType(string roomFoodTypeValue)
         {
-            this.RoomFoodTypeEnum = roomFoodTypeEnum;
+            this.RoomFoodTypeValue = roomFoodTypeValue;
         }
     }
 }

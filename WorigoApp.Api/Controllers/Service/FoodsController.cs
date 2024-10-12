@@ -19,7 +19,7 @@ namespace WorigoApp.Api.Controllers.Service
         [HttpGet("categoryId")]
         public async Task<IActionResult> Get(int categoryId)
         {
-            return Ok(await this.mediator.Send(new GetAllFoodsQueryRequest(categoryId));
+            return Ok(await this.mediator.Send(new GetAllFoodsQueryRequest(categoryId)));
         }
         [HttpPost]
         public async Task<IActionResult> Post(CreateFoodCommonRequest request)

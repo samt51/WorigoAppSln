@@ -16,10 +16,10 @@ namespace WorigoApp.Api.Controllers.Employees
         {
             this.mediator = mediator;
         }
-        [HttpGet]
-        public IActionResult Get(GetAllEmployeesQueryRequest request)
+        [HttpGet("{hotelId}")]
+        public async Task<IActionResult> Get(int hotelId)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(new GetAllEmployeesQueryRequest(hotelId)));
         }
         [HttpPost]
         public async Task<IActionResult> Post(CreateEmployeeCommonRequest request)

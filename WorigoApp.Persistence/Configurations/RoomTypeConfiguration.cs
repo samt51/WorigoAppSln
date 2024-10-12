@@ -11,58 +11,58 @@ namespace WorigoApp.Persistence.Configurations
             RoomType roomType = new()
             {
                 Id = 1,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.Standart
+                RoomTypeValue = "Standart"
             };
             RoomType roomType2 = new()
             {
                 Id = 2,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.SingleRoom
+                RoomTypeValue = "SingleRoom"
             };
             RoomType roomType3 = new()
             {
                 Id = 3,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.DoubleRoom
+                RoomTypeValue = "DoubleRoom"
             };
             RoomType roomType4 = new()
             {
                 Id = 4,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.TreeRoom
+                RoomTypeValue = "TreeRoom"
             };
             RoomType roomType5 = new()
             {
                 Id = 5,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.FourRoom
+                RoomTypeValue = "FourRoom"
 
             };
             RoomType roomType6 = new()
             {
                 Id = 6,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.DubleksRoom
+                RoomTypeValue = "DubleksRoom"
             };
             RoomType roomType7 = new()
             {
                 Id = 7,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.FamilyRoom
+                RoomTypeValue = "FamilyRoom"
             };
             RoomType roomType8 = new()
             {
                 Id = 8,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.JuniorSuiter
+                RoomTypeValue = "JuniorSuiter"
             };
             RoomType roomType9 = new()
             {
                 Id = 9,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.KralDaire
+                RoomTypeValue = "KralDaire"
             };
             RoomType roomType10 = new()
             {
                 Id = 10,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.SuitRoom
+                RoomTypeValue = "SuitRoom"
             };
             RoomType roomType11 = new()
             {
                 Id = 11,
-                RoomTypeEnum = Domain.Enums.RoomTypeEnum.DisabledRoom
+                RoomTypeValue = "DisabledRoom"
             };
             builder.HasData(roomType, roomType2, roomType3, roomType4, roomType5, roomType6, roomType7, roomType8, roomType9, roomType10, roomType11);
         }

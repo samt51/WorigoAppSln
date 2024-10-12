@@ -16,20 +16,20 @@ namespace WorigoApp.Api.Controllers.Employees
         {
             this.mediator = mediator;
         }
-        [HttpGet("{id}")]
-        public IActionResult Get(int departmentId)
+        [HttpGet("{departmentId}")]
+        public async Task<IActionResult> Get(int departmentId)
         {
-            return Ok(this.mediator.Send(new GetAllEmployeeTypesQueryRequest(departmentId)));
+            return Ok(await this.mediator.Send(new GetAllEmployeeTypesQueryRequest(departmentId)));
         }
         [HttpPost]
-        public IActionResult Post(CreateEmployeeTypeCommonRequest request)
+        public async Task<IActionResult> Post(CreateEmployeeTypeCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
         [HttpPost]
-        public IActionResult Update(UpdateEmployeeTypeCommonRequest request)
+        public async Task<IActionResult> Update(UpdateEmployeeTypeCommonRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
     }
 }

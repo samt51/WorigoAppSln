@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Application.Features.Companies.Commands.CreateCompany;
 using WorigoApp.Application.Features.Companies.Commands.UpdateCompany;
@@ -19,19 +18,20 @@ namespace WorigoApp.Api.Controllers.Companies
         }
 
         [HttpGet]
-        public IActionResult Get(GetAllCompaniesQueryRequest request)
+        public async Task<IActionResult> Get()
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(new GetAllCompaniesQueryRequest()));
+
         }
         [HttpPost]
-        public IActionResult Add(CreateCompanyCommandRequest request)
+        public async Task<IActionResult> Add(CreateCompanyCommandRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
         [HttpPost]
-        public IActionResult Update(UpdateCompanyCommandRequest request)
+        public async Task<IActionResult> Update(UpdateCompanyCommandRequest request)
         {
-            return Ok(this.mediator.Send(request));
+            return Ok(await this.mediator.Send(request));
         }
     }
 }

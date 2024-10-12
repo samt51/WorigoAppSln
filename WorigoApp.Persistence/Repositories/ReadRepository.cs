@@ -65,5 +65,21 @@ namespace WorigoApp.Persistence.Repositories
             if (!enableTracking) Table.AsNoTracking();
             return Table.Where(predicate);
         }
+
+        public async Task<List<T>> GetAll(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false)
+        {
+
+            return predicate == null
+                ? Table.ToList()
+                : Table.Where(predicate).ToList();
+            //IQueryable<T> queryable = Table;
+            //if (!enableTracking) queryable = queryable.AsNoTracking();
+            //if (include is not null) queryable = include(queryable);
+            //if (predicate is not null) queryable = queryable.Where(predicate);
+            //if (orderBy is not null)
+            //    return await orderBy(queryable).ToList();
+
+            //return await queryable.ToListAsync();
+        }
     }
 }

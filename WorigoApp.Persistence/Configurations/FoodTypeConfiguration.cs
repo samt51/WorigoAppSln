@@ -11,27 +11,27 @@ namespace WorigoApp.Persistence.Configurations
             FoodType foodType = new()
             {
                 Id = 1,
-                RoomFoodTypeEnum = Domain.Enums.RoomFoodTypeEnum.Breakfast
+                RoomFoodTypeValue = "Breakfast"
             };
             FoodType foodType2 = new()
             {
                 Id = 2,
-                RoomFoodTypeEnum = Domain.Enums.RoomFoodTypeEnum.HalfPension
+                RoomFoodTypeValue = "HalfPension"
             };
             FoodType foodType3 = new()
             {
                 Id = 3,
-                RoomFoodTypeEnum = Domain.Enums.RoomFoodTypeEnum.FullPension
+                RoomFoodTypeValue = "FullPension"
             };
             FoodType foodTyp4 = new()
             {
                 Id = 4,
-                RoomFoodTypeEnum = Domain.Enums.RoomFoodTypeEnum.AllInclusive
+                RoomFoodTypeValue = "AllInclusive"
             };
             FoodType foodType5 = new()
             {
                 Id = 5,
-                RoomFoodTypeEnum = Domain.Enums.RoomFoodTypeEnum.UltraAllInclusive
+                RoomFoodTypeValue = "UltraAllInclusive"
             };
             builder.HasData(foodType, foodType2, foodType3, foodTyp4, foodType5);
         }

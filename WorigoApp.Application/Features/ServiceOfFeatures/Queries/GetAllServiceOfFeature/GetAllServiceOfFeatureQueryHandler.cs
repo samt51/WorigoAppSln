@@ -6,17 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceOfFeatures.Queries.GetAllServiceOfFeature
 {
-    public class GetAllServiceOfFeatureQueryHandler : BaseHandler, IRequestHandler<GetAllServiceOfFeatureQueryRequest, IList<GetAllServiceOfFeatureQueryResponse>>
+    public class GetAllServiceOfFeatureQueryHandler : BaseHandler, IRequestHandler<GetAllServiceOfFeatureQueryRequest, Response<IList<GetAllServiceOfFeatureQueryResponse>>>
     {
         public GetAllServiceOfFeatureQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<IList<GetAllServiceOfFeatureQueryResponse>> Handle(GetAllServiceOfFeatureQueryRequest request, CancellationToken cancellationToken)
+        public async Task<Response<IList<GetAllServiceOfFeatureQueryResponse>>> Handle(GetAllServiceOfFeatureQueryRequest request, CancellationToken cancellationToken)
         {
             var list = await unitOfWork.GetReadRepository<ServiceOfFeature>().GetAllAsync(X => X.ServiceId == request.ServiceId);
 
-            return mapper.Map<GetAllServiceOfFeatureQueryResponse, ServiceOfFeature>(list);
+            var mapping = mapper.Map<GetAllServiceOfFeatureQueryResponse, ServiceOfFeature>(list);
+
+            return new Response<IList<GetAllServiceOfFeatureQueryResponse>>().Success(mapping);
         }
     }
 }

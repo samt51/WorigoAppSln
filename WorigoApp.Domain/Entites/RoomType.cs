@@ -9,11 +9,12 @@ namespace WorigoApp.Domain.Entites
         {
             
         }
-        public RoomTypeEnum RoomTypeEnum { get; set; }
+        public string RoomTypeValue{ get; set; }
+        //public RoomTypeEnum RoomTypeEnum { get; set; }
         public IList<Room> Rooms { get; set; }
-        public RoomType(RoomTypeEnum roomTypeEnum)
+        public RoomType(string roomTypeValue)
         {
-            this.RoomTypeEnum = roomTypeEnum;
+            this.RoomTypeValue = roomTypeValue;
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ServiceOfValues.Queries.GetAllServiceOfValues
 {
-    public class GetAllServiceOfValuesQueryRequest : IRequest<IList<GetAllServiceOfValuesQueryResponse>>
+    public class GetAllServiceOfValuesQueryRequest : IRequest<Response<IList<GetAllServiceOfValuesQueryResponse>>>
     {
         public int? ServiceOfFeatureId { get;  }
         public int? ServiceId { get; set; }
