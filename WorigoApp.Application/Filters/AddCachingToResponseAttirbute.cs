@@ -3,29 +3,27 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace WorigoApp.Application.Filters
 {
-    public class AddCachingToResponseAttirbute<T> : Attribute, IResultFilter
+    public class AddCachingToResponseAttirbute : Attribute, IResultFilter
     {
         private readonly string _cacheKey;
+
         public AddCachingToResponseAttirbute(string cacheKey)
         {
             _cacheKey = cacheKey;
         }
-        public  void OnResultExecuted(ResultExecutedContext context)
-        {
 
-        }
-
-        public void OnResultExecuting(ResultExecutingContext context)
+        public void OnResultExecuted(ResultExecutedContext context)
         {
             var memoryCache = (IMemoryCache)context.HttpContext.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)
             {
-                if (memoryCache.TryGetValue(this._cacheKey, out object T))
-                {
-                    memoryCache.Remove(this._cacheKey);
-                }
-           
+                memoryCache.Remove(_cacheKey);
             }
+        }
+
+        public void OnResultExecuting(ResultExecutingContext context)
+        {
+            //throw new NotImplementedException();
         }
     }
 }

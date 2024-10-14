@@ -13,7 +13,6 @@ using Serilog.Context;
 using WorigoApp.Application.Middleware.Exceptions;
 using MediatR;
 using WorigoApp.Application.Pipelines.Behaviour;
-using WorigoApp.Application.Filters;
 
 
 var builder = WebApplication.CreateBuilder(args);
