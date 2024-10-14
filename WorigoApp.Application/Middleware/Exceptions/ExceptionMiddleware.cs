@@ -56,7 +56,7 @@ namespace WorigoApp.Application.Middleware.Exceptions
             if (memoryCache != null)
             {
                 var cache = memoryCache.Get<IList<Translation>>("translation");
-                if (cache is not null)
+                if (cache is not null && cache.Count > 0)
                 {
                     var languageCode = httpContext.Request.Headers["Accept-Language"].ToString();
                     if (languageCode is not null)
@@ -68,13 +68,13 @@ namespace WorigoApp.Application.Middleware.Exceptions
 
             List<string> errors = new()
             {
-                message,
+               message
 
             };
 
             return httpContext.Response.WriteAsync(new ExceptionModel
             {
-                Response = new Bases.Response<ExceptionModel>().Fail(new ExceptionModel { Response = new Bases.Response<ExceptionModel>() }, errors, statusCode)
+                Response = new Bases.Response<ExceptionModel>().Fail(errors, statusCode)
 
             }.ToString());
 

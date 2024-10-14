@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using SendGrid.Helpers.Errors.Model;
 using System.Linq.Expressions;
 using WorigoApp.Application.Interfaces.Repositories;
 using WorigoApp.Domain.Common;
@@ -49,9 +50,9 @@ namespace WorigoApp.Persistence.Concrete.Repositories
             //queryable.Where(predicate);
 
             var data = await queryable.FirstOrDefaultAsync(predicate);
-            if (data is null)
+            if (data is  null)
             {
-                throw new Exception($"{typeof(T).Name} Data Not Found");
+                throw new NotFoundException($"{typeof(T).Name} Is Not Found");
             }
             return data;
         }

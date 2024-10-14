@@ -52,8 +52,6 @@ namespace WorigoApp.Infrastructure.Tokens
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
                 );
 
-            return null;
-
             return token;
 
         }
@@ -80,7 +78,7 @@ namespace WorigoApp.Infrastructure.Tokens
                     issuer: configuration["JWT:Issuer"],
                     audience: configuration["JWT:Audience"],
                     claims: new List<Claim> {
-                    new Claim(ClaimTypes.Role, roleRequest.Role),
+                    new Claim("role", roleRequest.Role),
                     new Claim(ClaimTypes.Email,roleRequest.Email),
                     new Claim("Id",roleRequest.Id.ToString()),
                     new Claim(ClaimTypes.Name,roleRequest.Email.ToString())

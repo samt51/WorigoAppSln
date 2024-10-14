@@ -4,7 +4,7 @@ using WorigoApp.Domain.Entites.GServices;
 
 namespace WorigoApp.Persistence.Configurations.GServices
 {
-    internal class HouseKeepingConfiguration : IEntityTypeConfiguration<HouseKeeping>
+    public class HouseKeepingConfiguration : IEntityTypeConfiguration<HouseKeeping>
     {
         public void Configure(EntityTypeBuilder<HouseKeeping> builder)
         {

@@ -35,12 +35,15 @@ namespace WorigoApp.Application
 
             services.Configure<RequestLocalizationOptions>(cfg =>
             {
-                cfg.DefaultRequestCulture = new("tr-TR");
+                cfg.DefaultRequestCulture = new("en-US");
                 CultureInfo[] cultures = new CultureInfo[]
                     {
                         new("tr-TR"),
                         new("en-US"),
-                        new("fr-FR")
+                        new("fr-FR"),
+                        new("ar-SA"), // Arapça (Suudi Arabistan)
+                        new("ru-RU"), // Rusça (Rusya)
+                        new("es-ES")  // İspanyolca (İspanya)
                     };
 
 
@@ -63,7 +66,7 @@ namespace WorigoApp.Application
 
             services.AddSingleton<LoggerServiceBase, FileLogger>();
 
-  
+
 
 
             return services;

@@ -20,19 +20,18 @@ namespace WorigoApp.Api.Controllers.Companies
         }
         [HttpGet]
         [CachingCheckAttiribute<List<GetAllCompaniesQueryResponse>>("category")]
-
         public async Task<IList<GetAllCompaniesQueryResponse>> GetAllAsync()
         {
             return await this._mediator.Send(new GetAllCompaniesQueryRequest());
         }
         [HttpPost]
-        [AddCachingToResponseAttirbute<List<GetAllCompaniesQueryResponse>>("category")]
+        [AddCachingToResponseAttirbute("category")]
         public async Task<Response<CreateCompanyCommandResponse>> AddAsync(CreateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);
         }
         [HttpPost]
-        [AddCachingToResponseAttirbute<List<GetAllCompaniesQueryResponse>>("category")]
+        [AddCachingToResponseAttirbute("category")]
         public async Task<Response<UpdateCompanyCommandResponse>> UpdateAsync(UpdateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);

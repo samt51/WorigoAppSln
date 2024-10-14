@@ -21,7 +21,7 @@ namespace WorigoApp.Api.Controllers
                     .Select(culture => new
                     {
                         Name = culture.Name,
-                        Text = culture.DisplayName
+                        Text = culture.EnglishName,
                     }).ToList();
             return Ok(allCultures);
         }

@@ -15,18 +15,18 @@ namespace WorigoApp.Application.Features.Companies.Commands.CreateCompany
         public async Task<Response<CreateCompanyCommandResponse>> Handle(CreateCompanyCommandRequest request, CancellationToken cancellationToken)
         {
             var map = mapper.Map<Company, CreateCompanyCommandRequest>(request);
-            
+
             unitOfWork.OpenTransaction();
 
             var saveEntity = await unitOfWork.GetWriteRepository<Company>().AddAsync(map);
 
-            if ( unitOfWork.Save() > 0)
-            {
-                await unitOfWork.CommitAsync();
-                var result = mapper.Map<CreateCompanyCommandResponse, Company>(saveEntity);
-                return new Response<CreateCompanyCommandResponse>().Success(result);
-            }
-            return new Response<CreateCompanyCommandResponse>();
+            await unitOfWork.SaveAsync();
+
+            await unitOfWork.CommitAsync();
+
+            var result = mapper.Map<CreateCompanyCommandResponse, Company>(saveEntity);
+
+            return new Response<CreateCompanyCommandResponse>().Success(result);
         }
     }
 }

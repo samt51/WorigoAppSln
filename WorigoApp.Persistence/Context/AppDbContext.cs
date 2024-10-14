@@ -15,7 +15,7 @@ namespace WorigoApp.Persistence.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=SAMETBAGLAN;Database=WorigoBackAppDb;Trusted_Connection=True;TrustServerCertificate=true;Encrypt=true;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-L558L50\\SAMETSQL;Database=WorigoDb;Trusted_Connection=True;TrustServerCertificate=true;Encrypt=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
