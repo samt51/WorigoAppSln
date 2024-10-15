@@ -11,11 +11,11 @@ using WorigoApp.Application.Filters;
 namespace WorigoApp.Api.Controllers.Departments
 {
     [Authorize(Roles = "SystemAdmin")]
-    public class DepartmentsController : BaseController
+    public class DepartmentController : BaseController
     {
         private readonly IMediator mediator;
 
-        public DepartmentsController(IMediator mediator) : base(mediator)
+        public DepartmentController(IMediator mediator) : base(mediator)
         {
             this.mediator = mediator;
         }

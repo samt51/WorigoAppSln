@@ -10,10 +10,10 @@ using WorigoApp.Application.Features.EmployeeTypes.Queries.GetAllEmployeeTypes;
 namespace WorigoApp.Api.Controllers.Employees
 {
     [Authorize(Roles = "SystemAdmin")]
-    public class EmployeeTypesController : BaseController
+    public class EmployeeTypeController : BaseController
     {
         private readonly IMediator mediator;
-        public EmployeeTypesController(IMediator mediator) : base(mediator)
+        public EmployeeTypeController(IMediator mediator) : base(mediator)
         {
             this.mediator = mediator;
         }

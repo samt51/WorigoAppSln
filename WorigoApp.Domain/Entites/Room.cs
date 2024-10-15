@@ -15,12 +15,14 @@ namespace WorigoApp.Domain.Entites
         public FoodType RoomFoodType { get; set; }
         public int HotelId { get; set; }
         public Hotel Hotel { get; set; }
-        public Room(string name, int roomTypeId, int roomFoodTypeId, int hotelid)
+        public bool IsFull { get; set; }
+        public Room(string name, int roomTypeId, int roomFoodTypeId, int hotelid, bool isFull)
         {
             this.Name = name;
             this.RoomTypeId = roomTypeId;
             this.RoomFoodTypeId = roomFoodTypeId;
             this.HotelId = hotelid;
+            this.IsFull = isFull;
         }
     }
 }
