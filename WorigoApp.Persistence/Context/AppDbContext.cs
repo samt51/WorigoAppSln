@@ -56,6 +56,8 @@ namespace WorigoApp.Persistence.Context
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<CommentAndRating> CommentAndRatings { get; set; }
         public DbSet<Translation> Translations { get; set; }
+        public DbSet<RoomBasedTransaction> RoomBasedTransaction { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
         #endregion
     }

@@ -32,6 +32,7 @@
     <Folder Include="Features\Hotels\Exceptions\" />
     <Folder Include="Features\ImageCategories\Exceptions\" />
     <Folder Include="Features\Images\Exceptions\" />
+    <Folder Include="Features\RoomBasedTransactions\Queries\" />
     <Folder Include="Features\RoomTypes\Commands\" />
     <Folder Include="Features\RoomTypes\Exceptions\" />
     <Folder Include="Features\Rooms\Exceptions\" />

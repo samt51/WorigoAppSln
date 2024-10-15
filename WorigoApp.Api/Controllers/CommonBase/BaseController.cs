@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WorigoApp.Api.Controllers.CommonBase
 {
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BaseController : ControllerBase
     {
