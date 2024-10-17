@@ -1,17 +1,17 @@
 ﻿using WorigoApp.Domain.Common;
+using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Domain.Entites
 {
     public class ContentsOfFood : EntityBase
     {
         public ContentsOfFood() { }
-        public ContentsOfFood(string name, int foodid)
+        public ContentsOfFood(int id, string name)
         {
+            this.Id = id;
             this.Name = name;
-            this.FoodId = foodid;
         }
-        public string Name { get; set;   }
-        public int FoodId { get; set; }
-        public Food Food { get; set; }
+        public string Name { get; set; }
+        public ICollection<FoodContentsOfFood> FoodContentsOfFoods { get; set; }
     }
 }

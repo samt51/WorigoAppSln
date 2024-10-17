@@ -14,7 +14,6 @@ namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodM
 
         public async Task<Response<CreateFoodMenuCategoryCommonResponse>> Handle(CreateFoodMenuCategoryCommonRequest request, CancellationToken cancellationToken)
         {
-
             await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
 
             var foodMenuMap = mapper.Map<FoodMenuCategory, CreateFoodMenuCategoryCommonRequest>(request);

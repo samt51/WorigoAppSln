@@ -13,6 +13,8 @@ using Serilog.Context;
 using WorigoApp.Application.Middleware.Exceptions;
 using MediatR;
 using WorigoApp.Application.Pipelines.Behaviour;
+using System.Reflection;
+using WorigoApp.Application.Filters;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -72,6 +74,8 @@ builder.Services.AddHttpLogging(logging =>
 
 builder.Services.AddSwaggerGen(c =>
 {
+    c.OperationFilter<DescriptionOperationFilter>();
+
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorigoApp API", Version = "v1", Description = "WorigoApp API swagger client." });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {

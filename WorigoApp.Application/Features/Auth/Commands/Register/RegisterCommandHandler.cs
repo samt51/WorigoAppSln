@@ -24,7 +24,7 @@ namespace WorigoApp.Application.Features.Auth.Commands.Register
 
             await _authRule.PasswordAndConfirmPasswordToCompare(request.Password, request.ConfirmPassword);
 
-            await _authRule.IsThereUserForThisEmail(unitOfWork.GetReadRepository<Users>().Find(y => y.Email == request.Email).FirstOrDefault());
+            await _authRule.IsThereUserForThisEmail(await unitOfWork.GetReadRepository<Users>().FindAsync(y => y.Email == request.Email));
 
             user.Password = PasswordHash.HashPassword(request.Password);
 

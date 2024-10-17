@@ -23,6 +23,8 @@ namespace WorigoApp.Application.Middleware
 
             //translation tablosunu cachte yoksa doldurur.
             TransactionAddOrControllToCache(context);
+            //ContentsOfFood tablosunu cachte yoksa doldurur.
+            CacheSetContentsOfFoodDatas(context);
 
 
             if (request.ToString() == "Logout")
@@ -107,6 +109,28 @@ namespace WorigoApp.Application.Middleware
                     {
                         var data = await unitOfWork.GetReadRepository<Translation>().GetAllAsync();
                         memoryCache.Set<IList<Translation>>("translation", data, new MemoryCacheEntryOptions
+                        {
+                            AbsoluteExpiration = DateTime.Now.AddDays(1),
+                            Priority = CacheItemPriority.Normal,
+                        });
+                    }
+                }
+            }
+        }
+
+        public async void CacheSetContentsOfFoodDatas(HttpContext context)
+        {
+            var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
+            if (memoryCache != null)
+            {
+                var cache = memoryCache.Get<List<ContentsOfFood>>("contentsOfFood");
+                if (cache is null)
+                {
+                    var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
+                    if (unitOfWork != null)
+                    {
+                        var data = await unitOfWork.GetReadRepository<ContentsOfFood>().GetAllAsync();
+                        memoryCache.Set<IList<ContentsOfFood>>("contentsOfFood", data, new MemoryCacheEntryOptions
                         {
                             AbsoluteExpiration = DateTime.Now.AddDays(1),
                             Priority = CacheItemPriority.Normal,

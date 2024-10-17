@@ -8,8 +8,9 @@ namespace WorigoApp.Domain.Entites
         {
             
         }
-        public FoodMenuCategory(string name, int hotelId)
+        public FoodMenuCategory(int id,string name, int hotelId)
         {
+            this.Id = id;
             this.Name = name;
             this.HotelId = hotelId;
         }

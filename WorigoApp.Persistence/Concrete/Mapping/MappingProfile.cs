@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using WorigoApp.Application.Features.Departments.Queries.GetAllDepartment;
 using WorigoApp.Application.Features.EmployeeTypes.Queries.GetAllEmployeeTypes;
+using WorigoApp.Application.Features.Foods.Commands.CreateFood;
 using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Concrete.Mapping
 {
 
-    public class MappingProfile :Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
@@ -14,6 +15,9 @@ namespace WorigoApp.Persistence.Concrete.Mapping
                 .ForMember(dest => dest.GetAllDepartmentQueryResponse, opt => opt.MapFrom(src => src.Department));
 
             CreateMap<Department, GetAllDepartmentQueryResponse>();
+
+            CreateMap<Food, CreateFoodCommonRequest>()
+                .ForMember(dest => dest.contentOfFoodRequestAndResponseDto, opt => opt.Ignore());
         }
     }
 }

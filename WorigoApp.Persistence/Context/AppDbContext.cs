@@ -2,6 +2,7 @@
 using System.Reflection;
 using WorigoApp.Domain.Entites;
 using WorigoApp.Domain.Entites.GServices;
+using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Persistence.Context
 {
@@ -22,6 +23,19 @@ namespace WorigoApp.Persistence.Context
         {
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<FoodContentsOfFood>()
+           .HasKey(fc => new { fc.FoodId, fc.ContentsOfFoodId });
+
+            modelBuilder.Entity<FoodContentsOfFood>()
+                .HasOne(fc => fc.Food)
+                .WithMany(f => f.FoodContentsOfFoods)
+                .HasForeignKey(fc => fc.FoodId);
+
+            modelBuilder.Entity<FoodContentsOfFood>()
+                .HasOne(fc => fc.ContentsOfFood)
+                .WithMany(c => c.FoodContentsOfFoods)
+                .HasForeignKey(fc => fc.ContentsOfFoodId);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
@@ -58,6 +72,7 @@ namespace WorigoApp.Persistence.Context
         public DbSet<Translation> Translations { get; set; }
         public DbSet<RoomBasedTransaction> RoomBasedTransaction { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<FoodContentsOfFood> FoodContentsOfFood { get; set; }
 
         #endregion
     }
