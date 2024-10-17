@@ -18,7 +18,10 @@ namespace WorigoApp.Persistence.Concrete.Repositories
 
         private DbSet<T> Table { get => dbContext.Set<T>(); }
 
-        public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false)
+
+
+
+        public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, Expression<Func<T, T>>? selector = null, bool enableTracking = false)
         {
             IQueryable<T> queryable = Table;
             if (!enableTracking) queryable = queryable.AsNoTracking();
@@ -26,6 +29,11 @@ namespace WorigoApp.Persistence.Concrete.Repositories
             if (predicate is not null) queryable = queryable.Where(predicate);
             if (orderBy is not null)
                 return await orderBy(queryable).ToListAsync();
+
+            if (selector is not null)
+            {
+                return await queryable.Select(selector).ToListAsync();
+            }
 
             return await queryable.ToListAsync();
         }
@@ -40,7 +48,14 @@ namespace WorigoApp.Persistence.Concrete.Repositories
                 return await orderBy(queryable).Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
             return await queryable.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
         }
-
+        /// <summary>
+        /// Exception GetFirst
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="include"></param>
+        /// <param name="enableTracking"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool enableTracking = false)
         {
             IQueryable<T> queryable = Table;
@@ -50,7 +65,7 @@ namespace WorigoApp.Persistence.Concrete.Repositories
             //queryable.Where(predicate);
 
             var data = await queryable.FirstOrDefaultAsync(predicate);
-            if (data is  null)
+            if (data is null)
             {
                 throw new NotFoundException($"{typeof(T).Name} Is Not Found");
             }
@@ -64,11 +79,23 @@ namespace WorigoApp.Persistence.Concrete.Repositories
 
             return await Table.CountAsync();
         }
-
-        public IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool enableTracking = false)
+        /// <summary>
+        /// Not Exception Controll
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <param name="include"></param>
+        /// <param name="enableTracking"></param>
+        /// <returns></returns>
+        public async Task<T> FindAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, bool enableTracking = false)
         {
-            if (!enableTracking) Table.AsNoTracking();
-            return Table.Where(predicate);
+            IQueryable<T> queryable = Table;
+            if (!enableTracking) queryable = queryable.AsNoTracking();
+            if (include is not null) queryable = include(queryable);
+
+            //queryable.Where(predicate);
+
+            return await queryable.FirstOrDefaultAsync(predicate);
+
         }
     }
 }

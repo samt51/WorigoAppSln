@@ -17,21 +17,21 @@ namespace WorigoApp.Application.Features.RoomBasedTransactions.Commands.CreateCu
         {
             var room = await unitOfWork.GetReadRepository<Room>().GetAsync(y => y.HotelId == request.HotelId && y.Id == request.RoomId && !y.IsDeleted && !y.IsFull);
 
-            var customerMap = mapper.Map<Customer, CustomerRequestDto>(request.CustomerRequestDto);
-
             unitOfWork.OpenTransaction();
-
-            var customer = await unitOfWork.GetWriteRepository<Customer>().AddAsync(customerMap);
-
-            await unitOfWork.SaveAsync();
 
             var roomBasedTransactionMap = mapper.Map<RoomBasedTransaction, CreateCustomerCommandRequest>(request);
 
-            roomBasedTransactionMap.CustomerId = customer.Id;
-
             roomBasedTransactionMap.VerificationCode = Guid.NewGuid().ToString();
 
-            await unitOfWork.GetWriteRepository<RoomBasedTransaction>().AddAsync(roomBasedTransactionMap);
+            var roomBasedTransaction = await unitOfWork.GetWriteRepository<RoomBasedTransaction>().AddAsync(roomBasedTransactionMap);
+
+            await unitOfWork.SaveAsync();
+
+            var customerMap = mapper.Map<Customer, CustomerRequestDto>(request.CustomerRequestDto);
+
+            var customer = await unitOfWork.GetWriteRepository<Customer>().AddAsync(customerMap);
+
+            customer.RoomBasedTransactionId = roomBasedTransaction.Id;
 
             await unitOfWork.SaveAsync();
 
