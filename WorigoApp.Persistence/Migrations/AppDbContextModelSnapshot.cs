@@ -22,6 +22,39 @@ namespace WorigoApp.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("WorigoApp.Domain.Entites.Allergen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Allergen");
+                });
+
             modelBuilder.Entity("WorigoApp.Domain.Entites.CommentAndRating", b =>
                 {
                     b.Property<int>("Id")
@@ -39,6 +72,9 @@ namespace WorigoApp.Persistence.Migrations
 
                     b.Property<decimal>("EmployeePoint")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("FoodId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -62,6 +98,8 @@ namespace WorigoApp.Persistence.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
 
                     b.HasIndex("OrderId");
 
@@ -103,19 +141,19 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(4724),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(293),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(4739),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(309),
                             Name = "Worigo"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(4741),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(313),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(4742),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(313),
                             Name = "Ramada"
                         });
                 });
@@ -152,28 +190,28 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(6117),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(1603),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(6121),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(1606),
                             Name = "Siyah Zeytin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(6122),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(1607),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(6123),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(1608),
                             Name = "Mantar"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(6123),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(1608),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(6124),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(1609),
                             Name = "Turşu"
                         });
                 });
@@ -260,58 +298,91 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7285),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2565),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7287),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2567),
                             Name = "Ön Büro Resepsiyon Departmanı"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7291),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2570),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7291),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2571),
                             Name = "Housekeeping Departmanı"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7292),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2571),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7292),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2572),
                             Name = "Yiyecek İçecek ve Mutfak Departmanı"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7293),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2572),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7293),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2572),
                             Name = "Teknik Servis Departmanı"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7294),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2573),
                             HotelId = 1,
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(7294),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(2574),
                             Name = "Sağlık Kulübü & Spa Departmanı"
                         });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.DietaryRestriction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DietaryRestriction");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Employee", b =>
@@ -359,6 +430,73 @@ namespace WorigoApp.Persistence.Migrations
                     b.HasIndex("HotelId");
 
                     b.ToTable("Employee");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3491),
+                            EmployeeTypeId = 20,
+                            HotelId = 1,
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3492),
+                            Name = "Ahmet",
+                            Surname = "Alan"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3496),
+                            EmployeeTypeId = 20,
+                            HotelId = 1,
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3496),
+                            Name = "Emre",
+                            Surname = "Alan"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3497),
+                            EmployeeTypeId = 6,
+                            HotelId = 1,
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3497),
+                            Name = "Yunus",
+                            Surname = "Yavaş"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3498),
+                            EmployeeTypeId = 22,
+                            HotelId = 1,
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3498),
+                            Name = "Fatih",
+                            Surname = "Hızlı"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3499),
+                            EmployeeTypeId = 25,
+                            HotelId = 1,
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(3499),
+                            Name = "Mehmet",
+                            Surname = "Şiveli"
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.EmployeeDetail", b =>
@@ -415,6 +553,78 @@ namespace WorigoApp.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeDetail");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4432),
+                            DateOfBirth = new DateTime(1995, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 1,
+                            Gender = true,
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4432),
+                            OnlineOrOfflineNow = false,
+                            PhoneNumber = "+905363988981",
+                            StartDateOfWork = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4428)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4439),
+                            DateOfBirth = new DateTime(1995, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 2,
+                            Gender = true,
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4440),
+                            OnlineOrOfflineNow = false,
+                            PhoneNumber = "+905363988982",
+                            StartDateOfWork = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4439)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4441),
+                            DateOfBirth = new DateTime(1995, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 3,
+                            Gender = true,
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4441),
+                            OnlineOrOfflineNow = false,
+                            PhoneNumber = "+905363988983",
+                            StartDateOfWork = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4440)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4442),
+                            DateOfBirth = new DateTime(1995, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 4,
+                            Gender = true,
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4443),
+                            OnlineOrOfflineNow = false,
+                            PhoneNumber = "+905363988984",
+                            StartDateOfWork = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4442)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4444),
+                            DateOfBirth = new DateTime(1995, 8, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmployeeId = 5,
+                            Gender = true,
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4444),
+                            OnlineOrOfflineNow = false,
+                            PhoneNumber = "+905363988985",
+                            StartDateOfWork = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(4444)
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.EmployeeType", b =>
@@ -459,251 +669,251 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8433),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5318),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8434),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5319),
                             Name = "Ön Büro Müdürü"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8438),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5322),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8438),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5322),
                             Name = "Gece Müdürü"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8439),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5323),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8439),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5323),
                             Name = "Ön Büro Şefi"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8440),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5324),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8440),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5324),
                             Name = "Resepsiyonist"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8441),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5325),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8441),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5325),
                             Name = "Concierge Şefi"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8443),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5326),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8443),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5326),
                             Name = "Taşıyıcı/Karşılayıcı Personel"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8444),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5326),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8444),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5327),
                             Name = "Guest Service Agent"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8445),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5327),
                             DepartmentId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8445),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5328),
                             Name = "Guest Relation"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8446),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5328),
                             DepartmentId = 2,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8446),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5329),
                             Name = "HK Müdürü"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8446),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5329),
                             DepartmentId = 2,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8447),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5330),
                             Name = "Housekeeper"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8447),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5330),
                             DepartmentId = 2,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8448),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5330),
                             Name = "Kat Şefi (Floor Supervisor)"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8448),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5331),
                             DepartmentId = 2,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8449),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5331),
                             Name = "Oda Görevlisi"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8449),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5332),
                             DepartmentId = 2,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8449),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5332),
                             Name = "Meydancı"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8451),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5333),
                             DepartmentId = 3,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8451),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5333),
                             Name = "Yiyecek – İçecek Müdürü"
                         },
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8452),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5333),
                             DepartmentId = 3,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8452),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5334),
                             Name = "Barlar Şefi"
                         },
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8453),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5334),
                             DepartmentId = 3,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8453),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5335),
                             Name = "Bar Personeli"
                         },
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8453),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5335),
                             DepartmentId = 3,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8454),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5335),
                             Name = "Mutfak Şefi"
                         },
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8454),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5336),
                             DepartmentId = 3,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8455),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5336),
                             Name = "Mutfak Personeli"
                         },
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8455),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5337),
                             DepartmentId = 3,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8455),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5337),
                             Name = "Restoran Şefi"
                         },
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8456),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5337),
                             DepartmentId = 3,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8456),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5338),
                             Name = "Servis Personeli"
                         },
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8457),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5338),
                             DepartmentId = 4,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8457),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5339),
                             Name = "Teknik Müdür"
                         },
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8458),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5339),
                             DepartmentId = 4,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8458),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5339),
                             Name = "Elektrik Tekniker"
                         },
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8459),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5340),
                             DepartmentId = 4,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8459),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5340),
                             Name = "Mekanik Tekniker"
                         },
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8460),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5341),
                             DepartmentId = 4,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8460),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5341),
                             Name = "Tesisatçı"
                         },
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8460),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5342),
                             DepartmentId = 5,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(8461),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(5342),
                             Name = "Masör"
                         });
                 });
@@ -723,13 +933,22 @@ namespace WorigoApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal?>("DiscountPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("FoodMenuCategoryId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOnPromotion")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("ModifyDate")
@@ -738,6 +957,9 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeOnly>("PREPARATIONTIME")
+                        .HasColumnType("time");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -755,26 +977,32 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(9437),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(6124),
                             Description = "New York Pizzası",
                             FoodMenuCategoryId = 1,
                             IsActive = true,
+                            IsAvailable = false,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(9438),
+                            IsOnPromotion = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(6125),
                             Name = "New York",
+                            PREPARATIONTIME = new TimeOnly(0, 0, 0),
                             Price = 150m,
                             PriceStatusId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(9443),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(6128),
                             Description = "Kral Checkin",
                             FoodMenuCategoryId = 2,
                             IsActive = true,
+                            IsAvailable = false,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 300, DateTimeKind.Local).AddTicks(9443),
+                            IsOnPromotion = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(6129),
                             Name = "Kral Checkin",
+                            PREPARATIONTIME = new TimeOnly(0, 0, 0),
                             Price = 200m,
                             PriceStatusId = 1
                         });
@@ -817,21 +1045,21 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(1184),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(7777),
                             HotelId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(1186),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(7780),
                             Name = "Pizza"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(1188),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(7783),
                             HotelId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(1188),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(7783),
                             Name = "Hamburger"
                         });
                 });
@@ -867,46 +1095,46 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2205),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8613),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2207),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8615),
                             RoomFoodTypeEnum = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2208),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8617),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2209),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8617),
                             RoomFoodTypeEnum = 2
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2210),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8618),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2210),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8618),
                             RoomFoodTypeEnum = 3
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2211),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8619),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2211),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8619),
                             RoomFoodTypeEnum = 4
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2212),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8620),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(2212),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(8620),
                             RoomFoodTypeEnum = 5
                         });
                 });
@@ -947,11 +1175,11 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(3037),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(9371),
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(3038),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 616, DateTimeKind.Local).AddTicks(9372),
                             Name = "Bagaj Taşıma"
                         });
                 });
@@ -991,10 +1219,10 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(3953),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(206),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(3954),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(208),
                             Name = "1q2w3e4r5t"
                         });
                 });
@@ -1037,9 +1265,108 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("PriceStatusId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("DryCleaner");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1001),
+                            Description = "Ütü Hizmeti",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1002),
+                            Name = "Ütü",
+                            PriceStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1006),
+                            Description = "T-shirt",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1006),
+                            Name = "T-shirt",
+                            ParentId = 1,
+                            Price = 150m,
+                            PriceStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1007),
+                            Description = "Kaban-Mont",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1007),
+                            Name = "Kaban-Mont",
+                            ParentId = 1,
+                            Price = 250m,
+                            PriceStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1008),
+                            Description = "Kuru Temizleme",
+                            ImageUrl = "1jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1008),
+                            Name = "Kuru Temizleme",
+                            PriceStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1009),
+                            Description = "T-shirt",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1009),
+                            Name = "T-shirt",
+                            ParentId = 4,
+                            Price = 150m,
+                            PriceStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1010),
+                            Description = "Kaban-Mont",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1011),
+                            Name = "Kaban-Mont",
+                            ParentId = 4,
+                            Price = 200m,
+                            PriceStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1011),
+                            Description = "Kot-Kumaş pantolonlar",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(1012),
+                            Name = "Pantolon",
+                            ParentId = 4,
+                            Price = 200m,
+                            PriceStatusId = 1
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.FeedBackAndSurvey", b =>
@@ -1072,6 +1399,41 @@ namespace WorigoApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FeedBackAndSurveys");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.HealthAndSafety", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HealthAndFirstHelpTypeEnum")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RoomBasedTransactionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HealthAndSafety");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.HotelInformationAndAnnouncements", b =>
@@ -1112,6 +1474,56 @@ namespace WorigoApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HotelInformationAndAnnouncements");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2815),
+                            Date = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2810),
+                            Description = "Sihirbaz Gösterisi",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2816),
+                            Name = "Animasyon"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2819),
+                            Date = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2819),
+                            Description = "Animasyon",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2820),
+                            Name = "Dans Gösterisi"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2821),
+                            Date = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2820),
+                            Description = "Orta Salonda",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2821),
+                            Name = "Milli Maç"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2822),
+                            Date = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2822),
+                            Description = "Animasyon",
+                            ImageUrl = "1.jpeg",
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(2822),
+                            Name = "Dans Gösterisi"
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.HouseKeeping", b =>
@@ -1150,31 +1562,31 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7153),
-                            ImageUrl = "",
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4056),
+                            ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7157),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4058),
                             Name = "Havlu değişimi veya eksiği"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7207),
-                            ImageUrl = "",
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4061),
+                            ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7208),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4061),
                             Name = "Oda Genel temizlik"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7208),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4062),
                             ImageUrl = "",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7209),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4062),
                             Name = "Çarşaf veya yatak yüzü değişimi"
                         });
                 });
@@ -1213,6 +1625,12 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("PriceStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypesOfHealthAndSports")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("SpaMassage");
@@ -1221,24 +1639,28 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7988),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4936),
                             Description = "Uzak Doğu Masajı",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7989),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4939),
                             Name = "Uzak Doğu",
-                            Price = 200m
+                            Price = 200m,
+                            PriceStatusId = 1,
+                            TypesOfHealthAndSports = 0
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7992),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4943),
                             Description = "Tailand Masajı",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(7992),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(4943),
                             Name = "Tailand Masajı",
-                            Price = 200m
+                            Price = 200m,
+                            PriceStatusId = 1,
+                            TypesOfHealthAndSports = 0
                         });
                 });
 
@@ -1282,80 +1704,120 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8784),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5715),
                             Description = "Klima ile arıza durumları",
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8786),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5718),
                             Name = "Klima"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8788),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5720),
                             Description = "TV ile arıza durumları",
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8789),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5721),
                             Name = "TV"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8790),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5721),
                             Description = "Minibar ile arıza durumları",
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8790),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5721),
                             Name = "Minibar"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8791),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5722),
                             Description = "Kapı ile arıza durumları",
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8791),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5722),
                             Name = "Kapı"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8792),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5723),
                             Description = "Elektirk ile arıza durumları",
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8792),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5723),
                             Name = "Elektrik"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8793),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5724),
                             Description = "Aydınlatma ile arıza durumları",
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8793),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5724),
                             Name = "Aydınlatma"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8794),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5725),
                             Description = "Aydınlatma ile arıza durumları",
                             ImageUrl = "1.jpeg",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(8794),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(5725),
                             Name = "Duş Ve Tuvalet"
                         });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.GServices.TravelOrTransportation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TransportationAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransportationType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransportationVehicle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TravelOrTransportation");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Hotel", b =>
@@ -1416,12 +1878,12 @@ namespace WorigoApp.Persistence.Migrations
                             Id = 1,
                             Adress = "Bağcılar",
                             Companyid = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(9560),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(6583),
                             Email = "tekstilkent@ramada.com",
                             IsActive = true,
                             IsDeleted = false,
                             Location = "Giyimkent",
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 301, DateTimeKind.Local).AddTicks(9561),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 617, DateTimeKind.Local).AddTicks(6586),
                             Name = "Tekstilkent",
                             NumberOfStar = 4,
                             PhoneNumber = "02126733520"
@@ -1439,6 +1901,9 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("FoodId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ImageCategoryId")
                         .HasColumnType("int");
 
@@ -1455,9 +1920,16 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("OrderItemId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("FoodId");
+
                     b.HasIndex("ImageCategoryId");
+
+                    b.HasIndex("OrderItemId");
 
                     b.ToTable("Image");
                 });
@@ -1494,6 +1966,21 @@ namespace WorigoApp.Persistence.Migrations
                     b.HasIndex("HotelId");
 
                     b.ToTable("ImageCategory");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.IntermediateTables.FoodAllergens", b =>
+                {
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AllergenId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodId", "AllergenId");
+
+                    b.HasIndex("AllergenId");
+
+                    b.ToTable("FoodAllergen");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.IntermediateTables.FoodContentsOfFood", b =>
@@ -1538,6 +2025,21 @@ namespace WorigoApp.Persistence.Migrations
                             ContentsOfFoodId = 3,
                             IsActive = false
                         });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.IntermediateTables.FoodDietaryRestrictions", b =>
+                {
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DietaryRestrictionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodId", "DietaryRestrictionId");
+
+                    b.HasIndex("DietaryRestrictionId");
+
+                    b.ToTable("FoodDietaryRestrictions");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.LogEntry", b =>
@@ -1590,6 +2092,55 @@ namespace WorigoApp.Persistence.Migrations
                     b.ToTable("Logs", (string)null);
                 });
 
+            modelBuilder.Entity("WorigoApp.Domain.Entites.NutritionalInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Calories")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Carbohydrates")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Fat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Fiber")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Protein")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Sugar")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId")
+                        .IsUnique();
+
+                    b.ToTable("NutritionalInfo");
+                });
+
             modelBuilder.Entity("WorigoApp.Domain.Entites.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -1610,6 +2161,9 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PriceStatusId")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoomBasedTransactionId")
                         .HasColumnType("int");
 
@@ -1621,6 +2175,19 @@ namespace WorigoApp.Persistence.Migrations
                     b.HasIndex("RoomBasedTransactionId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(2572),
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(2577),
+                            PriceStatusId = 0,
+                            RoomBasedTransactionId = 1,
+                            TotalPrice = 200m
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.OrderItem", b =>
@@ -1632,6 +2199,9 @@ namespace WorigoApp.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("AppointmentLastDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedDate")
@@ -1649,11 +2219,11 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderStatusEnum")
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PriceStatusId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -1663,6 +2233,13 @@ namespace WorigoApp.Persistence.Migrations
 
                     b.Property<int>("ServicesEnumId")
                         .HasColumnType("int");
+
+                    b.Property<int>("StatusTypeEnum")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -1703,64 +2280,64 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3405),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4765),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3410),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4766),
                             Name = "SystemAdmin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3411),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4768),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3412),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4768),
                             Name = "HotelAdmin"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3412),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4768),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3412),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4769),
                             Name = "Management"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3413),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4769),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3413),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4770),
                             Name = "DepartmentManager"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3414),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4770),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3414),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4771),
                             Name = "Employee"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3415),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4771),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3415),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4772),
                             Name = "Customer"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3416),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4772),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(3416),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(4772),
                             Name = "Resepsiyonist"
                         });
                 });
@@ -1794,6 +2371,12 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PriceStatusId")
+                        .HasColumnType("int");
 
                     b.Property<int>("RoomFoodTypeId")
                         .HasColumnType("int");
@@ -1853,6 +2436,21 @@ namespace WorigoApp.Persistence.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("RoomBasedTransaction");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CheckInDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(5517),
+                            CheckOutDate = new DateTime(2024, 10, 27, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(5518),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(5623),
+                            HotelId = 1,
+                            IsActive = true,
+                            IsDeleted = false,
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(5623),
+                            RoomId = 1,
+                            VerificationCode = "25408a47-4066-481e-9d6d-40f357399679"
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.RoomType", b =>
@@ -1886,101 +2484,446 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4245),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6469),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4247),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6471),
                             RoomTypeEnum = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4248),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6472),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4248),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6472),
                             RoomTypeEnum = 2
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4249),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6473),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4249),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6473),
                             RoomTypeEnum = 3
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4288),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6474),
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4289),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(6474),
                             RoomTypeEnum = 4
+                        });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.ServiceRoleAssignments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeTypeRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceRoleAssignment");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.SystemParametre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ParametreKey")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemParameter");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            ParametreKey = "PriceStatus"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            ParametreKey = "OrderStatus"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsDeleted = false,
+                            ParametreKey = "RoomFoodTypeStatus"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsDeleted = false,
+                            ParametreKey = "RoomTypeStatus"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4289),
-                            IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4290),
-                            RoomTypeEnum = 5
+                            ParametreKey = "ServicesStatus"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4291),
-                            IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4291),
-                            RoomTypeEnum = 6
+                            ParametreKey = "StatusType"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4292),
-                            IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4292),
-                            RoomTypeEnum = 7
+                            ParametreKey = "TypesOfHealthAndSports"
+                        });
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.SystemParametreValues", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ParametreValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SystemParametreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SystemParametreValueId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SystemParametreId");
+
+                    b.ToTable("SystemParametreValues");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Türk Lirası",
+                            IsDeleted = false,
+                            ParametreValue = "₺",
+                            SystemParametreId = 1,
+                            SystemParametreValueId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Dolar",
+                            IsDeleted = false,
+                            ParametreValue = "$",
+                            SystemParametreId = 1,
+                            SystemParametreValueId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Euro",
+                            IsDeleted = false,
+                            ParametreValue = "€",
+                            SystemParametreId = 1,
+                            SystemParametreValueId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Preparing",
+                            SystemParametreId = 2,
+                            SystemParametreValueId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "IsComing",
+                            SystemParametreId = 2,
+                            SystemParametreValueId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Delivered",
+                            SystemParametreId = 2,
+                            SystemParametreValueId = 3
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4293),
-                            IsActive = true,
+                            Description = "",
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4293),
-                            RoomTypeEnum = 8
+                            ParametreValue = "Breakfast",
+                            SystemParametreId = 3,
+                            SystemParametreValueId = 1
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4294),
-                            IsActive = true,
+                            Description = "",
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4294),
-                            RoomTypeEnum = 9
+                            ParametreValue = "HalfPension",
+                            SystemParametreId = 3,
+                            SystemParametreValueId = 2
                         },
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4295),
-                            IsActive = true,
+                            Description = "",
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4295),
-                            RoomTypeEnum = 10
+                            ParametreValue = "FullPension",
+                            SystemParametreId = 3,
+                            SystemParametreValueId = 3
                         },
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4296),
-                            IsActive = true,
+                            Description = "",
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(4296),
-                            RoomTypeEnum = 11
+                            ParametreValue = "AllInclusive",
+                            SystemParametreId = 3,
+                            SystemParametreValueId = 4
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "UltraAllInclusive",
+                            SystemParametreId = 3,
+                            SystemParametreValueId = 5
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Standart",
+                            SystemParametreId = 4,
+                            SystemParametreValueId = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "SingleRoom",
+                            SystemParametreId = 4,
+                            SystemParametreValueId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "DoubleRoom",
+                            SystemParametreId = 4,
+                            SystemParametreValueId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "SuitRoom",
+                            SystemParametreId = 4,
+                            SystemParametreValueId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Menu",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 1
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "TechnicalNeed",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 2
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "BellBoy",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 3
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Connection",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 4
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "DryCleaner",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 5
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "HouseKeeping",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 6
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "SpaMessage",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 7
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "HealthAndSafety",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 8
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "TravelOrTransportation",
+                            SystemParametreId = 5,
+                            SystemParametreValueId = 9
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Proccess",
+                            SystemParametreId = 6,
+                            SystemParametreValueId = 2
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Completed",
+                            SystemParametreId = 6,
+                            SystemParametreValueId = 3
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Waiting",
+                            SystemParametreId = 6,
+                            SystemParametreValueId = 1
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Spa",
+                            SystemParametreId = 7,
+                            SystemParametreValueId = 1
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Massage",
+                            SystemParametreId = 7,
+                            SystemParametreValueId = 2
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Fitness",
+                            SystemParametreId = 7,
+                            SystemParametreValueId = 3
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Description = "",
+                            IsDeleted = false,
+                            ParametreValue = "Poor",
+                            SystemParametreId = 7,
+                            SystemParametreValueId = 4
                         });
                 });
 
@@ -1995,7 +2938,7 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("EntityName")
+                    b.Property<string>("FieldName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -2005,10 +2948,6 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LanguageCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -2016,13 +2955,2674 @@ namespace WorigoApp.Persistence.Migrations
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Text")
+                    b.Property<int>("RecordId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TableName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TranslationValue")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Translations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9753),
+                            FieldName = "UnknownError",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9756),
+                            RecordId = 0,
+                            TableName = "",
+                            TranslationValue = "İşlem yaparken bir sorun oluştu. Lütfen tekrar deneyiniz."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9759),
+                            FieldName = "UnknownError",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9759),
+                            RecordId = 0,
+                            TableName = "",
+                            TranslationValue = "There was a problem while processing the transaction. Please try again."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9760),
+                            FieldName = "UnknownError",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9760),
+                            RecordId = 0,
+                            TableName = "",
+                            TranslationValue = "Во время обработки возникла проблема. Пожалуйста, попробуйте еще раз."
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9761),
+                            FieldName = "UnknownError",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9761),
+                            RecordId = 0,
+                            TableName = "",
+                            TranslationValue = "Un problème est survenu lors du traitement. Veuillez réessayer."
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9762),
+                            FieldName = "UnknownError",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9763),
+                            RecordId = 0,
+                            TableName = "",
+                            TranslationValue = "Hubo un problema durante el procesamiento. Por favor inténtalo de nuevo."
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9763),
+                            FieldName = "UnknownError",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9764),
+                            RecordId = 0,
+                            TableName = "",
+                            TranslationValue = "حدثت مشكلة أثناء المعالجة. يرجى المحاولة مرة أخرى."
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9764),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9765),
+                            RecordId = 5,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Hazırlanıyor"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9765),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9766),
+                            RecordId = 6,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Geliyor"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9766),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9767),
+                            RecordId = 7,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "İptal Edildi"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9767),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9768),
+                            RecordId = 5,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Preparing"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9768),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9769),
+                            RecordId = 6,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "IsComing"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9769),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9770),
+                            RecordId = 7,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Delivered"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9770),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9771),
+                            RecordId = 5,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Preparándose"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9771),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9771),
+                            RecordId = 6,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "A punto de venir"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9772),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9772),
+                            RecordId = 7,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Entregado"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9773),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9773),
+                            RecordId = 5,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Se préparer"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9774),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9774),
+                            RecordId = 6,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Sur le point de venir."
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9775),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9775),
+                            RecordId = 7,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "A été livré."
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9776),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9776),
+                            RecordId = 5,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "готовлюсь."
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9777),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9777),
+                            RecordId = 6,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Скоро придет"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9778),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9778),
+                            RecordId = 7,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Доставленный."
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9779),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9779),
+                            RecordId = 5,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "الاستعداد"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9780),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9780),
+                            RecordId = 6,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "على وشك المجيء"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9781),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9781),
+                            RecordId = 7,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "تم التوصيل"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9782),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9782),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Air conditioning"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9784),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9784),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Malfunction situations with air conditioning"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9785),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9785),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Aire acondicionado"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9786),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9786),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situaciones de avería con el aire acondicionado."
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9787),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9787),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Кондиционер"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9787),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9788),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Ситуации неисправности кондиционера"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9788),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9789),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Climatisation"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9789),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9790),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situations de dysfonctionnement de la climatisation"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9790),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9791),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "تكييف"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9791),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9792),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "حالات الأعطال بالتكييف"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9792),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9792),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Klima"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9793),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9793),
+                            RecordId = 1,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Klima ile arıza durumları"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9794),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9794),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "TV"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9795),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9795),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Malfunction situations with TV"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9796),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9796),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "TELEVISOR"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9797),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9797),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situaciones de mal funcionamiento con TV."
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9798),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9798),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "ТВ"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9799),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9799),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Неисправные ситуации с телевизором"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9800),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9800),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "TV"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9801),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9801),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situations de dysfonctionnement avec la télévision"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9801),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9802),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "تلفزيون"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9802),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9803),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "حالات الأعطال بالتلفاز"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9803),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9804),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "TV"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9804),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9805),
+                            RecordId = 2,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "TV ile arıza durumları"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9805),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9806),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Mini-bar"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9806),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9806),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Malfunction situations with minibar"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9807),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9807),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Mini-bar"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9809),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9809),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situaciones de avería con el minibar"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9810),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9810),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "мини-бар"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9811),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9811),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Ситуации неисправности мини-бара"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9812),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9812),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Mini-bar"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9813),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9813),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situations de dysfonctionnement du minibar"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9814),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9814),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "ميني بار"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9815),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9815),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "حالات الأعطال بالميني بار"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9816),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9816),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Minibar"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9816),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9817),
+                            RecordId = 3,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Minibar ile arıza durumları"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9817),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9818),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Door"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9818),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9819),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Fault situations with door"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9819),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9820),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Puerta"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9820),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9821),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situaciones de avería con el puerta"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9821),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9822),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Дверь"
+                        },
+                        new
+                        {
+                            Id = 66,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9822),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9822),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Неисправные ситуации с дверью"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9823),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9824),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Porte"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9824),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9824),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situations de défauts avec la porte"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9825),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9825),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "باب"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9826),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9826),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "حالات خطأ مع الباب"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9827),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9827),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Kapı"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9828),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9828),
+                            RecordId = 4,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Kapı ile arıza durumları"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9829),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9829),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Electric"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9830),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9830),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Electrical fault situations"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9831),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9831),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Eléctrico"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9831),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9832),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situaciones de falla eléctrica"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9833),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9833),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Электрический"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9833),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9834),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Ситуации электрических неисправностей"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9835),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9836),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Électrique"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9836),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9837),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situations de panne électrique"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9837),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9838),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "كهربائي"
+                        },
+                        new
+                        {
+                            Id = 82,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9838),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9839),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "حالات الأعطال الكهربائية"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9839),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9839),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Elektrik"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9840),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9840),
+                            RecordId = 5,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Elektrik ile arıza durumları"
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9841),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9841),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Lighting"
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9842),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9842),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Malfunction situations with lighting"
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9843),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9843),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Iluminación"
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9844),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9844),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situaciones de mal funcionamiento con la iluminación."
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9845),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9845),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Освещение"
+                        },
+                        new
+                        {
+                            Id = 90,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9846),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9846),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Ситуации неисправности с освещением"
+                        },
+                        new
+                        {
+                            Id = 91,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9846),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9847),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Éclairage"
+                        },
+                        new
+                        {
+                            Id = 92,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9848),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9848),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situations de dysfonctionnement de l'éclairage"
+                        },
+                        new
+                        {
+                            Id = 93,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9848),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9849),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "إضاءة"
+                        },
+                        new
+                        {
+                            Id = 94,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9849),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9850),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "حالات الأعطال بالإضاءة"
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9850),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9851),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Aydınlatma"
+                        },
+                        new
+                        {
+                            Id = 96,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9851),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9852),
+                            RecordId = 6,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Aydınlatma ile arıza durumları"
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9881),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9882),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Shower and Toilet"
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9883),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9883),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Malfunction situations with shower and toilet"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9884),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9884),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Ducha y WC"
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9885),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9885),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situaciones de avería en ducha y WC"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9886),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9886),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Душ и туалет"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9886),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9887),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Ситуации неисправности с душем и туалетом"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9887),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9888),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Douche et WC"
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9888),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9889),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Situations de dysfonctionnement avec douche et toilettes"
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9889),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9890),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "دش ومرحاض"
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9891),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9892),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "حالات خلل في الدش والمرحاض"
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9892),
+                            FieldName = "Name",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9893),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Duş ve Tuvalet"
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9893),
+                            FieldName = "Description",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9893),
+                            RecordId = 7,
+                            TableName = "TechnicalNeed",
+                            TranslationValue = "Duş ve Tuvalet ile arıza durumları"
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9894),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9894),
+                            RecordId = 26,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "In Proccess"
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9895),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9895),
+                            RecordId = 27,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Completed"
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9896),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9896),
+                            RecordId = 28,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Waiting"
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9897),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9897),
+                            RecordId = 26,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "En proceso"
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9898),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9898),
+                            RecordId = 27,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Terminado"
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9899),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9899),
+                            RecordId = 28,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Espera"
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9903),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9903),
+                            RecordId = 26,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "En Cours"
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9904),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9904),
+                            RecordId = 27,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Complété"
+                        },
+                        new
+                        {
+                            Id = 120,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9904),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9905),
+                            RecordId = 28,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "En Attendant"
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9900),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9900),
+                            RecordId = 26,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "в процессе"
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9901),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9901),
+                            RecordId = 27,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "завершенный"
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9902),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9902),
+                            RecordId = 28,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "ожидающий"
+                        },
+                        new
+                        {
+                            Id = 121,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9905),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9906),
+                            RecordId = 26,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "قيد المعالجة"
+                        },
+                        new
+                        {
+                            Id = 122,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9906),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9907),
+                            RecordId = 27,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "مكتمل"
+                        },
+                        new
+                        {
+                            Id = 123,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9907),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9908),
+                            RecordId = 28,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "منتظر"
+                        },
+                        new
+                        {
+                            Id = 124,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9908),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9909),
+                            RecordId = 26,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "İşlemde"
+                        },
+                        new
+                        {
+                            Id = 125,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9909),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9909),
+                            RecordId = 27,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Tamamlandı"
+                        },
+                        new
+                        {
+                            Id = 126,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9910),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9910),
+                            RecordId = 28,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Bekleniyor"
+                        },
+                        new
+                        {
+                            Id = 127,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9911),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9911),
+                            RecordId = 29,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa"
+                        },
+                        new
+                        {
+                            Id = 128,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9912),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9912),
+                            RecordId = 30,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Massage"
+                        },
+                        new
+                        {
+                            Id = 129,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9913),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9913),
+                            RecordId = 31,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Fitness"
+                        },
+                        new
+                        {
+                            Id = 130,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9914),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9914),
+                            RecordId = 32,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Poor"
+                        },
+                        new
+                        {
+                            Id = 131,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9915),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9915),
+                            RecordId = 29,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa"
+                        },
+                        new
+                        {
+                            Id = 132,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9916),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9916),
+                            RecordId = 30,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Masaje"
+                        },
+                        new
+                        {
+                            Id = 133,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9917),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9918),
+                            RecordId = 31,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Aptitud fisica"
+                        },
+                        new
+                        {
+                            Id = 134,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9918),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9919),
+                            RecordId = 32,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Piscina"
+                        },
+                        new
+                        {
+                            Id = 143,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9927),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9927),
+                            RecordId = 29,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa"
+                        },
+                        new
+                        {
+                            Id = 144,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9928),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9928),
+                            RecordId = 30,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "massage"
+                        },
+                        new
+                        {
+                            Id = 145,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9929),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9929),
+                            RecordId = 31,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Aptitude"
+                        },
+                        new
+                        {
+                            Id = 146,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9930),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9930),
+                            RecordId = 32,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Piscine"
+                        },
+                        new
+                        {
+                            Id = 135,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9919),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9920),
+                            RecordId = 29,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Спа"
+                        },
+                        new
+                        {
+                            Id = 136,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9920),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9921),
+                            RecordId = 30,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Массаж"
+                        },
+                        new
+                        {
+                            Id = 137,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9921),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9922),
+                            RecordId = 31,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Фитнес"
+                        },
+                        new
+                        {
+                            Id = 138,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9922),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9923),
+                            RecordId = 32,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Бассейн"
+                        },
+                        new
+                        {
+                            Id = 139,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9923),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9923),
+                            RecordId = 29,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "سبا"
+                        },
+                        new
+                        {
+                            Id = 140,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9924),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9924),
+                            RecordId = 30,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "تدليك"
+                        },
+                        new
+                        {
+                            Id = 141,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9925),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9925),
+                            RecordId = 31,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "لياقة بدنية"
+                        },
+                        new
+                        {
+                            Id = 142,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9926),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9926),
+                            RecordId = 32,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "حمام السباحة"
+                        },
+                        new
+                        {
+                            Id = 147,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9930),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9931),
+                            RecordId = 29,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa"
+                        },
+                        new
+                        {
+                            Id = 148,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9931),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9932),
+                            RecordId = 30,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Masaj"
+                        },
+                        new
+                        {
+                            Id = 149,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9932),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9933),
+                            RecordId = 31,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Fitness"
+                        },
+                        new
+                        {
+                            Id = 150,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9933),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9934),
+                            RecordId = 32,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Havuz"
+                        },
+                        new
+                        {
+                            Id = 151,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9934),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9935),
+                            RecordId = 17,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Menu"
+                        },
+                        new
+                        {
+                            Id = 152,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9935),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9935),
+                            RecordId = 17,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Menú"
+                        },
+                        new
+                        {
+                            Id = 153,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9936),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9936),
+                            RecordId = 17,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Меню"
+                        },
+                        new
+                        {
+                            Id = 154,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9937),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9937),
+                            RecordId = 17,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Menu"
+                        },
+                        new
+                        {
+                            Id = 155,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9938),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9938),
+                            RecordId = 17,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "قائمة طعام"
+                        },
+                        new
+                        {
+                            Id = 156,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9939),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9939),
+                            RecordId = 17,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Menü"
+                        },
+                        new
+                        {
+                            Id = 157,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9940),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9940),
+                            RecordId = 18,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Technical Needs"
+                        },
+                        new
+                        {
+                            Id = 158,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9941),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9941),
+                            RecordId = 18,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Necesidades técnicas"
+                        },
+                        new
+                        {
+                            Id = 159,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9942),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9942),
+                            RecordId = 18,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Технические потребности"
+                        },
+                        new
+                        {
+                            Id = 160,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9944),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9944),
+                            RecordId = 18,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Besoins techniques"
+                        },
+                        new
+                        {
+                            Id = 161,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9945),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9945),
+                            RecordId = 18,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "الاحتياجات الفنية"
+                        },
+                        new
+                        {
+                            Id = 162,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9945),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9946),
+                            RecordId = 18,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Teknik İhtiyaçlar"
+                        },
+                        new
+                        {
+                            Id = 163,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9946),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9947),
+                            RecordId = 19,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "BellBoy"
+                        },
+                        new
+                        {
+                            Id = 164,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9947),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9948),
+                            RecordId = 19,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Bellboy"
+                        },
+                        new
+                        {
+                            Id = 165,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9948),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9949),
+                            RecordId = 19,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "БеллБой"
+                        },
+                        new
+                        {
+                            Id = 166,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9949),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9950),
+                            RecordId = 19,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Groom"
+                        },
+                        new
+                        {
+                            Id = 167,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9950),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9951),
+                            RecordId = 19,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "خادم الفندق"
+                        },
+                        new
+                        {
+                            Id = 168,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9951),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9951),
+                            RecordId = 19,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Bellboy"
+                        },
+                        new
+                        {
+                            Id = 169,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9952),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9952),
+                            RecordId = 20,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Wi-Fi"
+                        },
+                        new
+                        {
+                            Id = 170,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9953),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9953),
+                            RecordId = 20,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Wi-Fi"
+                        },
+                        new
+                        {
+                            Id = 172,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9955),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9955),
+                            RecordId = 20,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Wi-Fi"
+                        },
+                        new
+                        {
+                            Id = 173,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9956),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9956),
+                            RecordId = 20,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Wi-Fi"
+                        },
+                        new
+                        {
+                            Id = 174,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9957),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9957),
+                            RecordId = 20,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Wi-Fi"
+                        },
+                        new
+                        {
+                            Id = 171,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9954),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9954),
+                            RecordId = 20,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Wi-Fi"
+                        },
+                        new
+                        {
+                            Id = 175,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9957),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9958),
+                            RecordId = 21,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Dry Cleaning"
+                        },
+                        new
+                        {
+                            Id = 176,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9958),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9959),
+                            RecordId = 21,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Limpieza en seco"
+                        },
+                        new
+                        {
+                            Id = 177,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9959),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9960),
+                            RecordId = 21,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "химчистка"
+                        },
+                        new
+                        {
+                            Id = 178,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9960),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9960),
+                            RecordId = 21,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Nettoyage à sec"
+                        },
+                        new
+                        {
+                            Id = 179,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9961),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9961),
+                            RecordId = 21,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "التنظيف الجاف"
+                        },
+                        new
+                        {
+                            Id = 180,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9962),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9962),
+                            RecordId = 21,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Kuru Temizleme"
+                        },
+                        new
+                        {
+                            Id = 181,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9963),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9963),
+                            RecordId = 22,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "House Keeping"
+                        },
+                        new
+                        {
+                            Id = 182,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9964),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9964),
+                            RecordId = 22,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "House Keeping"
+                        },
+                        new
+                        {
+                            Id = 183,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9965),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9965),
+                            RecordId = 22,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "House Keeping"
+                        },
+                        new
+                        {
+                            Id = 184,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9966),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9966),
+                            RecordId = 22,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "House Keeping"
+                        },
+                        new
+                        {
+                            Id = 185,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9967),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9967),
+                            RecordId = 22,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "الأعمال المنزلية"
+                        },
+                        new
+                        {
+                            Id = 186,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9967),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9968),
+                            RecordId = 22,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "House Keeping"
+                        },
+                        new
+                        {
+                            Id = 187,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9969),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9970),
+                            RecordId = 23,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa Message"
+                        },
+                        new
+                        {
+                            Id = 188,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9970),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9971),
+                            RecordId = 23,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa Message"
+                        },
+                        new
+                        {
+                            Id = 190,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9972),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9972),
+                            RecordId = 23,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa Message"
+                        },
+                        new
+                        {
+                            Id = 189,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9971),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9972),
+                            RecordId = 23,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa Message"
+                        },
+                        new
+                        {
+                            Id = 191,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9973),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9973),
+                            RecordId = 23,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa Message"
+                        },
+                        new
+                        {
+                            Id = 192,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9974),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9974),
+                            RecordId = 23,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Spa Message"
+                        },
+                        new
+                        {
+                            Id = 193,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9975),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9975),
+                            RecordId = 24,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Health and First Aid"
+                        },
+                        new
+                        {
+                            Id = 194,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9976),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9976),
+                            RecordId = 24,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Salud y primeros auxilios"
+                        },
+                        new
+                        {
+                            Id = 195,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9977),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9977),
+                            RecordId = 24,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Здоровье и первая помощь"
+                        },
+                        new
+                        {
+                            Id = 196,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9978),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9978),
+                            RecordId = 24,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Santé et premiers secours"
+                        },
+                        new
+                        {
+                            Id = 197,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9979),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9979),
+                            RecordId = 24,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "الصحة والإسعافات الأولية"
+                        },
+                        new
+                        {
+                            Id = 198,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9979),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9980),
+                            RecordId = 24,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Sağlık ve İlk Yardım"
+                        },
+                        new
+                        {
+                            Id = 199,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9989),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9989),
+                            RecordId = 25,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Travel Or Transportation"
+                        },
+                        new
+                        {
+                            Id = 200,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9990),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9990),
+                            RecordId = 25,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Viajes o transporte"
+                        },
+                        new
+                        {
+                            Id = 202,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9991),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9992),
+                            RecordId = 25,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Voyage ou transport"
+                        },
+                        new
+                        {
+                            Id = 201,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9990),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9991),
+                            RecordId = 25,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Путешествие или транспорт"
+                        },
+                        new
+                        {
+                            Id = 203,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9992),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9993),
+                            RecordId = 25,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "السفر أو النقل"
+                        },
+                        new
+                        {
+                            Id = 204,
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9993),
+                            FieldName = "ParametreValue",
+                            IsActive = true,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 618, DateTimeKind.Local).AddTicks(9994),
+                            RecordId = 25,
+                            TableName = "SystemParametreValue",
+                            TranslationValue = "Seyahat Veya Ulaşım"
+                        });
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Users", b =>
@@ -2066,18 +5666,147 @@ namespace WorigoApp.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(5609),
+                            CreatedDate = new DateTime(2024, 10, 25, 16, 53, 55, 619, DateTimeKind.Local).AddTicks(1183),
                             Email = "samt51.m@icloud.com",
                             IsActive = true,
                             IsDeleted = false,
-                            ModifyDate = new DateTime(2024, 10, 17, 12, 6, 51, 302, DateTimeKind.Local).AddTicks(5610),
+                            ModifyDate = new DateTime(2024, 10, 25, 16, 53, 55, 619, DateTimeKind.Local).AddTicks(1184),
                             Password = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
                             RoleId = 1
                         });
                 });
 
+            modelBuilder.Entity("WorigoApp.Domain.Entites.ValidationMessages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ValidationMessage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ValidationMessageType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ValidationMessages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ValidationMessage = "{0} alanı boş olamaz.",
+                            ValidationMessageType = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ValidationMessage = "{0} field cannot be empty.",
+                            ValidationMessageType = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ValidationMessage = "{0} el campo no puede estar vacío",
+                            ValidationMessageType = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ValidationMessage = "{0} le champ ne peut pas être vide.",
+                            ValidationMessageType = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ValidationMessage = "{0} поле не может быть пустым",
+                            ValidationMessageType = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ValidationMessage = "{0} لا يمكن أن يكون الحقل فارغًا",
+                            ValidationMessageType = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsDeleted = false,
+                            LanguageCode = "tr-TR",
+                            ValidationMessage = "Geçerli bir email adresi giriniz.",
+                            ValidationMessageType = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            IsDeleted = false,
+                            LanguageCode = "es-ES",
+                            ValidationMessage = "Por favor, introduce una dirección de correo electrónico válida.",
+                            ValidationMessageType = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsDeleted = false,
+                            LanguageCode = "en-US",
+                            ValidationMessage = "Please enter a valid email address.",
+                            ValidationMessageType = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            IsDeleted = false,
+                            LanguageCode = "fr-FR",
+                            ValidationMessage = "S'il vous plaît, mettez une adresse email valide",
+                            ValidationMessageType = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            IsDeleted = false,
+                            LanguageCode = "ru-RU",
+                            ValidationMessage = "Пожалуйста, введите действительный адрес электронной почты",
+                            ValidationMessageType = 4
+                        },
+                        new
+                        {
+                            Id = 12,
+                            IsDeleted = false,
+                            LanguageCode = "ar-SA",
+                            ValidationMessage = "يرجى إدخال عنوان بريد إلكتروني صالح",
+                            ValidationMessageType = 4
+                        });
+                });
+
             modelBuilder.Entity("WorigoApp.Domain.Entites.CommentAndRating", b =>
                 {
+                    b.HasOne("WorigoApp.Domain.Entites.Food", "Food")
+                        .WithMany("CommentAndRatings")
+                        .HasForeignKey("FoodId");
+
                     b.HasOne("WorigoApp.Domain.Entites.Order", "Order")
                         .WithMany("CommentAndRatings")
                         .HasForeignKey("OrderId")
@@ -2089,6 +5818,8 @@ namespace WorigoApp.Persistence.Migrations
                         .HasForeignKey("WorigoApp.Domain.Entites.CommentAndRating", "OrderItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Food");
 
                     b.Navigation("Order");
 
@@ -2193,13 +5924,25 @@ namespace WorigoApp.Persistence.Migrations
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Image", b =>
                 {
+                    b.HasOne("WorigoApp.Domain.Entites.Food", "Food")
+                        .WithMany("Images")
+                        .HasForeignKey("FoodId");
+
                     b.HasOne("WorigoApp.Domain.Entites.ImageCategory", "ImageCategory")
                         .WithMany("Images")
                         .HasForeignKey("ImageCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("WorigoApp.Domain.Entites.OrderItem", "OrderItem")
+                        .WithMany("Images")
+                        .HasForeignKey("OrderItemId");
+
+                    b.Navigation("Food");
+
                     b.Navigation("ImageCategory");
+
+                    b.Navigation("OrderItem");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.ImageCategory", b =>
@@ -2211,6 +5954,25 @@ namespace WorigoApp.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Hotel");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.IntermediateTables.FoodAllergens", b =>
+                {
+                    b.HasOne("WorigoApp.Domain.Entites.Allergen", "Allergen")
+                        .WithMany("FoodAllergens")
+                        .HasForeignKey("AllergenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WorigoApp.Domain.Entites.Food", "Food")
+                        .WithMany("FoodAllergens")
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Allergen");
+
+                    b.Navigation("Food");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.IntermediateTables.FoodContentsOfFood", b =>
@@ -2228,6 +5990,36 @@ namespace WorigoApp.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("ContentsOfFood");
+
+                    b.Navigation("Food");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.IntermediateTables.FoodDietaryRestrictions", b =>
+                {
+                    b.HasOne("WorigoApp.Domain.Entites.DietaryRestriction", "DietaryRestriction")
+                        .WithMany("FoodDietaryRestrictions")
+                        .HasForeignKey("DietaryRestrictionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WorigoApp.Domain.Entites.Food", "Food")
+                        .WithMany("FoodDietaryRestrictions")
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DietaryRestriction");
+
+                    b.Navigation("Food");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.NutritionalInfo", b =>
+                {
+                    b.HasOne("WorigoApp.Domain.Entites.Food", "Food")
+                        .WithOne("NutritionalInfo")
+                        .HasForeignKey("WorigoApp.Domain.Entites.NutritionalInfo", "FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Food");
                 });
@@ -2292,6 +6084,17 @@ namespace WorigoApp.Persistence.Migrations
                     b.Navigation("Room");
                 });
 
+            modelBuilder.Entity("WorigoApp.Domain.Entites.SystemParametreValues", b =>
+                {
+                    b.HasOne("WorigoApp.Domain.Entites.SystemParametre", "SystemParametre")
+                        .WithMany("SystemParametreValues")
+                        .HasForeignKey("SystemParametreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SystemParametre");
+                });
+
             modelBuilder.Entity("WorigoApp.Domain.Entites.Users", b =>
                 {
                     b.HasOne("WorigoApp.Domain.Entites.Roles", "Role")
@@ -2301,6 +6104,11 @@ namespace WorigoApp.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.Allergen", b =>
+                {
+                    b.Navigation("FoodAllergens");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Company", b =>
@@ -2318,6 +6126,11 @@ namespace WorigoApp.Persistence.Migrations
                     b.Navigation("EmployeeTypes");
                 });
 
+            modelBuilder.Entity("WorigoApp.Domain.Entites.DietaryRestriction", b =>
+                {
+                    b.Navigation("FoodDietaryRestrictions");
+                });
+
             modelBuilder.Entity("WorigoApp.Domain.Entites.Employee", b =>
                 {
                     b.Navigation("EmployeeDetail")
@@ -2331,7 +6144,18 @@ namespace WorigoApp.Persistence.Migrations
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Food", b =>
                 {
+                    b.Navigation("CommentAndRatings");
+
+                    b.Navigation("FoodAllergens");
+
                     b.Navigation("FoodContentsOfFoods");
+
+                    b.Navigation("FoodDietaryRestrictions");
+
+                    b.Navigation("Images");
+
+                    b.Navigation("NutritionalInfo")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.FoodMenuCategory", b =>
@@ -2373,6 +6197,8 @@ namespace WorigoApp.Persistence.Migrations
                 {
                     b.Navigation("CommentAndRating")
                         .IsRequired();
+
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("WorigoApp.Domain.Entites.Roles", b =>
@@ -2390,6 +6216,11 @@ namespace WorigoApp.Persistence.Migrations
             modelBuilder.Entity("WorigoApp.Domain.Entites.RoomType", b =>
                 {
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("WorigoApp.Domain.Entites.SystemParametre", b =>
+                {
+                    b.Navigation("SystemParametreValues");
                 });
 #pragma warning restore 612, 618
         }

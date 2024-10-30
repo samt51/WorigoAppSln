@@ -20,11 +20,14 @@ namespace WorigoApp.Application.Middleware
         {
             var request = context.GetRouteValue("action");
 
-
             //translation tablosunu cachte yoksa doldurur.
-            TransactionAddOrControllToCache(context);
+            await TransactionAddOrControllToCache(context);
             //ContentsOfFood tablosunu cachte yoksa doldurur.
-            CacheSetContentsOfFoodDatas(context);
+            await CacheSetContentsOfFoodDatas(context);
+            //Validasyon mesajlarını doldurur.
+            await SetCacheValidationMessages(context);
+
+
 
 
             if (request.ToString() == "Logout")
@@ -96,7 +99,7 @@ namespace WorigoApp.Application.Middleware
 
             return localTime;
         }
-        public async void TransactionAddOrControllToCache(HttpContext context)
+        public async Task TransactionAddOrControllToCache(HttpContext context)
         {
             var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)
@@ -118,7 +121,7 @@ namespace WorigoApp.Application.Middleware
             }
         }
 
-        public async void CacheSetContentsOfFoodDatas(HttpContext context)
+        public async Task CacheSetContentsOfFoodDatas(HttpContext context)
         {
             var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)
@@ -133,6 +136,27 @@ namespace WorigoApp.Application.Middleware
                         memoryCache.Set<IList<ContentsOfFood>>("contentsOfFood", data, new MemoryCacheEntryOptions
                         {
                             AbsoluteExpiration = DateTime.Now.AddDays(1),
+                            Priority = CacheItemPriority.Normal,
+                        });
+                    }
+                }
+            }
+        }
+        public async Task SetCacheValidationMessages(HttpContext context)
+        {
+            var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
+            if (memoryCache != null)
+            {
+                var cache = memoryCache.Get<List<ValidationMessages>>("validationMessage");
+                if (cache is null)
+                {
+                    var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
+                    if (unitOfWork != null)
+                    {
+                        var data = await unitOfWork.GetReadRepository<ValidationMessages>().GetAllAsync();
+                        memoryCache.Set<IList<ValidationMessages>>("validationMessage", data, new MemoryCacheEntryOptions
+                        {
+                            AbsoluteExpiration = DateTime.Now.AddDays(30),
                             Priority = CacheItemPriority.Normal,
                         });
                     }

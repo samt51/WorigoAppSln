@@ -23,6 +23,7 @@ namespace WorigoApp.Persistence.Context
         {
 
             base.OnModelCreating(modelBuilder);
+            #region Yemek ve içindekiler ilişki
 
             modelBuilder.Entity<FoodContentsOfFood>()
            .HasKey(fc => new { fc.FoodId, fc.ContentsOfFoodId });
@@ -37,6 +38,38 @@ namespace WorigoApp.Persistence.Context
                 .WithMany(c => c.FoodContentsOfFoods)
                 .HasForeignKey(fc => fc.ContentsOfFoodId);
 
+            #endregion
+
+            #region Yemek ve alerjen maddeler
+
+            modelBuilder.Entity<FoodAllergens>()
+      .HasKey(fc => new { fc.FoodId, fc.AllergenId });
+
+            modelBuilder.Entity<FoodAllergens>()
+                .HasOne(fc => fc.Food)
+                .WithMany(f => f.FoodAllergens)
+                .HasForeignKey(fc => fc.FoodId);
+
+            modelBuilder.Entity<FoodAllergens>()
+                .HasOne(fc => fc.Allergen)
+                .WithMany(c => c.FoodAllergens)
+                .HasForeignKey(fc => fc.AllergenId);
+            #endregion
+
+            #region Yemek ve diyet kısıtlaması
+            modelBuilder.Entity<FoodDietaryRestrictions>()
+  .HasKey(fc => new { fc.FoodId, fc.DietaryRestrictionId });
+
+            modelBuilder.Entity<FoodDietaryRestrictions>()
+                .HasOne(fc => fc.Food)
+                .WithMany(f => f.FoodDietaryRestrictions)
+                .HasForeignKey(fc => fc.FoodId);
+
+            modelBuilder.Entity<FoodDietaryRestrictions>()
+                .HasOne(fc => fc.DietaryRestriction)
+                .WithMany(c => c.FoodDietaryRestrictions)
+                .HasForeignKey(fc => fc.DietaryRestrictionId);
+            #endregion
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
@@ -73,6 +106,18 @@ namespace WorigoApp.Persistence.Context
         public DbSet<RoomBasedTransaction> RoomBasedTransaction { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<FoodContentsOfFood> FoodContentsOfFood { get; set; }
+        public DbSet<SystemParametre> SystemParameter { get; set; }
+        public DbSet<SystemParametreValues> SystemParametreValues { get; set; }
+        public DbSet<ServiceRoleAssignments> ServiceRoleAssignment { get; set; }
+        public DbSet<Allergen> Allergen { get; set; }
+        public DbSet<DietaryRestriction> DietaryRestriction { get; set; }
+        public DbSet<NutritionalInfo> NutritionalInfo { get; set; }
+        public DbSet<FoodAllergens> FoodAllergen { get; set; }
+        public DbSet<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }
+        public DbSet<HealthAndSafety> HealthAndSafety { get; set; }
+        public DbSet<TravelOrTransportation> TravelOrTransportation { get; set; }
+        public DbSet<ValidationMessages> ValidationMessages { get; set; }
+
 
         #endregion
     }

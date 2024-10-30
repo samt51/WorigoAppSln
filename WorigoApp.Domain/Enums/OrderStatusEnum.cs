@@ -2,10 +2,17 @@
 {
     public enum OrderStatusEnum
     {
-        OrderReceived = 1,
-        Preparing = 2,
-        Departed = 3,
-        Delivered = 4,
-        Canceled = 5
+        /// <summary>
+        /// Hazırlanıyor
+        /// </summary>
+        Preparing = 1,
+        /// <summary>
+        /// Geliyor
+        /// </summary>
+        IsComing = 2,
+        /// <summary>
+        /// Teslim Edildi
+        /// </summary>
+        Delivered = 3,
     }
 }

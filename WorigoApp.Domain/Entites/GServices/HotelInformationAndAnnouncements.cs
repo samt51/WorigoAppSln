@@ -12,5 +12,13 @@ namespace WorigoApp.Domain.Entites.GServices
         public string ImageUrl { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
+        public HotelInformationAndAnnouncements(int id, string name, string imageUrl, string description, DateTime date)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.ImageUrl = imageUrl;
+            this.Description = description;
+            this.Date = date;
+        }
     }
 }

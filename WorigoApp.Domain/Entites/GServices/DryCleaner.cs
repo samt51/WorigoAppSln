@@ -18,7 +18,8 @@ namespace WorigoApp.Domain.Entites.GServices
         public string ImageUrl { get; set; }
         public int? ParentId { get; set; }
         public decimal? Price { get; set; }
-        public DryCleaner(int id, string name, string description, string imageUrl, int? parentId, decimal? price)
+        public int PriceStatusId { get; set; }
+        public DryCleaner(int id, string name, string description, string imageUrl, int? parentId, decimal? price, int priceStatusId)
         {
             this.Id = id;
             this.Name = name;
@@ -26,6 +27,7 @@ namespace WorigoApp.Domain.Entites.GServices
             this.ImageUrl = imageUrl;
             this.ParentId = parentId;
             this.Price = price;
+            this.PriceStatusId = priceStatusId;
         }
     }
 }

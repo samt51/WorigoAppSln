@@ -61,7 +61,7 @@ namespace WorigoApp.Application.Middleware.Exceptions
                     var languageCode = httpContext.Request.Headers["Accept-Language"].ToString();
                     if (languageCode is not null)
                     {
-                        message = cache.Where(x => x.Key == "UnknownError" && x.LanguageCode == languageCode)?.FirstOrDefault()?.Text;
+                        message = cache.Where(x => x.FieldName == "UnknownError" && x.LanguageCode == languageCode)?.FirstOrDefault()?.TranslationValue;
                     }
                 }
             }
