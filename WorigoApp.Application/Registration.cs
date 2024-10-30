@@ -12,6 +12,9 @@ using WorigoApp.CrossCuttingConcerns.Logging.Logger;
 using WorigoApp.CrossCuttingConcerns.Logging.Serilog;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using WorigoApp.Application.Helpers;
+using WorigoApp.Domain.Entites;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace WorigoApp.Application
 {
@@ -33,9 +36,12 @@ namespace WorigoApp.Application
 
             ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("tr");
 
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddControllersWithViews().AddDataAnnotationsLocalization();
+
             services.Configure<RequestLocalizationOptions>(cfg =>
             {
-                cfg.DefaultRequestCulture = new("en-US");
+                cfg.DefaultRequestCulture = new("fr-FR");
                 CultureInfo[] cultures = new CultureInfo[]
                     {
                         new("tr-TR"),
@@ -65,6 +71,8 @@ namespace WorigoApp.Application
 
 
             services.AddSingleton<LoggerServiceBase, FileLogger>();
+
+            services.AddSingleton<GetDataFromCache>();
 
 
 

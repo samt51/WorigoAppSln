@@ -20,7 +20,6 @@
     <Folder Include="Features\AllServiceFeature\SpaMassagies\Commands\" />
     <Folder Include="Features\AllServiceFeature\SpaMassagies\Queries\" />
     <Folder Include="Features\AllServiceFeature\TechnicalNeeds\Commands\" />
-    <Folder Include="Features\AllServiceFeature\TechnicalNeeds\Queries\" />
     <Folder Include="Features\Auth\Commands\RefreshToken\" />
     <Folder Include="Features\Auth\Queries\" />
     <Folder Include="Features\Companies\Exceptions\" />
@@ -35,6 +34,9 @@
     <Folder Include="Features\Hotels\Exceptions\" />
     <Folder Include="Features\ImageCategories\Exceptions\" />
     <Folder Include="Features\Images\Exceptions\" />
+    <Folder Include="Features\OrderOfOrderItems\Commands\UpdateOrder\" />
+    <Folder Include="Features\OrderOfOrderItems\Queries\GetAllOrder\" />
+    <Folder Include="Features\OrderOfOrderItems\Queries\GetByIdOrder\" />
     <Folder Include="Features\RoomBasedTransactions\Queries\" />
     <Folder Include="Features\RoomTypes\Commands\" />
     <Folder Include="Features\RoomTypes\Exceptions\" />
@@ -49,19 +51,21 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SendGrid" Version="9.29.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.9.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
+    <!-- Burayı ekleyin -->
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WorigoApp.CrossCuttingConcerns\WorigoApp.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\WorigoApp.Domain\WorigoApp.Domain.csproj" />
   </ItemGroup>
+
+ 
 
 </Project>

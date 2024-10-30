@@ -25,5 +25,17 @@ namespace WorigoApp.Domain.Entites
         public int FoodMenuCategoryId { get; set; }
         public FoodMenuCategory FoodMenuCategory { get; set; }
         public ICollection<FoodContentsOfFood> FoodContentsOfFoods { get; set; }
+        public IList<Image> Images { get; set; }
+        public IList<CommentAndRating> CommentAndRatings { get; set; }
+        public ICollection<FoodAllergens> FoodAllergens { get; set; }
+        public ICollection<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }
+        public NutritionalInfo NutritionalInfo { get; set; }
+        public decimal? DiscountPrice { get; set; }  // İndirimli fiyat
+        public bool IsOnPromotion { get; set; }  // Promosyonda mı?
+        public bool IsAvailable { get; set; }  // Yemek mevcut mu?
+        /// <summary>
+        /// HAZIRLANMA SÜRESİ
+        /// </summary>
+        public TimeOnly PREPARATIONTIME { get; set; }
     }
 }

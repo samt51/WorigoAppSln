@@ -12,5 +12,7 @@ namespace WorigoApp.Domain.Entites
         public Order Order { get; set; }
         public int OrderItemId { get; set; }
         public OrderItem OrderItem { get; set; }
+        public int? FoodId { get; set; }
+        public Food Food { get; set; }
     }
 }
