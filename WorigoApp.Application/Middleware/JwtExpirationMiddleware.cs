@@ -30,7 +30,7 @@ namespace WorigoApp.Application.Middleware
 
 
 
-            if (request.ToString() == "Logout")
+            if (request is not null && request.ToString() == "Logout")
             {
                 var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 

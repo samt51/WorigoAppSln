@@ -13,8 +13,6 @@ using WorigoApp.CrossCuttingConcerns.Logging.Serilog;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Application.Helpers;
-using WorigoApp.Domain.Entites;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace WorigoApp.Application
 {

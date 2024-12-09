@@ -8,9 +8,7 @@ using WorigoApp.Application.Features.Auth.Commands.Register;
 
 namespace WorigoApp.Api.Controllers.Auth
 {
-    [Route("[controller]/[action]")]
     [AllowAnonymous]
-    [ApiController]
     public class AuthController : BaseController
     {
         private readonly IMediator mediator;
