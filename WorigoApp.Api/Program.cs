@@ -14,9 +14,6 @@ using WorigoApp.Application.Middleware.Exceptions;
 using MediatR;
 using WorigoApp.Application.Pipelines.Behaviour;
 using WorigoApp.Application.Filters;
-using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-using Microsoft.AspNetCore.Builder;
 
 internal class Program
 {

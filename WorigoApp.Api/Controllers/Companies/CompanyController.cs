@@ -6,6 +6,7 @@ using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.Companies.Commands.CreateCompany;
 using WorigoApp.Application.Features.Companies.Commands.UpdateCompany;
 using WorigoApp.Application.Features.Companies.Queries.GetAllCompanies;
+using WorigoApp.Application.Features.Companies.Queries.GetByCompany;
 using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Companies
@@ -19,8 +20,8 @@ namespace WorigoApp.Api.Controllers.Companies
             this._mediator = mediator;
         }
         [HttpGet]
-        [CachingCheckAttiribute<List<GetAllCompaniesQueryResponse>>("category")]
-        public async Task<IList<GetAllCompaniesQueryResponse>> GetAllAsync()
+        [CachingCheckAttiribute<Response<IList<GetAllCompaniesQueryResponse>>>("category")]
+        public async Task<Response<IList<GetAllCompaniesQueryResponse>>> GetAllAsync()
         {
             return await this._mediator.Send(new GetAllCompaniesQueryRequest());
         }
@@ -35,6 +36,11 @@ namespace WorigoApp.Api.Controllers.Companies
         public async Task<Response<UpdateCompanyCommandResponse>> UpdateAsync(UpdateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);
+        }
+        [HttpGet("{id}")]
+        public async Task<Response<GetByIdCompanyQueryResponse>> GetByIdAsync(int id)
+        {
+            return await _mediator.Send(new GetByIdCompanyQueryRequest(id));
         }
     }
 }
