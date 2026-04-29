@@ -6,19 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Departments.Commands.CreateDepartment
 {
-    public class CreateDepartmentCommonHandler : BaseHandler, IRequestHandler<CreateDepartmentCommonRequest, Response<CreateDepartmentCommonResponse>>
+    public class CreateDepartmentCommonHandler : BaseHandler, IRequestHandler<CreateDepartmentCommonRequest, ResponseDto<CreateDepartmentCommonResponse>>
     {
         public CreateDepartmentCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<CreateDepartmentCommonResponse>> Handle(CreateDepartmentCommonRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<CreateDepartmentCommonResponse>> Handle(CreateDepartmentCommonRequest request, CancellationToken cancellationToken)
         {
             var hoteIsControll = await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
 
             var map = mapper.Map<EmployeeType, CreateDepartmentCommonRequest>(request);
 
-            unitOfWork.OpenTransaction();
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
 
             var saveEntity = await unitOfWork.GetWriteRepository<EmployeeType>().AddAsync(map);
 
@@ -26,7 +26,7 @@ namespace WorigoApp.Application.Features.Departments.Commands.CreateDepartment
 
             await unitOfWork.CommitAsync();
 
-            return new Response<CreateDepartmentCommonResponse>().Success();
+            return new ResponseDto<CreateDepartmentCommonResponse>().Success();
         }
     }
 }

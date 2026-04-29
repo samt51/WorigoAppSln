@@ -10,6 +10,12 @@
         HouseKeeping = 6,
         SpaMessage = 7,
         HealthAndSafety = 8,
-        TravelOrTransportation = 9
+        TravelOrTransportation = 9,
+        Minibar = 10,
+        WakeUpCall = 11,
+        ValetParking = 12,
+        StayExtension = 13,
+        AmenityRequest = 14,
+        MedicalAssistance = 15
     }
 }

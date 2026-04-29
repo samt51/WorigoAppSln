@@ -8,7 +8,7 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.CreateContentOfFood
 {
-    public class CreateContentOfFoodHandler : BaseHandler, IRequestHandler<CreateContentOfFoodRequest, Response<CreateContentOfFoodResponse>>
+    public class CreateContentOfFoodHandler : BaseHandler, IRequestHandler<CreateContentOfFoodRequest, ResponseDto<CreateContentOfFoodResponse>>
     {
         private readonly IMemoryCache _memoryCache;
         private readonly ContentOfFoodRule _contentOfFoodRule;
@@ -18,13 +18,13 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Commands.CreateContentOf
             this._contentOfFoodRule = contentOfFoodRule;
         }
 
-        public async Task<Response<CreateContentOfFoodResponse>> Handle(CreateContentOfFoodRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<CreateContentOfFoodResponse>> Handle(CreateContentOfFoodRequest request, CancellationToken cancellationToken)
         {
             await _contentOfFoodRule.IsThereRequestContentOfFoodToCache(request.Name);
 
             var mapData = mapper.Map<ContentsOfFood, CreateContentOfFoodRequest>(request);
 
-            unitOfWork.OpenTransaction();
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
 
             await unitOfWork.GetWriteRepository<ContentsOfFood>().AddAsync(mapData);
 
@@ -32,7 +32,7 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Commands.CreateContentOf
 
             await unitOfWork.CommitAsync();
 
-            return new Response<CreateContentOfFoodResponse>().Success();
+            return new ResponseDto<CreateContentOfFoodResponse>().Success();
         }
     }
 }

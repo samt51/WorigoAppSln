@@ -6,17 +6,17 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Companies.Commands.CreateCompany
 {
-    public class CreateCompanyCommandHandler : BaseHandler, IRequestHandler<CreateCompanyCommandRequest, Response<CreateCompanyCommandResponse>>
+    public class CreateCompanyCommandHandler : BaseHandler, IRequestHandler<CreateCompanyCommandRequest, ResponseDto<CreateCompanyCommandResponse>>
     {
         public CreateCompanyCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
 
         }
-        public async Task<Response<CreateCompanyCommandResponse>> Handle(CreateCompanyCommandRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<CreateCompanyCommandResponse>> Handle(CreateCompanyCommandRequest request, CancellationToken cancellationToken)
         {
             var map = mapper.Map<Company, CreateCompanyCommandRequest>(request);
 
-            unitOfWork.OpenTransaction();
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
 
             var saveEntity = await unitOfWork.GetWriteRepository<Company>().AddAsync(map);
 
@@ -26,7 +26,7 @@ namespace WorigoApp.Application.Features.Companies.Commands.CreateCompany
 
             var result = mapper.Map<CreateCompanyCommandResponse, Company>(saveEntity);
 
-            return new Response<CreateCompanyCommandResponse>().Success(result);
+            return new ResponseDto<CreateCompanyCommandResponse>().Success(result);
         }
     }
 }

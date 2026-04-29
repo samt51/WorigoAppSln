@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Departments.Commands.UpdateDepartment
 {
-    public class UpdateDepartmentCommonRequest : IRequest<Response<UpdateDepartmentCommonResponse>>
+    public class UpdateDepartmentCommonRequest : IRequest<ResponseDto<UpdateDepartmentCommonResponse>>
     {
         public UpdateDepartmentCommonRequest(int id, string name)
         {

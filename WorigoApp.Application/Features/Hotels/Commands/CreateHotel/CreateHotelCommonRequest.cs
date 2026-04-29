@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Hotels.Commands.CreateHotel
 {
-    public class CreateHotelCommonRequest : IRequest<Response<CreateHotelCommonResponse>>
+    public class CreateHotelCommonRequest : IRequest<ResponseDto<CreateHotelCommonResponse>>
     {
         public string Name { get; set; }
         public string Location { get; set; }

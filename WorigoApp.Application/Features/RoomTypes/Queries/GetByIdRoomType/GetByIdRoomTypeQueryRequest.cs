@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.RoomTypes.Queries.GetByIdRoomType
 {
-    public class GetByIdRoomTypeQueryRequest : IRequest<Response<GetByIdRoomTypeQueryResponse>>
+    public class GetByIdRoomTypeQueryRequest : IRequest<ResponseDto<GetByIdRoomTypeQueryResponse>>
     {
         public GetByIdRoomTypeQueryRequest(int id)
         {

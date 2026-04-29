@@ -7,7 +7,7 @@ namespace WorigoApp.Application.Middleware.Exceptions
     {
         //public IEnumerable<string> Errors { get; set; }
 
-        public Bases.Response<ExceptionModel> Response { get; set; }
+        public Bases.ResponseDto<ExceptionModel> Response { get; set; }
 
         public override string ToString()
         {

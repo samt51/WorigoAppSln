@@ -92,5 +92,103 @@ namespace WorigoApp.Application.Helpers.DesignPatterns.StrategyAndFactory.Implem
                 return await _unitOfWork.GetReadRepository<HouseKeeping>().GetAsync(y => y.Id == serviceItemId);
             }
         }
+        public class MinibarServiceStrategy : IServiceStrategy<MinibarService>
+        {
+            private readonly IUnitOfWork _unitOfWork;
+
+            public MinibarServiceStrategy(IUnitOfWork unitOfWork)
+            {
+                _unitOfWork = unitOfWork;
+            }
+
+            public async Task<MinibarService> GetServiceItemAsync(int serviceItemId)
+            {
+                return await _unitOfWork.GetReadRepository<MinibarService>().GetAsync(y => y.Id == serviceItemId);
+            }
+        }
+        public class WakeUpCallServiceStrategy : IServiceStrategy<WakeUpCallService>
+        {
+            private readonly IUnitOfWork _unitOfWork;
+
+            public WakeUpCallServiceStrategy(IUnitOfWork unitOfWork)
+            {
+                _unitOfWork = unitOfWork;
+            }
+
+            public async Task<WakeUpCallService> GetServiceItemAsync(int serviceItemId)
+            {
+                return await _unitOfWork.GetReadRepository<WakeUpCallService>().GetAsync(y => y.Id == serviceItemId);
+            }
+        }
+        public class ValetParkingServiceStrategy : IServiceStrategy<ValetParkingService>
+        {
+            private readonly IUnitOfWork _unitOfWork;
+
+            public ValetParkingServiceStrategy(IUnitOfWork unitOfWork)
+            {
+                _unitOfWork = unitOfWork;
+            }
+
+            public async Task<ValetParkingService> GetServiceItemAsync(int serviceItemId)
+            {
+                return await _unitOfWork.GetReadRepository<ValetParkingService>().GetAsync(y => y.Id == serviceItemId);
+            }
+        }
+        public class StayExtensionServiceStrategy : IServiceStrategy<StayExtensionService>
+        {
+            private readonly IUnitOfWork _unitOfWork;
+
+            public StayExtensionServiceStrategy(IUnitOfWork unitOfWork)
+            {
+                _unitOfWork = unitOfWork;
+            }
+
+            public async Task<StayExtensionService> GetServiceItemAsync(int serviceItemId)
+            {
+                return await _unitOfWork.GetReadRepository<StayExtensionService>().GetAsync(y => y.Id == serviceItemId);
+            }
+        }
+        public class AmenityRequestServiceStrategy : IServiceStrategy<AmenityRequestService>
+        {
+            private readonly IUnitOfWork _unitOfWork;
+
+            public AmenityRequestServiceStrategy(IUnitOfWork unitOfWork)
+            {
+                _unitOfWork = unitOfWork;
+            }
+
+            public async Task<AmenityRequestService> GetServiceItemAsync(int serviceItemId)
+            {
+                return await _unitOfWork.GetReadRepository<AmenityRequestService>().GetAsync(y => y.Id == serviceItemId);
+            }
+        }
+        public class MedicalAssistanceServiceStrategy : IServiceStrategy<MedicalAssistanceService>
+        {
+            private readonly IUnitOfWork _unitOfWork;
+
+            public MedicalAssistanceServiceStrategy(IUnitOfWork unitOfWork)
+            {
+                _unitOfWork = unitOfWork;
+            }
+
+            public async Task<MedicalAssistanceService> GetServiceItemAsync(int serviceItemId)
+            {
+                return await _unitOfWork.GetReadRepository<MedicalAssistanceService>().GetAsync(y => y.Id == serviceItemId);
+            }
+        }
+        public class TravelOrTransportationServiceStrategy : IServiceStrategy<TravelOrTransportation>
+        {
+            private readonly IUnitOfWork _unitOfWork;
+
+            public TravelOrTransportationServiceStrategy(IUnitOfWork unitOfWork)
+            {
+                _unitOfWork = unitOfWork;
+            }
+
+            public async Task<TravelOrTransportation> GetServiceItemAsync(int serviceItemId)
+            {
+                return await _unitOfWork.GetReadRepository<TravelOrTransportation>().GetAsync(y => y.Id == serviceItemId);
+            }
+        }
     }
 }

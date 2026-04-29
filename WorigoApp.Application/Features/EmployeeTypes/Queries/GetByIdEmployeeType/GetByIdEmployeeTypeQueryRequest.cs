@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Queries.GetByIdEmployeeType
 {
-    public class GetByIdEmployeeTypeQueryRequest : IRequest<Response<GetByIdEmployeeTypeQueryResponse>>
+    public class GetByIdEmployeeTypeQueryRequest : IRequest<ResponseDto<GetByIdEmployeeTypeQueryResponse>>
     {
         public GetByIdEmployeeTypeQueryRequest(int employeeTypeId)
         {

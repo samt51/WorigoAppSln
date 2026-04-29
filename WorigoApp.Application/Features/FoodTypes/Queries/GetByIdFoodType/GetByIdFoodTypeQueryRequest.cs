@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.FoodTypes.Queries.GetByIdFoodType
 {
-    public class GetByIdFoodTypeQueryRequest : IRequest<Response<GetByIdFoodTypeQueryResponse>>
+    public class GetByIdFoodTypeQueryRequest : IRequest<ResponseDto<GetByIdFoodTypeQueryResponse>>
     {
         public GetByIdFoodTypeQueryRequest(int id)
         {

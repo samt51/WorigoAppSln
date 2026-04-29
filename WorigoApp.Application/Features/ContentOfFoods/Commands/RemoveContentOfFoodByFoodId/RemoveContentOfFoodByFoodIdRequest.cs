@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.RemoveContentOfFoodByFoodId
 {
-   public class RemoveContentOfFoodByFoodIdRequest : IRequest<Response<RemoveContentOfFoodByFoodIdResponse>>    
+   public class RemoveContentOfFoodByFoodIdRequest : IRequest<ResponseDto<RemoveContentOfFoodByFoodIdResponse>>    
     {
         public int FoodId { get; }
         public int ContentsOfFoodId { get; }

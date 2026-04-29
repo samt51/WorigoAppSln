@@ -8,13 +8,13 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Queries.GetByIdEmployeeType
 {
-    public class GetByIdEmployeeTypeQueryHandler : BaseHandler, IRequestHandler<GetByIdEmployeeTypeQueryRequest, Response<GetByIdEmployeeTypeQueryResponse>>
+    public class GetByIdEmployeeTypeQueryHandler : BaseHandler, IRequestHandler<GetByIdEmployeeTypeQueryRequest, ResponseDto<GetByIdEmployeeTypeQueryResponse>>
     {
         public GetByIdEmployeeTypeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<GetByIdEmployeeTypeQueryResponse>> Handle(GetByIdEmployeeTypeQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<GetByIdEmployeeTypeQueryResponse>> Handle(GetByIdEmployeeTypeQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.EmployeeTypeId && !x.IsDeleted, y => y.Include(x => x.Department));
 
@@ -22,7 +22,7 @@ namespace WorigoApp.Application.Features.EmployeeTypes.Queries.GetByIdEmployeeTy
 
             var map = mapper.Map<GetByIdEmployeeTypeQueryResponse, EmployeeType>(data);
 
-            return new Response<GetByIdEmployeeTypeQueryResponse>().Success(map);
+            return new ResponseDto<GetByIdEmployeeTypeQueryResponse>().Success(map);
         }
     }
 }

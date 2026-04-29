@@ -6,19 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Companies.Queries.GetByCompany
 {
-    public class GetByIdCompanyQueryHandler : BaseHandler, IRequestHandler<GetByIdCompanyQueryRequest, Response<GetByIdCompanyQueryResponse>>
+    public class GetByIdCompanyQueryHandler : BaseHandler, IRequestHandler<GetByIdCompanyQueryRequest, ResponseDto<GetByIdCompanyQueryResponse>>
     {
         public GetByIdCompanyQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<GetByIdCompanyQueryResponse>> Handle(GetByIdCompanyQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<GetByIdCompanyQueryResponse>> Handle(GetByIdCompanyQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<Company>().GetAsync(x => x.Id == request.CompanyId);
 
             var map = mapper.Map<GetByIdCompanyQueryResponse, Company>(data);
 
-            return new Response<GetByIdCompanyQueryResponse>().Success(map);
+            return new ResponseDto<GetByIdCompanyQueryResponse>().Success(map);
         }
     }
 }

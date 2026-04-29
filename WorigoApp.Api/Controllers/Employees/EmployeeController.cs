@@ -20,17 +20,17 @@ namespace WorigoApp.Api.Controllers.Employees
         }
 
         [HttpGet("{hotelId}")]
-        public async Task<Response<IList<GetAllEmployeesQueryResponse>>> GetAllAsync(int hotelId)
+        public async Task<ResponseDto<IList<GetAllEmployeesQueryResponse>>> GetAllAsync(int hotelId)
         {
             return await this.mediator.Send(new GetAllEmployeesQueryRequest(hotelId));
         }
         [HttpPost]
-        public async Task<Response<CreateEmployeeCommonResponse>> AddAsync(CreateEmployeeCommonRequest request)
+        public async Task<ResponseDto<CreateEmployeeCommonResponse>> AddAsync(CreateEmployeeCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
         [HttpPost]
-        public async Task<Response<UpdateEmployeeCommonResponse>> UpdateAsync(UpdateEmployeeCommonRequest request)
+        public async Task<ResponseDto<UpdateEmployeeCommonResponse>> UpdateAsync(UpdateEmployeeCommonRequest request)
         {
             return await this.mediator.Send(request);
         }

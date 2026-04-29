@@ -6,13 +6,13 @@ using WorigoApp.Application.Interfaces.UnitOfWorks;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Logout
 {
-    public class LogoutCommandHeader : BaseHandler, IRequestHandler<LogoutCommandRequest, Response<LogoutCommandResponse>>
+    public class LogoutCommandHeader : BaseHandler, IRequestHandler<LogoutCommandRequest, ResponseDto<LogoutCommandResponse>>
     {
         public LogoutCommandHeader(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public Task<Response<LogoutCommandResponse>> Handle(LogoutCommandRequest request, CancellationToken cancellationToken)
+        public Task<ResponseDto<LogoutCommandResponse>> Handle(LogoutCommandRequest request, CancellationToken cancellationToken)
         {
 
             return null;

@@ -5,7 +5,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Pipelines.Behaviour
 {
-    public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, Response<List<ValidationFailure>>> where TRequest : IRequest<Response<List<ValidationFailure>>> where TResponse : Response<List<ValidationFailure>>
+    public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, ResponseDto<List<ValidationFailure>>> where TRequest : IRequest<ResponseDto<List<ValidationFailure>>> where TResponse : ResponseDto<List<ValidationFailure>>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -16,7 +16,7 @@ namespace WorigoApp.Application.Pipelines.Behaviour
 
 
 
-        public async Task<Response<List<ValidationFailure>>> Handle(TRequest request, RequestHandlerDelegate<Response<List<ValidationFailure>>> next, CancellationToken cancellationToken)
+        public async Task<ResponseDto<List<ValidationFailure>>> Handle(TRequest request, RequestHandlerDelegate<ResponseDto<List<ValidationFailure>>> next, CancellationToken cancellationToken)
         {
             if (_validators.Any())
             {
@@ -32,7 +32,7 @@ namespace WorigoApp.Application.Pipelines.Behaviour
                     .ToList();
 
                 if (failures.Any())
-                    return await Task.FromResult<Response<List<ValidationFailure>>>((new Response<List<ValidationFailure>>().Fail(failures, "", 200)));
+                    return await Task.FromResult<ResponseDto<List<ValidationFailure>>>((new ResponseDto<List<ValidationFailure>>().Fail(failures, "", 200)));
             }
             return await next();
         }

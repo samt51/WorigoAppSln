@@ -7,14 +7,14 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.UpdateContentOfFood
 {
-    public class UpdateContentOfFoodHandler : BaseHandler, IRequestHandler<UpdateContentOfFoodRequest, Response<UpdateContentOfFoodResponse>>
+    public class UpdateContentOfFoodHandler : BaseHandler, IRequestHandler<UpdateContentOfFoodRequest, ResponseDto<UpdateContentOfFoodResponse>>
     {
         private readonly ContentOfFoodRule _contentOfFoodRule;
         public UpdateContentOfFoodHandler(IMapper mapper, IUnitOfWork unitOfWork, ContentOfFoodRule contentOfFoodRule) : base(mapper, unitOfWork)
         {
             this._contentOfFoodRule = contentOfFoodRule;
         }
-        public async Task<Response<UpdateContentOfFoodResponse>> Handle(UpdateContentOfFoodRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<UpdateContentOfFoodResponse>> Handle(UpdateContentOfFoodRequest request, CancellationToken cancellationToken)
         {
             await _contentOfFoodRule.IsThereRequestContentOfFoodToCache(request.Name);
 
@@ -26,7 +26,7 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Commands.UpdateContentOf
 
             await unitOfWork.SaveAsync();
 
-            return new Response<UpdateContentOfFoodResponse>().Success();
+            return new ResponseDto<UpdateContentOfFoodResponse>().Success();
         }
     }
 }

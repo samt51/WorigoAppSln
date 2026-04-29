@@ -8,7 +8,7 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Register
 {
-    public class RegisterCommandHandler : BaseHandler, IRequestHandler<RegisterCommandRequest, Response<RegisterCommandResponse>>
+    public class RegisterCommandHandler : BaseHandler, IRequestHandler<RegisterCommandRequest, ResponseDto<RegisterCommandResponse>>
     {
         private readonly AuthRule _authRule;
         public RegisterCommandHandler(AuthRule authRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
@@ -16,7 +16,7 @@ namespace WorigoApp.Application.Features.Auth.Commands.Register
             this._authRule = authRule;
         }
 
-        public async Task<Response<RegisterCommandResponse>> Handle(RegisterCommandRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<RegisterCommandResponse>> Handle(RegisterCommandRequest request, CancellationToken cancellationToken)
         {
             var user = mapper.Map<Users, RegisterCommandRequest>(request);
 
@@ -28,7 +28,7 @@ namespace WorigoApp.Application.Features.Auth.Commands.Register
 
             user.Password = PasswordHash.HashPassword(request.Password);
 
-            unitOfWork.OpenTransaction();
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
 
             await unitOfWork.GetWriteRepository<Users>().AddAsync(user);
 
@@ -36,7 +36,7 @@ namespace WorigoApp.Application.Features.Auth.Commands.Register
 
             await unitOfWork.CommitAsync();
 
-            return new Response<RegisterCommandResponse>().Success();
+            return new ResponseDto<RegisterCommandResponse>().Success();
 
         }
     }

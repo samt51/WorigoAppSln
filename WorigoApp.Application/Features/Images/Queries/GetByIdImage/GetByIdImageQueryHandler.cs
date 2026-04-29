@@ -6,19 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Images.Queries.GetByIdImage
 {
-    public class GetByIdImageQueryHandler : BaseHandler, IRequestHandler<GetByIdImageQueryRequest, Response<GetByIdImageQueryResponse>>
+    public class GetByIdImageQueryHandler : BaseHandler, IRequestHandler<GetByIdImageQueryRequest, ResponseDto<GetByIdImageQueryResponse>>
     {
         public GetByIdImageQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<GetByIdImageQueryResponse>> Handle(GetByIdImageQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<GetByIdImageQueryResponse>> Handle(GetByIdImageQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<Image>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
             var map = mapper.Map<GetByIdImageQueryResponse, Image>(data);
 
-            return new Response<GetByIdImageQueryResponse>().Success(map);
+            return new ResponseDto<GetByIdImageQueryResponse>().Success(map);
         }
     }
 }

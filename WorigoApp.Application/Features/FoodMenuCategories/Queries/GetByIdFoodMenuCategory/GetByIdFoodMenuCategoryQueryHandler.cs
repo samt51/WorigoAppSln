@@ -8,13 +8,13 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetByIdFoodMenuCategory
 {
-    public class GetByIdFoodMenuCategoryQueryHandler : BaseHandler, IRequestHandler<GetByIdFoodMenuCategoryQueryRequest, Response<GetByIdFoodMenuCategoryQueryResponse>>
+    public class GetByIdFoodMenuCategoryQueryHandler : BaseHandler, IRequestHandler<GetByIdFoodMenuCategoryQueryRequest, ResponseDto<GetByIdFoodMenuCategoryQueryResponse>>
     {
         public GetByIdFoodMenuCategoryQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<GetByIdFoodMenuCategoryQueryResponse>> Handle(GetByIdFoodMenuCategoryQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<GetByIdFoodMenuCategoryQueryResponse>> Handle(GetByIdFoodMenuCategoryQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAsync(x => x.Id == request.FoodMenuCategoryId && !x.IsDeleted, y => y.Include(x => x.Foods));
 
@@ -22,7 +22,7 @@ namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetByIdFoodM
 
             var mapData = mapper.Map<GetByIdFoodMenuCategoryQueryResponse, FoodMenuCategory>(data);
 
-            return new Response<GetByIdFoodMenuCategoryQueryResponse>().Success(mapData);
+            return new ResponseDto<GetByIdFoodMenuCategoryQueryResponse>().Success(mapData);
         }
     }
 }

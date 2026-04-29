@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Departments.Commands.CreateDepartment
 {
-    public class CreateDepartmentCommonRequest : IRequest<Response<CreateDepartmentCommonResponse>>
+    public class CreateDepartmentCommonRequest : IRequest<ResponseDto<CreateDepartmentCommonResponse>>
     {
         public string Name { get; }
         public int HotelId { get; }

@@ -6,13 +6,13 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodMenuCategory
 {
-    public class UpdateFoodMenuCategoryCommonHandler : BaseHandler, IRequestHandler<UpdateFoodMenuCategoryCommonRequest, Response<UpdateFoodMenuCategoryCommonResponse>>
+    public class UpdateFoodMenuCategoryCommonHandler : BaseHandler, IRequestHandler<UpdateFoodMenuCategoryCommonRequest, ResponseDto<UpdateFoodMenuCategoryCommonResponse>>
     {
         public UpdateFoodMenuCategoryCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<UpdateFoodMenuCategoryCommonResponse>> Handle(UpdateFoodMenuCategoryCommonRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<UpdateFoodMenuCategoryCommonResponse>> Handle(UpdateFoodMenuCategoryCommonRequest request, CancellationToken cancellationToken)
         {
             var foodMenu = await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
@@ -24,7 +24,7 @@ namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodM
 
             await unitOfWork.CommitAsync();
 
-            return new Response<UpdateFoodMenuCategoryCommonResponse>().Success();
+            return new ResponseDto<UpdateFoodMenuCategoryCommonResponse>().Success();
         }
     }
 }

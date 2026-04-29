@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Companies.Commands.UpdateCompany
 {
-    public class UpdateCompanyCommandRequest : IRequest<Response<UpdateCompanyCommandResponse>>
+    public class UpdateCompanyCommandRequest : IRequest<ResponseDto<UpdateCompanyCommandResponse>>
     {
         public UpdateCompanyCommandRequest(int id, string name)
         {

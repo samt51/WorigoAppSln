@@ -46,7 +46,7 @@ namespace WorigoApp.Application.Middleware.Exceptions
             if (exception.GetType() == typeof(ValidationException))
                 return httpContext.Response.WriteAsync(new ExceptionModel
                 {
-                    Response = new Bases.Response<ExceptionModel>().Fail(new ExceptionModel(), ((ValidationException)exception).Errors.Select(x => x.ErrorMessage).ToList(), StatusCodes.Status400BadRequest)
+                    Response = new Bases.ResponseDto<ExceptionModel>().Fail(new ExceptionModel(), ((ValidationException)exception).Errors.Select(x => x.ErrorMessage).ToList(), StatusCodes.Status400BadRequest)
 
                 }.ToString());
 
@@ -74,7 +74,7 @@ namespace WorigoApp.Application.Middleware.Exceptions
 
             return httpContext.Response.WriteAsync(new ExceptionModel
             {
-                Response = new Bases.Response<ExceptionModel>().Fail(errors, statusCode)
+                Response = new Bases.ResponseDto<ExceptionModel>().Fail(errors, statusCode)
 
             }.ToString());
 

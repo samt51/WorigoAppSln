@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Login
 {
-    public class LoginCommandRequest : IRequest<Response<LoginCommandResponse>>
+    public class LoginCommandRequest : IRequest<ResponseDto<LoginCommandResponse>>
     {
         public string Email { get; } 
         public string Password { get; } 

@@ -8,41 +8,43 @@ namespace WorigoApp.Persistence.Concrete.UnitOfWorks
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext dbContext;
-
         public UnitOfWork(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task CommitAsync()
+        public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
-            await dbContext.Database.CommitTransactionAsync();
+            if (dbContext.Database.CurrentTransaction == null) return;
+            await dbContext.Database.CommitTransactionAsync(cancellationToken);
+        }
+
+        public async Task RollBackAsync(CancellationToken cancellationToken = default)
+        {
+            if (dbContext.Database.CurrentTransaction == null) return;
+            await dbContext.Database.RollbackTransactionAsync(cancellationToken);
         }
 
         public async ValueTask DisposeAsync() => await dbContext.DisposeAsync();
 
-        public void OpenTransaction()
+        public async Task OpenTransactionAsync(CancellationToken cancellationToken)
         {
-            dbContext.Database.BeginTransactionAsync();
-        }
-        
+            if (dbContext.Database.CurrentTransaction != null)
+                return;
 
-        public void RollBack()
-        {
-            dbContext.Database.RollbackTransaction();
+            await dbContext.Database.BeginTransactionAsync(cancellationToken);
         }
 
-        public int Save() => dbContext.SaveChanges();
-        public async Task<int> SaveAsync()
+        public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
         {
 
             try
             {
-                var result = await dbContext.SaveChangesAsync();
+                var result = await dbContext.SaveChangesAsync(cancellationToken);
                 return result;
             }
             catch (Exception ex)
             {
-                RollBack();
+                await RollBackAsync(cancellationToken);
                 throw new Exception(ex.Message);
 
             }

@@ -6,13 +6,13 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Rooms.Commands.CreateRoom
 {
-    public class UpdateRoomCommonHandler : BaseHandler, IRequestHandler<UpdateRoomCommonRequest, Response<UpdateRoomCommonResponse>>
+    public class UpdateRoomCommonHandler : BaseHandler, IRequestHandler<UpdateRoomCommonRequest, ResponseDto<UpdateRoomCommonResponse>>
     {
         public UpdateRoomCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<UpdateRoomCommonResponse>> Handle(UpdateRoomCommonRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<UpdateRoomCommonResponse>> Handle(UpdateRoomCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
 
@@ -26,7 +26,7 @@ namespace WorigoApp.Application.Features.Rooms.Commands.CreateRoom
 
             await unitOfWork.CommitAsync();
 
-            return new Response<UpdateRoomCommonResponse>().Success();
+            return new ResponseDto<UpdateRoomCommonResponse>().Success();
         }
     }
 }

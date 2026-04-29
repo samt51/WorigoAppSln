@@ -7,13 +7,13 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Employees.Commands.UpdateEmployee
 {
-    public class UpdateEmployeeCommonHandler : BaseHandler, IRequestHandler<UpdateEmployeeCommonRequest, Response<UpdateEmployeeCommonResponse>>
+    public class UpdateEmployeeCommonHandler : BaseHandler, IRequestHandler<UpdateEmployeeCommonRequest, ResponseDto<UpdateEmployeeCommonResponse>>
     {
         public UpdateEmployeeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<UpdateEmployeeCommonResponse>> Handle(UpdateEmployeeCommonRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<UpdateEmployeeCommonResponse>> Handle(UpdateEmployeeCommonRequest request, CancellationToken cancellationToken)
         {
             var employeeTypeIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
@@ -25,13 +25,13 @@ namespace WorigoApp.Application.Features.Employees.Commands.UpdateEmployee
 
             await unitOfWork.GetWriteRepository<EmployeeDetail>().UpdateAsync(employeeDetailMap);
 
-            unitOfWork.OpenTransaction();
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
 
             await unitOfWork.SaveAsync();
 
             await unitOfWork.CommitAsync();
 
-            return new Response<UpdateEmployeeCommonResponse>().Success();
+            return new ResponseDto<UpdateEmployeeCommonResponse>().Success();
 
         }
     }

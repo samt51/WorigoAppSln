@@ -1,0 +1,1223 @@
+﻿<svg xmlns='http://www.w3.org/2000/svg' width='1640' height='7458' viewBox='0 0 1640 7458'>
+  <style>
+    .background { fill: #f7f8fb; }
+    .relationship { stroke: #7d8797; stroke-width: 1.2; opacity: .55; }
+    .entity-box { fill: #ffffff; stroke: #b9c0cc; stroke-width: 1; filter: drop-shadow(0 2px 5px rgba(16,24,40,.08)); }
+    .entity-title-bg { fill: #243447; }
+    .entity-title { font: 700 15px Segoe UI, Arial, sans-serif; fill: #ffffff; }
+    .property { font: 12px Consolas, 'Segoe UI', monospace; fill: #1f2937; }
+    .muted { fill: #6b7280; font-style: italic; }
+    .caption { font: 13px Segoe UI, Arial, sans-serif; fill: #475467; }
+    .heading { font: 700 24px Segoe UI, Arial, sans-serif; fill: #111827; }
+  </style>
+  <rect class='background' width='100%' height='100%' />
+  <text class='heading' x='40' y='32'>AppDbContext Entity Diagram</text>
+  <text class='caption' x='370' y='32'>Generated 2026-04-29 04:22:51 - 72 entities</text>
+  <g class='relationships'>
+<line class='relationship' x1='1025' y1='190' x2='205' y2='3076'><title>Announcement.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='235' x2='205' y2='3076'><title>AttendanceRecord.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='235' x2='205' y2='1852'><title>AttendanceRecord.EmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='235' x2='615' y2='1396'><title>AttendanceRecord.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='1435' y1='235' x2='205' y2='5989'><title>AttendanceRecord.ShiftId -> Shift.Id</title></line>
+<line class='relationship' x1='615' y1='628' x2='1025' y2='2629'><title>Charge.GuestStayId -> GuestStay.Id</title></line>
+<line class='relationship' x1='615' y1='628' x2='205' y2='4309'><title>Charge.OrderId -> Order.Id</title></line>
+<line class='relationship' x1='615' y1='628' x2='1025' y2='5212'><title>Charge.ServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='1025' y1='610' x2='205' y2='4309'><title>CommentAndRating.OrderId -> Order.Id</title></line>
+<line class='relationship' x1='1025' y1='610' x2='615' y2='4336'><title>CommentAndRating.OrderItemId -> OrderItem.Id</title></line>
+<line class='relationship' x1='1025' y1='610' x2='1025' y2='2245'><title>CommentAndRating.FoodId -> Food.Id</title></line>
+<line class='relationship' x1='1025' y1='985' x2='205' y2='3076'><title>Conversation.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1025' y1='985' x2='1025' y2='2629'><title>Conversation.GuestStayId -> GuestStay.Id</title></line>
+<line class='relationship' x1='1025' y1='985' x2='205' y2='1423'><title>Conversation.CustomerId -> Customer.Id</title></line>
+<line class='relationship' x1='1025' y1='985' x2='1025' y2='5212'><title>Conversation.ServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='1435' y1='1030' x2='1025' y2='985'><title>ConversationMessage.ConversationId -> Conversation.Id</title></line>
+<line class='relationship' x1='1435' y1='1030' x2='205' y2='7204'><title>ConversationMessage.SenderUserId -> Users.Id</title></line>
+<line class='relationship' x1='1435' y1='1030' x2='205' y2='1423'><title>ConversationMessage.SenderCustomerId -> Customer.Id</title></line>
+<line class='relationship' x1='205' y1='1423' x2='1025' y2='2629'><title>Customer.GuestStayId -> GuestStay.Id</title></line>
+<line class='relationship' x1='615' y1='1396' x2='205' y2='3076'><title>Department.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='205' y1='1852' x2='205' y2='2173'><title>Employee.EmployeeTypeId -> EmployeeType.Id</title></line>
+<line class='relationship' x1='205' y1='1852' x2='205' y2='3076'><title>Employee.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='205' y1='1852' x2='615' y2='1825'><title>Employee.EmployeeDetail -> EmployeeDetail</title></line>
+<line class='relationship' x1='205' y1='1852' x2='205' y2='7204'><title>Employee.UserId -> Users.Id</title></line>
+<line class='relationship' x1='205' y1='1852' x2='205' y2='5989'><title>Employee.ShiftId -> Shift.Id</title></line>
+<line class='relationship' x1='615' y1='1825' x2='205' y2='1852'><title>EmployeeDetail.EmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1025' y1='1825' x2='205' y2='3076'><title>EmployeeDocument.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1025' y1='1825' x2='205' y2='1852'><title>EmployeeDocument.EmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1025' y1='1825' x2='205' y2='1852'><title>EmployeeDocument.VerifiedByEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='1852' x2='205' y2='3076'><title>EmployeeTask.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='1852' x2='205' y2='1852'><title>EmployeeTask.AssignedEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='1852' x2='205' y2='1852'><title>EmployeeTask.AssignedByEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='1852' x2='615' y2='1396'><title>EmployeeTask.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='1435' y1='1852' x2='1025' y2='5212'><title>EmployeeTask.RelatedServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='205' y1='2173' x2='615' y2='1396'><title>EmployeeType.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='1025' y1='2245' x2='1435' y2='2173'><title>Food.FoodMenuCategoryId -> FoodMenuCategory.Id</title></line>
+<line class='relationship' x1='1025' y1='2245' x2='1435' y2='3898'><title>Food.NutritionalInfo -> NutritionalInfo</title></line>
+<line class='relationship' x1='1435' y1='2173' x2='205' y2='3076'><title>FoodMenuCategory.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='615' y1='2575' x2='1025' y2='2629'><title>GuestSession.GuestStayId -> GuestStay.Id</title></line>
+<line class='relationship' x1='615' y1='2575' x2='205' y2='1423'><title>GuestSession.CustomerId -> Customer.Id</title></line>
+<line class='relationship' x1='1025' y1='2629' x2='615' y2='4774'><title>GuestStay.RoomId -> Room.Id</title></line>
+<line class='relationship' x1='205' y1='3076' x2='1435' y2='529'><title>Hotel.CompanyId -> Company.Id</title></line>
+<line class='relationship' x1='1025' y1='3058' x2='205' y2='3076'><title>HotelServicePolicy.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1025' y1='3058' x2='205' y2='5212'><title>HotelServicePolicy.ServiceDefinitionId -> ServiceDefinition.Id</title></line>
+<line class='relationship' x1='205' y1='3433' x2='615' y2='3397'><title>Image.ImageCategoryId -> ImageCategory.Id</title></line>
+<line class='relationship' x1='205' y1='3433' x2='615' y2='4336'><title>Image.OrderItemId -> OrderItem.Id</title></line>
+<line class='relationship' x1='205' y1='3433' x2='1025' y2='2245'><title>Image.FoodId -> Food.Id</title></line>
+<line class='relationship' x1='615' y1='3397' x2='205' y2='3076'><title>ImageCategory.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1025' y1='3478' x2='205' y2='3076'><title>InternalAnnouncement.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1025' y1='3478' x2='615' y2='1396'><title>InternalAnnouncement.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='1025' y1='3478' x2='205' y2='1852'><title>InternalAnnouncement.CreatedByEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='3532' x2='205' y2='3076'><title>LeaveRequest.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='3532' x2='205' y2='1852'><title>LeaveRequest.EmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='3532' x2='615' y2='1396'><title>LeaveRequest.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='1435' y1='3532' x2='205' y2='1852'><title>LeaveRequest.ManagerEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='3532' x2='205' y2='1852'><title>LeaveRequest.HrEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='3898' x2='1025' y2='2245'><title>NutritionalInfo.FoodId -> Food.Id</title></line>
+<line class='relationship' x1='205' y1='4309' x2='1025' y2='2629'><title>Order.GuestStayId -> GuestStay.Id</title></line>
+<line class='relationship' x1='615' y1='4336' x2='205' y2='4309'><title>OrderItem.OrderId -> Order.Id</title></line>
+<line class='relationship' x1='615' y1='4336' x2='1025' y2='610'><title>OrderItem.CommentAndRating -> CommentAndRating</title></line>
+<line class='relationship' x1='1025' y1='4273' x2='615' y2='628'><title>PaymentTransaction.ChargeId -> Charge.Id</title></line>
+<line class='relationship' x1='1435' y1='4318' x2='205' y2='3076'><title>PerformanceReview.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='4318' x2='205' y2='1852'><title>PerformanceReview.EmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='4318' x2='205' y2='1852'><title>PerformanceReview.ReviewerEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1435' y1='4318' x2='615' y2='1396'><title>PerformanceReview.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='615' y1='4774' x2='1025' y2='4639'><title>Room.RoomTypeId -> RoomType.Id</title></line>
+<line class='relationship' x1='615' y1='4774' x2='205' y2='2485'><title>Room.RoomFoodTypeId -> FoodType.Id</title></line>
+<line class='relationship' x1='615' y1='4774' x2='205' y2='3076'><title>Room.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='4693' x2='205' y2='3076'><title>ServiceCategory.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='205' y1='5212' x2='205' y2='3076'><title>ServiceDefinition.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='205' y1='5212' x2='1435' y2='4693'><title>ServiceDefinition.ServiceCategoryId -> ServiceCategory.Id</title></line>
+<line class='relationship' x1='205' y1='5212' x2='615' y2='1396'><title>ServiceDefinition.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='615' y1='5149' x2='205' y2='5212'><title>ServiceDefinitionField.ServiceDefinitionId -> ServiceDefinition.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='205' y2='3076'><title>ServiceRequest.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='1025' y2='2629'><title>ServiceRequest.GuestStayId -> GuestStay.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='615' y2='4774'><title>ServiceRequest.RoomId -> Room.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='205' y2='1423'><title>ServiceRequest.CustomerId -> Customer.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='205' y2='5212'><title>ServiceRequest.ServiceDefinitionId -> ServiceDefinition.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='615' y2='1396'><title>ServiceRequest.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='205' y2='1852'><title>ServiceRequest.AssignedEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='1025' y1='5212' x2='1025' y2='985'><title>ServiceRequest.ConversationId -> Conversation.Id</title></line>
+<line class='relationship' x1='1435' y1='5104' x2='1025' y2='5212'><title>ServiceRequestFieldValue.ServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='1435' y1='5104' x2='615' y2='5149'><title>ServiceRequestFieldValue.ServiceDefinitionFieldId -> ServiceDefinitionField.Id</title></line>
+<line class='relationship' x1='205' y1='5578' x2='1025' y2='5212'><title>ServiceRequestHistory.ServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='205' y1='5578' x2='205' y2='7204'><title>ServiceRequestHistory.ChangedByUserId -> Users.Id</title></line>
+<line class='relationship' x1='615' y1='5650' x2='1025' y2='5212'><title>ServiceRequestMessage.ServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='615' y1='5650' x2='205' y2='7204'><title>ServiceRequestMessage.SenderUserId -> Users.Id</title></line>
+<line class='relationship' x1='1025' y1='5587' x2='1025' y2='5212'><title>ServiceRequestRating.ServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='1025' y1='5587' x2='205' y2='1423'><title>ServiceRequestRating.CustomerId -> Customer.Id</title></line>
+<line class='relationship' x1='205' y1='5989' x2='205' y2='3076'><title>Shift.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='6043' x2='205' y2='3076'><title>StockItem.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='1435' y1='6043' x2='615' y2='1396'><title>StockItem.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='205' y1='6436' x2='205' y2='3076'><title>StockMovement.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='205' y1='6436' x2='1435' y2='6043'><title>StockMovement.StockItemId -> StockItem.Id</title></line>
+<line class='relationship' x1='205' y1='6436' x2='615' y2='1396'><title>StockMovement.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='205' y1='6436' x2='205' y2='1852'><title>StockMovement.EmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='615' y1='6454' x2='205' y2='3076'><title>StockRequest.HotelId -> Hotel.Id</title></line>
+<line class='relationship' x1='615' y1='6454' x2='205' y2='1852'><title>StockRequest.RequestedByEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='615' y1='6454' x2='205' y2='1852'><title>StockRequest.AssignedManagerEmployeeId -> Employee.Id</title></line>
+<line class='relationship' x1='615' y1='6454' x2='615' y2='1396'><title>StockRequest.DepartmentId -> Department.Id</title></line>
+<line class='relationship' x1='615' y1='6454' x2='1025' y2='5212'><title>StockRequest.RelatedServiceRequestId -> ServiceRequest.Id</title></line>
+<line class='relationship' x1='1025' y1='6373' x2='615' y2='6454'><title>StockRequestItem.StockRequestId -> StockRequest.Id</title></line>
+<line class='relationship' x1='1025' y1='6373' x2='1435' y2='6043'><title>StockRequestItem.StockItemId -> StockItem.Id</title></line>
+<line class='relationship' x1='205' y1='6811' x2='1435' y2='6319'><title>SystemParametreValues.SystemParametreId -> SystemParametre.Id</title></line>
+<line class='relationship' x1='205' y1='7204' x2='205' y2='1852'><title>Users.Employee -> Employee</title></line>
+<line class='relationship' x1='205' y1='7204' x2='205' y2='4639'><title>Users.RoleId -> Roles.Id</title></line>
+  </g>
+  <g class='entities'>
+<g class='entity' id='entity-Allergen' transform='translate(40,56)'>
+<rect class='entity-box' width='330' height='88' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Allergen</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string</text>
+</g>
+<g class='entity' id='entity-AmenityRequestService' transform='translate(450,56)'>
+<rect class='entity-box' width='330' height='286' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>AmenityRequestService</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string?</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>DisplayOrder : int</text>
+<text class='property' x='14' y='166'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='184'>SupportsFreeText : bool</text>
+<text class='property' x='14' y='202'>IsChargeable : bool</text>
+<text class='property' x='14' y='220'>Price : decimal</text>
+<text class='property' x='14' y='238'>PriceStatusId : int</text>
+<text class='property' x='14' y='256'>CurrencyCode : string</text>
+<text class='property' x='14' y='274'>EstimatedDurationMinutes : int?</text>
+</g>
+<g class='entity' id='entity-Announcement' transform='translate(860,56)'>
+<rect class='entity-box' width='330' height='268' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Announcement</text>
+<text class='property' x='14' y='58'>Title : string</text>
+<text class='property' x='14' y='76'>Description : string</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>HotelId : int</text>
+<text class='property' x='14' y='130'>Hotel : Hotel</text>
+<text class='property' x='14' y='148'>Type : AnnouncementTypeEnum</text>
+<text class='property' x='14' y='166'>StartAt : DateTime</text>
+<text class='property' x='14' y='184'>EndAt : DateTime?</text>
+<text class='property' x='14' y='202'>Location : string?</text>
+<text class='property' x='14' y='220'>IsPinned : bool</text>
+<text class='property' x='14' y='238'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='256'>AudienceType : string?</text>
+</g>
+<g class='entity' id='entity-AttendanceRecord' transform='translate(1270,56)'>
+<rect class='entity-box' width='330' height='358' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>AttendanceRecord</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>EmployeeId : int</text>
+<text class='property' x='14' y='112'>Employee : Employee</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>Department : Department?</text>
+<text class='property' x='14' y='166'>ShiftId : int?</text>
+<text class='property' x='14' y='184'>Shift : Shift?</text>
+<text class='property' x='14' y='202'>WorkDate : DateTime</text>
+<text class='property' x='14' y='220'>PlannedStartTime : TimeSpan?</text>
+<text class='property' x='14' y='238'>PlannedEndTime : TimeSpan?</text>
+<text class='property' x='14' y='256'>CheckInAt : DateTime?</text>
+<text class='property' x='14' y='274'>CheckOutAt : DateTime?</text>
+<text class='property' x='14' y='292'>Status : AttendanceStatusEnum</text>
+<text class='property' x='14' y='310'>LateMinutes : int</text>
+<text class='property' x='14' y='328'>OvertimeMinutes : int</text>
+<text class='property' x='14' y='346'>Note : string?</text>
+</g>
+<g class='entity' id='entity-BellBoy' transform='translate(40,494)'>
+<rect class='entity-box' width='330' height='178' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>BellBoy</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>ImageUrl : string?</text>
+<text class='property' x='14' y='94'>Description : string?</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>EstimatedDurationMinutes : int?</text>
+<text class='property' x='14' y='166'>IsVisibleToGuest : bool</text>
+</g>
+<g class='entity' id='entity-Charge' transform='translate(450,494)'>
+<rect class='entity-box' width='330' height='268' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Charge</text>
+<text class='property' x='14' y='58'>GuestStayId : int</text>
+<text class='property' x='14' y='76'>GuestStay : GuestStay</text>
+<text class='property' x='14' y='94'>OrderId : int?</text>
+<text class='property' x='14' y='112'>Order : Order?</text>
+<text class='property' x='14' y='130'>ServiceRequestId : int?</text>
+<text class='property' x='14' y='148'>ServiceRequest : ServiceRequest?</text>
+<text class='property' x='14' y='166'>Description : string</text>
+<text class='property' x='14' y='184'>Amount : decimal</text>
+<text class='property' x='14' y='202'>CurrencyCode : string</text>
+<text class='property' x='14' y='220'>IsPostedToRoom : bool</text>
+<text class='property' x='14' y='238'>PostedToRoomAt : DateTime?</text>
+<text class='property' x='14' y='256'>Status : ChargeStatusEnum</text>
+</g>
+<g class='entity' id='entity-CommentAndRating' transform='translate(860,494)'>
+<rect class='entity-box' width='330' height='232' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>CommentAndRating</text>
+<text class='property' x='14' y='58'>SpeedPoint : decimal</text>
+<text class='property' x='14' y='76'>ProductPoint : decimal</text>
+<text class='property' x='14' y='94'>EmployeePoint : decimal</text>
+<text class='property' x='14' y='112'>Comment : string</text>
+<text class='property' x='14' y='130'>OrderId : int</text>
+<text class='property' x='14' y='148'>Order : Order</text>
+<text class='property' x='14' y='166'>OrderItemId : int</text>
+<text class='property' x='14' y='184'>OrderItem : OrderItem</text>
+<text class='property' x='14' y='202'>FoodId : int?</text>
+<text class='property' x='14' y='220'>Food : Food</text>
+</g>
+<g class='entity' id='entity-Company' transform='translate(1270,494)'>
+<rect class='entity-box' width='330' height='70' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Company</text>
+<text class='property' x='14' y='58'>Name : string</text>
+</g>
+<g class='entity' id='entity-Connection' transform='translate(40,842)'>
+<rect class='entity-box' width='330' height='88' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Connection</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>FlootNo : int?</text>
+</g>
+<g class='entity' id='entity-ContentsOfFood' transform='translate(450,842)'>
+<rect class='entity-box' width='330' height='70' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ContentsOfFood</text>
+<text class='property' x='14' y='58'>Name : string</text>
+</g>
+<g class='entity' id='entity-Conversation' transform='translate(860,842)'>
+<rect class='entity-box' width='330' height='286' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Conversation</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>GuestStayId : int</text>
+<text class='property' x='14' y='112'>GuestStay : GuestStay</text>
+<text class='property' x='14' y='130'>CustomerId : int?</text>
+<text class='property' x='14' y='148'>Customer : Customer?</text>
+<text class='property' x='14' y='166'>ServiceRequestId : int?</text>
+<text class='property' x='14' y='184'>ServiceRequest : ServiceRequest?</text>
+<text class='property' x='14' y='202'>Subject : string?</text>
+<text class='property' x='14' y='220'>Status : ConversationStatusEnum</text>
+<text class='property' x='14' y='238'>LanguageCode : string</text>
+<text class='property' x='14' y='256'>StartedAt : DateTime</text>
+<text class='property' x='14' y='274'>ClosedAt : DateTime?</text>
+</g>
+<g class='entity' id='entity-ConversationMessage' transform='translate(1270,842)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ConversationMessage</text>
+<text class='property' x='14' y='58'>ConversationId : int</text>
+<text class='property' x='14' y='76'>Conversation : Conversation</text>
+<text class='property' x='14' y='94'>SenderUserId : int?</text>
+<text class='property' x='14' y='112'>SenderUser : Users?</text>
+<text class='property' x='14' y='130'>SenderCustomerId : int?</text>
+<text class='property' x='14' y='148'>SenderCustomer : Customer?</text>
+<text class='property' x='14' y='166'>SenderType : MessageSenderTypeEnum</text>
+<text class='property' x='14' y='184'>OriginalLanguageCode : string</text>
+<text class='property' x='14' y='202'>OriginalText : string</text>
+<text class='property' x='14' y='220'>TranslatedText : string?</text>
+<text class='property' x='14' y='238'>TranslatedLanguageCode : string?</text>
+<text class='property' x='14' y='256'>SentAt : DateTime</text>
+<text class='property' x='14' y='274'>ReadAt : DateTime?</text>
+<text class='property' x='14' y='292'>MessageType : string</text>
+<text class='property' x='14' y='310'>NormalizedText : string?</text>
+<text class='property' x='14' y='328'>TranslationProvider : string?</text>
+<text class='property' x='14' y='346'>TranslationModel : string?</text>
+<text class='property' x='14' y='364'>TranslationStatus : string</text>
+</g>
+<g class='entity' id='entity-Customer' transform='translate(40,1298)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Customer</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>SurName : string</text>
+<text class='property' x='14' y='94'>Gender : bool</text>
+<text class='property' x='14' y='112'>Email : string?</text>
+<text class='property' x='14' y='130'>PhoneNumber : string?</text>
+<text class='property' x='14' y='148'>Nationality : string?</text>
+<text class='property' x='14' y='166'>PreferredLanguageCode : string</text>
+<text class='property' x='14' y='184'>BirthDate : DateTime?</text>
+<text class='property' x='14' y='202'>IsPrimaryGuest : bool</text>
+<text class='property' x='14' y='220'>GuestStayId : int</text>
+<text class='property' x='14' y='238'>GuestStay : GuestStay</text>
+</g>
+<g class='entity' id='entity-Department' transform='translate(450,1298)'>
+<rect class='entity-box' width='330' height='196' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Department</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>ImageUrl : string?</text>
+<text class='property' x='14' y='94'>Description : string?</text>
+<text class='property' x='14' y='112'>ManagerEmployeeId : int?</text>
+<text class='property' x='14' y='130'>DisplayOrder : int</text>
+<text class='property' x='14' y='148'>IsGuestFacing : bool</text>
+<text class='property' x='14' y='166'>HotelId : int</text>
+<text class='property' x='14' y='184'>Hotel : Hotel</text>
+</g>
+<g class='entity' id='entity-DietaryRestriction' transform='translate(860,1298)'>
+<rect class='entity-box' width='330' height='88' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>DietaryRestriction</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string</text>
+</g>
+<g class='entity' id='entity-DryCleaner' transform='translate(1270,1298)'>
+<rect class='entity-box' width='330' height='286' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>DryCleaner</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>ParentId : int?</text>
+<text class='property' x='14' y='166'>Price : decimal?</text>
+<text class='property' x='14' y='184'>PriceStatusId : int</text>
+<text class='property' x='14' y='202'>DisplayOrder : int</text>
+<text class='property' x='14' y='220'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='238'>IsChargeable : bool</text>
+<text class='property' x='14' y='256'>CurrencyCode : string</text>
+<text class='property' x='14' y='274'>EstimatedDurationMinutes : int?</text>
+</g>
+<g class='entity' id='entity-Employee' transform='translate(40,1664)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Employee</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Surname : string</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>EmployeeTypeId : int?</text>
+<text class='property' x='14' y='130'>EmployeeType : EmployeeType?</text>
+<text class='property' x='14' y='148'>HotelId : int?</text>
+<text class='property' x='14' y='166'>Hotel : Hotel?</text>
+<text class='property' x='14' y='184'>EmployeeDetail : EmployeeDetail?</text>
+<text class='property' x='14' y='202'>UserId : int?</text>
+<text class='property' x='14' y='220'>User : Users?</text>
+<text class='property' x='14' y='238'>EmployeeCode : string?</text>
+<text class='property' x='14' y='256'>Status : bool</text>
+<text class='property' x='14' y='274'>HireType : string?</text>
+<text class='property' x='14' y='292'>ShiftId : int?</text>
+<text class='property' x='14' y='310'>Shift : Shift?</text>
+<text class='property' x='14' y='328'>IsAvailableForTask : bool</text>
+<text class='property' x='14' y='346'>AverageRating : decimal</text>
+<text class='property' x='14' y='364'>LastAssignedAt : DateTime?</text>
+<text class='property muted' x='14' y='382'>+1 more...</text>
+</g>
+<g class='entity' id='entity-EmployeeDetail' transform='translate(450,1664)'>
+<rect class='entity-box' width='330' height='322' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>EmployeeDetail</text>
+<text class='property' x='14' y='58'>EmployeeId : int</text>
+<text class='property' x='14' y='76'>Employee : Employee</text>
+<text class='property' x='14' y='94'>DateOfBirth : DateTime</text>
+<text class='property' x='14' y='112'>PhoneNumber : string</text>
+<text class='property' x='14' y='130'>Gender : bool</text>
+<text class='property' x='14' y='148'>StartDateOfWork : DateTime</text>
+<text class='property' x='14' y='166'>ExitDateOfWork : DateTime?</text>
+<text class='property' x='14' y='184'>LastOnlineTime : DateTime?</text>
+<text class='property' x='14' y='202'>FloorNo : int?</text>
+<text class='property' x='14' y='220'>OnlineOrOfflineNow : bool</text>
+<text class='property' x='14' y='238'>EmergencyContactName : string?</text>
+<text class='property' x='14' y='256'>EmergencyContactPhone : string?</text>
+<text class='property' x='14' y='274'>NationalId : string?</text>
+<text class='property' x='14' y='292'>Address : string?</text>
+<text class='property' x='14' y='310'>ProfileLanguage : string?</text>
+</g>
+<g class='entity' id='entity-EmployeeDocument' transform='translate(860,1664)'>
+<rect class='entity-box' width='330' height='322' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>EmployeeDocument</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>EmployeeId : int</text>
+<text class='property' x='14' y='112'>Employee : Employee</text>
+<text class='property' x='14' y='130'>DocumentType : DocumentTypeEnum</text>
+<text class='property' x='14' y='148'>Title : string</text>
+<text class='property' x='14' y='166'>FileUrl : string</text>
+<text class='property' x='14' y='184'>DocumentNumber : string?</text>
+<text class='property' x='14' y='202'>IssuedAt : DateTime?</text>
+<text class='property' x='14' y='220'>ExpireAt : DateTime?</text>
+<text class='property' x='14' y='238'>IsMandatory : bool</text>
+<text class='property' x='14' y='256'>VerifiedByEmployeeId : int?</text>
+<text class='property' x='14' y='274'>VerifiedByEmployee : Employee?</text>
+<text class='property' x='14' y='292'>VerifiedAt : DateTime?</text>
+<text class='property' x='14' y='310'>Note : string?</text>
+</g>
+<g class='entity' id='entity-EmployeeTask' transform='translate(1270,1664)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>EmployeeTask</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>AssignedEmployeeId : int</text>
+<text class='property' x='14' y='112'>AssignedEmployee : Employee</text>
+<text class='property' x='14' y='130'>AssignedByEmployeeId : int</text>
+<text class='property' x='14' y='148'>AssignedByEmployee : Employee</text>
+<text class='property' x='14' y='166'>DepartmentId : int?</text>
+<text class='property' x='14' y='184'>Department : Department?</text>
+<text class='property' x='14' y='202'>RelatedServiceRequestId : int?</text>
+<text class='property' x='14' y='220'>RelatedServiceRequest : ServiceRequest?</text>
+<text class='property' x='14' y='238'>Title : string</text>
+<text class='property' x='14' y='256'>Description : string?</text>
+<text class='property' x='14' y='274'>Priority : EmployeeTaskPriorityEnum</text>
+<text class='property' x='14' y='292'>Status : EmployeeTaskStatusEnum</text>
+<text class='property' x='14' y='310'>DueAt : DateTime?</text>
+<text class='property' x='14' y='328'>StartedAt : DateTime?</text>
+<text class='property' x='14' y='346'>CompletedAt : DateTime?</text>
+<text class='property' x='14' y='364'>CompletionNote : string?</text>
+</g>
+<g class='entity' id='entity-EmployeeType' transform='translate(40,2120)'>
+<rect class='entity-box' width='330' height='106' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>EmployeeType</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>DepartmentId : int</text>
+<text class='property' x='14' y='94'>Department : Department</text>
+</g>
+<g class='entity' id='entity-FeedBackAndSurvey' transform='translate(450,2120)'>
+<rect class='entity-box' width='330' height='88' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>FeedBackAndSurvey</text>
+<text class='property' x='14' y='58'>DepartmentId : int?</text>
+<text class='property' x='14' y='76'>FeedBack : string</text>
+</g>
+<g class='entity' id='entity-Food' transform='translate(860,2120)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Food</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>PriceStatusId : int</text>
+<text class='property' x='14' y='94'>Price : decimal</text>
+<text class='property' x='14' y='112'>Description : string</text>
+<text class='property' x='14' y='130'>FoodMenuCategoryId : int</text>
+<text class='property' x='14' y='148'>FoodMenuCategory : FoodMenuCategory</text>
+<text class='property' x='14' y='166'>NutritionalInfo : NutritionalInfo</text>
+<text class='property' x='14' y='184'>DiscountPrice : decimal?</text>
+<text class='property' x='14' y='202'>IsOnPromotion : bool</text>
+<text class='property' x='14' y='220'>IsAvailable : bool</text>
+<text class='property' x='14' y='238'>PREPARATIONTIME : TimeOnly</text>
+</g>
+<g class='entity' id='entity-FoodMenuCategory' transform='translate(1270,2120)'>
+<rect class='entity-box' width='330' height='106' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>FoodMenuCategory</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>HotelId : int</text>
+<text class='property' x='14' y='94'>Hotel : Hotel</text>
+</g>
+<g class='entity' id='entity-FoodType' transform='translate(40,2450)'>
+<rect class='entity-box' width='330' height='70' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>FoodType</text>
+<text class='property' x='14' y='58'>RoomFoodTypeEnum : RoomFoodTypeEnum</text>
+</g>
+<g class='entity' id='entity-GuestSession' transform='translate(450,2450)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>GuestSession</text>
+<text class='property' x='14' y='58'>GuestStayId : int</text>
+<text class='property' x='14' y='76'>GuestStay : GuestStay</text>
+<text class='property' x='14' y='94'>CustomerId : int?</text>
+<text class='property' x='14' y='112'>Customer : Customer?</text>
+<text class='property' x='14' y='130'>SessionToken : string</text>
+<text class='property' x='14' y='148'>QrCodeToken : string?</text>
+<text class='property' x='14' y='166'>ExpiresAt : DateTime</text>
+<text class='property' x='14' y='184'>LastAccessAt : DateTime?</text>
+<text class='property' x='14' y='202'>DeviceToken : string?</text>
+<text class='property' x='14' y='220'>LanguageCode : string</text>
+<text class='property' x='14' y='238'>IsActiveSession : bool</text>
+</g>
+<g class='entity' id='entity-GuestStay' transform='translate(860,2450)'>
+<rect class='entity-box' width='330' height='358' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>GuestStay</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>RoomId : int</text>
+<text class='property' x='14' y='94'>Room : Room</text>
+<text class='property' x='14' y='112'>ReservationNo : string?</text>
+<text class='property' x='14' y='130'>PrimaryCustomerId : int?</text>
+<text class='property' x='14' y='148'>CheckInDate : DateTime</text>
+<text class='property' x='14' y='166'>CheckOutDate : DateTime</text>
+<text class='property' x='14' y='184'>ActualCheckInAt : DateTime?</text>
+<text class='property' x='14' y='202'>ActualCheckOutAt : DateTime?</text>
+<text class='property' x='14' y='220'>VerificationCode : string</text>
+<text class='property' x='14' y='238'>Channel : string?</text>
+<text class='property' x='14' y='256'>GuestLanguageCode : string</text>
+<text class='property' x='14' y='274'>DeviceToken : string?</text>
+<text class='property' x='14' y='292'>IsMobileAccessEnabled : bool</text>
+<text class='property' x='14' y='310'>Status : string</text>
+<text class='property' x='14' y='328'>AccommodationConceptType : AccommodationConceptTypeEnum</text>
+<text class='property' x='14' y='346'>CurrencyCode : string</text>
+</g>
+<g class='entity' id='entity-HealthAndSafety' transform='translate(1270,2450)'>
+<rect class='entity-box' width='330' height='106' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>HealthAndSafety</text>
+<text class='property' x='14' y='58'>GuestStayId : int</text>
+<text class='property' x='14' y='76'>HealthAndFirstHelpTypeEnum : HealthAndFirstHelpTypeEnum</text>
+<text class='property' x='14' y='94'>Text : string</text>
+</g>
+<g class='entity' id='entity-Hotel' transform='translate(40,2888)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Hotel</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Location : string</text>
+<text class='property' x='14' y='94'>Adress : string</text>
+<text class='property' x='14' y='112'>Code : string</text>
+<text class='property' x='14' y='130'>PhoneNumber : string</text>
+<text class='property' x='14' y='148'>Email : string</text>
+<text class='property' x='14' y='166'>NumberOfStar : int</text>
+<text class='property' x='14' y='184'>TimeZone : string</text>
+<text class='property' x='14' y='202'>DefaultLanguageCode : string</text>
+<text class='property' x='14' y='220'>CheckInTime : TimeSpan</text>
+<text class='property' x='14' y='238'>CheckOutTime : TimeSpan</text>
+<text class='property' x='14' y='256'>AddressLine1 : string</text>
+<text class='property' x='14' y='274'>AddressLine2 : string?</text>
+<text class='property' x='14' y='292'>City : string</text>
+<text class='property' x='14' y='310'>Country : string</text>
+<text class='property' x='14' y='328'>LogoUrl : string?</text>
+<text class='property' x='14' y='346'>Latitude : string?</text>
+<text class='property' x='14' y='364'>Longitude : string?</text>
+<text class='property muted' x='14' y='382'>+3 more...</text>
+</g>
+<g class='entity' id='entity-HotelInformationAndAnnouncements' transform='translate(450,2888)'>
+<rect class='entity-box' width='330' height='232' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>HotelInformationAndAnnouncements</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>ImageUrl : string?</text>
+<text class='property' x='14' y='94'>Description : string</text>
+<text class='property' x='14' y='112'>Date : DateTime</text>
+<text class='property' x='14' y='130'>HotelId : int?</text>
+<text class='property' x='14' y='148'>AnnouncementType : AnnouncementTypeEnum</text>
+<text class='property' x='14' y='166'>EndDate : DateTime?</text>
+<text class='property' x='14' y='184'>Location : string?</text>
+<text class='property' x='14' y='202'>IsPinned : bool</text>
+<text class='property' x='14' y='220'>IsVisibleToGuest : bool</text>
+</g>
+<g class='entity' id='entity-HotelServicePolicy' transform='translate(860,2888)'>
+<rect class='entity-box' width='330' height='340' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>HotelServicePolicy</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>ServiceType : ServicesEnum</text>
+<text class='property' x='14' y='112'>ServiceItemId : int?</text>
+<text class='property' x='14' y='130'>ServiceDefinitionId : int?</text>
+<text class='property' x='14' y='148'>ServiceDefinition : ServiceDefinition?</text>
+<text class='property' x='14' y='166'>AccommodationConceptType : AccommodationConceptTypeEnum</text>
+<text class='property' x='14' y='184'>IsVisible : bool</text>
+<text class='property' x='14' y='202'>IsIncludedInPackage : bool</text>
+<text class='property' x='14' y='220'>IsChargeable : bool</text>
+<text class='property' x='14' y='238'>AllowRoomCharge : bool</text>
+<text class='property' x='14' y='256'>AllowOnlinePayment : bool</text>
+<text class='property' x='14' y='274'>AllowOnSitePayment : bool</text>
+<text class='property' x='14' y='292'>PriceOverride : decimal?</text>
+<text class='property' x='14' y='310'>CurrencyCode : string</text>
+<text class='property' x='14' y='328'>Description : string?</text>
+</g>
+<g class='entity' id='entity-HouseKeeping' transform='translate(1270,2888)'>
+<rect class='entity-box' width='330' height='232' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>HouseKeeping</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string?</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>ParentId : int?</text>
+<text class='property' x='14' y='166'>DisplayOrder : int</text>
+<text class='property' x='14' y='184'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='202'>SupportsFreeText : bool</text>
+<text class='property' x='14' y='220'>EstimatedDurationMinutes : int?</text>
+</g>
+<g class='entity' id='entity-Image' transform='translate(40,3344)'>
+<rect class='entity-box' width='330' height='178' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Image</text>
+<text class='property' x='14' y='58'>ImageUrl : string</text>
+<text class='property' x='14' y='76'>ImageCategoryId : int</text>
+<text class='property' x='14' y='94'>ImageCategory : ImageCategory</text>
+<text class='property' x='14' y='112'>OrderItemId : int?</text>
+<text class='property' x='14' y='130'>OrderItem : OrderItem</text>
+<text class='property' x='14' y='148'>FoodId : int?</text>
+<text class='property' x='14' y='166'>Food : Food</text>
+</g>
+<g class='entity' id='entity-ImageCategory' transform='translate(450,3344)'>
+<rect class='entity-box' width='330' height='106' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ImageCategory</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>HotelId : int</text>
+<text class='property' x='14' y='94'>Hotel : Hotel</text>
+</g>
+<g class='entity' id='entity-InternalAnnouncement' transform='translate(860,3344)'>
+<rect class='entity-box' width='330' height='268' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>InternalAnnouncement</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>DepartmentId : int?</text>
+<text class='property' x='14' y='112'>Department : Department?</text>
+<text class='property' x='14' y='130'>CreatedByEmployeeId : int</text>
+<text class='property' x='14' y='148'>CreatedByEmployee : Employee</text>
+<text class='property' x='14' y='166'>Title : string</text>
+<text class='property' x='14' y='184'>Content : string</text>
+<text class='property' x='14' y='202'>Audience : InternalAnnouncementAudienceEnum</text>
+<text class='property' x='14' y='220'>PublishAt : DateTime</text>
+<text class='property' x='14' y='238'>ExpireAt : DateTime?</text>
+<text class='property' x='14' y='256'>IsPinned : bool</text>
+</g>
+<g class='entity' id='entity-LeaveRequest' transform='translate(1270,3344)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>LeaveRequest</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>EmployeeId : int</text>
+<text class='property' x='14' y='112'>Employee : Employee</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>Department : Department?</text>
+<text class='property' x='14' y='166'>ManagerEmployeeId : int?</text>
+<text class='property' x='14' y='184'>ManagerEmployee : Employee?</text>
+<text class='property' x='14' y='202'>HrEmployeeId : int?</text>
+<text class='property' x='14' y='220'>HrEmployee : Employee?</text>
+<text class='property' x='14' y='238'>LeaveType : LeaveRequestTypeEnum</text>
+<text class='property' x='14' y='256'>Title : string</text>
+<text class='property' x='14' y='274'>Reason : string?</text>
+<text class='property' x='14' y='292'>StartDate : DateTime</text>
+<text class='property' x='14' y='310'>EndDate : DateTime</text>
+<text class='property' x='14' y='328'>TotalDayCount : decimal</text>
+<text class='property' x='14' y='346'>Status : LeaveRequestStatusEnum</text>
+<text class='property' x='14' y='364'>RequestedAt : DateTime</text>
+<text class='property muted' x='14' y='382'>+4 more...</text>
+</g>
+<g class='entity' id='entity-LogEntry' transform='translate(40,3800)'>
+<rect class='entity-box' width='330' height='178' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>LogEntry</text>
+<text class='property' x='14' y='58'>Message : string</text>
+<text class='property' x='14' y='76'>MessageTemplate : string</text>
+<text class='property' x='14' y='94'>Level : string</text>
+<text class='property' x='14' y='112'>TimeStamp : DateTime</text>
+<text class='property' x='14' y='130'>Exception : string?</text>
+<text class='property' x='14' y='148'>Properties : string?</text>
+<text class='property' x='14' y='166'>LogEvent : string?</text>
+</g>
+<g class='entity' id='entity-MedicalAssistanceService' transform='translate(450,3800)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>MedicalAssistanceService</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string?</text>
+<text class='property' x='14' y='94'>HotelId : int?</text>
+<text class='property' x='14' y='112'>DepartmentId : int?</text>
+<text class='property' x='14' y='130'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='148'>SupportsFreeText : bool</text>
+<text class='property' x='14' y='166'>IsChargeable : bool</text>
+<text class='property' x='14' y='184'>Price : decimal</text>
+<text class='property' x='14' y='202'>PriceStatusId : int</text>
+<text class='property' x='14' y='220'>CurrencyCode : string</text>
+<text class='property' x='14' y='238'>RequiresAppointment : bool</text>
+</g>
+<g class='entity' id='entity-MinibarService' transform='translate(860,3800)'>
+<rect class='entity-box' width='330' height='268' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>MinibarService</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string?</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>DisplayOrder : int</text>
+<text class='property' x='14' y='166'>Price : decimal</text>
+<text class='property' x='14' y='184'>PriceStatusId : int</text>
+<text class='property' x='14' y='202'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='220'>IsChargeable : bool</text>
+<text class='property' x='14' y='238'>CurrencyCode : string</text>
+<text class='property' x='14' y='256'>EstimatedDurationMinutes : int?</text>
+</g>
+<g class='entity' id='entity-NutritionalInfo' transform='translate(1270,3800)'>
+<rect class='entity-box' width='330' height='196' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>NutritionalInfo</text>
+<text class='property' x='14' y='58'>Calories : decimal</text>
+<text class='property' x='14' y='76'>Protein : decimal</text>
+<text class='property' x='14' y='94'>Fat : decimal</text>
+<text class='property' x='14' y='112'>Carbohydrates : decimal</text>
+<text class='property' x='14' y='130'>Sugar : decimal</text>
+<text class='property' x='14' y='148'>Fiber : decimal</text>
+<text class='property' x='14' y='166'>FoodId : int</text>
+<text class='property' x='14' y='184'>Food : Food</text>
+</g>
+<g class='entity' id='entity-Order' transform='translate(40,4148)'>
+<rect class='entity-box' width='330' height='322' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Order</text>
+<text class='property' x='14' y='58'>OrderNumber : string</text>
+<text class='property' x='14' y='76'>TotalPrice : decimal</text>
+<text class='property' x='14' y='94'>DiscountAmount : decimal</text>
+<text class='property' x='14' y='112'>TaxAmount : decimal</text>
+<text class='property' x='14' y='130'>ServiceChargeAmount : decimal</text>
+<text class='property' x='14' y='148'>NetAmount : decimal</text>
+<text class='property' x='14' y='166'>PaidAmount : decimal</text>
+<text class='property' x='14' y='184'>CurrencyCode : string</text>
+<text class='property' x='14' y='202'>PriceStatusId : int</text>
+<text class='property' x='14' y='220'>PaymentOption : OrderPaymentOptionEnum</text>
+<text class='property' x='14' y='238'>PaymentStatus : OrderPaymentStatusEnum</text>
+<text class='property' x='14' y='256'>IsPostedToRoom : bool</text>
+<text class='property' x='14' y='274'>PostedToRoomAt : DateTime?</text>
+<text class='property' x='14' y='292'>GuestStayId : int</text>
+<text class='property' x='14' y='310'>GuestStay : GuestStay</text>
+</g>
+<g class='entity' id='entity-OrderItem' transform='translate(450,4148)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>OrderItem</text>
+<text class='property' x='14' y='58'>ServicesEnumId : ServicesEnum</text>
+<text class='property' x='14' y='76'>ServiceItemId : int</text>
+<text class='property' x='14' y='94'>Quantity : int</text>
+<text class='property' x='14' y='112'>Price : decimal?</text>
+<text class='property' x='14' y='130'>UnitPrice : decimal</text>
+<text class='property' x='14' y='148'>LineTotal : decimal</text>
+<text class='property' x='14' y='166'>DiscountAmount : decimal</text>
+<text class='property' x='14' y='184'>TaxAmount : decimal</text>
+<text class='property' x='14' y='202'>ServiceChargeAmount : decimal</text>
+<text class='property' x='14' y='220'>CurrencyCode : string</text>
+<text class='property' x='14' y='238'>IsIncludedInPackage : bool</text>
+<text class='property' x='14' y='256'>AppliedHotelServicePolicyId : int?</text>
+<text class='property' x='14' y='274'>PaymentOption : OrderPaymentOptionEnum</text>
+<text class='property' x='14' y='292'>PriceStatusId : int</text>
+<text class='property' x='14' y='310'>AppointmentDate : DateTime?</text>
+<text class='property' x='14' y='328'>AppointmentLastDate : DateTime?</text>
+<text class='property' x='14' y='346'>OrderId : int</text>
+<text class='property' x='14' y='364'>Order : Order</text>
+<text class='property muted' x='14' y='382'>+3 more...</text>
+</g>
+<g class='entity' id='entity-PaymentTransaction' transform='translate(860,4148)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>PaymentTransaction</text>
+<text class='property' x='14' y='58'>ChargeId : int</text>
+<text class='property' x='14' y='76'>Charge : Charge</text>
+<text class='property' x='14' y='94'>PaymentProvider : PaymentProviderEnum</text>
+<text class='property' x='14' y='112'>ExternalTransactionId : string?</text>
+<text class='property' x='14' y='130'>PaymentMethod : string</text>
+<text class='property' x='14' y='148'>PaymentStatus : OrderPaymentStatusEnum</text>
+<text class='property' x='14' y='166'>Amount : decimal</text>
+<text class='property' x='14' y='184'>CurrencyCode : string</text>
+<text class='property' x='14' y='202'>RedirectUrl : string?</text>
+<text class='property' x='14' y='220'>PaidAt : DateTime?</text>
+<text class='property' x='14' y='238'>FailureReason : string?</text>
+</g>
+<g class='entity' id='entity-PerformanceReview' transform='translate(1270,4148)'>
+<rect class='entity-box' width='330' height='340' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>PerformanceReview</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>EmployeeId : int</text>
+<text class='property' x='14' y='112'>Employee : Employee</text>
+<text class='property' x='14' y='130'>ReviewerEmployeeId : int</text>
+<text class='property' x='14' y='148'>ReviewerEmployee : Employee</text>
+<text class='property' x='14' y='166'>DepartmentId : int?</text>
+<text class='property' x='14' y='184'>Department : Department?</text>
+<text class='property' x='14' y='202'>ReviewDate : DateTime</text>
+<text class='property' x='14' y='220'>PeriodStartDate : DateTime?</text>
+<text class='property' x='14' y='238'>PeriodEndDate : DateTime?</text>
+<text class='property' x='14' y='256'>Score : decimal</text>
+<text class='property' x='14' y='274'>Strengths : string?</text>
+<text class='property' x='14' y='292'>ImprovementAreas : string?</text>
+<text class='property' x='14' y='310'>ManagerNote : string?</text>
+<text class='property' x='14' y='328'>Status : PerformanceReviewStatusEnum</text>
+</g>
+<g class='entity' id='entity-Roles' transform='translate(40,4604)'>
+<rect class='entity-box' width='330' height='70' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Roles</text>
+<text class='property' x='14' y='58'>Name : string</text>
+</g>
+<g class='entity' id='entity-Room' transform='translate(450,4604)'>
+<rect class='entity-box' width='330' height='340' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Room</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>RoomNumber : string?</text>
+<text class='property' x='14' y='94'>RoomTypeId : int</text>
+<text class='property' x='14' y='112'>RoomType : RoomType</text>
+<text class='property' x='14' y='130'>RoomFoodTypeId : int</text>
+<text class='property' x='14' y='148'>RoomFoodType : FoodType</text>
+<text class='property' x='14' y='166'>HotelId : int</text>
+<text class='property' x='14' y='184'>Hotel : Hotel</text>
+<text class='property' x='14' y='202'>FloorNo : int?</text>
+<text class='property' x='14' y='220'>Capacity : int</text>
+<text class='property' x='14' y='238'>Description : string?</text>
+<text class='property' x='14' y='256'>IsFull : bool</text>
+<text class='property' x='14' y='274'>CurrentStatus : string</text>
+<text class='property' x='14' y='292'>Price : decimal</text>
+<text class='property' x='14' y='310'>PriceStatusId : int</text>
+<text class='property' x='14' y='328'>InternalPhoneNumber : string?</text>
+</g>
+<g class='entity' id='entity-RoomType' transform='translate(860,4604)'>
+<rect class='entity-box' width='330' height='70' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>RoomType</text>
+<text class='property' x='14' y='58'>RoomTypeEnum : RoomTypeEnum</text>
+</g>
+<g class='entity' id='entity-ServiceCategory' transform='translate(1270,4604)'>
+<rect class='entity-box' width='330' height='178' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceCategory</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>Name : string</text>
+<text class='property' x='14' y='112'>Description : string?</text>
+<text class='property' x='14' y='130'>IconUrl : string?</text>
+<text class='property' x='14' y='148'>DisplayOrder : int</text>
+<text class='property' x='14' y='166'>LegacyServiceType : ServicesEnum?</text>
+</g>
+<g class='entity' id='entity-ServiceDefinition' transform='translate(40,5024)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceDefinition</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>ServiceCategoryId : int</text>
+<text class='property' x='14' y='112'>ServiceCategory : ServiceCategory</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>Department : Department?</text>
+<text class='property' x='14' y='166'>ServiceType : ServicesEnum</text>
+<text class='property' x='14' y='184'>Name : string</text>
+<text class='property' x='14' y='202'>Description : string?</text>
+<text class='property' x='14' y='220'>ImageUrl : string?</text>
+<text class='property' x='14' y='238'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='256'>IsChargeable : bool</text>
+<text class='property' x='14' y='274'>SupportsFreeText : bool</text>
+<text class='property' x='14' y='292'>RequiresAppointment : bool</text>
+<text class='property' x='14' y='310'>EstimatedDurationMinutes : int?</text>
+<text class='property' x='14' y='328'>DisplayOrder : int</text>
+<text class='property' x='14' y='346'>Price : decimal</text>
+<text class='property' x='14' y='364'>CurrencyCode : string</text>
+</g>
+<g class='entity' id='entity-ServiceDefinitionField' transform='translate(450,5024)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceDefinitionField</text>
+<text class='property' x='14' y='58'>ServiceDefinitionId : int</text>
+<text class='property' x='14' y='76'>ServiceDefinition : ServiceDefinition</text>
+<text class='property' x='14' y='94'>FieldKey : string</text>
+<text class='property' x='14' y='112'>Label : string</text>
+<text class='property' x='14' y='130'>Placeholder : string?</text>
+<text class='property' x='14' y='148'>FieldType : ServiceDefinitionFieldTypeEnum</text>
+<text class='property' x='14' y='166'>IsRequired : bool</text>
+<text class='property' x='14' y='184'>DisplayOrder : int</text>
+<text class='property' x='14' y='202'>OptionsJson : string?</text>
+<text class='property' x='14' y='220'>ValidationRegex : string?</text>
+<text class='property' x='14' y='238'>DefaultValue : string?</text>
+</g>
+<g class='entity' id='entity-ServiceRequest' transform='translate(860,5024)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceRequest</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>GuestStayId : int</text>
+<text class='property' x='14' y='112'>GuestStay : GuestStay</text>
+<text class='property' x='14' y='130'>RoomId : int?</text>
+<text class='property' x='14' y='148'>Room : Room?</text>
+<text class='property' x='14' y='166'>CustomerId : int?</text>
+<text class='property' x='14' y='184'>Customer : Customer?</text>
+<text class='property' x='14' y='202'>ServiceType : ServicesEnum</text>
+<text class='property' x='14' y='220'>ServiceCatalogItemId : int?</text>
+<text class='property' x='14' y='238'>ServiceDefinitionId : int?</text>
+<text class='property' x='14' y='256'>ServiceDefinition : ServiceDefinition?</text>
+<text class='property' x='14' y='274'>Title : string</text>
+<text class='property' x='14' y='292'>Description : string?</text>
+<text class='property' x='14' y='310'>Status : ServiceRequestStatusEnum</text>
+<text class='property' x='14' y='328'>Priority : ServiceRequestPriorityEnum</text>
+<text class='property' x='14' y='346'>RequestSource : ServiceRequestSourceEnum</text>
+<text class='property' x='14' y='364'>DepartmentId : int?</text>
+<text class='property muted' x='14' y='382'>+14 more...</text>
+</g>
+<g class='entity' id='entity-ServiceRequestFieldValue' transform='translate(1270,5024)'>
+<rect class='entity-box' width='330' height='160' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceRequestFieldValue</text>
+<text class='property' x='14' y='58'>ServiceRequestId : int</text>
+<text class='property' x='14' y='76'>ServiceRequest : ServiceRequest</text>
+<text class='property' x='14' y='94'>ServiceDefinitionFieldId : int</text>
+<text class='property' x='14' y='112'>ServiceDefinitionField : ServiceDefinitionField</text>
+<text class='property' x='14' y='130'>FieldKey : string</text>
+<text class='property' x='14' y='148'>Value : string?</text>
+</g>
+<g class='entity' id='entity-ServiceRequestHistory' transform='translate(40,5480)'>
+<rect class='entity-box' width='330' height='196' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceRequestHistory</text>
+<text class='property' x='14' y='58'>ServiceRequestId : int</text>
+<text class='property' x='14' y='76'>ServiceRequest : ServiceRequest</text>
+<text class='property' x='14' y='94'>OldStatus : ServiceRequestStatusEnum?</text>
+<text class='property' x='14' y='112'>NewStatus : ServiceRequestStatusEnum</text>
+<text class='property' x='14' y='130'>ChangedByUserId : int?</text>
+<text class='property' x='14' y='148'>ChangedByUser : Users?</text>
+<text class='property' x='14' y='166'>ChangedAt : DateTime</text>
+<text class='property' x='14' y='184'>Note : string?</text>
+</g>
+<g class='entity' id='entity-ServiceRequestMessage' transform='translate(450,5480)'>
+<rect class='entity-box' width='330' height='340' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceRequestMessage</text>
+<text class='property' x='14' y='58'>ServiceRequestId : int</text>
+<text class='property' x='14' y='76'>ServiceRequest : ServiceRequest</text>
+<text class='property' x='14' y='94'>SenderUserId : int?</text>
+<text class='property' x='14' y='112'>SenderUser : Users?</text>
+<text class='property' x='14' y='130'>SenderType : MessageSenderTypeEnum</text>
+<text class='property' x='14' y='148'>OriginalLanguageCode : string</text>
+<text class='property' x='14' y='166'>OriginalText : string</text>
+<text class='property' x='14' y='184'>TranslatedText : string?</text>
+<text class='property' x='14' y='202'>TranslatedLanguageCode : string?</text>
+<text class='property' x='14' y='220'>SentAt : DateTime</text>
+<text class='property' x='14' y='238'>ReadAt : DateTime?</text>
+<text class='property' x='14' y='256'>MessageType : string</text>
+<text class='property' x='14' y='274'>NormalizedText : string?</text>
+<text class='property' x='14' y='292'>TranslationProvider : string?</text>
+<text class='property' x='14' y='310'>TranslationModel : string?</text>
+<text class='property' x='14' y='328'>TranslationStatus : string</text>
+</g>
+<g class='entity' id='entity-ServiceRequestRating' transform='translate(860,5480)'>
+<rect class='entity-box' width='330' height='214' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceRequestRating</text>
+<text class='property' x='14' y='58'>ServiceRequestId : int</text>
+<text class='property' x='14' y='76'>ServiceRequest : ServiceRequest</text>
+<text class='property' x='14' y='94'>CustomerId : int?</text>
+<text class='property' x='14' y='112'>Customer : Customer?</text>
+<text class='property' x='14' y='130'>SpeedScore : decimal</text>
+<text class='property' x='14' y='148'>QualityScore : decimal</text>
+<text class='property' x='14' y='166'>StaffScore : decimal</text>
+<text class='property' x='14' y='184'>Comment : string?</text>
+<text class='property' x='14' y='202'>RatedAt : DateTime</text>
+</g>
+<g class='entity' id='entity-ServiceRoleAssignments' transform='translate(1270,5480)'>
+<rect class='entity-box' width='330' height='196' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ServiceRoleAssignments</text>
+<text class='property' x='14' y='58'>ServicesEnumId : ServicesEnum</text>
+<text class='property' x='14' y='76'>HotelId : int?</text>
+<text class='property' x='14' y='94'>DepartmentId : int?</text>
+<text class='property' x='14' y='112'>ServiceId : int</text>
+<text class='property' x='14' y='130'>EmployeeTypeRoleId : int</text>
+<text class='property' x='14' y='148'>IsPrimaryAssignment : bool</text>
+<text class='property' x='14' y='166'>Priority : int</text>
+<text class='property' x='14' y='184'>SlaMinutes : int?</text>
+</g>
+<g class='entity' id='entity-Shift' transform='translate(40,5900)'>
+<rect class='entity-box' width='330' height='178' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Shift</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>StartTime : TimeSpan</text>
+<text class='property' x='14' y='94'>EndTime : TimeSpan</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>Hotel : Hotel?</text>
+<text class='property' x='14' y='148'>Description : string?</text>
+<text class='property' x='14' y='166'>IsNightShift : bool</text>
+</g>
+<g class='entity' id='entity-SpaMassage' transform='translate(450,5900)'>
+<rect class='entity-box' width='330' height='286' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>SpaMassage</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string</text>
+<text class='property' x='14' y='94'>HotelId : int?</text>
+<text class='property' x='14' y='112'>DepartmentId : int?</text>
+<text class='property' x='14' y='130'>ParentId : int?</text>
+<text class='property' x='14' y='148'>TypesOfHealthAndSports : TypesOfHealthAndSportsEnum</text>
+<text class='property' x='14' y='166'>Price : decimal</text>
+<text class='property' x='14' y='184'>PriceStatusId : int</text>
+<text class='property' x='14' y='202'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='220'>IsChargeable : bool</text>
+<text class='property' x='14' y='238'>RequiresAppointment : bool</text>
+<text class='property' x='14' y='256'>CurrencyCode : string</text>
+<text class='property' x='14' y='274'>EstimatedDurationMinutes : int?</text>
+</g>
+<g class='entity' id='entity-StayExtensionService' transform='translate(860,5900)'>
+<rect class='entity-box' width='330' height='232' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>StayExtensionService</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string?</text>
+<text class='property' x='14' y='94'>HotelId : int?</text>
+<text class='property' x='14' y='112'>DepartmentId : int?</text>
+<text class='property' x='14' y='130'>Price : decimal</text>
+<text class='property' x='14' y='148'>PriceStatusId : int</text>
+<text class='property' x='14' y='166'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='184'>IsChargeable : bool</text>
+<text class='property' x='14' y='202'>CurrencyCode : string</text>
+<text class='property' x='14' y='220'>RequiresAppointment : bool</text>
+</g>
+<g class='entity' id='entity-StockItem' transform='translate(1270,5900)'>
+<rect class='entity-box' width='330' height='286' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>StockItem</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>DepartmentId : int?</text>
+<text class='property' x='14' y='112'>Department : Department?</text>
+<text class='property' x='14' y='130'>Code : string</text>
+<text class='property' x='14' y='148'>Name : string</text>
+<text class='property' x='14' y='166'>Unit : string</text>
+<text class='property' x='14' y='184'>CurrentQuantity : decimal</text>
+<text class='property' x='14' y='202'>MinimumQuantity : decimal</text>
+<text class='property' x='14' y='220'>LastPurchasePrice : decimal?</text>
+<text class='property' x='14' y='238'>AverageUnitCost : decimal</text>
+<text class='property' x='14' y='256'>IsCritical : bool</text>
+<text class='property' x='14' y='274'>Description : string?</text>
+</g>
+<g class='entity' id='entity-StockMovement' transform='translate(40,6266)'>
+<rect class='entity-box' width='330' height='340' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>StockMovement</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>StockItemId : int</text>
+<text class='property' x='14' y='112'>StockItem : StockItem</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>Department : Department?</text>
+<text class='property' x='14' y='166'>EmployeeId : int?</text>
+<text class='property' x='14' y='184'>Employee : Employee?</text>
+<text class='property' x='14' y='202'>MovementType : StockMovementTypeEnum</text>
+<text class='property' x='14' y='220'>Quantity : decimal</text>
+<text class='property' x='14' y='238'>UnitPrice : decimal</text>
+<text class='property' x='14' y='256'>TotalAmount : decimal</text>
+<text class='property' x='14' y='274'>Reason : string?</text>
+<text class='property' x='14' y='292'>ReferenceType : string?</text>
+<text class='property' x='14' y='310'>ReferenceId : int?</text>
+<text class='property' x='14' y='328'>OccurredAt : DateTime</text>
+</g>
+<g class='entity' id='entity-StockRequest' transform='translate(450,6266)'>
+<rect class='entity-box' width='330' height='376' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>StockRequest</text>
+<text class='property' x='14' y='58'>HotelId : int</text>
+<text class='property' x='14' y='76'>Hotel : Hotel</text>
+<text class='property' x='14' y='94'>RequestedByEmployeeId : int</text>
+<text class='property' x='14' y='112'>RequestedByEmployee : Employee</text>
+<text class='property' x='14' y='130'>AssignedManagerEmployeeId : int?</text>
+<text class='property' x='14' y='148'>AssignedManagerEmployee : Employee?</text>
+<text class='property' x='14' y='166'>DepartmentId : int?</text>
+<text class='property' x='14' y='184'>Department : Department?</text>
+<text class='property' x='14' y='202'>RelatedServiceRequestId : int?</text>
+<text class='property' x='14' y='220'>RelatedServiceRequest : ServiceRequest?</text>
+<text class='property' x='14' y='238'>Title : string</text>
+<text class='property' x='14' y='256'>Description : string?</text>
+<text class='property' x='14' y='274'>Priority : StockRequestPriorityEnum</text>
+<text class='property' x='14' y='292'>Status : StockRequestStatusEnum</text>
+<text class='property' x='14' y='310'>RequestedAt : DateTime</text>
+<text class='property' x='14' y='328'>ApprovedAt : DateTime?</text>
+<text class='property' x='14' y='346'>FulfilledAt : DateTime?</text>
+<text class='property' x='14' y='364'>ManagerNote : string?</text>
+</g>
+<g class='entity' id='entity-StockRequestItem' transform='translate(860,6266)'>
+<rect class='entity-box' width='330' height='214' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>StockRequestItem</text>
+<text class='property' x='14' y='58'>StockRequestId : int</text>
+<text class='property' x='14' y='76'>StockRequest : StockRequest</text>
+<text class='property' x='14' y='94'>StockItemId : int</text>
+<text class='property' x='14' y='112'>StockItem : StockItem</text>
+<text class='property' x='14' y='130'>RequestedQuantity : decimal</text>
+<text class='property' x='14' y='148'>ApprovedQuantity : decimal?</text>
+<text class='property' x='14' y='166'>FulfilledQuantity : decimal?</text>
+<text class='property' x='14' y='184'>UnitPrice : decimal?</text>
+<text class='property' x='14' y='202'>Note : string?</text>
+</g>
+<g class='entity' id='entity-SystemParametre' transform='translate(1270,6266)'>
+<rect class='entity-box' width='330' height='106' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>SystemParametre</text>
+<text class='property' x='14' y='58'>Id : int</text>
+<text class='property' x='14' y='76'>ParametreKey : string</text>
+<text class='property' x='14' y='94'>IsDeleted : bool</text>
+</g>
+<g class='entity' id='entity-SystemParametreValues' transform='translate(40,6722)'>
+<rect class='entity-box' width='330' height='178' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>SystemParametreValues</text>
+<text class='property' x='14' y='58'>Id : int</text>
+<text class='property' x='14' y='76'>SystemParametreId : int</text>
+<text class='property' x='14' y='94'>SystemParametre : SystemParametre</text>
+<text class='property' x='14' y='112'>ParametreValue : string</text>
+<text class='property' x='14' y='130'>Description : string</text>
+<text class='property' x='14' y='148'>SystemParametreValueId : int</text>
+<text class='property' x='14' y='166'>IsDeleted : bool</text>
+</g>
+<g class='entity' id='entity-TechnicalNeed' transform='translate(450,6722)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>TechnicalNeed</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>ParentId : int?</text>
+<text class='property' x='14' y='166'>DisplayOrder : int</text>
+<text class='property' x='14' y='184'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='202'>SupportsFreeText : bool</text>
+<text class='property' x='14' y='220'>EstimatedDurationMinutes : int?</text>
+<text class='property' x='14' y='238'>SlaMinutes : int?</text>
+</g>
+<g class='entity' id='entity-Translation' transform='translate(860,6722)'>
+<rect class='entity-box' width='330' height='142' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Translation</text>
+<text class='property' x='14' y='58'>TableName : string</text>
+<text class='property' x='14' y='76'>RecordId : int</text>
+<text class='property' x='14' y='94'>FieldName : string</text>
+<text class='property' x='14' y='112'>TranslationValue : string</text>
+<text class='property' x='14' y='130'>LanguageCode : string</text>
+</g>
+<g class='entity' id='entity-TravelOrTransportation' transform='translate(1270,6722)'>
+<rect class='entity-box' width='330' height='268' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>TravelOrTransportation</text>
+<text class='property' x='14' y='58'>HotelId : int?</text>
+<text class='property' x='14' y='76'>DepartmentId : int?</text>
+<text class='property' x='14' y='94'>TransportationType : string</text>
+<text class='property' x='14' y='112'>TransportationAddress : string</text>
+<text class='property' x='14' y='130'>TransportationVehicle : string</text>
+<text class='property' x='14' y='148'>RequestDate : DateTime</text>
+<text class='property' x='14' y='166'>Price : decimal</text>
+<text class='property' x='14' y='184'>PriceStatusId : int</text>
+<text class='property' x='14' y='202'>IsChargeable : bool</text>
+<text class='property' x='14' y='220'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='238'>CurrencyCode : string</text>
+<text class='property' x='14' y='256'>Description : string?</text>
+</g>
+<g class='entity' id='entity-Users' transform='translate(40,7070)'>
+<rect class='entity-box' width='330' height='268' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>Users</text>
+<text class='property' x='14' y='58'>Email : string</text>
+<text class='property' x='14' y='76'>Password : string</text>
+<text class='property' x='14' y='94'>UserName : string?</text>
+<text class='property' x='14' y='112'>PreferredLanguageCode : string</text>
+<text class='property' x='14' y='130'>LastLoginAt : DateTime?</text>
+<text class='property' x='14' y='148'>FailedLoginCount : int</text>
+<text class='property' x='14' y='166'>IsLocked : bool</text>
+<text class='property' x='14' y='184'>RefreshToken : string?</text>
+<text class='property' x='14' y='202'>RefreshTokenExpireDate : DateTime?</text>
+<text class='property' x='14' y='220'>Employee : Employee?</text>
+<text class='property' x='14' y='238'>RoleId : int</text>
+<text class='property' x='14' y='256'>Role : Roles</text>
+</g>
+<g class='entity' id='entity-ValetParkingService' transform='translate(450,7070)'>
+<rect class='entity-box' width='330' height='250' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ValetParkingService</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string?</text>
+<text class='property' x='14' y='94'>ImageUrl : string?</text>
+<text class='property' x='14' y='112'>HotelId : int?</text>
+<text class='property' x='14' y='130'>DepartmentId : int?</text>
+<text class='property' x='14' y='148'>Price : decimal</text>
+<text class='property' x='14' y='166'>PriceStatusId : int</text>
+<text class='property' x='14' y='184'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='202'>IsChargeable : bool</text>
+<text class='property' x='14' y='220'>CurrencyCode : string</text>
+<text class='property' x='14' y='238'>EstimatedDurationMinutes : int?</text>
+</g>
+<g class='entity' id='entity-ValidationMessages' transform='translate(860,7070)'>
+<rect class='entity-box' width='330' height='142' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>ValidationMessages</text>
+<text class='property' x='14' y='58'>Id : int</text>
+<text class='property' x='14' y='76'>ValidationMessageType : ValidationMessageType</text>
+<text class='property' x='14' y='94'>ValidationMessage : string</text>
+<text class='property' x='14' y='112'>LanguageCode : string</text>
+<text class='property' x='14' y='130'>IsDeleted : bool</text>
+</g>
+<g class='entity' id='entity-WakeUpCallService' transform='translate(1270,7070)'>
+<rect class='entity-box' width='330' height='232' rx='8' />
+<rect class='entity-title-bg' width='330' height='36' rx='8' />
+<text class='entity-title' x='14' y='24'>WakeUpCallService</text>
+<text class='property' x='14' y='58'>Name : string</text>
+<text class='property' x='14' y='76'>Description : string?</text>
+<text class='property' x='14' y='94'>HotelId : int?</text>
+<text class='property' x='14' y='112'>DepartmentId : int?</text>
+<text class='property' x='14' y='130'>IsVisibleToGuest : bool</text>
+<text class='property' x='14' y='148'>IsChargeable : bool</text>
+<text class='property' x='14' y='166'>Price : decimal</text>
+<text class='property' x='14' y='184'>PriceStatusId : int</text>
+<text class='property' x='14' y='202'>CurrencyCode : string</text>
+<text class='property' x='14' y='220'>RequiresAppointment : bool</text>
+</g>
+  </g>
+</svg>

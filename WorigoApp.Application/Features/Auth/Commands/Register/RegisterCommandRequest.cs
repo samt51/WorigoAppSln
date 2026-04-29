@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Register
 {
-    public class RegisterCommandRequest : IRequest<Response<RegisterCommandResponse>>
+    public class RegisterCommandRequest : IRequest<ResponseDto<RegisterCommandResponse>>
     {
         public RegisterCommandRequest(string email, string password, string confirmPassword)
         {

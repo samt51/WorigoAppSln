@@ -20,13 +20,13 @@ namespace WorigoApp.Api.Controllers.Auth
         }
 
         [HttpPost]
-        public async Task<Response<LoginCommandResponse>> Login(LoginCommandRequest request)
+        public async Task<ResponseDto<LoginCommandResponse>> Login(LoginCommandRequest request)
         {
             return await mediator.Send(request);
         }
 
         [HttpPost]
-        public async Task<Response<RegisterCommandResponse>> Register(RegisterCommandRequest request)
+        public async Task<ResponseDto<RegisterCommandResponse>> Register(RegisterCommandRequest request)
         {
             return await mediator.Send(request);
         }

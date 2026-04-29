@@ -20,25 +20,25 @@ namespace WorigoApp.Api.Controllers.Companies
             this._mediator = mediator;
         }
         [HttpGet]
-        [CachingCheckAttiribute<Response<IList<GetAllCompaniesQueryResponse>>>("category")]
-        public async Task<Response<IList<GetAllCompaniesQueryResponse>>> GetAllAsync()
+        [CachingCheckAttiribute<ResponseDto<IList<GetAllCompaniesQueryResponse>>>("category")]
+        public async Task<ResponseDto<IList<GetAllCompaniesQueryResponse>>> GetAllAsync()
         {
             return await this._mediator.Send(new GetAllCompaniesQueryRequest());
         }
         [HttpPost]
         [AddCachingToResponseAttirbute("category")]
-        public async Task<Response<CreateCompanyCommandResponse>> AddAsync(CreateCompanyCommandRequest request)
+        public async Task<ResponseDto<CreateCompanyCommandResponse>> AddAsync(CreateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);
         }
         [HttpPost]
         [AddCachingToResponseAttirbute("category")]
-        public async Task<Response<UpdateCompanyCommandResponse>> UpdateAsync(UpdateCompanyCommandRequest request)
+        public async Task<ResponseDto<UpdateCompanyCommandResponse>> UpdateAsync(UpdateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);
         }
         [HttpGet("{id}")]
-        public async Task<Response<GetByIdCompanyQueryResponse>> GetByIdAsync(int id)
+        public async Task<ResponseDto<GetByIdCompanyQueryResponse>> GetByIdAsync(int id)
         {
             return await _mediator.Send(new GetByIdCompanyQueryRequest(id));
         }

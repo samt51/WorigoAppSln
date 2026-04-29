@@ -8,13 +8,13 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.AllServiceFeature.TechnicalNeeds.Queries.GetAllTechnical
 {
-    public class GetAllTechnicalQueryHandler : BaseHandler, IRequestHandler<GetAllTechnicalQueryRequest, Response<IList<GetAllTechnicalQueryResponse>>>
+    public class GetAllTechnicalQueryHandler : BaseHandler, IRequestHandler<GetAllTechnicalQueryRequest, ResponseDto<IList<GetAllTechnicalQueryResponse>>>
     {
         public GetAllTechnicalQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<IList<GetAllTechnicalQueryResponse>>> Handle(GetAllTechnicalQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<IList<GetAllTechnicalQueryResponse>>> Handle(GetAllTechnicalQueryRequest request, CancellationToken cancellationToken)
         {
             var languageCode = Util.GetAcceptLanguageCodeFromToken();
 
@@ -39,7 +39,7 @@ namespace WorigoApp.Application.Features.AllServiceFeature.TechnicalNeeds.Querie
                             Description = translation != null && translation.ContainsKey("Description") ? translation["Description"] : d1.Description
                         };
 
-            return new Response<IList<GetAllTechnicalQueryResponse>>().Success(query.ToList());
+            return new ResponseDto<IList<GetAllTechnicalQueryResponse>>().Success(query.ToList());
 
         }
     }

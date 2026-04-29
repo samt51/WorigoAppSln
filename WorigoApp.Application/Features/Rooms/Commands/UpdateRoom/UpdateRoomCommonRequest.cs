@@ -4,7 +4,7 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Rooms.Commands.UpdateRoom
 {
-    public class UpdateRoomCommonRequest : IRequest<Response<UpdateRoomCommonResponse>>
+    public class UpdateRoomCommonRequest : IRequest<ResponseDto<UpdateRoomCommonResponse>>
     {
         public int Id { get; set; }
         public string Name { get; set; }

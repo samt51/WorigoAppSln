@@ -11,7 +11,7 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Login
 {
-    public class LoginCommandHandler : BaseHandler, IRequestHandler<LoginCommandRequest, Response<LoginCommandResponse>>
+    public class LoginCommandHandler : BaseHandler, IRequestHandler<LoginCommandRequest, ResponseDto<LoginCommandResponse>>
     {
         private readonly AuthRule _authRule;
         private readonly ITokenService _tokenService;
@@ -22,7 +22,7 @@ namespace WorigoApp.Application.Features.Auth.Commands.Login
             this._tokenService = tokenService;
         }
 
-        public async Task<Response<LoginCommandResponse>> Handle(LoginCommandRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<LoginCommandResponse>> Handle(LoginCommandRequest request, CancellationToken cancellationToken)
         {
             var user = await unitOfWork.GetReadRepository<Users>().GetAsync(x => x.Email == request.Email && x.Password == PasswordHash.HashPassword(request.Password) && !x.IsDeleted,
                 y => y.Include(x => x.Role));
@@ -32,7 +32,7 @@ namespace WorigoApp.Application.Features.Auth.Commands.Login
             
             var token = await _tokenService.GenerateToken(new GenerateTokenRequest(user.Id, user.Email, user.Role.Name));
 
-            return new Response<LoginCommandResponse>().Success(token);
+            return new ResponseDto<LoginCommandResponse>().Success(token);
         }
     }
 }

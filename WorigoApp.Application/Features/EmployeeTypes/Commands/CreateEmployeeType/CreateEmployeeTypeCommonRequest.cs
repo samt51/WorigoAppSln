@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Commands.CreateEmployeeType
 {
-    public class CreateEmployeeTypeCommonRequest : IRequest<Response<CreateEmployeeTypeCommonResponse>>
+    public class CreateEmployeeTypeCommonRequest : IRequest<ResponseDto<CreateEmployeeTypeCommonResponse>>
     {
         public string Name { get; }
         public int DepartmentId { get; }

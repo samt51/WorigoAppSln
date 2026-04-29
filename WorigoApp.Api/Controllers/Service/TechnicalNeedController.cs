@@ -14,7 +14,7 @@ namespace WorigoApp.Api.Controllers.Service
             this._mediator = mediator;
         }
         [HttpGet]
-        public async Task<Response<IList<GetAllTechnicalQueryResponse>>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<ResponseDto<IList<GetAllTechnicalQueryResponse>>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetAllTechnicalQueryRequest());
         }

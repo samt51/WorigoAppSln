@@ -4,7 +4,7 @@ using WorigoApp.Application.Features.Employees.Dto;
 
 namespace WorigoApp.Application.Features.Employees.Commands.UpdateEmployee
 {
-    public class UpdateEmployeeCommonRequest : IRequest<Response<UpdateEmployeeCommonResponse>>
+    public class UpdateEmployeeCommonRequest : IRequest<ResponseDto<UpdateEmployeeCommonResponse>>
     {
         public int Id { get; set; }
         public string Name { get; set; }

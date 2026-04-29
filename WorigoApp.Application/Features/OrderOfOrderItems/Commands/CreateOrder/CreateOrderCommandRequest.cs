@@ -1,17 +1,23 @@
-﻿using MediatR;
+using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.OrderOfOrderItems.Dto;
+using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
 {
-    public class CreateOrderCommandRequest : IRequest<Response<CreateOrderCommandResponse>>
+    public class CreateOrderCommandRequest : IRequest<ResponseDto<CreateOrderCommandResponse>>
     {
-        public int RoomBasedTransactionId { get; set; }
-        public IList<CreateOrderItems> CreateOrderItems { get; set; }
+        public int GuestStayId { get; set; }
+        public OrderPaymentOptionEnum RequestedPaymentOption { get; set; } = OrderPaymentOptionEnum.RoomCharge;
+        public IList<CreateOrderItems> CreateOrderItems { get; set; } = new List<CreateOrderItems>();
 
-        public CreateOrderCommandRequest(int roomBasedTransactionId, IList<CreateOrderItems> createOrderItems)
+        public CreateOrderCommandRequest()
         {
-            RoomBasedTransactionId = roomBasedTransactionId;
+        }
+
+        public CreateOrderCommandRequest(int guestStayId, IList<CreateOrderItems> createOrderItems)
+        {
+            GuestStayId = guestStayId;
             CreateOrderItems = createOrderItems;
         }
     }

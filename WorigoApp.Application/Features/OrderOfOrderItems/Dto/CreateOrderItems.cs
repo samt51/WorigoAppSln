@@ -1,4 +1,4 @@
-﻿using WorigoApp.Domain.Enums;
+using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.OrderOfOrderItems.Dto
 {
@@ -10,5 +10,8 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Dto
         public decimal Price { get; set; }
         public int PriceStatusId { get; set; }
         public DateTime? AppointmentDate { get; set; }
+        public DateTime? AppointmentLastDate { get; set; }
+        public string? Text { get; set; }
+        public string? CurrencyCode { get; set; }
     }
 }

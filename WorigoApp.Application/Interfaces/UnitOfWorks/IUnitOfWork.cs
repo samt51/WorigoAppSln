@@ -7,10 +7,9 @@ namespace WorigoApp.Application.Interfaces.UnitOfWorks
     {
         IReadRepository<T> GetReadRepository<T>() where T : class, IEntityBase, new();
         IWriteRepository<T> GetWriteRepository<T>() where T : class, IEntityBase, new();
-        void OpenTransaction();
-        Task<int> SaveAsync();
-        Task CommitAsync();
-        void RollBack();
-        int Save();
+        Task OpenTransactionAsync(CancellationToken cancellationToken);
+        Task<int> SaveAsync(CancellationToken cancellationToken = default);
+        Task CommitAsync(CancellationToken cancellationToken = default);
+        Task RollBackAsync(CancellationToken cancellationToken = default);
     }
 }

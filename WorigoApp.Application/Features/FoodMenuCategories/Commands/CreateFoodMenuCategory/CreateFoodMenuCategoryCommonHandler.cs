@@ -6,13 +6,13 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodMenuCategory
 {
-    public class CreateFoodMenuCategoryCommonHandler : BaseHandler, IRequestHandler<CreateFoodMenuCategoryCommonRequest, Response<CreateFoodMenuCategoryCommonResponse>>
+    public class CreateFoodMenuCategoryCommonHandler : BaseHandler, IRequestHandler<CreateFoodMenuCategoryCommonRequest, ResponseDto<CreateFoodMenuCategoryCommonResponse>>
     {
         public CreateFoodMenuCategoryCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<CreateFoodMenuCategoryCommonResponse>> Handle(CreateFoodMenuCategoryCommonRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<CreateFoodMenuCategoryCommonResponse>> Handle(CreateFoodMenuCategoryCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
 
@@ -24,7 +24,7 @@ namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodM
 
             await unitOfWork.CommitAsync();
 
-            return new Response<CreateFoodMenuCategoryCommonResponse>().Success();
+            return new ResponseDto<CreateFoodMenuCategoryCommonResponse>().Success();
         }
     }
 }

@@ -8,7 +8,13 @@ namespace WorigoApp.Persistence.Configurations.GServices
     {
         public void Configure(EntityTypeBuilder<BellBoy> builder)
         {
-            var bellboy1 = new BellBoy(1, "Bagaj Taşıma","1.jpeg");
+            var bellboy1 = new BellBoy(1, "Bagaj Tasima", "1.jpeg")
+            {
+                HotelId = 1,
+                DepartmentId = 1,
+                Description = "Misafirin bagaj tasima talebi icin kullanilir.",
+                EstimatedDurationMinutes = 10
+            };
 
             builder.HasData(bellboy1);
         }

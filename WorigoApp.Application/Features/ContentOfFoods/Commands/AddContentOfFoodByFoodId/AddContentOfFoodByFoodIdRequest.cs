@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.AddContentOfFoodByFoodId
 {
-    public class AddContentOfFoodByFoodIdRequest : IRequest<Response<AddContentOfFoodByFoodIdResponse>>
+    public class AddContentOfFoodByFoodIdRequest : IRequest<ResponseDto<AddContentOfFoodByFoodIdResponse>>
     {
         public int FoodId { get; }
         public int ContentsOfFoodId { get; }

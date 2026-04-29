@@ -20,17 +20,17 @@ namespace WorigoApp.Api.Controllers.Service
         }
 
         [HttpGet("{hotelid}")]
-        public async Task<Response<IList<GetAllFoodMenuCategoriesQueryResponse>>> GetAllAsync(int hotelId)
+        public async Task<ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>> GetAllAsync(int hotelId)
         {
             return await this.mediator.Send(new GetAllFoodMenuCategoriesQueryRequest(hotelId));
         }
         [HttpPost]
-        public async Task<Response<CreateFoodMenuCategoryCommonResponse>> AddAsync(CreateFoodMenuCategoryCommonRequest request)
+        public async Task<ResponseDto<CreateFoodMenuCategoryCommonResponse>> AddAsync(CreateFoodMenuCategoryCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
         [HttpPost]
-        public async Task<Response<UpdateFoodMenuCategoryCommonResponse>> UpdateAsync(UpdateFoodMenuCategoryCommonRequest request)
+        public async Task<ResponseDto<UpdateFoodMenuCategoryCommonResponse>> UpdateAsync(UpdateFoodMenuCategoryCommonRequest request)
         {
             return await this.mediator.Send(request);
         }

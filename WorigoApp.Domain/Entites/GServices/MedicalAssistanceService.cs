@@ -1,0 +1,22 @@
+using WorigoApp.Domain.Common;
+
+namespace WorigoApp.Domain.Entites.GServices
+{
+    /// <summary>
+    /// Doktor, hemşire veya acil sağlık yönlendirmesi gibi destekleri temsil eden servis katalog kaydıdır.
+    /// </summary>
+    public class MedicalAssistanceService : EntityBase
+    {
+        public string Name { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public int? HotelId { get; set; }
+        public int? DepartmentId { get; set; }
+        public bool IsVisibleToGuest { get; set; } = true;
+        public bool SupportsFreeText { get; set; } = true;
+        public bool IsChargeable { get; set; }
+        public decimal Price { get; set; }
+        public int PriceStatusId { get; set; }
+        public string CurrencyCode { get; set; } = "TRY";
+        public bool RequiresAppointment { get; set; }
+    }
+}

@@ -27,6 +27,10 @@
         /// Arapça
         /// </summary>
         public static string SA = "ar-SA";
+        /// <summary>
+        /// Almanca
+        /// </summary>
+        public static string DE = "de-DE";
 
 
     }

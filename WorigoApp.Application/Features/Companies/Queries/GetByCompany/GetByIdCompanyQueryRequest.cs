@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Companies.Queries.GetByCompany
 {
-    public class GetByIdCompanyQueryRequest : IRequest<Response<GetByIdCompanyQueryResponse>>
+    public class GetByIdCompanyQueryRequest : IRequest<ResponseDto<GetByIdCompanyQueryResponse>>
     {
         public GetByIdCompanyQueryRequest(int companyId)
         {

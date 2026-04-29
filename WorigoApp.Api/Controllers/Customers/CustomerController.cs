@@ -1,11 +1,11 @@
-ï»¿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Api.Controllers.CommonBase;
 using WorigoApp.Application.Bases;
-using WorigoApp.Application.Features.Customers.Commands.CreateCustomerByRoomBasedTransactionId;
-using WorigoApp.Application.Features.RoomBasedTransactions.Commands.CreateCustomer;
-using WorigoApp.Application.Features.RoomBasedTransactions.Commands.UpdatedCustomer;
+using WorigoApp.Application.Features.Customers.Commands.CreateCustomerByGuestStayId;
+using WorigoApp.Application.Features.GuestStays.Commands.CreateCustomer;
+using WorigoApp.Application.Features.GuestStays.Commands.UpdatedCustomer;
 using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Customers
@@ -19,20 +19,20 @@ namespace WorigoApp.Api.Controllers.Customers
             this._mediator = mediator;
         }
         [HttpPost]
-        [SwaggerDescriptionAttirbute("Yeni Misafir giriÅŸi yapar.")]
-        public async Task<Response<CreateCustomerCommandResponse>> CreateGuest(CreateCustomerCommandRequest request)
+        [SwaggerDescriptionAttirbute("Yeni Misafir giriþi yapar.")]
+        public async Task<ResponseDto<CreateCustomerCommandResponse>> CreateGuest(CreateCustomerCommandRequest request)
         {
             return await _mediator.Send(request);
         }
         [HttpPost]
-        [SwaggerDescriptionAttirbute("Misafir ile ilgili iÅŸleri ve sÃ¼reyi uzatma gibi gÃ¼ncelleme yapar.")]
-        public async Task<Response<UpdatedCustomerCommandResponse>> UpdateGuest(UpdatedCustomerCommandRequest request)
+        [SwaggerDescriptionAttirbute("Misafir ile ilgili iþleri ve süreyi uzatma gibi güncelleme yapar.")]
+        public async Task<ResponseDto<UpdatedCustomerCommandResponse>> UpdateGuest(UpdatedCustomerCommandRequest request)
         {
             return await this._mediator.Send(request);
         }
         [HttpPost]
-        [SwaggerDescriptionAttirbute("Ä°lgili odaya kullanÄ±cÄ± tanÄ±mlar")]
-        public async Task<Response<CreateCustomerByRoomBasedTransactionIdResponse>> NewCustomerByRoomBasedTransactionId(CreateCustomerByRoomBasedTransactionIdRequest request)
+        [SwaggerDescriptionAttirbute("Ýlgili odaya kullanýcý tanýmlar")]
+        public async Task<ResponseDto<CreateCustomerByGuestStayIdResponse>> NewCustomerByGuestStayId(CreateCustomerByGuestStayIdRequest request)
         {
             return await _mediator.Send(request);
         }

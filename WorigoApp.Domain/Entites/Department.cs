@@ -1,22 +1,66 @@
-﻿using WorigoApp.Domain.Common;
+using WorigoApp.Domain.Common;
 
 namespace WorigoApp.Domain.Entites
 {
+    /// <summary>
+    /// Otel içindeki departman bilgisini ve yönetim ilişkilerini tutar.
+    /// </summary>
     public class Department : EntityBase
     {
-        public Department() { }
+        public Department()
+        {
+        }
+
         public Department(int id, string name, string imageUrl, int hotelid)
         {
-            this.Id = id;
-            this.Name = name;
-            this.ImageUrl = imageUrl;
-            this.HotelId = hotelid;
+            Id = id;
+            Name = name;
+            ImageUrl = imageUrl;
+            HotelId = hotelid;
         }
-        public string Name { get; set; }
-        public string ImageUrl { get; set; }
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; }
-        public IList<EmployeeType> EmployeeTypes { get; set; }
 
+        /// <summary>
+        /// Departmanın adı.
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Departmanı temsil eden görsel.
+        /// </summary>
+        public string? ImageUrl { get; set; }
+
+        /// <summary>
+        /// Departmanın açıklaması.
+        /// </summary>
+        public string? Description { get; set; }
+
+        /// <summary>
+        /// Departmanın yöneticisi olan çalışanın ID'si.
+        /// </summary>
+        public int? ManagerEmployeeId { get; set; }
+
+        /// <summary>
+        /// Görüntüleme sırası.
+        /// </summary>
+        public int DisplayOrder { get; set; }
+
+        /// <summary>
+        /// Departman misafirle doğrudan temas eden bir departman mı?
+        /// </summary>
+        public bool IsGuestFacing { get; set; }
+
+        public int HotelId { get; set; }
+        public Hotel Hotel { get; set; } = null!;
+        public IList<EmployeeType> EmployeeTypes { get; set; } = new List<EmployeeType>();
+        public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
+        public IList<StockItem> StockItems { get; set; } = new List<StockItem>();
+        public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
+        public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
+        public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
+        public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
+        public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
+        public IList<InternalAnnouncement> InternalAnnouncements { get; set; } = new List<InternalAnnouncement>();
+        public IList<EmployeeTask> EmployeeTasks { get; set; } = new List<EmployeeTask>();
+        public IList<ServiceDefinition> ServiceDefinitions { get; set; } = new List<ServiceDefinition>();
     }
 }

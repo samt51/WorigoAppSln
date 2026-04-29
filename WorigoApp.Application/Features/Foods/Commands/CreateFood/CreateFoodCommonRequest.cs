@@ -4,7 +4,7 @@ using WorigoApp.Application.Features.Foods.Dto;
 
 namespace WorigoApp.Application.Features.Foods.Commands.CreateFood
 {
-    public class CreateFoodCommonRequest : IRequest<Response<CreateFoodCommonResponse>>
+    public class CreateFoodCommonRequest : IRequest<ResponseDto<CreateFoodCommonResponse>>
     {
 
         public string Name { get; set; }

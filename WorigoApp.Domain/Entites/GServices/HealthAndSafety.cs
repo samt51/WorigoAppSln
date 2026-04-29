@@ -1,14 +1,14 @@
-ï»¿using WorigoApp.Domain.Common;
+using WorigoApp.Domain.Common;
 using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Domain.Entites.GServices
 {
     /// <summary>
-    /// SaÄŸlÄ±k ve Ä°lk YardÄ±m 
+    /// Saðlýk ve Ýlk Yardým 
     /// </summary>
     public class HealthAndSafety : EntityBase
     {
-        public int RoomBasedTransactionId { get; set; }
+        public int GuestStayId { get; set; }
         public HealthAndFirstHelpTypeEnum HealthAndFirstHelpTypeEnum { get; set; }
         public string Text { get; set; }
     }

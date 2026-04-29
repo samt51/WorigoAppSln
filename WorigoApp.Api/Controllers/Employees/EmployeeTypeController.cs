@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Api.Controllers.CommonBase;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.EmployeeTypes.Commands.CreateEmployeeType;
+using WorigoApp.Application.Features.EmployeeTypes.Commands.ToggleEmployeeTypeStatus;
 using WorigoApp.Application.Features.EmployeeTypes.Commands.UpdateEmployeeType;
 using WorigoApp.Application.Features.EmployeeTypes.Queries.GetAllEmployeeTypes;
 
@@ -19,19 +20,25 @@ namespace WorigoApp.Api.Controllers.Employees
         }
 
         [HttpGet("{departmentId}")]
-        public async Task<Response<IList<GetAllEmployeeTypesQueryResponse>>> GetAllAsync(int departmentId)
+        public async Task<ResponseDto<IList<GetAllEmployeeTypesQueryResponse>>> GetAllAsync(int departmentId)
         {
             return await this.mediator.Send(new GetAllEmployeeTypesQueryRequest(departmentId));
         }
         [HttpPost]
-        public async Task<Response<CreateEmployeeTypeCommonResponse>> AddAsync(CreateEmployeeTypeCommonRequest request)
+        public async Task<ResponseDto<CreateEmployeeTypeCommonResponse>> AddAsync(CreateEmployeeTypeCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
         [HttpPost]
-        public async Task<Response<UpdateEmployeeTypeCommonResponse>> UpdateAsync(UpdateEmployeeTypeCommonRequest request)
+        public async Task<ResponseDto<UpdateEmployeeTypeCommonResponse>> UpdateAsync(UpdateEmployeeTypeCommonRequest request)
         {
             return await this.mediator.Send(request);
+        }
+
+        [HttpPost]
+        public async Task<ResponseDto<ToggleEmployeeTypeStatusCommandResponse>> ToggleStatus(ToggleEmployeeTypeStatusCommandRequest request)
+        {
+            return await mediator.Send(request);
         }
     }
 }

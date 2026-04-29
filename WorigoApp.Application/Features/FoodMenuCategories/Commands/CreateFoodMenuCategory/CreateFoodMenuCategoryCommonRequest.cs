@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodMenuCategory
 {
-    public class CreateFoodMenuCategoryCommonRequest : IRequest<Response<CreateFoodMenuCategoryCommonResponse>>
+    public class CreateFoodMenuCategoryCommonRequest : IRequest<ResponseDto<CreateFoodMenuCategoryCommonResponse>>
     {
         public CreateFoodMenuCategoryCommonRequest(string name, int hotelid)
         {

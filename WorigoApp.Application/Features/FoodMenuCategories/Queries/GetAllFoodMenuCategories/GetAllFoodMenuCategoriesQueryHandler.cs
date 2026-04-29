@@ -6,19 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetAllFoodMenuCategories
 {
-    public class GetAllFoodMenuCategoriesQueryHandler : BaseHandler, IRequestHandler<GetAllFoodMenuCategoriesQueryRequest, Response<IList<GetAllFoodMenuCategoriesQueryResponse>>>
+    public class GetAllFoodMenuCategoriesQueryHandler : BaseHandler, IRequestHandler<GetAllFoodMenuCategoriesQueryRequest, ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>>
     {
         public GetAllFoodMenuCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<IList<GetAllFoodMenuCategoriesQueryResponse>>> Handle(GetAllFoodMenuCategoriesQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>> Handle(GetAllFoodMenuCategoriesQueryRequest request, CancellationToken cancellationToken)
         {
             var list = await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAllAsync(x => x.HotelId == request.HotelId);
 
             var map = mapper.Map<GetAllFoodMenuCategoriesQueryResponse, FoodMenuCategory>(list);
 
-            return new Response<IList<GetAllFoodMenuCategoriesQueryResponse>>().Success(map);
+            return new ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>().Success(map);
         }
     }
 }

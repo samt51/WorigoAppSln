@@ -6,19 +6,19 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Departments.Queries.GetAllDepartment
 {
-    public class GetAllDepartmentQueryHandler : BaseHandler, IRequestHandler<GetAllDepartmentQueryRequest, Response<IList<GetAllDepartmentQueryResponse>>>
+    public class GetAllDepartmentQueryHandler : BaseHandler, IRequestHandler<GetAllDepartmentQueryRequest, ResponseDto<IList<GetAllDepartmentQueryResponse>>>
     {
         public GetAllDepartmentQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
 
         }
-        public async Task<Response<IList<GetAllDepartmentQueryResponse>>> Handle(GetAllDepartmentQueryRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<IList<GetAllDepartmentQueryResponse>>> Handle(GetAllDepartmentQueryRequest request, CancellationToken cancellationToken)
         {
             var departments = await unitOfWork.GetReadRepository<EmployeeType>().GetAllAsync();
 
             var map = mapper.Map<GetAllDepartmentQueryResponse, EmployeeType>(departments);
 
-            return new Response<IList<GetAllDepartmentQueryResponse>>().Success(map);
+            return new ResponseDto<IList<GetAllDepartmentQueryResponse>>().Success(map);
         }
     }
 }

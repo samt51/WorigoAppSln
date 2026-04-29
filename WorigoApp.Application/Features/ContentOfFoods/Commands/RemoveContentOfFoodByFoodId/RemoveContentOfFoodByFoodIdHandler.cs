@@ -8,7 +8,7 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.RemoveContentOfFoodByFoodId
 {
-    public class RemoveContentOfFoodByFoodIdHandler : BaseHandler, IRequestHandler<RemoveContentOfFoodByFoodIdRequest, Response<RemoveContentOfFoodByFoodIdResponse>>
+    public class RemoveContentOfFoodByFoodIdHandler : BaseHandler, IRequestHandler<RemoveContentOfFoodByFoodIdRequest, ResponseDto<RemoveContentOfFoodByFoodIdResponse>>
     {
         private readonly ContentOfFoodRule _contentOfFoodRule;
         public RemoveContentOfFoodByFoodIdHandler(ContentOfFoodRule contentOfFoodRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
@@ -16,7 +16,7 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Commands.RemoveContentOf
             _contentOfFoodRule = contentOfFoodRule;
         }
 
-        public async Task<Response<RemoveContentOfFoodByFoodIdResponse>> Handle(RemoveContentOfFoodByFoodIdRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<RemoveContentOfFoodByFoodIdResponse>> Handle(RemoveContentOfFoodByFoodIdRequest request, CancellationToken cancellationToken)
         {
             await _contentOfFoodRule.CheckFoodContentsOfFoodWithContentIdAndFoodId(request.FoodId, request.ContentsOfFoodId);
 
@@ -28,7 +28,7 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Commands.RemoveContentOf
 
             await unitOfWork.SaveAsync();
 
-            return new Response<RemoveContentOfFoodByFoodIdResponse>().Success();
+            return new ResponseDto<RemoveContentOfFoodByFoodIdResponse>().Success();
         }
     }
 }

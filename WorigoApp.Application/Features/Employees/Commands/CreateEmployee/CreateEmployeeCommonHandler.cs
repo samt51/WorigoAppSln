@@ -7,13 +7,13 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Employees.Commands.CreateEmployee
 {
-    public class CreateEmployeeCommonHandler : BaseHandler, IRequestHandler<CreateEmployeeCommonRequest, Response<CreateEmployeeCommonResponse>>
+    public class CreateEmployeeCommonHandler : BaseHandler, IRequestHandler<CreateEmployeeCommonRequest, ResponseDto<CreateEmployeeCommonResponse>>
     {
         public CreateEmployeeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<CreateEmployeeCommonResponse>> Handle(CreateEmployeeCommonRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<CreateEmployeeCommonResponse>> Handle(CreateEmployeeCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.EmployeeTypeId);
 
@@ -22,7 +22,7 @@ namespace WorigoApp.Application.Features.Employees.Commands.CreateEmployee
 
             var employeeMap = mapper.Map<Employee, CreateEmployeeCommonRequest>(request);
 
-            unitOfWork.OpenTransaction();
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
             var saveEntity = await unitOfWork.GetWriteRepository<Employee>().AddAsync(employeeMap);
 
             var employeeDetailMap = mapper.Map<EmployeeDetail, EmployeeDetailRequestDto>(request.employeeDetailRequest);
@@ -35,7 +35,7 @@ namespace WorigoApp.Application.Features.Employees.Commands.CreateEmployee
 
             await unitOfWork.CommitAsync();
 
-            return new Response<CreateEmployeeCommonResponse>().Success();
+            return new ResponseDto<CreateEmployeeCommonResponse>().Success();
         }
     }
 }

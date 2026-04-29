@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.UserFeature.Queries.GetByIdUser
 {
-    public class GetByIdUserQueryRequest : IRequest<Response<GetByIdUserQueryResponse>>
+    public class GetByIdUserQueryRequest : IRequest<ResponseDto<GetByIdUserQueryResponse>>
     {
         public GetByIdUserQueryRequest(int id)
         {

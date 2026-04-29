@@ -7,7 +7,7 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.AddContentOfFoodByFoodId
 {
-    public class AddContentOfFoodByFoodIdHandler : BaseHandler, IRequestHandler<AddContentOfFoodByFoodIdRequest, Response<AddContentOfFoodByFoodIdResponse>>
+    public class AddContentOfFoodByFoodIdHandler : BaseHandler, IRequestHandler<AddContentOfFoodByFoodIdRequest, ResponseDto<AddContentOfFoodByFoodIdResponse>>
     {
         private readonly ContentOfFoodRule _contentOfFoodRule;
         public AddContentOfFoodByFoodIdHandler(IMapper mapper, IUnitOfWork unitOfWork, ContentOfFoodRule contentOfFoodRule) : base(mapper, unitOfWork)
@@ -15,7 +15,7 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Commands.AddContentOfFoo
             _contentOfFoodRule = contentOfFoodRule;
         }
 
-        public async Task<Response<AddContentOfFoodByFoodIdResponse>> Handle(AddContentOfFoodByFoodIdRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<AddContentOfFoodByFoodIdResponse>> Handle(AddContentOfFoodByFoodIdRequest request, CancellationToken cancellationToken)
         {
 
 
@@ -27,7 +27,7 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Commands.AddContentOfFoo
 
             await unitOfWork.SaveAsync();
 
-            return new Response<AddContentOfFoodByFoodIdResponse>().Success();
+            return new ResponseDto<AddContentOfFoodByFoodIdResponse>().Success();
 
         }
     }

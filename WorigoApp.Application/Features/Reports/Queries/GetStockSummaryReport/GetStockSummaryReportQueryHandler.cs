@@ -1,0 +1,34 @@
+using MediatR;
+using WorigoApp.Application.Bases;
+using WorigoApp.Application.Interfaces.AutoMapper;
+using WorigoApp.Application.Interfaces.UnitOfWorks;
+using WorigoApp.Domain.Enums;
+
+namespace WorigoApp.Application.Features.Reports.Queries.GetStockSummaryReport
+{
+    public class GetStockSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetStockSummaryReportQueryRequest, ResponseDto<GetStockSummaryReportQueryResponse>>
+    {
+        public GetStockSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+        {
+        }
+
+        public async Task<ResponseDto<GetStockSummaryReportQueryResponse>> Handle(GetStockSummaryReportQueryRequest request, CancellationToken cancellationToken)
+        {
+            var stockItems = await unitOfWork.GetReadRepository<Domain.Entites.StockItem>().GetAllAsync(
+                x => x.HotelId == request.HotelId && !x.IsDeleted);
+            var stockRequests = await unitOfWork.GetReadRepository<Domain.Entites.StockRequest>().GetAllAsync(
+                x => x.HotelId == request.HotelId && !x.IsDeleted);
+
+            var response = new GetStockSummaryReportQueryResponse
+            {
+                TotalStockItemCount = stockItems.Count,
+                LowStockItemCount = stockItems.Count(x => x.CurrentQuantity <= x.MinimumQuantity),
+                CriticalStockItemCount = stockItems.Count(x => x.IsCritical && x.CurrentQuantity <= x.MinimumQuantity),
+                PendingStockRequestCount = stockRequests.Count(x => x.Status == StockRequestStatusEnum.Pending),
+                TotalInventoryValue = stockItems.Sum(x => x.CurrentQuantity * x.AverageUnitCost)
+            };
+
+            return new ResponseDto<GetStockSummaryReportQueryResponse>().Success(response);
+        }
+    }
+}

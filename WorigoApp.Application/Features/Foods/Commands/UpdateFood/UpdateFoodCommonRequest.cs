@@ -4,7 +4,7 @@ using WorigoApp.Application.Features.Foods.Dto;
 
 namespace WorigoApp.Application.Features.Foods.Commands.UpdateFood
 {
-    public class UpdateFoodCommonRequest : IRequest<Response<UpdateFoodCommonResponse>>
+    public class UpdateFoodCommonRequest : IRequest<ResponseDto<UpdateFoodCommonResponse>>
     {
         public UpdateFoodCommonRequest(int id, string name, decimal price, string description, int foodMenuCategoryId, List<ContentOfFoodRequestAndResponseDto> requestAndResponseDto)
         {

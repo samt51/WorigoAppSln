@@ -6,18 +6,18 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ImageCategories.Commands.UpdateImageCategory
 {
-    public class UpdateImageCategoryCommonHandler : BaseHandler, IRequestHandler<UpdateImageCategoryCommonRequest, Response<UpdateImageCategoryCommonResponse>>
+    public class UpdateImageCategoryCommonHandler : BaseHandler, IRequestHandler<UpdateImageCategoryCommonRequest, ResponseDto<UpdateImageCategoryCommonResponse>>
     {
         public UpdateImageCategoryCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<UpdateImageCategoryCommonResponse>> Handle(UpdateImageCategoryCommonRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<UpdateImageCategoryCommonResponse>> Handle(UpdateImageCategoryCommonRequest request, CancellationToken cancellationToken)
         {
 
             var entityMap = mapper.Map<ImageCategory, UpdateImageCategoryCommonRequest>(request);
 
-            unitOfWork.OpenTransaction();
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
 
             await unitOfWork.GetWriteRepository<ImageCategory>().UpdateAsync(entityMap);
 
@@ -25,7 +25,7 @@ namespace WorigoApp.Application.Features.ImageCategories.Commands.UpdateImageCat
 
             await unitOfWork.CommitAsync();
             
-            return new Response<UpdateImageCategoryCommonResponse>().Success();
+            return new ResponseDto<UpdateImageCategoryCommonResponse>().Success();
         }
     }
 }

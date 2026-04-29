@@ -8,13 +8,13 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Queries.GetAllContentByFoodId
 {
-    public class GetAllContentByFoodIdHandler : BaseHandler, IRequestHandler<GetAllContentByFoodIdRequest, Response<IList<GetAllContentByFoodIdResponse>>>
+    public class GetAllContentByFoodIdHandler : BaseHandler, IRequestHandler<GetAllContentByFoodIdRequest, ResponseDto<IList<GetAllContentByFoodIdResponse>>>
     {
         public GetAllContentByFoodIdHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
 
-        public async Task<Response<IList<GetAllContentByFoodIdResponse>>> Handle(GetAllContentByFoodIdRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<IList<GetAllContentByFoodIdResponse>>> Handle(GetAllContentByFoodIdRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Food>().GetAsync(x => !x.IsDeleted && x.Id == request.FoodId);
 
@@ -25,7 +25,7 @@ namespace WorigoApp.Application.Features.ContentOfFoods.Queries.GetAllContentByF
 
             var map = mapper.Map<GetAllContentByFoodIdResponse, ContentsOfFood>(result);
 
-            return new Response<IList<GetAllContentByFoodIdResponse>>().Success(map);
+            return new ResponseDto<IList<GetAllContentByFoodIdResponse>>().Success(map);
         }
     }
 }

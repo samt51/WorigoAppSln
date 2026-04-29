@@ -3,7 +3,7 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Hotels.Commands.UpdateHotel
 {
-    public class UpdateHotelCommonRequest :IRequest<Response<UpdateHotelCommonResponse>>
+    public class UpdateHotelCommonRequest :IRequest<ResponseDto<UpdateHotelCommonResponse>>
     {
         public int Id { get; set; }
         public string Name { get; set; }
