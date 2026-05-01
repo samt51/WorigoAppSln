@@ -65,9 +65,14 @@ namespace WorigoApp.Domain.Entites
         public DateTime? ReadAt { get; set; }
 
         /// <summary>
-        /// Mesaj türüdür. Örn: Text, Image, System.
+        /// Mesajin UI tarafinda nasil render edilecegini belirtir.
         /// </summary>
-        public string MessageType { get; set; } = "Text";
+        public ConversationMessageTypeEnum MessageType { get; set; } = ConversationMessageTypeEnum.Text;
+
+        /// <summary>
+        /// Quick reply, option list, form, urun karti veya onay gibi yapilarin JSON icerigidir.
+        /// </summary>
+        public string? PayloadJson { get; set; }
 
         /// <summary>
         /// Loglama ve arama için sadeleştirilmiş mesaj metnidir.

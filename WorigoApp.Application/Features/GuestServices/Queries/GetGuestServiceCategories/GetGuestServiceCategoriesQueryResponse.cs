@@ -1,3 +1,5 @@
+using WorigoApp.Domain.Enums;
+
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCategories
 {
     public class GetGuestServiceCategoriesQueryResponse
@@ -11,5 +13,9 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
         public decimal? MinimumPrice { get; set; }
         public string CurrencyCode { get; set; } = "TRY";
         public string? PreviewImageUrl { get; set; }
+        public ServiceFlowUiTypeEnum FlowUiType { get; set; }
+        public ConversationMessageTypeEnum OpeningMessageType { get; set; }
+        public string OpeningMessage { get; set; } = string.Empty;
+        public string? OpeningPayloadJson { get; set; }
     }
 }

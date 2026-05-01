@@ -12,6 +12,7 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Dto
         public DateTime? AppointmentDate { get; set; }
         public DateTime? AppointmentLastDate { get; set; }
         public string? Text { get; set; }
+        public string? ItemName { get; set; }
         public string? CurrencyCode { get; set; }
     }
 }

@@ -14,8 +14,8 @@ namespace WorigoApp.Persistence.Configurations
             var role4 = new Roles("DepartmentManager", 4);
             var role5 = new Roles("Employee", 5);
             var role6 = new Roles("Customer", 6);
-            var role7 = new Roles("Resepsiyonist", 7);
-            builder.HasData(role1, role2, role3, role4, role5, role6, role7);
+
+            builder.HasData(role1, role2, role3, role4, role5, role6);
         }
     }
 }

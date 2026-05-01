@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.GuestServices.Dtos;
+using WorigoApp.Application.Helpers.ChatFlow;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Common;
@@ -404,6 +405,10 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
             var isIncludedInPackage = policy?.IsIncludedInPackage == true;
             var isChargeable = !isIncludedInPackage && (policy?.IsChargeable ?? defaultIsChargeable);
             var price = isIncludedInPackage ? 0 : policy?.PriceOverride ?? defaultPrice;
+            var flowUiType = ChatFlowTemplateFactory.ResolveUiType(serviceType.ToString(), serviceCategoryName);
+            var openingOptions = fields?.Any() == true && flowUiType == ServiceFlowUiTypeEnum.Form
+                ? fields.Select(x => (x.Label, x.FieldKey))
+                : null;
 
             return new GetGuestAvailableServicesQueryResponse
             {
@@ -426,6 +431,14 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
                 RequiresAppointment = requiresAppointment,
                 EstimatedDurationMinutes = estimatedDurationMinutes,
                 DisplayOrder = displayOrder,
+                FlowUiType = flowUiType,
+                OpeningMessageType = ChatFlowTemplateFactory.ResolveOpeningMessageType(flowUiType),
+                OpeningMessage = ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, serviceType.ToString(), serviceCategoryName),
+                OpeningPayloadJson = ChatFlowTemplateFactory.BuildOpeningPayloadJson(
+                    flowUiType,
+                    serviceType.ToString(),
+                    openingOptions,
+                    serviceCategoryName),
                 Fields = fields ?? new List<ServiceDefinitionFieldDto>()
             };
         }

@@ -1,6 +1,7 @@
 using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailableServices;
+using WorigoApp.Application.Helpers.ChatFlow;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 
@@ -35,17 +36,30 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
                     DisplayName = x.ServiceCategoryName ?? x.ServiceType,
                     x.ServiceType
                 })
-                .Select(group => new GetGuestServiceCategoriesQueryResponse
+                .Select(group =>
                 {
-                    ServiceCategoryId = group.Key.ServiceCategoryId,
-                    ServiceType = group.Key.ServiceType,
-                    DisplayName = group.Key.DisplayName,
-                    ItemCount = group.Count(),
-                    ContainsChargeableItems = group.Any(x => x.IsChargeable),
-                    ContainsIncludedItems = group.Any(x => x.IsIncludedInPackage),
-                    MinimumPrice = group.Where(x => x.IsChargeable && x.Price > 0).Select(x => (decimal?)x.Price).Min(),
-                    CurrencyCode = group.Select(x => x.CurrencyCode).FirstOrDefault() ?? "TRY",
-                    PreviewImageUrl = group.Select(x => x.ImageUrl).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x))
+                    var flowUiType = ChatFlowTemplateFactory.ResolveUiType(group.Key.ServiceType, group.Key.DisplayName);
+
+                    return new GetGuestServiceCategoriesQueryResponse
+                    {
+                        ServiceCategoryId = group.Key.ServiceCategoryId,
+                        ServiceType = group.Key.ServiceType,
+                        DisplayName = group.Key.DisplayName,
+                        ItemCount = group.Count(),
+                        ContainsChargeableItems = group.Any(x => x.IsChargeable),
+                        ContainsIncludedItems = group.Any(x => x.IsIncludedInPackage),
+                        MinimumPrice = group.Where(x => x.IsChargeable && x.Price > 0).Select(x => (decimal?)x.Price).Min(),
+                        CurrencyCode = group.Select(x => x.CurrencyCode).FirstOrDefault() ?? "TRY",
+                        PreviewImageUrl = group.Select(x => x.ImageUrl).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x)),
+                        FlowUiType = flowUiType,
+                        OpeningMessageType = ChatFlowTemplateFactory.ResolveOpeningMessageType(flowUiType),
+                        OpeningMessage = ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, group.Key.ServiceType, group.Key.DisplayName),
+                        OpeningPayloadJson = ChatFlowTemplateFactory.BuildOpeningPayloadJson(
+                            flowUiType,
+                            group.Key.ServiceType,
+                            group.Select(x => (x.Name, x.ServiceDefinitionId?.ToString() ?? x.ServiceItemId.ToString())),
+                            group.Key.DisplayName)
+                    };
                 })
                 .OrderBy(x => x.DisplayName)
                 .ToList();

@@ -139,10 +139,18 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
                 _ => ChargeStatusEnum.Pending
             };
 
+            var serviceRequest = await CreateOperationalServiceRequestAsync(
+                request,
+                guestStay,
+                order,
+                orderItems,
+                cancellationToken);
+
             var charge = await unitOfWork.GetWriteRepository<Charge>().AddAsync(new Charge
             {
                 GuestStayId = guestStay.Id,
                 OrderId = order.Id,
+                ServiceRequestId = serviceRequest?.Id,
                 Description = $"Order {order.OrderNumber}",
                 Amount = order.NetAmount,
                 CurrencyCode = order.CurrencyCode,
@@ -181,6 +189,7 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
                 PaymentOption = order.PaymentOption.ToString(),
                 PaymentStatus = order.PaymentStatus.ToString(),
                 IsPostedToRoom = order.IsPostedToRoom,
+                ServiceRequestId = serviceRequest?.Id,
                 PaymentRedirectUrl = paymentRedirectUrl,
                 OrderItemCount = orderItems.Count,
                 CreatedAt = order.CreatedDate
@@ -353,6 +362,145 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
             }
 
             return (calculatedUnitPrice, priceStatusId, isChargeable);
+        }
+
+        private async Task<ServiceRequest?> CreateOperationalServiceRequestAsync(
+            CreateOrderCommandRequest request,
+            GuestStay guestStay,
+            Order order,
+            IList<OrderItem> orderItems,
+            CancellationToken cancellationToken)
+        {
+            var primaryServiceType = request.CreateOrderItems
+                .Select(x => x.ServicesEnumId)
+                .FirstOrDefault();
+
+            if (primaryServiceType == default)
+            {
+                return null;
+            }
+
+            var serviceDefinition = (await unitOfWork.GetReadRepository<ServiceDefinition>()
+                .GetAllAsync(x =>
+                    x.HotelId == guestStay.HotelId &&
+                    x.ServiceType == primaryServiceType &&
+                    x.IsActive &&
+                    !x.IsDeleted,
+                    orderBy: x => x.OrderBy(y => y.DisplayOrder)))
+                .FirstOrDefault();
+
+            var assignments = await unitOfWork.GetReadRepository<ServiceRoleAssignments>().GetAllAsync(
+                x => x.HotelId == guestStay.HotelId && x.ServicesEnumId == primaryServiceType && x.IsActive && !x.IsDeleted,
+                orderBy: x => x.OrderBy(y => y.Priority));
+
+            var assignment = assignments.FirstOrDefault();
+            var assignedEmployee = await FindAvailableEmployeeAsync(guestStay.HotelId, assignments);
+            var now = DateTime.UtcNow;
+
+            var serviceRequest = await unitOfWork.GetWriteRepository<ServiceRequest>().AddAsync(new ServiceRequest
+            {
+                HotelId = guestStay.HotelId,
+                GuestStayId = guestStay.Id,
+                RoomId = guestStay.RoomId,
+                ServiceType = primaryServiceType,
+                ServiceCatalogItemId = serviceDefinition?.Id,
+                ServiceDefinitionId = serviceDefinition?.Id,
+                Title = ResolveOrderServiceRequestTitle(primaryServiceType),
+                Description = BuildOrderDescription(order.OrderNumber, request.CreateOrderItems),
+                Priority = ServiceRequestPriorityEnum.Normal,
+                RequestSource = ServiceRequestSourceEnum.Mobile,
+                LanguageCode = guestStay.GuestLanguageCode,
+                RequestedAt = now,
+                DepartmentId = assignment?.DepartmentId ?? serviceDefinition?.DepartmentId,
+                DueAt = assignment?.SlaMinutes is int sla ? now.AddMinutes(sla) : null,
+                AssignedEmployeeId = assignedEmployee?.Id,
+                AssignedAt = assignedEmployee is not null ? now : null,
+                Status = assignedEmployee is not null ? ServiceRequestStatusEnum.Assigned : ServiceRequestStatusEnum.Open
+            });
+
+            await unitOfWork.SaveAsync(cancellationToken);
+
+            order.ServiceRequestId = serviceRequest.Id;
+            await unitOfWork.GetWriteRepository<Order>().UpdateAsync(order);
+
+            for (var index = 0; index < request.CreateOrderItems.Count; index++)
+            {
+                var requestItem = request.CreateOrderItems[index];
+                var orderItem = orderItems[index];
+
+                await unitOfWork.GetWriteRepository<ServiceRequestItem>().AddAsync(new ServiceRequestItem
+                {
+                    ServiceRequestId = serviceRequest.Id,
+                    ServiceDefinitionId = serviceDefinition?.Id,
+                    ItemName = string.IsNullOrWhiteSpace(requestItem.ItemName)
+                        ? $"{requestItem.ServicesEnumId} #{requestItem.ServiceItemId}"
+                        : requestItem.ItemName,
+                    Quantity = orderItem.Quantity,
+                    Note = requestItem.Text
+                });
+            }
+
+            await unitOfWork.GetWriteRepository<ServiceRequestHistory>().AddAsync(new ServiceRequestHistory
+            {
+                ServiceRequestId = serviceRequest.Id,
+                NewStatus = serviceRequest.Status,
+                ChangedAt = now,
+                Note = assignedEmployee is not null
+                    ? $"Siparis operasyon talebi olusturuldu ve personele atandi. OrderId: {order.Id}, PersonelId: {assignedEmployee.Id}"
+                    : $"Siparis operasyon talebi olusturuldu. OrderId: {order.Id}"
+            });
+
+            if (assignedEmployee is not null)
+            {
+                assignedEmployee.LastAssignedAt = now;
+                await unitOfWork.GetWriteRepository<Employee>().UpdateAsync(assignedEmployee);
+            }
+
+            await unitOfWork.SaveAsync(cancellationToken);
+            return serviceRequest;
+        }
+
+        private async Task<Employee?> FindAvailableEmployeeAsync(int hotelId, IList<ServiceRoleAssignments> assignments)
+        {
+            foreach (var assignment in assignments)
+            {
+                var employees = await unitOfWork.GetReadRepository<Employee>().GetAllAsync(
+                    x => x.HotelId == hotelId &&
+                         x.EmployeeTypeId == assignment.EmployeeTypeRoleId &&
+                         x.IsActive &&
+                         !x.IsDeleted &&
+                         x.Status &&
+                         x.IsAvailableForTask,
+                    orderBy: x => x.OrderBy(y => y.LastAssignedAt ?? DateTime.MinValue));
+
+                var availableEmployee = employees.FirstOrDefault();
+                if (availableEmployee is not null)
+                {
+                    return availableEmployee;
+                }
+            }
+
+            return null;
+        }
+
+        private static string ResolveOrderServiceRequestTitle(ServicesEnum serviceType)
+        {
+            return serviceType switch
+            {
+                ServicesEnum.Menu => "Yemek Siparisi",
+                ServicesEnum.Minibar => "Minibar Talebi",
+                ServicesEnum.SpaMessage => "Spa Rezervasyonu",
+                ServicesEnum.DryCleaner => "Camasirhane Talebi",
+                _ => $"{serviceType} Talebi"
+            };
+        }
+
+        private static string BuildOrderDescription(string orderNumber, IList<Dto.CreateOrderItems> items)
+        {
+            var itemText = string.Join(", ", items.Select(x =>
+                $"{(string.IsNullOrWhiteSpace(x.ItemName) ? $"{x.ServicesEnumId} #{x.ServiceItemId}" : x.ItemName)} x{x.Quantity}"));
+
+            return $"{orderNumber}: {itemText}";
         }
     }
 }

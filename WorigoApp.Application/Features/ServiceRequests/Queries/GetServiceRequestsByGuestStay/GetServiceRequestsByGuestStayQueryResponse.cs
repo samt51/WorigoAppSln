@@ -1,4 +1,5 @@
 using WorigoApp.Domain.Enums;
+using WorigoApp.Application.Features.ServiceRequests.Dtos;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetServiceRequestsByGuestStay
 {
@@ -14,5 +15,11 @@ namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetServiceReque
         public DateTime? CompletedAt { get; set; }
         public int? AssignedEmployeeId { get; set; }
         public int? DepartmentId { get; set; }
+        public int? ServiceDefinitionId { get; set; }
+        public string? ServiceDefinitionName { get; set; }
+        public int? ServiceCategoryId { get; set; }
+        public string? ServiceCategoryName { get; set; }
+        public int? ConversationId { get; set; }
+        public IList<ServiceRequestItemDto> Items { get; set; } = new List<ServiceRequestItemDto>();
     }
 }

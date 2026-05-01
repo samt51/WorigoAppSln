@@ -31,5 +31,7 @@ namespace WorigoApp.Domain.Entites
 
         public IList<ServiceDefinitionField> Fields { get; set; } = new List<ServiceDefinitionField>();
         public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
+        public IList<ServiceRequestItem> ServiceRequestItems { get; set; } = new List<ServiceRequestItem>();
+        public IList<ConversationFlowSession> FlowSessions { get; set; } = new List<ConversationFlowSession>();
     }
 }

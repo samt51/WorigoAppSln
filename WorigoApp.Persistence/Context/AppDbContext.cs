@@ -166,6 +166,24 @@ namespace WorigoApp.Persistence.Context
                 .HasForeignKey(x => x.SenderCustomerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<ConversationFlowSession>()
+                .HasOne(x => x.Conversation)
+                .WithMany(x => x.FlowSessions)
+                .HasForeignKey(x => x.ConversationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ConversationFlowSession>()
+                .HasOne(x => x.ServiceCategory)
+                .WithMany(x => x.FlowSessions)
+                .HasForeignKey(x => x.ServiceCategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ConversationFlowSession>()
+                .HasOne(x => x.ServiceDefinition)
+                .WithMany(x => x.FlowSessions)
+                .HasForeignKey(x => x.ServiceDefinitionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Charge>()
                 .HasOne(x => x.GuestStay)
                 .WithMany(x => x.Charges)
@@ -176,6 +194,12 @@ namespace WorigoApp.Persistence.Context
                 .HasOne(x => x.Order)
                 .WithMany(x => x.Charges)
                 .HasForeignKey(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.ServiceRequest)
+                .WithMany(x => x.Orders)
+                .HasForeignKey(x => x.ServiceRequestId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Charge>()
@@ -242,6 +266,18 @@ namespace WorigoApp.Persistence.Context
                 .HasOne(x => x.ServiceDefinitionField)
                 .WithMany(x => x.RequestValues)
                 .HasForeignKey(x => x.ServiceDefinitionFieldId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ServiceRequestItem>()
+                .HasOne(x => x.ServiceRequest)
+                .WithMany(x => x.Items)
+                .HasForeignKey(x => x.ServiceRequestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ServiceRequestItem>()
+                .HasOne(x => x.ServiceDefinition)
+                .WithMany(x => x.ServiceRequestItems)
+                .HasForeignKey(x => x.ServiceDefinitionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ServiceRequestHistory>()
@@ -549,10 +585,12 @@ namespace WorigoApp.Persistence.Context
         public DbSet<GuestSession> GuestSessions { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<ConversationMessage> ConversationMessages { get; set; }
+        public DbSet<ConversationFlowSession> ConversationFlowSessions { get; set; }
         public DbSet<Charge> Charges { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<ServiceDefinition> ServiceDefinitions { get; set; }
         public DbSet<ServiceDefinitionField> ServiceDefinitionFields { get; set; }
         public DbSet<ServiceRequestFieldValue> ServiceRequestFieldValues { get; set; }
+        public DbSet<ServiceRequestItem> ServiceRequestItems { get; set; }
     }
 }

@@ -32,6 +32,8 @@ namespace WorigoApp.Domain.Entites
         public OrderPaymentStatusEnum PaymentStatus { get; set; } = OrderPaymentStatusEnum.Pending;
         public bool IsPostedToRoom { get; set; }
         public DateTime? PostedToRoomAt { get; set; }
+        public int? ServiceRequestId { get; set; }
+        public ServiceRequest? ServiceRequest { get; set; }
         public int GuestStayId { get; set; }
         public GuestStay GuestStay { get; set; } = null!;
         public IList<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

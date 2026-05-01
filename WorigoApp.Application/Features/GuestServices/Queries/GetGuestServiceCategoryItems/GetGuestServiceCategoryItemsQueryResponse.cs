@@ -1,4 +1,5 @@
 using WorigoApp.Application.Features.GuestServices.Dtos;
+using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCategoryItems
 {
@@ -23,6 +24,10 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
         public bool RequiresAppointment { get; set; }
         public int? EstimatedDurationMinutes { get; set; }
         public int DisplayOrder { get; set; }
+        public ServiceFlowUiTypeEnum FlowUiType { get; set; }
+        public ConversationMessageTypeEnum OpeningMessageType { get; set; }
+        public string OpeningMessage { get; set; } = string.Empty;
+        public string? OpeningPayloadJson { get; set; }
         public IList<ServiceDefinitionFieldDto> Fields { get; set; } = new List<ServiceDefinitionFieldDto>();
     }
 }

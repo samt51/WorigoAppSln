@@ -1,4 +1,5 @@
 using WorigoApp.Domain.Enums;
+using WorigoApp.Application.Features.ServiceRequests.Dtos;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetAssignedServiceRequests
 {
@@ -12,7 +13,13 @@ namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetAssignedServ
         public int? RoomId { get; set; }
         public int? CustomerId { get; set; }
         public int? DepartmentId { get; set; }
+        public int? ServiceDefinitionId { get; set; }
+        public string? ServiceDefinitionName { get; set; }
+        public int? ServiceCategoryId { get; set; }
+        public string? ServiceCategoryName { get; set; }
+        public int? ConversationId { get; set; }
         public DateTime RequestedAt { get; set; }
         public DateTime? DueAt { get; set; }
+        public IList<ServiceRequestItemDto> Items { get; set; } = new List<ServiceRequestItemDto>();
     }
 }

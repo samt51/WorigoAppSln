@@ -146,6 +146,8 @@ namespace WorigoApp.Domain.Entites
         public IList<ServiceRequestRating> Ratings { get; set; } = new List<ServiceRequestRating>();
         public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
         public IList<ServiceRequestFieldValue> FieldValues { get; set; } = new List<ServiceRequestFieldValue>();
+        public IList<ServiceRequestItem> Items { get; set; } = new List<ServiceRequestItem>();
         public IList<Charge> Charges { get; set; } = new List<Charge>();
+        public IList<Order> Orders { get; set; } = new List<Order>();
     }
 }

@@ -67,5 +67,6 @@ namespace WorigoApp.Domain.Entites
         public DateTime? ClosedAt { get; set; }
 
         public IList<ConversationMessage> Messages { get; set; } = new List<ConversationMessage>();
+        public IList<ConversationFlowSession> FlowSessions { get; set; } = new List<ConversationFlowSession>();
     }
 }

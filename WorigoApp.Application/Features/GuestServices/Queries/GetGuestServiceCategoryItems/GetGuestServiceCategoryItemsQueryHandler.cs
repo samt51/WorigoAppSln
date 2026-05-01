@@ -1,6 +1,7 @@
 using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailableServices;
+using WorigoApp.Application.Helpers.ChatFlow;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 
@@ -32,28 +33,41 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
                 .Where(x => x.ServiceType == request.ServiceType.ToString())
                 .OrderBy(x => x.DisplayOrder)
                 .ThenBy(x => x.Name)
-                .Select(x => new GetGuestServiceCategoryItemsQueryResponse
+                .Select(x =>
                 {
-                    ServiceDefinitionId = x.ServiceDefinitionId,
-                    ServiceCategoryId = x.ServiceCategoryId,
-                    ServiceCategoryName = x.ServiceCategoryName,
-                    ServiceType = x.ServiceType,
-                    ServiceItemId = x.ServiceItemId,
-                    Name = x.Name,
-                    Description = x.Description,
-                    ImageUrl = x.ImageUrl,
-                    IsChargeable = x.IsChargeable,
-                    IsIncludedInPackage = x.IsIncludedInPackage,
-                    Price = x.Price,
-                    CurrencyCode = x.CurrencyCode,
-                    AllowRoomCharge = x.AllowRoomCharge,
-                    AllowOnlinePayment = x.AllowOnlinePayment,
-                    AllowOnSitePayment = x.AllowOnSitePayment,
-                    SupportsFreeText = x.SupportsFreeText,
-                    RequiresAppointment = x.RequiresAppointment,
-                    EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                    DisplayOrder = x.DisplayOrder,
-                    Fields = x.Fields
+                    var flowUiType = ChatFlowTemplateFactory.ResolveUiType(x.ServiceType, x.ServiceCategoryName);
+
+                    return new GetGuestServiceCategoryItemsQueryResponse
+                    {
+                        ServiceDefinitionId = x.ServiceDefinitionId,
+                        ServiceCategoryId = x.ServiceCategoryId,
+                        ServiceCategoryName = x.ServiceCategoryName,
+                        ServiceType = x.ServiceType,
+                        ServiceItemId = x.ServiceItemId,
+                        Name = x.Name,
+                        Description = x.Description,
+                        ImageUrl = x.ImageUrl,
+                        IsChargeable = x.IsChargeable,
+                        IsIncludedInPackage = x.IsIncludedInPackage,
+                        Price = x.Price,
+                        CurrencyCode = x.CurrencyCode,
+                        AllowRoomCharge = x.AllowRoomCharge,
+                        AllowOnlinePayment = x.AllowOnlinePayment,
+                        AllowOnSitePayment = x.AllowOnSitePayment,
+                        SupportsFreeText = x.SupportsFreeText,
+                        RequiresAppointment = x.RequiresAppointment,
+                        EstimatedDurationMinutes = x.EstimatedDurationMinutes,
+                        DisplayOrder = x.DisplayOrder,
+                        FlowUiType = flowUiType,
+                        OpeningMessageType = ChatFlowTemplateFactory.ResolveOpeningMessageType(flowUiType),
+                        OpeningMessage = ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, x.ServiceType, x.ServiceCategoryName),
+                        OpeningPayloadJson = ChatFlowTemplateFactory.BuildOpeningPayloadJson(
+                            flowUiType,
+                            x.ServiceType,
+                            x.Fields.Select(field => (field.Label, field.FieldKey)),
+                            x.ServiceCategoryName),
+                        Fields = x.Fields
+                    };
                 })
                 .ToList();
 

@@ -16,5 +16,6 @@ namespace WorigoApp.Domain.Entites
         public ServicesEnum? LegacyServiceType { get; set; }
 
         public IList<ServiceDefinition> ServiceDefinitions { get; set; } = new List<ServiceDefinition>();
+        public IList<ConversationFlowSession> FlowSessions { get; set; } = new List<ConversationFlowSession>();
     }
 }

@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using WorigoApp.Application.Bases;
+using WorigoApp.Application.Features.ServiceRequests.Dtos;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
@@ -23,6 +24,16 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceR
             {
                 await unitOfWork.GetReadRepository<Customer>()
                     .GetAsync(x => x.Id == request.CustomerId.Value && x.GuestStayId == request.GuestStayId && !x.IsDeleted);
+            }
+
+            if (request.ConversationId.HasValue)
+            {
+                await unitOfWork.GetReadRepository<Conversation>()
+                    .GetAsync(x =>
+                        x.Id == request.ConversationId.Value &&
+                        x.HotelId == guestStay.HotelId &&
+                        x.GuestStayId == request.GuestStayId &&
+                        !x.IsDeleted);
             }
 
             ServiceDefinition? serviceDefinition = null;
@@ -67,6 +78,8 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceR
                 DueAt = assignment?.SlaMinutes is int sla ? now.AddMinutes(sla) : null,
                 AssignedEmployeeId = assignedEmployee?.Id,
                 AssignedAt = assignedEmployee is not null ? now : null,
+                ConversationId = request.ConversationId,
+                IsChatStarted = request.ConversationId.HasValue,
                 Status = assignedEmployee is not null ? ServiceRequestStatusEnum.Assigned : ServiceRequestStatusEnum.Open
             };
 
@@ -114,6 +127,24 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceR
                     });
                 }
 
+                await unitOfWork.SaveAsync(cancellationToken);
+            }
+
+            var requestItems = BuildRequestItems(request, serviceDefinition);
+            foreach (var item in requestItems)
+            {
+                await unitOfWork.GetWriteRepository<ServiceRequestItem>().AddAsync(new ServiceRequestItem
+                {
+                    ServiceRequestId = createdRequest.Id,
+                    ServiceDefinitionId = item.ServiceDefinitionId,
+                    ItemName = item.ItemName,
+                    Quantity = item.Quantity,
+                    Note = item.Note
+                });
+            }
+
+            if (requestItems.Any())
+            {
                 await unitOfWork.SaveAsync(cancellationToken);
             }
 
@@ -168,6 +199,41 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceR
             }
 
             return null;
+        }
+
+        private static IList<ServiceRequestItemDto> BuildRequestItems(
+            CreateServiceRequestCommandRequest request,
+            ServiceDefinition? serviceDefinition)
+        {
+            if (request.Items.Any())
+            {
+                return request.Items
+                    .Where(x => !string.IsNullOrWhiteSpace(x.ItemName) && x.Quantity > 0)
+                    .ToList();
+            }
+
+            if (serviceDefinition is null)
+            {
+                return new List<ServiceRequestItemDto>();
+            }
+
+            var quantityField = request.FieldValues
+                .FirstOrDefault(x => x.FieldKey.Equals("quantity", StringComparison.OrdinalIgnoreCase));
+
+            var quantity = int.TryParse(quantityField?.Value, out var parsedQuantity) && parsedQuantity > 0
+                ? parsedQuantity
+                : 1;
+
+            return new List<ServiceRequestItemDto>
+            {
+                new()
+                {
+                    ServiceDefinitionId = serviceDefinition.Id,
+                    ItemName = serviceDefinition.Name,
+                    Quantity = quantity,
+                    Note = request.Description
+                }
+            };
         }
     }
 }
