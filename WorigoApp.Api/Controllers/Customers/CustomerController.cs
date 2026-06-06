@@ -10,7 +10,7 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Customers
 {
-    [Authorize(Roles = "SystemAdmin,Resepsiyonist")]
+    [Authorize(Roles = "SystemAdmin,Employee")]
     public class CustomerController : BaseController
     {
         private readonly IMediator _mediator;

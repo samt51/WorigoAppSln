@@ -29,8 +29,8 @@ namespace WorigoApp.Application.Features.Auth.Commands.Login
 
             await _authRule.EmailOrPasswordShouldNotBeInvalid(user);
 
-            
-            var token = await _tokenService.GenerateToken(new GenerateTokenRequest(user.Id, user.Email, user.Role.Name));
+
+            var token = await _tokenService.GenerateToken(new GenerateTokenRequest(user.Id, user.Email, user.Role.Name, user.RoleId));
 
             return new ResponseDto<LoginCommandResponse>().Success(token);
         }

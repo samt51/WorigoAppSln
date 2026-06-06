@@ -75,6 +75,9 @@ namespace WorigoApp.Application.Features.ServiceRequestMessages.Commands.CreateS
             return new ResponseDto<CreateServiceRequestMessageCommandResponse>().Success(new CreateServiceRequestMessageCommandResponse
             {
                 Id = createdMessage.Id,
+                ServiceRequestId = createdMessage.ServiceRequestId,
+                SenderUserId = createdMessage.SenderUserId,
+                SenderType = createdMessage.SenderType.ToString(),
                 OriginalLanguageCode = createdMessage.OriginalLanguageCode,
                 OriginalText = createdMessage.OriginalText,
                 TranslatedLanguageCode = createdMessage.TranslatedLanguageCode,

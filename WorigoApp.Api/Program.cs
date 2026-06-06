@@ -1,4 +1,4 @@
-using Microsoft.OpenApi.Models;
+ï»¿using Microsoft.OpenApi.Models;
 using WorigoApp.Persistence;
 using WorigoApp.Application;
 using WorigoApp.Infrastructure;
@@ -14,6 +14,8 @@ using WorigoApp.Application.Middleware.Exceptions;
 using MediatR;
 using WorigoApp.Application.Pipelines.Behaviour;
 using WorigoApp.Application.Filters;
+using WorigoApp.Api.Hubs;
+using WorigoApp.Persistence.Database;
 
 internal class Program
 {
@@ -24,6 +26,8 @@ internal class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+        builder.Services.AddSignalR();
+        builder.Services.AddHttpClient();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -45,21 +49,24 @@ internal class Program
         builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddHttpContextAccessor();
 
-        builder.Services.AddDbContext<AppDbContext>();
-
-        Logger log = new LoggerConfiguration()
+        var loggerConfiguration = new LoggerConfiguration()
             .WriteTo.Console()
             .WriteTo.File("logs/log.txt")
-            .WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), "loglama", autoCreateSqlTable: true, columnOptions: new ColumnOptions
+            .Enrich.FromLogContext()
+            .MinimumLevel.Information();
+
+        if (!builder.Environment.IsDevelopment())
+        {
+            loggerConfiguration.WriteTo.MSSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), "loglama", autoCreateSqlTable: true, columnOptions: new ColumnOptions
             {
                 AdditionalColumns = new Collection<SqlColumn>
                 {
-            new SqlColumn("UserId",System.Data.SqlDbType.VarChar)
+                    new SqlColumn("UserId",System.Data.SqlDbType.VarChar)
                 }
-            })
-             .Enrich.FromLogContext()
-            .MinimumLevel.Information()
-            .CreateLogger();
+            });
+        }
+
+        Logger log = loggerConfiguration.CreateLogger();
 
         builder.Host.UseSerilog(log);
         builder.Services.AddMemoryCache();
@@ -85,7 +92,7 @@ internal class Program
                 Scheme = "Bearer",
                 BearerFormat = "JWT",
                 In = ParameterLocation.Header,
-                Description = "'Bearer' yazýp boþluk býraktýktan sonra Token'ý Girebilirsiniz \r\n\r\n Örneðin: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\""
+                Description = "'Bearer' yazÄ±p boÅŸluk bÄ±raktÄ±ktan sonra Token'Ä± Girebilirsiniz \r\n\r\n Ã–rneÄŸin: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\""
             });
             c.AddSecurityRequirement(new OpenApiSecurityRequirement()
             {
@@ -109,14 +116,15 @@ internal class Program
 
         var app = builder.Build();
 
+        app.Services.ApplyDatabaseMigrations(app.Configuration, app.Logger);
+
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwagger();
-        }
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
         app.UseSerilogRequestLogging();
         app.UseHttpsRedirection();
+        app.UseStaticFiles();
         app.UseMiddleware<JwtExpirationMiddleware>();
 
         app.ConfigureExceptionHandlingMiddleware();
@@ -134,7 +142,9 @@ internal class Program
         });
 
         app.MapControllers();
+        app.MapHub<HotelOperationsHub>("/hubs/hotel-operations");
 
         app.Run();
     }
 }
+

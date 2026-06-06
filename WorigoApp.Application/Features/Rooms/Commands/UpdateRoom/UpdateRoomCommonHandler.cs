@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
@@ -14,9 +14,9 @@ namespace WorigoApp.Application.Features.Rooms.Commands.UpdateRoom
 
         public async Task<ResponseDto<UpdateRoomCommonResponse>> Handle(UpdateRoomCommonRequest request, CancellationToken cancellationToken)
         {
-            await unitOfWork.GetReadRepository<Room>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
+            var room = await unitOfWork.GetReadRepository<Room>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
-            await unitOfWork.GetReadRepository<RoomType>().GetAsync(x => x.Id == request.RoomTypeId && !x.IsDeleted);
+            await unitOfWork.GetReadRepository<RoomType>().GetAsync(x => x.Id == request.RoomTypeId && x.HotelId == room.HotelId && x.IsActive && !x.IsDeleted);
 
             var entityMap = mapper.Map<Room, UpdateRoomCommonRequest>(request);
 

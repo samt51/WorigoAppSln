@@ -16,20 +16,30 @@ namespace WorigoApp.Application.Features.Auth.Validator
             _getDataFromCache = getDataFromCache;
             this._httpContextAccessor = httpContextAccessor;
 
-            var languageCode = _httpContextAccessor.HttpContext.Request.Headers.FirstOrDefault(x => x.Key == "Accept-Language").Value;
+            var languageCode = _httpContextAccessor.HttpContext?.Request.Headers["Accept-Language"].FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(languageCode))
+            {
+                languageCode = LanguageCodeEnum.TR;
+            }
 
-            var cache = _getDataFromCache.GetData("validationMessage").Where(x => x.LanguageCode == languageCode);
+            var validationMessages = _getDataFromCache.GetData("validationMessage") ?? [];
+            var cache = validationMessages.Where(x => x.LanguageCode == languageCode);
+
+            string Message(ValidationMessageType type, string fallback)
+            {
+                return cache.FirstOrDefault(x => x.ValidationMessageType == type)?.ValidationMessage
+                    ?? validationMessages.FirstOrDefault(x => x.LanguageCode == LanguageCodeEnum.TR && x.ValidationMessageType == type)?.ValidationMessage
+                    ?? fallback;
+            }
 
 
             RuleFor(x => x.Email)
-        .NotEmpty().WithMessage(cache.FirstOrDefault(x => x.ValidationMessageType == ValidationMessageType.IsNull)?.ValidationMessage)
-        .EmailAddress().WithMessage(cache.FirstOrDefault(x => x.ValidationMessageType == ValidationMessageType.EmailAddressControll)
-        ?.ValidationMessage);
+        .NotEmpty().WithMessage(Message(ValidationMessageType.IsNull, "Mail alanı boş olamaz."))
+        .EmailAddress().WithMessage(Message(ValidationMessageType.EmailAddressControll, "Geçerli bir email adresi giriniz."));
 
 
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage(cache.FirstOrDefault
-                (x => x.ValidationMessageType == ValidationMessageType.PasswordIsNull)?.ValidationMessage);
+                .NotEmpty().WithMessage(Message(ValidationMessageType.PasswordIsNull, "Şifre alanı boş olamaz."));
         }
     }
 }

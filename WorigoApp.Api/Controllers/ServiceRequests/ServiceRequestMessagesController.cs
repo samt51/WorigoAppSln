@@ -1,7 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using WorigoApp.Api.Controllers.CommonBase;
+using WorigoApp.Api.Hubs;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.ServiceRequestMessages.Commands.CreateServiceRequestMessage;
 using WorigoApp.Application.Features.ServiceRequestMessages.Queries.GetServiceRequestMessages;
@@ -13,17 +15,27 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
     public class ServiceRequestMessagesController : BaseController
     {
         private readonly IMediator _mediator;
+        private readonly IHubContext<HotelOperationsHub> _hubContext;
 
-        public ServiceRequestMessagesController(IMediator mediator) : base(mediator)
+        public ServiceRequestMessagesController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext) : base(mediator)
         {
             _mediator = mediator;
+            _hubContext = hubContext;
         }
 
         [HttpPost]
         [SwaggerDescriptionAttirbute("Servis talebi icin yeni chat mesaji olusturur ve hedef dile cevirir.")]
         public async Task<ResponseDto<CreateServiceRequestMessageCommandResponse>> Create(CreateServiceRequestMessageCommandRequest request)
         {
-            return await _mediator.Send(request);
+            var response = await _mediator.Send(request);
+
+            if (response.IsSuccess && response.Data is not null)
+            {
+                await _hubContext.Clients.Group(HotelOperationsHub.GroupNames.ServiceRequest(response.Data.ServiceRequestId))
+                    .SendAsync("ServiceRequestMessageCreated", response.Data);
+            }
+
+            return response;
         }
 
         [HttpGet("{serviceRequestId}")]

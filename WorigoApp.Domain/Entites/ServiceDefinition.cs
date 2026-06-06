@@ -19,11 +19,13 @@ namespace WorigoApp.Domain.Entites
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string? ImageUrl { get; set; }
+        public string? OpeningMessage { get; set; }
 
         public bool IsVisibleToGuest { get; set; } = true;
         public bool IsChargeable { get; set; }
         public bool SupportsFreeText { get; set; }
         public bool RequiresAppointment { get; set; }
+        public ServiceFlowUiTypeEnum? FlowUiType { get; set; }
         public int? EstimatedDurationMinutes { get; set; }
         public int DisplayOrder { get; set; }
         public decimal Price { get; set; }

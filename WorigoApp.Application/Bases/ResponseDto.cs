@@ -1,4 +1,4 @@
-﻿namespace WorigoApp.Application.Bases
+namespace WorigoApp.Application.Bases
 {
     public class ResponseDto<T>
     {
@@ -8,7 +8,7 @@
 
         public bool IsSuccess { get; set; }
 
-        public List<string> Errors { get; set; }
+        public List<string> Errors { get; set; } = new List<string>();
 
         public ResponseDto<T> Success()
         {
@@ -28,11 +28,13 @@
         }
         public ResponseDto<T> Fail(T data, string errors, int statusCode)
         {
+            Errors ??= new List<string>();
             Errors.Add(errors);
             return new ResponseDto<T> { Data = data, Errors = Errors, StatusCode = statusCode, IsSuccess = false };
         }
         public ResponseDto<T> Fail(string errors, int statusCode)
         {
+            Errors ??= new List<string>();
             Errors.Add(errors);
             return new ResponseDto<T> { Errors = Errors, StatusCode = statusCode, IsSuccess = false };
         }

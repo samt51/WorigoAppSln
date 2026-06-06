@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using WorigoApp.Application.Features.EmployeeTypes.Queries.GetByIdEmployeeType;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Api.Controllers.CommonBase;
@@ -40,5 +41,12 @@ namespace WorigoApp.Api.Controllers.Employees
         {
             return await mediator.Send(request);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ResponseDto<GetByIdEmployeeTypeQueryResponse>> GetByIdAsync(int id)
+        {
+            return await mediator.Send(new GetByIdEmployeeTypeQueryRequest(id));
+        }
     }
 }
+

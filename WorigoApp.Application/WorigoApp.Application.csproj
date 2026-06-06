@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -16,18 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\AllServiceFeature\BellBoys\Queries\" />
-    <Folder Include="Features\AllServiceFeature\Connections\Commands\" />
-    <Folder Include="Features\AllServiceFeature\Connections\Queries\" />
-    <Folder Include="Features\AllServiceFeature\DryCleaners\Commands\" />
-    <Folder Include="Features\AllServiceFeature\DryCleaners\Queries\" />
-    <Folder Include="Features\AllServiceFeature\HotelInformationAndAnnouncement\Commands\" />
-    <Folder Include="Features\AllServiceFeature\HotelInformationAndAnnouncement\Queries\" />
-    <Folder Include="Features\AllServiceFeature\HouseKeepings\Commands\" />
-    <Folder Include="Features\AllServiceFeature\HouseKeepings\Queries\" />
-    <Folder Include="Features\AllServiceFeature\SpaMassagies\Commands\" />
-    <Folder Include="Features\AllServiceFeature\SpaMassagies\Queries\" />
-    <Folder Include="Features\AllServiceFeature\TechnicalNeeds\Commands\" />
     <Folder Include="Features\Auth\Commands\RefreshToken\" />
     <Folder Include="Features\Auth\Queries\" />
     <Folder Include="Features\Companies\Exceptions\" />
@@ -65,7 +53,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.9.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
-    <!-- Buray� ekleyin -->
+    <!-- Burayı ekleyin -->
   </ItemGroup>
 
   <ItemGroup>

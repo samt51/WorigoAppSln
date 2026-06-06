@@ -79,6 +79,8 @@ namespace WorigoApp.Infrastructure.Tokens
                     audience: configuration["JWT:Audience"],
                     claims: new List<Claim> {
                     new Claim("role", roleRequest.Role),
+                    new Claim(ClaimTypes.Role, roleRequest.Role),
+                    new Claim("roleId", roleRequest.RoleId.ToString()),
                     new Claim(ClaimTypes.Email,roleRequest.Email),
                     new Claim("Id",roleRequest.Id.ToString()),
                     new Claim(ClaimTypes.Name,roleRequest.Email.ToString())
@@ -92,7 +94,7 @@ namespace WorigoApp.Infrastructure.Tokens
             return Task.FromResult(new LoginCommandResponse
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(jwt),
-                TokenExpireDate = notBefore
+                TokenExpireDate = expiresTime
             });
         }
 

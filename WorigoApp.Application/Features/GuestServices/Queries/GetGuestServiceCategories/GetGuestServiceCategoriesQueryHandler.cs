@@ -39,6 +39,9 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
                 .Select(group =>
                 {
                     var flowUiType = ChatFlowTemplateFactory.ResolveUiType(group.Key.ServiceType, group.Key.DisplayName);
+                    var openingMessage = group.Count() == 1
+                        ? group.Select(x => x.OpeningMessage).FirstOrDefault()
+                        : ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, group.Key.ServiceType, group.Key.DisplayName);
 
                     return new GetGuestServiceCategoriesQueryResponse
                     {
@@ -53,12 +56,13 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
                         PreviewImageUrl = group.Select(x => x.ImageUrl).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x)),
                         FlowUiType = flowUiType,
                         OpeningMessageType = ChatFlowTemplateFactory.ResolveOpeningMessageType(flowUiType),
-                        OpeningMessage = ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, group.Key.ServiceType, group.Key.DisplayName),
+                        OpeningMessage = openingMessage ?? string.Empty,
                         OpeningPayloadJson = ChatFlowTemplateFactory.BuildOpeningPayloadJson(
                             flowUiType,
                             group.Key.ServiceType,
                             group.Select(x => (x.Name, x.ServiceDefinitionId?.ToString() ?? x.ServiceItemId.ToString())),
-                            group.Key.DisplayName)
+                            group.Key.DisplayName,
+                            openingMessage)
                     };
                 })
                 .OrderBy(x => x.DisplayName)

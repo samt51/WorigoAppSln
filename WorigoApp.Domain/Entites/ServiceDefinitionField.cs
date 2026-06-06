@@ -19,5 +19,6 @@ namespace WorigoApp.Domain.Entites
         public string? DefaultValue { get; set; }
 
         public IList<ServiceRequestFieldValue> RequestValues { get; set; } = new List<ServiceRequestFieldValue>();
+        public IList<ServiceDefinitionFieldOption> Options { get; set; } = new List<ServiceDefinitionFieldOption>();
     }
 }

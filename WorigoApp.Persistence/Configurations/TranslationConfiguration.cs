@@ -47,183 +47,183 @@ namespace WorigoApp.Persistence.Configurations
 
             #region Teknik İhtiyaçlar Klima
 
-            var tecnicalNeedsUs = new Translation(25, "TechnicalNeed", 1, "Name", "Air conditioning", LanguageCodeEnum.US);
-            var tecnicalNeedsUs2 = new Translation(26, "TechnicalNeed", 1, "Description", "Malfunction situations with air conditioning", LanguageCodeEnum.US);
+            var tecnicalNeedsUs = new Translation(25, "ServiceDefinition", 1, "Name", "Air conditioning", LanguageCodeEnum.US);
+            var tecnicalNeedsUs2 = new Translation(26, "ServiceDefinition", 1, "Description", "Malfunction situations with air conditioning", LanguageCodeEnum.US);
 
-            var tecnicalNeedsEs = new Translation(27, "TechnicalNeed", 1, "Name", "Aire acondicionado", LanguageCodeEnum.ES);
-            var tecnicalNeedsEs2 = new Translation(28, "TechnicalNeed", 1, "Description", "Situaciones de avería con el aire acondicionado.", LanguageCodeEnum.ES);
-
-
-            var tecnicalNeedsRu = new Translation(29, "TechnicalNeed", 1, "Name", "Кондиционер", LanguageCodeEnum.RU);
-            var tecnicalNeedsRu2 = new Translation(30, "TechnicalNeed", 1, "Description", "Ситуации неисправности кондиционера", LanguageCodeEnum.RU);
+            var tecnicalNeedsEs = new Translation(27, "ServiceDefinition", 1, "Name", "Aire acondicionado", LanguageCodeEnum.ES);
+            var tecnicalNeedsEs2 = new Translation(28, "ServiceDefinition", 1, "Description", "Situaciones de avería con el aire acondicionado.", LanguageCodeEnum.ES);
 
 
-            var tecnicalNeedsFr = new Translation(31, "TechnicalNeed", 1, "Name", "Climatisation", LanguageCodeEnum.FR);
-            var tecnicalNeedsFr2 = new Translation(32, "TechnicalNeed", 1, "Description", "Situations de dysfonctionnement de la climatisation", LanguageCodeEnum.FR);
+            var tecnicalNeedsRu = new Translation(29, "ServiceDefinition", 1, "Name", "Кондиционер", LanguageCodeEnum.RU);
+            var tecnicalNeedsRu2 = new Translation(30, "ServiceDefinition", 1, "Description", "Ситуации неисправности кондиционера", LanguageCodeEnum.RU);
 
 
-            var tecnicalNeedsAr = new Translation(33, "TechnicalNeed", 1, "Name", "تكييف", LanguageCodeEnum.SA);
-            var tecnicalNeedsAr2 = new Translation(34, "TechnicalNeed", 1, "Description", "حالات الأعطال بالتكييف", LanguageCodeEnum.SA);
+            var tecnicalNeedsFr = new Translation(31, "ServiceDefinition", 1, "Name", "Climatisation", LanguageCodeEnum.FR);
+            var tecnicalNeedsFr2 = new Translation(32, "ServiceDefinition", 1, "Description", "Situations de dysfonctionnement de la climatisation", LanguageCodeEnum.FR);
 
 
-            var tecnicalNeedsTr = new Translation(35, "TechnicalNeed", 1, "Name", "Klima", LanguageCodeEnum.TR);
-            var tecnicalNeedsTr2 = new Translation(36, "TechnicalNeed", 1, "Description", "Klima ile arıza durumları", LanguageCodeEnum.TR);
+            var tecnicalNeedsAr = new Translation(33, "ServiceDefinition", 1, "Name", "تكييف", LanguageCodeEnum.SA);
+            var tecnicalNeedsAr2 = new Translation(34, "ServiceDefinition", 1, "Description", "حالات الأعطال بالتكييف", LanguageCodeEnum.SA);
+
+
+            var tecnicalNeedsTr = new Translation(35, "ServiceDefinition", 1, "Name", "Klima", LanguageCodeEnum.TR);
+            var tecnicalNeedsTr2 = new Translation(36, "ServiceDefinition", 1, "Description", "Klima ile arıza durumları", LanguageCodeEnum.TR);
 
             #endregion
 
             #region Teknik İhtiyaçlar TV
 
-            var tecnicalNeedsTvUs = new Translation(37, "TechnicalNeed", 2, "Name", "TV", LanguageCodeEnum.US);
-            var tecnicalNeedsTvUs2 = new Translation(38, "TechnicalNeed", 2, "Description", "Malfunction situations with TV", LanguageCodeEnum.US);
+            var tecnicalNeedsTvUs = new Translation(37, "ServiceDefinition", 2, "Name", "TV", LanguageCodeEnum.US);
+            var tecnicalNeedsTvUs2 = new Translation(38, "ServiceDefinition", 2, "Description", "Malfunction situations with TV", LanguageCodeEnum.US);
 
-            var tecnicalNeedsTvEs = new Translation(39, "TechnicalNeed", 2, "Name", "TELEVISOR", LanguageCodeEnum.ES);
-            var tecnicalNeedsTvEs2 = new Translation(40, "TechnicalNeed", 2, "Description", "Situaciones de mal funcionamiento con TV.", LanguageCodeEnum.ES);
-
-
-            var tecnicalNeedsTvRu = new Translation(41, "TechnicalNeed", 2, "Name", "ТВ", LanguageCodeEnum.RU);
-            var tecnicalNeedsTvRu2 = new Translation(42, "TechnicalNeed", 2, "Description", "Неисправные ситуации с телевизором", LanguageCodeEnum.RU);
+            var tecnicalNeedsTvEs = new Translation(39, "ServiceDefinition", 2, "Name", "TELEVISOR", LanguageCodeEnum.ES);
+            var tecnicalNeedsTvEs2 = new Translation(40, "ServiceDefinition", 2, "Description", "Situaciones de mal funcionamiento con TV.", LanguageCodeEnum.ES);
 
 
-            var tecnicalNeedsTvFr = new Translation(43, "TechnicalNeed", 2, "Name", "TV", LanguageCodeEnum.FR);
-            var tecnicalNeedsTvFr2 = new Translation(44, "TechnicalNeed", 2, "Description", "Situations de dysfonctionnement avec la télévision", LanguageCodeEnum.FR);
+            var tecnicalNeedsTvRu = new Translation(41, "ServiceDefinition", 2, "Name", "ТВ", LanguageCodeEnum.RU);
+            var tecnicalNeedsTvRu2 = new Translation(42, "ServiceDefinition", 2, "Description", "Неисправные ситуации с телевизором", LanguageCodeEnum.RU);
 
 
-            var tecnicalNeedsTvAr = new Translation(45, "TechnicalNeed", 2, "Name", "تلفزيون", LanguageCodeEnum.SA);
-            var tecnicalNeedsTvAr2 = new Translation(46, "TechnicalNeed", 2, "Description", "حالات الأعطال بالتلفاز", LanguageCodeEnum.SA);
+            var tecnicalNeedsTvFr = new Translation(43, "ServiceDefinition", 2, "Name", "TV", LanguageCodeEnum.FR);
+            var tecnicalNeedsTvFr2 = new Translation(44, "ServiceDefinition", 2, "Description", "Situations de dysfonctionnement avec la télévision", LanguageCodeEnum.FR);
 
 
-            var tecnicalNeedsTvTr = new Translation(47, "TechnicalNeed", 2, "Name", "TV", LanguageCodeEnum.TR);
-            var tecnicalNeedsTvTr2 = new Translation(48, "TechnicalNeed", 2, "Description", "TV ile arıza durumları", LanguageCodeEnum.TR);
+            var tecnicalNeedsTvAr = new Translation(45, "ServiceDefinition", 2, "Name", "تلفزيون", LanguageCodeEnum.SA);
+            var tecnicalNeedsTvAr2 = new Translation(46, "ServiceDefinition", 2, "Description", "حالات الأعطال بالتلفاز", LanguageCodeEnum.SA);
+
+
+            var tecnicalNeedsTvTr = new Translation(47, "ServiceDefinition", 2, "Name", "TV", LanguageCodeEnum.TR);
+            var tecnicalNeedsTvTr2 = new Translation(48, "ServiceDefinition", 2, "Description", "TV ile arıza durumları", LanguageCodeEnum.TR);
 
             #endregion
 
             #region Teknik İhtiyaçlar Minibar
 
-            var tecnicalNeedsMinibarUs = new Translation(49, "TechnicalNeed", 3, "Name", "Mini-bar", LanguageCodeEnum.US);
-            var tecnicalNeedsMinibarUs2 = new Translation(50, "TechnicalNeed", 3, "Description", "Malfunction situations with minibar", LanguageCodeEnum.US);
+            var tecnicalNeedsMinibarUs = new Translation(49, "ServiceDefinition", 3, "Name", "Mini-bar", LanguageCodeEnum.US);
+            var tecnicalNeedsMinibarUs2 = new Translation(50, "ServiceDefinition", 3, "Description", "Malfunction situations with minibar", LanguageCodeEnum.US);
 
-            var tecnicalNeedsMinibarEs = new Translation(51, "TechnicalNeed", 3, "Name", "Mini-bar", LanguageCodeEnum.ES);
-            var tecnicalNeedsMinibarEs2 = new Translation(52, "TechnicalNeed", 3, "Description", "Situaciones de avería con el minibar", LanguageCodeEnum.ES);
-
-
-            var tecnicalNeedsMinibarRu = new Translation(53, "TechnicalNeed", 3, "Name", "мини-бар", LanguageCodeEnum.RU);
-            var tecnicalNeedsMinibarRu2 = new Translation(54, "TechnicalNeed", 3, "Description", "Ситуации неисправности мини-бара", LanguageCodeEnum.RU);
+            var tecnicalNeedsMinibarEs = new Translation(51, "ServiceDefinition", 3, "Name", "Mini-bar", LanguageCodeEnum.ES);
+            var tecnicalNeedsMinibarEs2 = new Translation(52, "ServiceDefinition", 3, "Description", "Situaciones de avería con el minibar", LanguageCodeEnum.ES);
 
 
-            var tecnicalNeedsMinibarFr = new Translation(55, "TechnicalNeed", 3, "Name", "Mini-bar", LanguageCodeEnum.FR);
-            var tecnicalNeedsMinibarFr2 = new Translation(56, "TechnicalNeed", 3, "Description", "Situations de dysfonctionnement du minibar", LanguageCodeEnum.FR);
+            var tecnicalNeedsMinibarRu = new Translation(53, "ServiceDefinition", 3, "Name", "мини-бар", LanguageCodeEnum.RU);
+            var tecnicalNeedsMinibarRu2 = new Translation(54, "ServiceDefinition", 3, "Description", "Ситуации неисправности мини-бара", LanguageCodeEnum.RU);
 
 
-            var tecnicalNeedsMinibarAr = new Translation(57, "TechnicalNeed", 3, "Name", "ميني بار", LanguageCodeEnum.SA);
-            var tecnicalNeedsMinibarAr2 = new Translation(58, "TechnicalNeed", 3, "Description", "حالات الأعطال بالميني بار", LanguageCodeEnum.SA);
+            var tecnicalNeedsMinibarFr = new Translation(55, "ServiceDefinition", 3, "Name", "Mini-bar", LanguageCodeEnum.FR);
+            var tecnicalNeedsMinibarFr2 = new Translation(56, "ServiceDefinition", 3, "Description", "Situations de dysfonctionnement du minibar", LanguageCodeEnum.FR);
 
 
-            var tecnicalNeedsMinibarTr = new Translation(59, "TechnicalNeed", 3, "Name", "Minibar", LanguageCodeEnum.TR);
-            var tecnicalNeedsMinibarTr2 = new Translation(60, "TechnicalNeed", 3, "Description", "Minibar ile arıza durumları", LanguageCodeEnum.TR);
+            var tecnicalNeedsMinibarAr = new Translation(57, "ServiceDefinition", 3, "Name", "ميني بار", LanguageCodeEnum.SA);
+            var tecnicalNeedsMinibarAr2 = new Translation(58, "ServiceDefinition", 3, "Description", "حالات الأعطال بالميني بار", LanguageCodeEnum.SA);
+
+
+            var tecnicalNeedsMinibarTr = new Translation(59, "ServiceDefinition", 3, "Name", "Minibar", LanguageCodeEnum.TR);
+            var tecnicalNeedsMinibarTr2 = new Translation(60, "ServiceDefinition", 3, "Description", "Minibar ile arıza durumları", LanguageCodeEnum.TR);
 
             #endregion
 
             #region Teknik İhtiyaçlar Kapı
 
-            var tecnicalNeedsDoorUs = new Translation(61, "TechnicalNeed", 4, "Name", "Door", LanguageCodeEnum.US);
-            var tecnicalNeedsDoorUs2 = new Translation(62, "TechnicalNeed", 4, "Description", "Fault situations with door", LanguageCodeEnum.US);
+            var tecnicalNeedsDoorUs = new Translation(61, "ServiceDefinition", 4, "Name", "Door", LanguageCodeEnum.US);
+            var tecnicalNeedsDoorUs2 = new Translation(62, "ServiceDefinition", 4, "Description", "Fault situations with door", LanguageCodeEnum.US);
 
-            var tecnicalNeedsDoorEs = new Translation(63, "TechnicalNeed", 4, "Name", "Puerta", LanguageCodeEnum.ES);
-            var tecnicalNeedsDoorEs2 = new Translation(64, "TechnicalNeed", 4, "Description", "Situaciones de avería con el puerta", LanguageCodeEnum.ES);
-
-
-            var tecnicalNeedsDoorRu = new Translation(65, "TechnicalNeed", 4, "Name", "Дверь", LanguageCodeEnum.RU);
-            var tecnicalNeedsDoorRu2 = new Translation(66, "TechnicalNeed", 4, "Description", "Неисправные ситуации с дверью", LanguageCodeEnum.RU);
+            var tecnicalNeedsDoorEs = new Translation(63, "ServiceDefinition", 4, "Name", "Puerta", LanguageCodeEnum.ES);
+            var tecnicalNeedsDoorEs2 = new Translation(64, "ServiceDefinition", 4, "Description", "Situaciones de avería con el puerta", LanguageCodeEnum.ES);
 
 
-            var tecnicalNeedsDoorFr = new Translation(67, "TechnicalNeed", 4, "Name", "Porte", LanguageCodeEnum.FR);
-            var tecnicalNeedsDoorFr2 = new Translation(68, "TechnicalNeed", 4, "Description", "Situations de défauts avec la porte", LanguageCodeEnum.FR);
+            var tecnicalNeedsDoorRu = new Translation(65, "ServiceDefinition", 4, "Name", "Дверь", LanguageCodeEnum.RU);
+            var tecnicalNeedsDoorRu2 = new Translation(66, "ServiceDefinition", 4, "Description", "Неисправные ситуации с дверью", LanguageCodeEnum.RU);
 
 
-            var tecnicalNeedsDoorAr = new Translation(69, "TechnicalNeed", 4, "Name", "باب", LanguageCodeEnum.SA);
-            var tecnicalNeedsDoorAr2 = new Translation(70, "TechnicalNeed", 4, "Description", "حالات خطأ مع الباب", LanguageCodeEnum.SA);
+            var tecnicalNeedsDoorFr = new Translation(67, "ServiceDefinition", 4, "Name", "Porte", LanguageCodeEnum.FR);
+            var tecnicalNeedsDoorFr2 = new Translation(68, "ServiceDefinition", 4, "Description", "Situations de défauts avec la porte", LanguageCodeEnum.FR);
 
 
-            var tecnicalNeedsDoorTr = new Translation(71, "TechnicalNeed", 4, "Name", "Kapı", LanguageCodeEnum.TR);
-            var tecnicalNeedsDoorTr2 = new Translation(72, "TechnicalNeed", 4, "Description", "Kapı ile arıza durumları", LanguageCodeEnum.TR);
+            var tecnicalNeedsDoorAr = new Translation(69, "ServiceDefinition", 4, "Name", "باب", LanguageCodeEnum.SA);
+            var tecnicalNeedsDoorAr2 = new Translation(70, "ServiceDefinition", 4, "Description", "حالات خطأ مع الباب", LanguageCodeEnum.SA);
+
+
+            var tecnicalNeedsDoorTr = new Translation(71, "ServiceDefinition", 4, "Name", "Kapı", LanguageCodeEnum.TR);
+            var tecnicalNeedsDoorTr2 = new Translation(72, "ServiceDefinition", 4, "Description", "Kapı ile arıza durumları", LanguageCodeEnum.TR);
 
             #endregion
 
             #region Teknik İhtiyaçlar Elektrik
 
-            var tecnicalNeedsElektrikUs = new Translation(73, "TechnicalNeed", 5, "Name", "Electric", LanguageCodeEnum.US);
-            var tecnicalNeedsElektrikUs2 = new Translation(74, "TechnicalNeed", 5, "Description", "Electrical fault situations", LanguageCodeEnum.US);
+            var tecnicalNeedsElektrikUs = new Translation(73, "ServiceDefinition", 5, "Name", "Electric", LanguageCodeEnum.US);
+            var tecnicalNeedsElektrikUs2 = new Translation(74, "ServiceDefinition", 5, "Description", "Electrical fault situations", LanguageCodeEnum.US);
 
-            var tecnicalNeedsElektrikEs = new Translation(75, "TechnicalNeed", 5, "Name", "Eléctrico", LanguageCodeEnum.ES);
-            var tecnicalNeedsElektrikEs2 = new Translation(76, "TechnicalNeed", 5, "Description", "Situaciones de falla eléctrica", LanguageCodeEnum.ES);
-
-
-            var tecnicalNeedsElektrikRu = new Translation(77, "TechnicalNeed", 5, "Name", "Электрический", LanguageCodeEnum.RU);
-            var tecnicalNeedsElektrikRu2 = new Translation(78, "TechnicalNeed", 5, "Description", "Ситуации электрических неисправностей", LanguageCodeEnum.RU);
+            var tecnicalNeedsElektrikEs = new Translation(75, "ServiceDefinition", 5, "Name", "Eléctrico", LanguageCodeEnum.ES);
+            var tecnicalNeedsElektrikEs2 = new Translation(76, "ServiceDefinition", 5, "Description", "Situaciones de falla eléctrica", LanguageCodeEnum.ES);
 
 
-            var tecnicalNeedsElektrikFr = new Translation(79, "TechnicalNeed", 5, "Name", "Électrique", LanguageCodeEnum.FR);
-            var tecnicalNeedsElektrikFr2 = new Translation(80, "TechnicalNeed", 5, "Description", "Situations de panne électrique", LanguageCodeEnum.FR);
+            var tecnicalNeedsElektrikRu = new Translation(77, "ServiceDefinition", 5, "Name", "Электрический", LanguageCodeEnum.RU);
+            var tecnicalNeedsElektrikRu2 = new Translation(78, "ServiceDefinition", 5, "Description", "Ситуации электрических неисправностей", LanguageCodeEnum.RU);
 
 
-            var tecnicalNeedsElektrikAr = new Translation(81, "TechnicalNeed", 5, "Name", "كهربائي", LanguageCodeEnum.SA);
-            var tecnicalNeedsElektrikAr2 = new Translation(82, "TechnicalNeed", 5, "Description", "حالات الأعطال الكهربائية", LanguageCodeEnum.SA);
+            var tecnicalNeedsElektrikFr = new Translation(79, "ServiceDefinition", 5, "Name", "Électrique", LanguageCodeEnum.FR);
+            var tecnicalNeedsElektrikFr2 = new Translation(80, "ServiceDefinition", 5, "Description", "Situations de panne électrique", LanguageCodeEnum.FR);
 
 
-            var tecnicalNeedsElektrikTr = new Translation(83, "TechnicalNeed", 5, "Name", "Elektrik", LanguageCodeEnum.TR);
-            var tecnicalNeedsElektrikTr2 = new Translation(84, "TechnicalNeed", 5, "Description", "Elektrik ile arıza durumları", LanguageCodeEnum.TR);
+            var tecnicalNeedsElektrikAr = new Translation(81, "ServiceDefinition", 5, "Name", "كهربائي", LanguageCodeEnum.SA);
+            var tecnicalNeedsElektrikAr2 = new Translation(82, "ServiceDefinition", 5, "Description", "حالات الأعطال الكهربائية", LanguageCodeEnum.SA);
+
+
+            var tecnicalNeedsElektrikTr = new Translation(83, "ServiceDefinition", 5, "Name", "Elektrik", LanguageCodeEnum.TR);
+            var tecnicalNeedsElektrikTr2 = new Translation(84, "ServiceDefinition", 5, "Description", "Elektrik ile arıza durumları", LanguageCodeEnum.TR);
 
             #endregion
 
             #region Teknik İhtiyaçlar Aydınlatma
 
-            var tecnicalNeedsAydınlatmaUs = new Translation(85, "TechnicalNeed", 6, "Name", "Lighting", LanguageCodeEnum.US);
-            var tecnicalNeedsAydınlatmaUs2 = new Translation(86, "TechnicalNeed", 6, "Description", "Malfunction situations with lighting", LanguageCodeEnum.US);
+            var tecnicalNeedsAydınlatmaUs = new Translation(85, "ServiceDefinition", 6, "Name", "Lighting", LanguageCodeEnum.US);
+            var tecnicalNeedsAydınlatmaUs2 = new Translation(86, "ServiceDefinition", 6, "Description", "Malfunction situations with lighting", LanguageCodeEnum.US);
 
-            var tecnicalNeedsAydınlatmaEs = new Translation(87, "TechnicalNeed", 6, "Name", "Iluminación", LanguageCodeEnum.ES);
-            var tecnicalNeedsAydınlatmaEs2 = new Translation(88, "TechnicalNeed", 6, "Description", "Situaciones de mal funcionamiento con la iluminación.", LanguageCodeEnum.ES);
-
-
-            var tecnicalNeedsAydınlatmaRu = new Translation(89, "TechnicalNeed", 6, "Name", "Освещение", LanguageCodeEnum.RU);
-            var tecnicalNeedsAydınlatmaRu2 = new Translation(90, "TechnicalNeed", 6, "Description", "Ситуации неисправности с освещением", LanguageCodeEnum.RU);
+            var tecnicalNeedsAydınlatmaEs = new Translation(87, "ServiceDefinition", 6, "Name", "Iluminación", LanguageCodeEnum.ES);
+            var tecnicalNeedsAydınlatmaEs2 = new Translation(88, "ServiceDefinition", 6, "Description", "Situaciones de mal funcionamiento con la iluminación.", LanguageCodeEnum.ES);
 
 
-            var tecnicalNeedsAydınlatmaFr = new Translation(91, "TechnicalNeed", 6, "Name", "Éclairage", LanguageCodeEnum.FR);
-            var tecnicalNeedsAydınlatmaFr2 = new Translation(92, "TechnicalNeed", 6, "Description", "Situations de dysfonctionnement de l'éclairage", LanguageCodeEnum.FR);
+            var tecnicalNeedsAydınlatmaRu = new Translation(89, "ServiceDefinition", 6, "Name", "Освещение", LanguageCodeEnum.RU);
+            var tecnicalNeedsAydınlatmaRu2 = new Translation(90, "ServiceDefinition", 6, "Description", "Ситуации неисправности с освещением", LanguageCodeEnum.RU);
 
 
-            var tecnicalNeedsAydınlatmaAr = new Translation(93, "TechnicalNeed", 6, "Name", "إضاءة", LanguageCodeEnum.SA);
-            var tecnicalNeedsAydınlatmaAr2 = new Translation(94, "TechnicalNeed", 6, "Description", "حالات الأعطال بالإضاءة", LanguageCodeEnum.SA);
+            var tecnicalNeedsAydınlatmaFr = new Translation(91, "ServiceDefinition", 6, "Name", "Éclairage", LanguageCodeEnum.FR);
+            var tecnicalNeedsAydınlatmaFr2 = new Translation(92, "ServiceDefinition", 6, "Description", "Situations de dysfonctionnement de l'éclairage", LanguageCodeEnum.FR);
 
 
-            var tecnicalNeedsAydınlatmaTr = new Translation(95, "TechnicalNeed", 6, "Name", "Aydınlatma", LanguageCodeEnum.TR);
-            var tecnicalNeedsAydınlatmaTr2 = new Translation(96, "TechnicalNeed", 6, "Description", "Aydınlatma ile arıza durumları", LanguageCodeEnum.TR);
+            var tecnicalNeedsAydınlatmaAr = new Translation(93, "ServiceDefinition", 6, "Name", "إضاءة", LanguageCodeEnum.SA);
+            var tecnicalNeedsAydınlatmaAr2 = new Translation(94, "ServiceDefinition", 6, "Description", "حالات الأعطال بالإضاءة", LanguageCodeEnum.SA);
+
+
+            var tecnicalNeedsAydınlatmaTr = new Translation(95, "ServiceDefinition", 6, "Name", "Aydınlatma", LanguageCodeEnum.TR);
+            var tecnicalNeedsAydınlatmaTr2 = new Translation(96, "ServiceDefinition", 6, "Description", "Aydınlatma ile arıza durumları", LanguageCodeEnum.TR);
 
             #endregion
 
             #region Teknik İhtiyaçlar Duş ve Tuvalet
 
-            var tecnicalNeedsDusUs = new Translation(97, "TechnicalNeed", 7, "Name", "Shower and Toilet", LanguageCodeEnum.US);
-            var tecnicalNeedsDusUs2 = new Translation(98, "TechnicalNeed", 7, "Description", "Malfunction situations with shower and toilet", LanguageCodeEnum.US);
+            var tecnicalNeedsDusUs = new Translation(97, "ServiceDefinition", 7, "Name", "Shower and Toilet", LanguageCodeEnum.US);
+            var tecnicalNeedsDusUs2 = new Translation(98, "ServiceDefinition", 7, "Description", "Malfunction situations with shower and toilet", LanguageCodeEnum.US);
 
-            var tecnicalNeedsDusEs = new Translation(99, "TechnicalNeed", 7, "Name", "Ducha y WC", LanguageCodeEnum.ES);
-            var tecnicalNeedsDusEs2 = new Translation(100, "TechnicalNeed", 7, "Description", "Situaciones de avería en ducha y WC", LanguageCodeEnum.ES);
-
-
-            var tecnicalNeedsDusRu = new Translation(101, "TechnicalNeed", 7, "Name", "Душ и туалет", LanguageCodeEnum.RU);
-            var tecnicalNeedsDusRu2 = new Translation(102, "TechnicalNeed", 7, "Description", "Ситуации неисправности с душем и туалетом", LanguageCodeEnum.RU);
+            var tecnicalNeedsDusEs = new Translation(99, "ServiceDefinition", 7, "Name", "Ducha y WC", LanguageCodeEnum.ES);
+            var tecnicalNeedsDusEs2 = new Translation(100, "ServiceDefinition", 7, "Description", "Situaciones de avería en ducha y WC", LanguageCodeEnum.ES);
 
 
-            var tecnicalNeedsDusFr = new Translation(103, "TechnicalNeed", 7, "Name", "Douche et WC", LanguageCodeEnum.FR);
-            var tecnicalNeedDusFr2 = new Translation(104, "TechnicalNeed", 7, "Description", "Situations de dysfonctionnement avec douche et toilettes", LanguageCodeEnum.FR);
+            var tecnicalNeedsDusRu = new Translation(101, "ServiceDefinition", 7, "Name", "Душ и туалет", LanguageCodeEnum.RU);
+            var tecnicalNeedsDusRu2 = new Translation(102, "ServiceDefinition", 7, "Description", "Ситуации неисправности с душем и туалетом", LanguageCodeEnum.RU);
 
 
-            var tecnicalNeedsDusAr = new Translation(105, "TechnicalNeed", 7, "Name", "دش ومرحاض", LanguageCodeEnum.SA);
-            var tecnicalNeedsDusAr2 = new Translation(106, "TechnicalNeed", 7, "Description", "حالات خلل في الدش والمرحاض", LanguageCodeEnum.SA);
+            var tecnicalNeedsDusFr = new Translation(103, "ServiceDefinition", 7, "Name", "Douche et WC", LanguageCodeEnum.FR);
+            var tecnicalNeedDusFr2 = new Translation(104, "ServiceDefinition", 7, "Description", "Situations de dysfonctionnement avec douche et toilettes", LanguageCodeEnum.FR);
 
 
-            var tecnicalNeedsDusTr = new Translation(107, "TechnicalNeed", 7, "Name", "Duş ve Tuvalet", LanguageCodeEnum.TR);
-            var tecnicalNeedsDusTr2 = new Translation(108, "TechnicalNeed", 7, "Description", "Duş ve Tuvalet ile arıza durumları", LanguageCodeEnum.TR);
+            var tecnicalNeedsDusAr = new Translation(105, "ServiceDefinition", 7, "Name", "دش ومرحاض", LanguageCodeEnum.SA);
+            var tecnicalNeedsDusAr2 = new Translation(106, "ServiceDefinition", 7, "Description", "حالات خلل في الدش والمرحاض", LanguageCodeEnum.SA);
+
+
+            var tecnicalNeedsDusTr = new Translation(107, "ServiceDefinition", 7, "Name", "Duş ve Tuvalet", LanguageCodeEnum.TR);
+            var tecnicalNeedsDusTr2 = new Translation(108, "ServiceDefinition", 7, "Description", "Duş ve Tuvalet ile arıza durumları", LanguageCodeEnum.TR);
 
             #endregion
 

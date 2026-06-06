@@ -1,13 +1,12 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.GuestServices.Dtos;
 using WorigoApp.Application.Helpers.ChatFlow;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
-using WorigoApp.Domain.Common;
 using WorigoApp.Domain.Entites;
-using WorigoApp.Domain.Entites.GServices;
 using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailableServices
@@ -38,215 +37,7 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
 
             var items = new List<GetGuestAvailableServicesQueryResponse>();
             var definitionItems = await BuildDefinitionItemsAsync(guestStay, policies, translations);
-            var hasServiceDefinitions = definitionItems.Any();
             items.AddRange(definitionItems);
-
-            if (!hasServiceDefinitions)
-            {
-                items.AddRange(await BuildItemsAsync<TechnicalNeed>(
-                    ServicesEnum.TechnicalNeed,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    x => x.ImageUrl,
-                    x => false,
-                    x => x.SupportsFreeText,
-                    x => false,
-                    x => x.EstimatedDurationMinutes,
-                    x => x.DisplayOrder,
-                    x => 0,
-                    x => "TRY"));
-
-                items.AddRange(await BuildItemsAsync<HouseKeeping>(
-                    ServicesEnum.HouseKeeping,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    x => x.ImageUrl,
-                    x => false,
-                    x => x.SupportsFreeText,
-                    x => false,
-                    x => x.EstimatedDurationMinutes,
-                    x => x.DisplayOrder,
-                    x => 0,
-                    x => "TRY"));
-
-                items.AddRange(await BuildItemsAsync<BellBoy>(
-                    ServicesEnum.BellBoy,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    x => x.ImageUrl,
-                    x => false,
-                    x => false,
-                    x => false,
-                    x => x.EstimatedDurationMinutes,
-                    x => 0,
-                    x => 0,
-                    x => "TRY"));
-
-                items.AddRange(await BuildItemsAsync<DryCleaner>(
-                    ServicesEnum.DryCleaner,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    x => x.ImageUrl,
-                    x => x.IsChargeable,
-                    x => false,
-                    x => false,
-                    x => x.EstimatedDurationMinutes,
-                    x => x.DisplayOrder,
-                    x => x.Price ?? 0,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<SpaMassage>(
-                    ServicesEnum.SpaMessage,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    _ => null,
-                    x => x.IsChargeable,
-                    x => false,
-                    x => x.RequiresAppointment,
-                    x => x.EstimatedDurationMinutes,
-                    _ => 0,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<TravelOrTransportation>(
-                    ServicesEnum.TravelOrTransportation,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.TransportationType,
-                    x => x.Description,
-                    _ => null,
-                    x => x.IsChargeable,
-                    x => false,
-                    x => true,
-                    _ => null,
-                    _ => 0,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<MinibarService>(
-                    ServicesEnum.Minibar,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    x => x.ImageUrl,
-                    x => x.IsChargeable,
-                    x => false,
-                    x => false,
-                    x => x.EstimatedDurationMinutes,
-                    x => x.DisplayOrder,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<WakeUpCallService>(
-                    ServicesEnum.WakeUpCall,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    _ => null,
-                    x => x.IsChargeable,
-                    x => false,
-                    x => x.RequiresAppointment,
-                    _ => null,
-                    _ => 0,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<ValetParkingService>(
-                    ServicesEnum.ValetParking,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    x => x.ImageUrl,
-                    x => x.IsChargeable,
-                    x => false,
-                    x => false,
-                    x => x.EstimatedDurationMinutes,
-                    _ => 0,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<StayExtensionService>(
-                    ServicesEnum.StayExtension,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    _ => null,
-                    x => x.IsChargeable,
-                    x => false,
-                    x => x.RequiresAppointment,
-                    _ => null,
-                    _ => 0,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<AmenityRequestService>(
-                    ServicesEnum.AmenityRequest,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    x => x.ImageUrl,
-                    x => x.IsChargeable,
-                    x => x.SupportsFreeText,
-                    x => false,
-                    x => x.EstimatedDurationMinutes,
-                    x => x.DisplayOrder,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-
-                items.AddRange(await BuildItemsAsync<MedicalAssistanceService>(
-                    ServicesEnum.MedicalAssistance,
-                    policies,
-                    translations,
-                    x => x.HotelId == guestStay.HotelId && x.IsVisibleToGuest,
-                    x => x.Id,
-                    x => x.Name,
-                    x => x.Description,
-                    _ => null,
-                    x => x.IsChargeable,
-                    x => x.SupportsFreeText,
-                    x => x.RequiresAppointment,
-                    _ => null,
-                    _ => 0,
-                    x => x.Price,
-                    x => x.CurrencyCode));
-            }
 
             var foods = await unitOfWork.GetReadRepository<Food>()
                 .GetAllAsync(
@@ -280,53 +71,6 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
                 .Success(items.OrderBy(x => x.ServiceType).ThenBy(x => x.DisplayOrder).ThenBy(x => x.Name).ToList());
         }
 
-        private async Task<IList<GetGuestAvailableServicesQueryResponse>> BuildItemsAsync<TEntity>(
-            ServicesEnum serviceType,
-            IList<HotelServicePolicy> policies,
-            IList<Translation> translations,
-            System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate,
-            Func<TEntity, int> idSelector,
-            Func<TEntity, string> nameSelector,
-            Func<TEntity, string?> descriptionSelector,
-            Func<TEntity, string?> imageSelector,
-            Func<TEntity, bool> chargeableSelector,
-            Func<TEntity, bool> supportsFreeTextSelector,
-            Func<TEntity, bool> requiresAppointmentSelector,
-            Func<TEntity, int?> estimatedDurationSelector,
-            Func<TEntity, int> displayOrderSelector,
-            Func<TEntity, decimal> priceSelector,
-            Func<TEntity, string> currencySelector)
-            where TEntity : class, IEntityBase, new()
-        {
-            var entities = await unitOfWork.GetReadRepository<TEntity>().GetAllAsync(predicate);
-            var result = new List<GetGuestAvailableServicesQueryResponse>();
-
-            foreach (var entity in entities)
-            {
-                var response = BuildResponse(
-                    serviceType,
-                    idSelector(entity),
-                    ResolveTranslatedValue(translations, serviceType.ToString(), idSelector(entity), "Name", nameSelector(entity)),
-                    ResolveTranslatedOptionalValue(translations, serviceType.ToString(), idSelector(entity), "Description", descriptionSelector(entity)),
-                    imageSelector(entity),
-                    priceSelector(entity),
-                    chargeableSelector(entity),
-                    supportsFreeTextSelector(entity),
-                    requiresAppointmentSelector(entity),
-                    estimatedDurationSelector(entity),
-                    displayOrderSelector(entity),
-                    currencySelector(entity),
-                    ResolvePolicy(policies, serviceType, idSelector(entity)));
-
-                if (response is not null)
-                {
-                    result.Add(response);
-                }
-            }
-
-            return result;
-        }
-
         private async Task<IList<GetGuestAvailableServicesQueryResponse>> BuildDefinitionItemsAsync(
             GuestStay guestStay,
             IList<HotelServicePolicy> policies,
@@ -340,7 +84,8 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
                          !x.IsDeleted,
                     include: query => query
                         .Include(x => x.ServiceCategory)
-                        .Include(x => x.Fields));
+                        .Include(x => x.Fields)
+                            .ThenInclude(x => x.Options));
 
             var result = new List<GetGuestAvailableServicesQueryResponse>();
 
@@ -363,11 +108,13 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
                     definition.Id,
                     definition.ServiceCategoryId,
                     ResolveTranslatedValue(translations, nameof(ServiceCategory), definition.ServiceCategoryId, "Name", definition.ServiceCategory.Name),
+                    ResolveTranslatedOptionalValue(translations, nameof(ServiceDefinition), definition.Id, "OpeningMessage", definition.OpeningMessage),
                     definition.Fields
                         .Where(x => x.IsActive && !x.IsDeleted)
                         .OrderBy(x => x.DisplayOrder)
                         .Select(x => MapField(x, translations))
-                        .ToList());
+                        .ToList(),
+                    definition.FlowUiType);
 
                 if (response is not null)
                 {
@@ -395,7 +142,9 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
             int? serviceDefinitionId = null,
             int? serviceCategoryId = null,
             string? serviceCategoryName = null,
-            IList<ServiceDefinitionFieldDto>? fields = null)
+            string? openingMessage = null,
+            IList<ServiceDefinitionFieldDto>? fields = null,
+            ServiceFlowUiTypeEnum? configuredFlowUiType = null)
         {
             if (policy is not null && !policy.IsVisible)
             {
@@ -405,10 +154,18 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
             var isIncludedInPackage = policy?.IsIncludedInPackage == true;
             var isChargeable = !isIncludedInPackage && (policy?.IsChargeable ?? defaultIsChargeable);
             var price = isIncludedInPackage ? 0 : policy?.PriceOverride ?? defaultPrice;
-            var flowUiType = ChatFlowTemplateFactory.ResolveUiType(serviceType.ToString(), serviceCategoryName);
-            var openingOptions = fields?.Any() == true && flowUiType == ServiceFlowUiTypeEnum.Form
+            var flowUiType = configuredFlowUiType ?? ChatFlowTemplateFactory.ResolveUiType(serviceType.ToString(), serviceCategoryName);
+            var openingOptions = fields?.Any() == true && flowUiType != ServiceFlowUiTypeEnum.Form
                 ? fields.Select(x => (x.Label, x.FieldKey))
                 : null;
+            var openingPayloadJson = fields?.Any() == true
+                ? BuildFieldDrivenPayloadJson(flowUiType, serviceType.ToString(), serviceCategoryName, openingMessage, fields, supportsFreeText, requiresAppointment)
+                : ChatFlowTemplateFactory.BuildOpeningPayloadJson(
+                    flowUiType,
+                    serviceType.ToString(),
+                    openingOptions,
+                    serviceCategoryName,
+                    openingMessage);
 
             return new GetGuestAvailableServicesQueryResponse
             {
@@ -433,14 +190,75 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
                 DisplayOrder = displayOrder,
                 FlowUiType = flowUiType,
                 OpeningMessageType = ChatFlowTemplateFactory.ResolveOpeningMessageType(flowUiType),
-                OpeningMessage = ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, serviceType.ToString(), serviceCategoryName),
-                OpeningPayloadJson = ChatFlowTemplateFactory.BuildOpeningPayloadJson(
-                    flowUiType,
-                    serviceType.ToString(),
-                    openingOptions,
-                    serviceCategoryName),
+                OpeningMessage = string.IsNullOrWhiteSpace(openingMessage)
+                    ? ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, serviceType.ToString(), serviceCategoryName)
+                    : openingMessage,
+                OpeningPayloadJson = openingPayloadJson,
                 Fields = fields ?? new List<ServiceDefinitionFieldDto>()
             };
+        }
+
+        private static string BuildFieldDrivenPayloadJson(
+            ServiceFlowUiTypeEnum flowUiType,
+            string serviceType,
+            string? categoryName,
+            string? openingMessage,
+            IList<ServiceDefinitionFieldDto> fields,
+            bool supportsFreeText,
+            bool requiresAppointment)
+        {
+            var title = string.IsNullOrWhiteSpace(openingMessage)
+                ? ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, serviceType, categoryName)
+                : openingMessage;
+
+            var payload = new
+            {
+                uiType = flowUiType.ToString(),
+                title,
+                supportsFreeText,
+                requiresAppointment,
+                fields = fields
+                    .OrderBy(x => x.DisplayOrder)
+                    .Select(x => new
+                    {
+                        id = x.Id,
+                        key = x.FieldKey,
+                        label = x.Label,
+                        placeholder = x.Placeholder,
+                        type = x.FieldType.ToString(),
+                        isRequired = x.IsRequired,
+                        displayOrder = x.DisplayOrder,
+                        options = x.Options.Any()
+                            ? x.Options.OrderBy(option => option.DisplayOrder).Select(option => new
+                            {
+                                id = option.Id,
+                                value = option.Value,
+                                label = option.Label
+                            })
+                            : ParseOptions(x.OptionsJson),
+                        validationRegex = x.ValidationRegex,
+                        defaultValue = x.DefaultValue
+                    })
+            };
+
+            return JsonSerializer.Serialize(payload);
+        }
+
+        private static object? ParseOptions(string? optionsJson)
+        {
+            if (string.IsNullOrWhiteSpace(optionsJson))
+            {
+                return null;
+            }
+
+            try
+            {
+                return JsonSerializer.Deserialize<JsonElement>(optionsJson);
+            }
+            catch (JsonException)
+            {
+                return optionsJson;
+            }
         }
 
         private static HotelServicePolicy? ResolvePolicy(IList<HotelServicePolicy> policies, ServicesEnum serviceType, int serviceItemId)
@@ -474,6 +292,17 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailable
                 IsRequired = field.IsRequired,
                 DisplayOrder = field.DisplayOrder,
                 OptionsJson = field.OptionsJson,
+                Options = field.Options
+                    .Where(x => x.IsActive && !x.IsDeleted)
+                    .OrderBy(x => x.DisplayOrder)
+                    .Select(x => new ServiceDefinitionFieldOptionDto
+                    {
+                        Id = x.Id,
+                        Value = x.Value,
+                        Label = ResolveTranslatedValue(translations, nameof(ServiceDefinitionFieldOption), x.Id, "Label", x.Label),
+                        DisplayOrder = x.DisplayOrder
+                    })
+                    .ToList(),
                 ValidationRegex = field.ValidationRegex,
                 DefaultValue = field.DefaultValue
             };

@@ -9,6 +9,9 @@ namespace WorigoApp.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ServiceDefinition> builder)
         {
+            builder.Property(x => x.OpeningMessage)
+                .HasMaxLength(500);
+
             builder.HasData(
                 Definition(1, 2, ServicesEnum.TechnicalNeed, "Klima", "Klima ile ariza durumlari", "1.jpeg", 4, 1, 0, false, true, false, 60),
                 Definition(2, 2, ServicesEnum.TechnicalNeed, "TV", "TV ile ariza durumlari", "1.jpeg", 4, 2, 0, false, true, false, 45),

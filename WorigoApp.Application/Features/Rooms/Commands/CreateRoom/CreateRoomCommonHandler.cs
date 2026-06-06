@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
@@ -16,7 +16,7 @@ namespace WorigoApp.Application.Features.Rooms.Commands.CreateRoom
         {
             await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && !x.IsDeleted);
 
-            await unitOfWork.GetReadRepository<RoomType>().GetAsync(x => x.Id == request.RoomTypeId && !x.IsDeleted);
+            await unitOfWork.GetReadRepository<RoomType>().GetAsync(x => x.Id == request.RoomTypeId && x.HotelId == request.HotelId && x.IsActive && !x.IsDeleted);
 
             var entityMap = mapper.Map<Room, UpdateRoomCommonRequest>(request);
 

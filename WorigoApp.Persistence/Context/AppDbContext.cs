@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using WorigoApp.Domain.Entites;
-using WorigoApp.Domain.Entites.GServices;
 using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Persistence.Context
@@ -110,6 +109,16 @@ namespace WorigoApp.Persistence.Context
 
             modelBuilder.Entity<ServiceDefinitionField>()
                 .HasIndex(x => new { x.ServiceDefinitionId, x.FieldKey })
+                .IsUnique();
+
+            modelBuilder.Entity<ServiceDefinitionFieldOption>()
+                .HasOne(x => x.ServiceDefinitionField)
+                .WithMany(x => x.Options)
+                .HasForeignKey(x => x.ServiceDefinitionFieldId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ServiceDefinitionFieldOption>()
+                .HasIndex(x => new { x.ServiceDefinitionFieldId, x.Value })
                 .IsUnique();
 
             modelBuilder.Entity<HotelServicePolicy>()
@@ -513,6 +522,42 @@ namespace WorigoApp.Persistence.Context
                 .WithMany(x => x.VerifiedEmployeeDocuments)
                 .HasForeignKey(x => x.VerifiedByEmployeeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(x => x.Hotel)
+                .WithMany()
+                .HasForeignKey(x => x.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(x => x.Employee)
+                .WithMany()
+                .HasForeignKey(x => x.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(x => x.Department)
+                .WithMany()
+                .HasForeignKey(x => x.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(x => x.ServiceRequest)
+                .WithMany()
+                .HasForeignKey(x => x.ServiceRequestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SpaAppointment>()
+                .HasOne(x => x.GuestStay)
+                .WithMany()
+                .HasForeignKey(x => x.GuestStayId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public DbSet<Employee> Employee { get; set; }
@@ -530,17 +575,9 @@ namespace WorigoApp.Persistence.Context
         public DbSet<ImageCategory> ImageCategory { get; set; }
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomType> RoomType { get; set; }
-        public DbSet<BellBoy> BellBoy { get; set; }
-        public DbSet<Connection> Connection { get; set; }
-        public DbSet<HouseKeeping> HouseKeeping { get; set; }
-        public DbSet<SpaMassage> SpaMassage { get; set; }
-        public DbSet<TechnicalNeed> TechnicalNeed { get; set; }
-        public DbSet<DryCleaner> DryCleaner { get; set; }
-        public DbSet<HotelInformationAndAnnouncements> HotelInformationAndAnnouncements { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Roles> Roles { get; set; }
         public DbSet<LogEntry> LogEntries { get; set; }
-        public DbSet<FeedBackAndSurvey> FeedBackAndSurveys { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<CommentAndRating> CommentAndRatings { get; set; }
@@ -556,14 +593,6 @@ namespace WorigoApp.Persistence.Context
         public DbSet<NutritionalInfo> NutritionalInfo { get; set; }
         public DbSet<FoodAllergens> FoodAllergen { get; set; }
         public DbSet<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }
-        public DbSet<HealthAndSafety> HealthAndSafety { get; set; }
-        public DbSet<TravelOrTransportation> TravelOrTransportation { get; set; }
-        public DbSet<MinibarService> MinibarServices { get; set; }
-        public DbSet<WakeUpCallService> WakeUpCallServices { get; set; }
-        public DbSet<ValetParkingService> ValetParkingServices { get; set; }
-        public DbSet<StayExtensionService> StayExtensionServices { get; set; }
-        public DbSet<AmenityRequestService> AmenityRequestServices { get; set; }
-        public DbSet<MedicalAssistanceService> MedicalAssistanceServices { get; set; }
         public DbSet<ValidationMessages> ValidationMessages { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<ServiceRequest> ServiceRequests { get; set; }
@@ -583,6 +612,7 @@ namespace WorigoApp.Persistence.Context
         public DbSet<HotelServicePolicy> HotelServicePolicies { get; set; }
         public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
         public DbSet<GuestSession> GuestSessions { get; set; }
+        public DbSet<SpaAppointment> SpaAppointments { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<ConversationMessage> ConversationMessages { get; set; }
         public DbSet<ConversationFlowSession> ConversationFlowSessions { get; set; }
@@ -590,7 +620,9 @@ namespace WorigoApp.Persistence.Context
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<ServiceDefinition> ServiceDefinitions { get; set; }
         public DbSet<ServiceDefinitionField> ServiceDefinitionFields { get; set; }
+        public DbSet<ServiceDefinitionFieldOption> ServiceDefinitionFieldOptions { get; set; }
         public DbSet<ServiceRequestFieldValue> ServiceRequestFieldValues { get; set; }
         public DbSet<ServiceRequestItem> ServiceRequestItems { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
     }
 }

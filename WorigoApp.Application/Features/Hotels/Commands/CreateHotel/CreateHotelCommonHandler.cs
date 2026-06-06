@@ -1,9 +1,9 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
-using WorigoApp.Domain.Entites.GServices;
 
 namespace WorigoApp.Application.Features.Hotels.Commands.CreateHotel
 {
@@ -107,344 +107,273 @@ namespace WorigoApp.Application.Features.Hotels.Commands.CreateHotel
             await unitOfWork.GetWriteRepository<ServiceRoleAssignments>().AddRangeAsync(clonedAssignments);
             await unitOfWork.SaveAsync(cancellationToken);
 
-            await CloneTechnicalNeedsAsync(hotelId, cancellationToken);
-            await CloneHouseKeepingAsync(hotelId, cancellationToken);
-            await CloneBellBoyAsync(hotelId, cancellationToken);
-            await CloneDryCleanerAsync(hotelId, cancellationToken);
-            await CloneSpaAsync(hotelId, cancellationToken);
-            await CloneMinibarAsync(hotelId, cancellationToken);
-            await CloneWakeUpCallAsync(hotelId, cancellationToken);
-            await CloneValetParkingAsync(hotelId, cancellationToken);
-            await CloneStayExtensionAsync(hotelId, cancellationToken);
-            await CloneAmenityRequestAsync(hotelId, cancellationToken);
-            await CloneMedicalAssistanceAsync(hotelId, cancellationToken);
-            await CloneTravelOrTransportationAsync(hotelId, cancellationToken);
+            await CloneServiceCatalogAsync(hotelId, departmentMap, cancellationToken);
             await CloneAnnouncementTemplatesAsync(hotelId, cancellationToken);
         }
 
-        private async Task CloneTechnicalNeedsAsync(int hotelId, CancellationToken cancellationToken)
+        private async Task CloneServiceCatalogAsync(
+            int hotelId,
+            IReadOnlyDictionary<int, int> departmentMap,
+            CancellationToken cancellationToken)
         {
-            var templateData = await unitOfWork.GetReadRepository<TechnicalNeed>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
+            var templateCategories = await unitOfWork.GetReadRepository<ServiceCategory>()
+                .GetAllAsync(
+                    x => x.HotelId == TemplateHotelId && !x.IsDeleted,
+                    orderBy: query => query.OrderBy(x => x.DisplayOrder));
 
-            var clonedData = templateData.Select(x => new TechnicalNeed
+            var clonedCategories = templateCategories.Select(x => new ServiceCategory
             {
+                HotelId = hotelId,
+                Name = x.Name,
+                Description = x.Description,
+                IconUrl = x.IconUrl,
+                IconKey = x.IconKey,
+                DisplayOrder = x.DisplayOrder,
+                ShowOnHome = x.ShowOnHome,
+                IsPopular = x.IsPopular,
+                HomeDisplayOrder = x.HomeDisplayOrder,
+                LegacyServiceType = x.LegacyServiceType,
+                IsActive = true
+            }).ToList();
+
+            await unitOfWork.GetWriteRepository<ServiceCategory>().AddRangeAsync(clonedCategories);
+            await unitOfWork.SaveAsync(cancellationToken);
+
+            var categoryMap = templateCategories.Zip(clonedCategories, (oldCategory, newCategory) => new { oldCategory.Id, NewId = newCategory.Id })
+                .ToDictionary(x => x.Id, x => x.NewId);
+
+            var templateDefinitions = await unitOfWork.GetReadRepository<ServiceDefinition>()
+                .GetAllAsync(
+                    x => x.HotelId == TemplateHotelId && !x.IsDeleted,
+                    include: query => query.Include(x => x.Fields).ThenInclude(field => field.Options),
+                    orderBy: query => query.OrderBy(x => x.DisplayOrder));
+
+            var clonedDefinitions = templateDefinitions.Select(x => new ServiceDefinition
+            {
+                HotelId = hotelId,
+                ServiceCategoryId = categoryMap[x.ServiceCategoryId],
+                DepartmentId = x.DepartmentId.HasValue && departmentMap.ContainsKey(x.DepartmentId.Value) ? departmentMap[x.DepartmentId.Value] : null,
+                ServiceType = x.ServiceType,
                 Name = x.Name,
                 Description = x.Description,
                 ImageUrl = x.ImageUrl,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                ParentId = x.ParentId,
-                DisplayOrder = x.DisplayOrder,
-                IsVisibleToGuest = x.IsVisibleToGuest,
+                OpeningMessage = x.OpeningMessage,
+                IsVisibleToGuest = true,
+                IsChargeable = x.IsChargeable,
                 SupportsFreeText = x.SupportsFreeText,
-                EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                SlaMinutes = x.SlaMinutes,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<TechnicalNeed>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneHouseKeepingAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<HouseKeeping>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new HouseKeeping
-            {
-                Name = x.Name,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                ParentId = x.ParentId,
-                DisplayOrder = x.DisplayOrder,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                SupportsFreeText = x.SupportsFreeText,
-                EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<HouseKeeping>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneBellBoyAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<BellBoy>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new BellBoy
-            {
-                Name = x.Name,
-                ImageUrl = x.ImageUrl,
-                Description = x.Description,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<BellBoy>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneDryCleanerAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<DryCleaner>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new DryCleaner
-            {
-                Name = x.Name,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                ParentId = x.ParentId,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                DisplayOrder = x.DisplayOrder,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                IsChargeable = x.IsChargeable,
-                CurrencyCode = x.CurrencyCode,
-                EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<DryCleaner>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneSpaAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<SpaMassage>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new SpaMassage
-            {
-                Name = x.Name,
-                Description = x.Description,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                ParentId = x.ParentId,
-                TypesOfHealthAndSports = x.TypesOfHealthAndSports,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                IsChargeable = x.IsChargeable,
                 RequiresAppointment = x.RequiresAppointment,
-                CurrencyCode = x.CurrencyCode,
+                FlowUiType = x.FlowUiType,
                 EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<SpaMassage>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneMinibarAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<MinibarService>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new MinibarService
-            {
-                Name = x.Name,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
                 DisplayOrder = x.DisplayOrder,
                 Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                IsChargeable = x.IsChargeable,
                 CurrencyCode = x.CurrencyCode,
-                EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                IsActive = x.IsActive
+                IsActive = true
             }).ToList();
 
-            await unitOfWork.GetWriteRepository<MinibarService>().AddRangeAsync(clonedData);
+            await unitOfWork.GetWriteRepository<ServiceDefinition>().AddRangeAsync(clonedDefinitions);
             await unitOfWork.SaveAsync(cancellationToken);
+
+            var definitionMap = templateDefinitions.Zip(clonedDefinitions, (oldDefinition, newDefinition) => new { oldDefinition.Id, NewId = newDefinition.Id })
+                .ToDictionary(x => x.Id, x => x.NewId);
+
+            var templateFields = templateDefinitions
+                .SelectMany(x => x.Fields.Where(field => !field.IsDeleted))
+                .OrderBy(x => x.ServiceDefinitionId)
+                .ThenBy(x => x.DisplayOrder)
+                .ToList();
+
+            var clonedFields = templateFields
+                .Select(x => new ServiceDefinitionField
+                {
+                    ServiceDefinitionId = definitionMap[x.ServiceDefinitionId],
+                    FieldKey = x.FieldKey,
+                    Label = x.Label,
+                    Placeholder = x.Placeholder,
+                    FieldType = x.FieldType,
+                    IsRequired = x.IsRequired,
+                    DisplayOrder = x.DisplayOrder,
+                    OptionsJson = x.OptionsJson,
+                    ValidationRegex = x.ValidationRegex,
+                    DefaultValue = x.DefaultValue,
+                    IsActive = true
+                })
+                .ToList();
+
+            if (clonedFields.Count > 0)
+            {
+                await unitOfWork.GetWriteRepository<ServiceDefinitionField>().AddRangeAsync(clonedFields);
+                await unitOfWork.SaveAsync(cancellationToken);
+            }
+
+            var fieldMap = templateFields.Zip(clonedFields, (oldField, newField) => new { oldField.Id, NewId = newField.Id })
+                .ToDictionary(x => x.Id, x => x.NewId);
+
+            var templateOptions = templateFields
+                .SelectMany(x => x.Options.Where(option => !option.IsDeleted))
+                .OrderBy(x => x.ServiceDefinitionFieldId)
+                .ThenBy(x => x.DisplayOrder)
+                .ToList();
+
+            var clonedOptions = templateOptions
+                .Where(x => fieldMap.ContainsKey(x.ServiceDefinitionFieldId))
+                .Select(x => new ServiceDefinitionFieldOption
+                {
+                    ServiceDefinitionFieldId = fieldMap[x.ServiceDefinitionFieldId],
+                    Value = x.Value,
+                    Label = x.Label,
+                    DisplayOrder = x.DisplayOrder,
+                    IsActive = true
+                })
+                .ToList();
+
+            if (clonedOptions.Count > 0)
+            {
+                await unitOfWork.GetWriteRepository<ServiceDefinitionFieldOption>().AddRangeAsync(clonedOptions);
+                await unitOfWork.SaveAsync(cancellationToken);
+            }
+
+            var optionMap = templateOptions.Zip(clonedOptions, (oldOption, newOption) => new { oldOption.Id, NewId = newOption.Id })
+                .ToDictionary(x => x.Id, x => x.NewId);
+
+            await CloneServiceTranslationsAsync(categoryMap, definitionMap, fieldMap, optionMap, cancellationToken);
+            await CloneHotelServicePoliciesAsync(hotelId, definitionMap, cancellationToken);
         }
 
-        private async Task CloneWakeUpCallAsync(int hotelId, CancellationToken cancellationToken)
+        private async Task CloneServiceTranslationsAsync(
+            IReadOnlyDictionary<int, int> categoryMap,
+            IReadOnlyDictionary<int, int> definitionMap,
+            IReadOnlyDictionary<int, int> fieldMap,
+            IReadOnlyDictionary<int, int> optionMap,
+            CancellationToken cancellationToken)
         {
-            var templateData = await unitOfWork.GetReadRepository<WakeUpCallService>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
+            var templateRecordIds = categoryMap.Keys
+                .Concat(definitionMap.Keys)
+                .Concat(fieldMap.Keys)
+                .Concat(optionMap.Keys)
+                .Distinct()
+                .ToList();
 
-            var clonedData = templateData.Select(x => new WakeUpCallService
+            if (templateRecordIds.Count == 0)
             {
-                Name = x.Name,
-                Description = x.Description,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                IsChargeable = x.IsChargeable,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                CurrencyCode = x.CurrencyCode,
-                RequiresAppointment = x.RequiresAppointment,
-                IsActive = x.IsActive
-            }).ToList();
+                return;
+            }
 
-            await unitOfWork.GetWriteRepository<WakeUpCallService>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
+            var translations = await unitOfWork.GetReadRepository<Translation>()
+                .GetAllAsync(x =>
+                    !x.IsDeleted &&
+                    templateRecordIds.Contains(x.RecordId) &&
+                    (x.TableName == nameof(ServiceCategory) ||
+                     x.TableName == nameof(ServiceDefinition) ||
+                     x.TableName == nameof(ServiceDefinitionField) ||
+                     x.TableName == nameof(ServiceDefinitionFieldOption)));
+
+            var clonedTranslations = translations
+                .Select(x => TryMapTranslation(x, categoryMap, definitionMap, fieldMap, optionMap))
+                .Where(x => x is not null)
+                .Select(x => x!)
+                .ToList();
+
+            if (clonedTranslations.Count > 0)
+            {
+                await unitOfWork.GetWriteRepository<Translation>().AddRangeAsync(clonedTranslations);
+                await unitOfWork.SaveAsync(cancellationToken);
+            }
         }
 
-        private async Task CloneValetParkingAsync(int hotelId, CancellationToken cancellationToken)
+        private static Translation? TryMapTranslation(
+            Translation translation,
+            IReadOnlyDictionary<int, int> categoryMap,
+            IReadOnlyDictionary<int, int> definitionMap,
+            IReadOnlyDictionary<int, int> fieldMap,
+            IReadOnlyDictionary<int, int> optionMap)
         {
-            var templateData = await unitOfWork.GetReadRepository<ValetParkingService>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new ValetParkingService
+            var newRecordId = translation.TableName switch
             {
-                Name = x.Name,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                IsChargeable = x.IsChargeable,
-                CurrencyCode = x.CurrencyCode,
-                EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                IsActive = x.IsActive
-            }).ToList();
+                nameof(ServiceCategory) when categoryMap.TryGetValue(translation.RecordId, out var id) => id,
+                nameof(ServiceDefinition) when definitionMap.TryGetValue(translation.RecordId, out var id) => id,
+                nameof(ServiceDefinitionField) when fieldMap.TryGetValue(translation.RecordId, out var id) => id,
+                nameof(ServiceDefinitionFieldOption) when optionMap.TryGetValue(translation.RecordId, out var id) => id,
+                _ => (int?)null
+            };
 
-            await unitOfWork.GetWriteRepository<ValetParkingService>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
+            if (!newRecordId.HasValue)
+            {
+                return null;
+            }
+
+            return new Translation
+            {
+                TableName = translation.TableName,
+                RecordId = newRecordId.Value,
+                FieldName = translation.FieldName,
+                TranslationValue = translation.TranslationValue,
+                LanguageCode = translation.LanguageCode,
+                IsActive = true
+            };
         }
 
-        private async Task CloneStayExtensionAsync(int hotelId, CancellationToken cancellationToken)
+        private async Task CloneHotelServicePoliciesAsync(
+            int hotelId,
+            IReadOnlyDictionary<int, int> definitionMap,
+            CancellationToken cancellationToken)
         {
-            var templateData = await unitOfWork.GetReadRepository<StayExtensionService>()
+            var templatePolicies = await unitOfWork.GetReadRepository<HotelServicePolicy>()
                 .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
 
-            var clonedData = templateData.Select(x => new StayExtensionService
-            {
-                Name = x.Name,
-                Description = x.Description,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                IsChargeable = x.IsChargeable,
-                CurrencyCode = x.CurrencyCode,
-                RequiresAppointment = x.RequiresAppointment,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<StayExtensionService>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneAmenityRequestAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<AmenityRequestService>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new AmenityRequestService
-            {
-                Name = x.Name,
-                Description = x.Description,
-                ImageUrl = x.ImageUrl,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                DisplayOrder = x.DisplayOrder,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                SupportsFreeText = x.SupportsFreeText,
-                IsChargeable = x.IsChargeable,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                CurrencyCode = x.CurrencyCode,
-                EstimatedDurationMinutes = x.EstimatedDurationMinutes,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<AmenityRequestService>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneMedicalAssistanceAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<MedicalAssistanceService>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new MedicalAssistanceService
-            {
-                Name = x.Name,
-                Description = x.Description,
-                HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                IsVisibleToGuest = x.IsVisibleToGuest,
-                SupportsFreeText = x.SupportsFreeText,
-                IsChargeable = x.IsChargeable,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
-                CurrencyCode = x.CurrencyCode,
-                RequiresAppointment = x.RequiresAppointment,
-                IsActive = x.IsActive
-            }).ToList();
-
-            await unitOfWork.GetWriteRepository<MedicalAssistanceService>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
-        }
-
-        private async Task CloneTravelOrTransportationAsync(int hotelId, CancellationToken cancellationToken)
-        {
-            var templateData = await unitOfWork.GetReadRepository<TravelOrTransportation>()
-                .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
-
-            var clonedData = templateData.Select(x => new TravelOrTransportation
+            var clonedPolicies = templatePolicies.Select(x => new HotelServicePolicy
             {
                 HotelId = hotelId,
-                DepartmentId = x.DepartmentId,
-                TransportationType = x.TransportationType,
-                TransportationAddress = x.TransportationAddress,
-                TransportationVehicle = x.TransportationVehicle,
-                RequestDate = x.RequestDate,
-                Price = x.Price,
-                PriceStatusId = x.PriceStatusId,
+                ServiceType = x.ServiceType,
+                ServiceItemId = x.ServiceItemId,
+                ServiceDefinitionId = x.ServiceDefinitionId.HasValue && definitionMap.ContainsKey(x.ServiceDefinitionId.Value)
+                    ? definitionMap[x.ServiceDefinitionId.Value]
+                    : null,
+                AccommodationConceptType = x.AccommodationConceptType,
+                IsVisible = true,
+                IsIncludedInPackage = x.IsIncludedInPackage,
                 IsChargeable = x.IsChargeable,
-                IsVisibleToGuest = x.IsVisibleToGuest,
+                AllowRoomCharge = x.AllowRoomCharge,
+                AllowOnlinePayment = x.AllowOnlinePayment,
+                AllowOnSitePayment = x.AllowOnSitePayment,
+                PriceOverride = x.PriceOverride,
                 CurrencyCode = x.CurrencyCode,
                 Description = x.Description,
-                IsActive = x.IsActive
+                IsActive = true
             }).ToList();
 
-            await unitOfWork.GetWriteRepository<TravelOrTransportation>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
+            if (clonedPolicies.Count > 0)
+            {
+                await unitOfWork.GetWriteRepository<HotelServicePolicy>().AddRangeAsync(clonedPolicies);
+                await unitOfWork.SaveAsync(cancellationToken);
+            }
         }
 
         private async Task CloneAnnouncementTemplatesAsync(int hotelId, CancellationToken cancellationToken)
         {
-            var templateData = await unitOfWork.GetReadRepository<HotelInformationAndAnnouncements>()
+            var templateData = await unitOfWork.GetReadRepository<Announcement>()
                 .GetAllAsync(x => x.HotelId == TemplateHotelId && !x.IsDeleted);
 
-            var clonedData = templateData.Select(x => new HotelInformationAndAnnouncements
+            var clonedData = templateData.Select(x => new Announcement
             {
-                Name = x.Name,
-                ImageUrl = x.ImageUrl,
+                Title = x.Title,
                 Description = x.Description,
-                Date = x.Date,
+                ImageUrl = x.ImageUrl,
                 HotelId = hotelId,
-                AnnouncementType = x.AnnouncementType,
-                EndDate = x.EndDate,
+                Type = x.Type,
+                StartAt = x.StartAt,
+                EndAt = x.EndAt,
                 Location = x.Location,
                 IsPinned = x.IsPinned,
                 IsVisibleToGuest = x.IsVisibleToGuest,
+                AudienceType = x.AudienceType,
                 IsActive = x.IsActive
             }).ToList();
 
-            await unitOfWork.GetWriteRepository<HotelInformationAndAnnouncements>().AddRangeAsync(clonedData);
-            await unitOfWork.SaveAsync(cancellationToken);
+            if (clonedData.Count > 0)
+            {
+                await unitOfWork.GetWriteRepository<Announcement>().AddRangeAsync(clonedData);
+                await unitOfWork.SaveAsync(cancellationToken);
+            }
         }
     }
 }

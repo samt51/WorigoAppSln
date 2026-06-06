@@ -1,7 +1,6 @@
 using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailableServices;
-using WorigoApp.Application.Helpers.ChatFlow;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 
@@ -35,8 +34,6 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
                 .ThenBy(x => x.Name)
                 .Select(x =>
                 {
-                    var flowUiType = ChatFlowTemplateFactory.ResolveUiType(x.ServiceType, x.ServiceCategoryName);
-
                     return new GetGuestServiceCategoryItemsQueryResponse
                     {
                         ServiceDefinitionId = x.ServiceDefinitionId,
@@ -58,14 +55,10 @@ namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCa
                         RequiresAppointment = x.RequiresAppointment,
                         EstimatedDurationMinutes = x.EstimatedDurationMinutes,
                         DisplayOrder = x.DisplayOrder,
-                        FlowUiType = flowUiType,
-                        OpeningMessageType = ChatFlowTemplateFactory.ResolveOpeningMessageType(flowUiType),
-                        OpeningMessage = ChatFlowTemplateFactory.ResolveOpeningMessage(flowUiType, x.ServiceType, x.ServiceCategoryName),
-                        OpeningPayloadJson = ChatFlowTemplateFactory.BuildOpeningPayloadJson(
-                            flowUiType,
-                            x.ServiceType,
-                            x.Fields.Select(field => (field.Label, field.FieldKey)),
-                            x.ServiceCategoryName),
+                        FlowUiType = x.FlowUiType,
+                        OpeningMessageType = x.OpeningMessageType,
+                        OpeningMessage = x.OpeningMessage,
+                        OpeningPayloadJson = x.OpeningPayloadJson,
                         Fields = x.Fields
                     };
                 })

@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -66,16 +66,19 @@ namespace WorigoApp.Application.Middleware.Exceptions
                 }
             }
 
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                message = "İşleminiz şu an gerçekleştirilemiyor.";
+            }
+
             List<string> errors = new()
             {
                message
-
             };
 
             return httpContext.Response.WriteAsync(new ExceptionModel
             {
                 Response = new Bases.ResponseDto<ExceptionModel>().Fail(errors, statusCode)
-
             }.ToString());
 
         }

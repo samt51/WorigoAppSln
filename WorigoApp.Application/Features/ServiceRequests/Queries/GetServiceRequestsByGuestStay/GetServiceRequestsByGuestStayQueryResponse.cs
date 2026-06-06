@@ -10,6 +10,8 @@ namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetServiceReque
         public string? Description { get; set; }
         public ServicesEnum ServiceType { get; set; }
         public ServiceRequestStatusEnum Status { get; set; }
+        public string StatusKey { get; set; } = string.Empty;
+        public string StatusDisplayName { get; set; } = string.Empty;
         public string LanguageCode { get; set; } = string.Empty;
         public DateTime RequestedAt { get; set; }
         public DateTime? CompletedAt { get; set; }
@@ -20,6 +22,7 @@ namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetServiceReque
         public int? ServiceCategoryId { get; set; }
         public string? ServiceCategoryName { get; set; }
         public int? ConversationId { get; set; }
+        public IList<ServiceRequestFieldValueDto> FieldValues { get; set; } = new List<ServiceRequestFieldValueDto>();
         public IList<ServiceRequestItemDto> Items { get; set; } = new List<ServiceRequestItemDto>();
     }
 }

@@ -59,7 +59,8 @@ namespace WorigoApp.Application.Helpers.ChatFlow
             ServiceFlowUiTypeEnum uiType,
             string serviceType,
             IEnumerable<(string Label, string Value)>? options = null,
-            string? categoryName = null)
+            string? categoryName = null,
+            string? openingMessage = null)
         {
             var optionList = options?.Where(x => !string.IsNullOrWhiteSpace(x.Label)).ToList()
                 ?? new List<(string Label, string Value)>();
@@ -72,7 +73,9 @@ namespace WorigoApp.Application.Helpers.ChatFlow
             var payload = new
             {
                 uiType = uiType.ToString(),
-                title = ResolveOpeningMessage(uiType, serviceType, categoryName),
+                title = string.IsNullOrWhiteSpace(openingMessage)
+                    ? ResolveOpeningMessage(uiType, serviceType, categoryName)
+                    : openingMessage,
                 options = optionList.Select(x => new
                 {
                     label = x.Label,

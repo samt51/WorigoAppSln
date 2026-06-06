@@ -14,7 +14,7 @@ namespace WorigoApp.Application.Features.Hotels.Queries.GetAllHotels
 
         public async Task<IList<GetAllHotelsQueryResponse>> Handle(GetAllHotelsQueryRequest request, CancellationToken cancellationToken)
         {
-            var getHotels = await unitOfWork.GetReadRepository<Hotel>().GetAllAsync(x => x.Companyid == request.CompanyId);
+            var getHotels = await unitOfWork.GetReadRepository<Hotel>().GetAllAsync(x => x.Companyid == request.CompanyId && !x.IsDeleted);
 
             return mapper.Map<GetAllHotelsQueryResponse, Hotel>(getHotels);
         }

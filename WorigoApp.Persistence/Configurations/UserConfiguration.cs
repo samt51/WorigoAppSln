@@ -23,7 +23,7 @@ namespace WorigoApp.Persistence.Configurations
             var user6 = new Users(6, "mehmet51@gmail.com", PasswordHash.HashPassword("123456"), 5);
 
             #endregion
-            builder.HasData(user);
+            builder.HasData(user, user2, user3, user4, user5, user6);
         }
     }
 }

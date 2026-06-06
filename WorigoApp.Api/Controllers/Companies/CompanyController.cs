@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Api.Controllers.CommonBase;
 using WorigoApp.Application.Bases;
@@ -7,11 +6,10 @@ using WorigoApp.Application.Features.Companies.Commands.CreateCompany;
 using WorigoApp.Application.Features.Companies.Commands.UpdateCompany;
 using WorigoApp.Application.Features.Companies.Queries.GetAllCompanies;
 using WorigoApp.Application.Features.Companies.Queries.GetByCompany;
-using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Companies
 {
-    [Authorize(Roles = "SystemAdmin")]
+ 
     public class CompanyController : BaseController
     {
         private readonly IMediator _mediator;
@@ -20,19 +18,19 @@ namespace WorigoApp.Api.Controllers.Companies
             this._mediator = mediator;
         }
         [HttpGet]
-        [CachingCheckAttiribute<ResponseDto<IList<GetAllCompaniesQueryResponse>>>("category")]
+ 
         public async Task<ResponseDto<IList<GetAllCompaniesQueryResponse>>> GetAllAsync()
         {
             return await this._mediator.Send(new GetAllCompaniesQueryRequest());
         }
         [HttpPost]
-        [AddCachingToResponseAttirbute("category")]
+ 
         public async Task<ResponseDto<CreateCompanyCommandResponse>> AddAsync(CreateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);
         }
         [HttpPost]
-        [AddCachingToResponseAttirbute("category")]
+  
         public async Task<ResponseDto<UpdateCompanyCommandResponse>> UpdateAsync(UpdateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);

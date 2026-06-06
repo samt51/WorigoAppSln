@@ -89,6 +89,16 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public string CurrencyCode { get; set; } = "TRY";
 
+        /// <summary>
+        /// Resepsiyon tarafinda onaylanan toplam konaklama fiyati.
+        /// </summary>
+        public decimal TotalPrice { get; set; }
+
+        public bool IsVip { get; set; } = false;
+        public bool HasAllergy { get; set; } = false;
+        public bool DoNotDisturb { get; set; } = false;
+        public bool IsLateCheckOut { get; set; } = false;
+
         public IList<Order> Orders { get; set; } = new List<Order>();
         public IList<Customer> Customers { get; set; } = new List<Customer>();
         public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();

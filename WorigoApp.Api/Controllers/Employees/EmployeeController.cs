@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WorigoApp.Api.Controllers.CommonBase;
@@ -9,7 +9,7 @@ using WorigoApp.Application.Features.Employees.Queries.GetAllEmployees;
 
 namespace WorigoApp.Api.Controllers.Employees
 {
-    [Authorize(Roles = "SystemAdmin")]
+    [Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
     public class EmployeeController : BaseController
     {
         private readonly IMediator mediator;
@@ -24,12 +24,16 @@ namespace WorigoApp.Api.Controllers.Employees
         {
             return await this.mediator.Send(new GetAllEmployeesQueryRequest(hotelId));
         }
+
         [HttpPost]
+        [Authorize(Roles = "SystemAdmin")]
         public async Task<ResponseDto<CreateEmployeeCommonResponse>> AddAsync(CreateEmployeeCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
+
         [HttpPost]
+        [Authorize(Roles = "SystemAdmin")]
         public async Task<ResponseDto<UpdateEmployeeCommonResponse>> UpdateAsync(UpdateEmployeeCommonRequest request)
         {
             return await this.mediator.Send(request);

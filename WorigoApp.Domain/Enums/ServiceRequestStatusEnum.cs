@@ -11,6 +11,7 @@ namespace WorigoApp.Domain.Enums
         WaitingCustomer = 4,
         Completed = 5,
         Cancelled = 6,
-        Closed = 7
+        Closed = 7,
+        OnTheWay = 8
     }
 }

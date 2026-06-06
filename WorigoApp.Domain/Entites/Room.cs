@@ -50,6 +50,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public string CurrentStatus { get; set; } = "Available";
 
+        public double TargetTemperature { get; set; } = 22.0;
+        public int LightsIntensity { get; set; } = 80;
+        public bool AreCurtainsOpen { get; set; } = true;
+
         public decimal Price { get; set; }
         public int PriceStatusId { get; set; }
 

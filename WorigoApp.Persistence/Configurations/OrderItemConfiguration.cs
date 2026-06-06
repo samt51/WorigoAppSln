@@ -9,6 +9,11 @@ namespace WorigoApp.Persistence.Configurations
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
             var data = new OrderItem();
+
+            builder.HasOne(x => x.Order)
+                .WithMany(x => x.OrderItems)
+                .HasForeignKey(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

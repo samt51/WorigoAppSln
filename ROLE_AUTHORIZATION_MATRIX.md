@@ -68,6 +68,10 @@ Seviye anahtari:
 | ServiceRequest Chat | All | Hotel | Hotel | Department | None | None | Own | Own |
 | ServiceRequest Rating | All | Hotel | Hotel | Department | None | None | Read | Own |
 | Siparis / Order | All | Hotel | Hotel | Department | None | None | Own | Own |
+| Finance / On Muhasebe | All | Hotel | Hotel Read | Department Read | None | Hotel Cost | None | Own Folio |
+| Kasa | All | Hotel | Read | None | None | None | None | None |
+| Giderler | All | Hotel | Read | Department Read | None | Hotel | None | None |
+| Tedarikciler | All | Hotel | Read | None | None | Hotel | None | None |
 | Finans / Karlilik Raporlari | All | Hotel | Hotel | Department | None | None | None | None |
 | Stok Kartlari | All | Hotel | Read | Department | None | Hotel | None | None |
 | Stok Hareketleri | All | Hotel | Read | Department | None | Hotel | None | None |
@@ -97,6 +101,13 @@ Seviye anahtari:
 - Vardiyalar
 - Servisler
 - Stok
+- Finance dashboard
+- Gelirler
+- Misafir hesabi
+- Kasa
+- Giderler
+- Tedarikciler
+- Stok maliyet
 - Izin / IK
 - Tum otel raporlari
 
@@ -104,6 +115,10 @@ Seviye anahtari:
 
 - Dashboard
 - Finans raporlari
+- Finance dashboard okuma
+- Gelir-gider ozetleri
+- Kasa ozeti okuma
+- Tedarikci borc ozeti okuma
 - Departman performansi
 - Personel performansi
 - En cok ariza raporu
@@ -115,6 +130,7 @@ Seviye anahtari:
 - Kendi departman service request'leri
 - Kendi departman gorevleri
 - Kendi departman stok talepleri
+- Kendi departman gider/maliyet ozetleri
 - Kendi departman izin onaylari
 - Kendi departman raporlari
 
@@ -134,6 +150,10 @@ Seviye anahtari:
 - Bekleyen stok talepleri
 - Kritik dusuk stok raporlari
 - Alim/maliyet raporlari
+- Gider kayitlari
+- Tedarikci listesi
+- Tedarikci borc takibi
+- Stok maliyet raporlari
 
 ### `Employee`
 
@@ -155,6 +175,10 @@ Resepsiyon employee type'i icin acik ekranlar:
 - Check-in / check-out
 - Oda bazli misafir listesi
 - Misafir servis taleplerine yardimci olma
+- Misafir hesabi / folio
+- Odaya yansitilan ucretler
+- Yerinde tahsilat kaydi
+- Check-out hesap ozeti
 
 ### `Customer`
 
@@ -162,8 +186,98 @@ Resepsiyon employee type'i icin acik ekranlar:
 - Kendi servis talepleri
 - Kendi chat mesaji
 - Kendi siparisleri
+- Kendi misafir hesabi ve harcama ozeti
 - Duyuru ve etkinlikler
 - Puanlama
+
+## Worigo Finance / On Muhasebe Ekranlari
+
+Bu bolum ERP degildir. Otelin gunluk gelir-gider, kasa, misafir hesabi ve basit tedarikci takibini kapsar.
+
+### `HotelAdmin` Finance ekranlari
+
+- Finance Dashboard
+  - Gunluk gelir, gider, net kasa ve bekleyen tahsilatlari gorur.
+- Gelirler
+  - Siparis ve servis gelirlerini listeler.
+  - Odeme durumlarini takip eder.
+- Misafir Hesabi
+  - GuestStay bazli hesap/folio gorur.
+  - Check-out hesap ozetini kontrol eder.
+- Kasa
+  - Kasa hareketlerini gorur.
+  - Kasa kapanisini takip eder.
+- Giderler
+  - Gider ekler, duzenler ve odeme durumunu takip eder.
+- Tedarikciler
+  - Tedarikci kaydi acar ve borc ozetini gorur.
+- Stok Maliyet
+  - Stok giris maliyeti ve departman tuketim maliyetini gorur.
+- Finans Raporlari
+  - Gunluk/aylik gelir-gider, kasa, servis geliri ve tedarikci borc raporlarini gorur.
+
+### `Management` Finance ekranlari
+
+- Finance Dashboard
+  - Sadece okuma.
+- Finans Raporlari
+  - Gelir-gider ve operasyonel karlilik raporlarini gorur.
+- Kasa Ozeti
+  - Gunluk kasa durumunu okur.
+- Tedarikci Borc Ozeti
+  - Bekleyen odemeleri okur.
+
+### `PurchasingManager` Finance ekranlari
+
+- Giderler
+  - Satin alma ve stok kaynakli giderleri girer.
+- Tedarikciler
+  - Tedarikci listesi ve detaylarini yonetir.
+- Stok Maliyet
+  - Stok giris fiyatlarini ve maliyet raporlarini gorur.
+- Tedarikci Borc Raporu
+  - Odenecek tedarikci tutarlarini takip eder.
+
+### `DepartmentManager` Finance ekranlari
+
+- Departman Maliyet Ozeti
+  - Kendi departmaninin stok tuketimi ve gider ozetini gorur.
+- Departman Giderleri
+  - Kendi departmanina yazilan giderleri okur.
+- Departman Raporlari
+  - Kendi departmaninin maliyet ve performans raporlarini gorur.
+
+### `Reception` Finance ekranlari
+
+- Misafir Hesabi
+  - Misafirin oda hesabini gorur.
+- Check-out Hesap Ozeti
+  - Cikis oncesi acik ucretleri kontrol eder.
+- Yerinde Tahsilat
+  - Resepsiyonda alinan odemeyi kaydeder.
+- Odaya Yansitilan Ucretler
+  - Siparis ve servis ucretlerini misafir hesabinda gorur.
+
+### `Customer` Finance ekranlari
+
+- Harcama Ozeti
+  - Kendi konaklamasina ait harcamalari gorur.
+- Siparis Odemeleri
+  - Kendi siparislerinin odeme durumunu gorur.
+- Odaya Yansitilanlar
+  - Oda hesabina yazilan kalemleri gorur.
+
+### Finance icin yeni tablo ihtiyaci
+
+Mevcut mimari `Order`, `OrderItem`, `Charge`, `PaymentTransaction`, `HotelServicePolicy`, `StockItem` ve `StockMovement` ile gelir, odeme ve stok maliyet tarafinin temelini karsiliyor.
+
+Eksik kalan on muhasebe tablolari:
+
+- `ExpenseCategory`
+- `Supplier`
+- `Expense`
+- `CashTransaction`
+- `CashClosure`
 
 ## Teknik Yetki Onerisi
 

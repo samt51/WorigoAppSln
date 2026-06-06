@@ -58,16 +58,6 @@ namespace WorigoApp.Domain.Entites
         public string DefaultLanguageCode { get; set; } = "tr-TR";
 
         /// <summary>
-        /// Standart check-in saati.
-        /// </summary>
-        public TimeSpan CheckInTime { get; set; } = new(14, 0, 0);
-
-        /// <summary>
-        /// Standart check-out saati.
-        /// </summary>
-        public TimeSpan CheckOutTime { get; set; } = new(12, 0, 0);
-
-        /// <summary>
         /// Adresin ilk satırı.
         /// </summary>
         public string AddressLine1 { get; set; } = string.Empty;

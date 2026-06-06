@@ -1,11 +1,9 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using WorigoApp.Application.Bases;
-using WorigoApp.Application.Helpers.DesignPatterns.StrategyAndFactory.Implementasyons;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
-using WorigoApp.Domain.Entites.GServices;
 using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
@@ -36,7 +34,6 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
                     x.HotelId == guestStay.HotelId &&
                     x.AccommodationConceptType == guestStay.AccommodationConceptType);
 
-            var serviceStrategyFactory = new ServiceStrategyFactory(unitOfWork);
             var orderItems = new List<OrderItem>();
             decimal totalPrice = 0;
             decimal taxAmount = 0;
@@ -51,7 +48,7 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
                         .Fail(new List<string> { "Siparis kalem miktari sifirdan buyuk olmalidir." }, 400);
                 }
 
-                var pricing = await ResolveCatalogPricingAsync(item, serviceStrategyFactory);
+                var pricing = await ResolveCatalogPricingAsync(item, guestStay.HotelId);
                 var policy = ResolvePolicy(hotelPolicies, item.ServicesEnumId, item.ServiceItemId);
 
                 if (policy is not null && !policy.IsVisible)
@@ -199,8 +196,13 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
         private static HotelServicePolicy? ResolvePolicy(IList<HotelServicePolicy> policies, ServicesEnum serviceType, int serviceItemId)
         {
             return policies
-                .OrderByDescending(x => x.ServiceItemId.HasValue)
-                .FirstOrDefault(x => x.ServiceType == serviceType && (x.ServiceItemId == serviceItemId || x.ServiceItemId is null));
+                .OrderByDescending(x => x.ServiceDefinitionId.HasValue)
+                .ThenByDescending(x => x.ServiceItemId.HasValue)
+                .FirstOrDefault(x =>
+                    (x.ServiceDefinitionId == serviceItemId) ||
+                    (x.ServiceDefinitionId is null &&
+                     x.ServiceType == serviceType &&
+                     (x.ServiceItemId == serviceItemId || x.ServiceItemId is null)));
         }
 
         private static OrderPaymentOptionEnum? ResolvePaymentOption(
@@ -246,120 +248,36 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
             };
         }
 
-        private static async Task<(decimal UnitPrice, int PriceStatusId, bool IsChargeable)> ResolveCatalogPricingAsync(
+        private async Task<(decimal UnitPrice, int PriceStatusId, bool IsChargeable)> ResolveCatalogPricingAsync(
             Dto.CreateOrderItems item,
-            ServiceStrategyFactory serviceStrategyFactory)
+            int hotelId)
         {
             decimal calculatedUnitPrice = item.Price;
             var priceStatusId = item.PriceStatusId;
             var isChargeable = item.Price > 0;
 
-            switch (item.ServicesEnumId)
+            if (item.ServicesEnumId == ServicesEnum.Menu)
             {
-                case ServicesEnum.Menu:
-                    var foodServiceStrategy = serviceStrategyFactory.GetServiceStrategy<Food>(item.ServicesEnumId);
-                    var foodData = await foodServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = foodData.DiscountPrice ?? foodData.Price;
-                    priceStatusId = foodData.PriceStatusId;
-                    isChargeable = calculatedUnitPrice > 0;
-                    break;
+                var foodData = await unitOfWork.GetReadRepository<Food>()
+                    .GetAsync(x => x.Id == item.ServiceItemId && x.IsAvailable && !x.IsDeleted);
 
-                case ServicesEnum.SpaMessage:
-                    var spaServiceStrategy = serviceStrategyFactory.GetServiceStrategy<SpaMassage>(item.ServicesEnumId);
-                    var spaData = await spaServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = spaData.Price;
-                    priceStatusId = spaData.PriceStatusId;
-                    isChargeable = spaData.IsChargeable;
-                    break;
+                calculatedUnitPrice = foodData.DiscountPrice ?? foodData.Price;
+                priceStatusId = foodData.PriceStatusId;
+                isChargeable = calculatedUnitPrice > 0;
 
-                case ServicesEnum.DryCleaner:
-                    var dryCleanerServiceStrategy = serviceStrategyFactory.GetServiceStrategy<DryCleaner>(item.ServicesEnumId);
-                    var dryCleanerData = await dryCleanerServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = dryCleanerData.Price ?? item.Price;
-                    priceStatusId = dryCleanerData.PriceStatusId;
-                    isChargeable = dryCleanerData.IsChargeable;
-                    break;
-
-                case ServicesEnum.BellBoy:
-                    var bellBoyServiceStrategy = serviceStrategyFactory.GetServiceStrategy<BellBoy>(item.ServicesEnumId);
-                    await bellBoyServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = item.Price;
-                    isChargeable = item.Price > 0;
-                    break;
-
-                case ServicesEnum.TechnicalNeed:
-                    var technicalServiceStrategy = serviceStrategyFactory.GetServiceStrategy<TechnicalNeed>(item.ServicesEnumId);
-                    await technicalServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = item.Price;
-                    isChargeable = item.Price > 0;
-                    break;
-
-                case ServicesEnum.HouseKeeping:
-                    var houseKeepingServiceStrategy = serviceStrategyFactory.GetServiceStrategy<HouseKeeping>(item.ServicesEnumId);
-                    await houseKeepingServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = item.Price;
-                    isChargeable = item.Price > 0;
-                    break;
-
-                case ServicesEnum.Minibar:
-                    var minibarServiceStrategy = serviceStrategyFactory.GetServiceStrategy<MinibarService>(item.ServicesEnumId);
-                    var minibarData = await minibarServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = minibarData.Price;
-                    priceStatusId = minibarData.PriceStatusId;
-                    isChargeable = minibarData.IsChargeable;
-                    break;
-
-                case ServicesEnum.WakeUpCall:
-                    var wakeUpCallServiceStrategy = serviceStrategyFactory.GetServiceStrategy<WakeUpCallService>(item.ServicesEnumId);
-                    var wakeUpCallData = await wakeUpCallServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = wakeUpCallData.Price;
-                    priceStatusId = wakeUpCallData.PriceStatusId;
-                    isChargeable = wakeUpCallData.IsChargeable;
-                    break;
-
-                case ServicesEnum.ValetParking:
-                    var valetParkingServiceStrategy = serviceStrategyFactory.GetServiceStrategy<ValetParkingService>(item.ServicesEnumId);
-                    var valetParkingData = await valetParkingServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = valetParkingData.Price;
-                    priceStatusId = valetParkingData.PriceStatusId;
-                    isChargeable = valetParkingData.IsChargeable;
-                    break;
-
-                case ServicesEnum.StayExtension:
-                    var stayExtensionServiceStrategy = serviceStrategyFactory.GetServiceStrategy<StayExtensionService>(item.ServicesEnumId);
-                    var stayExtensionData = await stayExtensionServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = stayExtensionData.Price;
-                    priceStatusId = stayExtensionData.PriceStatusId;
-                    isChargeable = stayExtensionData.IsChargeable;
-                    break;
-
-                case ServicesEnum.AmenityRequest:
-                    var amenityRequestServiceStrategy = serviceStrategyFactory.GetServiceStrategy<AmenityRequestService>(item.ServicesEnumId);
-                    var amenityRequestData = await amenityRequestServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = amenityRequestData.Price;
-                    priceStatusId = amenityRequestData.PriceStatusId;
-                    isChargeable = amenityRequestData.IsChargeable;
-                    break;
-
-                case ServicesEnum.MedicalAssistance:
-                    var medicalAssistanceServiceStrategy = serviceStrategyFactory.GetServiceStrategy<MedicalAssistanceService>(item.ServicesEnumId);
-                    var medicalAssistanceData = await medicalAssistanceServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = medicalAssistanceData.Price;
-                    priceStatusId = medicalAssistanceData.PriceStatusId;
-                    isChargeable = medicalAssistanceData.IsChargeable;
-                    break;
-
-                case ServicesEnum.TravelOrTransportation:
-                    var travelServiceStrategy = serviceStrategyFactory.GetServiceStrategy<TravelOrTransportation>(item.ServicesEnumId);
-                    var travelData = await travelServiceStrategy.GetServiceItemAsync(item.ServiceItemId);
-                    calculatedUnitPrice = travelData.Price;
-                    priceStatusId = travelData.PriceStatusId;
-                    isChargeable = travelData.IsChargeable;
-                    break;
-
-                default:
-                    throw new NotImplementedException("Unknown service type.");
+                return (calculatedUnitPrice, priceStatusId, isChargeable);
             }
+
+            var definition = await unitOfWork.GetReadRepository<ServiceDefinition>()
+                .GetAsync(x =>
+                    x.Id == item.ServiceItemId &&
+                    x.HotelId == hotelId &&
+                    x.ServiceType == item.ServicesEnumId &&
+                    x.IsActive &&
+                    !x.IsDeleted);
+
+            calculatedUnitPrice = definition.Price;
+            isChargeable = definition.IsChargeable;
 
             return (calculatedUnitPrice, priceStatusId, isChargeable);
         }
@@ -380,10 +298,16 @@ namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
                 return null;
             }
 
+            var primaryServiceItemId = request.CreateOrderItems
+                .Where(x => x.ServicesEnumId == primaryServiceType)
+                .Select(x => x.ServiceItemId)
+                .FirstOrDefault();
+
             var serviceDefinition = (await unitOfWork.GetReadRepository<ServiceDefinition>()
                 .GetAllAsync(x =>
                     x.HotelId == guestStay.HotelId &&
                     x.ServiceType == primaryServiceType &&
+                    (primaryServiceType == ServicesEnum.Menu || x.Id == primaryServiceItemId) &&
                     x.IsActive &&
                     !x.IsDeleted,
                     orderBy: x => x.OrderBy(y => y.DisplayOrder)))

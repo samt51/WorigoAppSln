@@ -71,7 +71,11 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.UpdateServiceR
                 AssignedAt = serviceRequest.AssignedAt,
                 StartedAt = serviceRequest.StartedAt,
                 CompletedAt = serviceRequest.CompletedAt,
-                ClosedAt = serviceRequest.ClosedAt
+                ClosedAt = serviceRequest.ClosedAt,
+                HotelId = serviceRequest.HotelId,
+                DepartmentId = serviceRequest.DepartmentId,
+                AssignedEmployeeId = serviceRequest.AssignedEmployeeId,
+                GuestStayId = serviceRequest.GuestStayId
             });
         }
     }
