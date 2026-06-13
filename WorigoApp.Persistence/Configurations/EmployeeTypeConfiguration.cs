@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WorigoApp.Domain.Entites;
 
@@ -49,10 +49,16 @@ namespace WorigoApp.Persistence.Configurations
             var spaEmployeeType = new EmployeeType(25, "Masör", 5);
             #endregion
 
+            #region YonetimDepartmani
+            var employeeTypeManagement1 = new EmployeeType(500, "Şirket Sahibi / CEO", 100);
+            var employeeTypeManagement2 = new EmployeeType(501, "Genel Müdür / Otel Yöneticisi", 100);
+            #endregion
+
             builder.HasData(employeeType1, employeeType2, employeeType3, employeeType4, employeeType5, employeeType6, employeeType7, employeeType8
                 , houseKeepingDepEmployeeType, houseKeepingDepEmployeeType2, houseKeepingDepEmployeeType3, houseKeepingDepEmployeeType4, houseKeepingDepEmployeeType5,
                foodandDrinkDepEmployeeType, foodandDrinkDepEmployeeType2, foodandDrinkDepEmployeeType3, foodandDrinkDepEmployeeType4, foodandDrinkDepEmployeeType5, foodandDrinkDepEmployeeType6,
-               foodandDrinkDepEmployeeType7, tecnicalneedDepEmployeeType, tecnicalneedDepEmployeeType2, tecnicalneedDepEmployeeType3, tecnicalneedDepEmployeeType4, spaEmployeeType);
+               foodandDrinkDepEmployeeType7, tecnicalneedDepEmployeeType, tecnicalneedDepEmployeeType2, tecnicalneedDepEmployeeType3, tecnicalneedDepEmployeeType4, spaEmployeeType,
+               employeeTypeManagement1, employeeTypeManagement2);
 
 
         }

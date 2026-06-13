@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WorigoApp.Application.Interfaces.AutoMapper;
@@ -22,11 +22,7 @@ namespace WorigoApp.Persistence
             }
 
             services.AddDbContext<AppDbContext>(opt =>
-                opt.UseSqlServer(connectionString, sql =>
-                    sql.EnableRetryOnFailure(
-                        maxRetryCount: 5,
-                        maxRetryDelay: TimeSpan.FromSeconds(10),
-                        errorNumbersToAdd: null)));
+                opt.UseSqlServer(connectionString));
 
 
             services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));

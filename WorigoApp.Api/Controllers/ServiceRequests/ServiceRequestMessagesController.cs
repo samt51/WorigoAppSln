@@ -23,7 +23,7 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             _hubContext = hubContext;
         }
 
-        [HttpPost]
+        [HttpPost("~/api/ServiceRequestMessages")]
         [SwaggerDescriptionAttirbute("Servis talebi icin yeni chat mesaji olusturur ve hedef dile cevirir.")]
         public async Task<ResponseDto<CreateServiceRequestMessageCommandResponse>> Create(CreateServiceRequestMessageCommandRequest request)
         {
@@ -38,7 +38,7 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             return response;
         }
 
-        [HttpGet("{serviceRequestId}")]
+        [HttpGet("~/api/ServiceRequestMessages/{serviceRequestId}")]
         [SwaggerDescriptionAttirbute("Servis talebine ait chat mesajlarini listeler.")]
         public async Task<ResponseDto<IList<GetServiceRequestMessagesQueryResponse>>> GetByServiceRequest(int serviceRequestId)
         {

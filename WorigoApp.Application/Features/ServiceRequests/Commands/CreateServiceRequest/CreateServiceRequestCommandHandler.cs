@@ -6,6 +6,8 @@ using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
 using WorigoApp.Domain.Enums;
+using System.Globalization;
+using System.Text;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceRequest
 {
@@ -55,6 +57,7 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceR
                 x => x.HotelId == guestStay.HotelId && x.ServicesEnumId == request.ServiceType && x.IsActive && !x.IsDeleted,
                 orderBy: x => x.OrderBy(y => y.Priority));
 
+            assignments = await BuildAssignmentCandidatesAsync(guestStay.HotelId, request, serviceDefinition, assignments);
             var assignment = assignments.FirstOrDefault();
             var assignedEmployee = await FindAvailableEmployeeAsync(guestStay.HotelId, assignments);
             var departmentId = assignment?.DepartmentId ?? serviceDefinition?.DepartmentId;
@@ -185,6 +188,197 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceR
                 NotificationIds = notificationResult.Notifications.Select(x => x.Id).ToList(),
                 ReceptionEmployeeIds = notificationResult.ReceptionEmployeeIds
             });
+        }
+
+        private async Task<IList<ServiceRoleAssignments>> BuildAssignmentCandidatesAsync(
+            int hotelId,
+            CreateServiceRequestCommandRequest request,
+            ServiceDefinition? serviceDefinition,
+            IList<ServiceRoleAssignments> assignments)
+        {
+            if (request.ServiceType is not ServicesEnum.TechnicalNeed and not ServicesEnum.Connection)
+            {
+                return assignments;
+            }
+
+            var candidates = assignments.ToList();
+            var candidateEmployeeTypeIds = candidates.Select(x => x.EmployeeTypeRoleId).ToHashSet();
+
+            var technicalDepartments = await unitOfWork.GetReadRepository<Department>().GetAllAsync(
+                x => x.HotelId == hotelId &&
+                     !x.IsDeleted &&
+                     x.IsActive &&
+                     (x.Name.Contains("Teknik") || x.Name.Contains("Technical")));
+
+            var technicalDepartmentIds = technicalDepartments.Select(x => x.Id).ToList();
+            if (!technicalDepartmentIds.Any() && serviceDefinition?.DepartmentId is int serviceDepartmentId)
+            {
+                technicalDepartmentIds.Add(serviceDepartmentId);
+            }
+
+            if (technicalDepartmentIds.Any())
+            {
+                var technicalEmployeeTypes = await unitOfWork.GetReadRepository<EmployeeType>().GetAllAsync(
+                    x => technicalDepartmentIds.Contains(x.DepartmentId) &&
+                         !x.IsDeleted &&
+                         x.IsActive);
+
+                foreach (var employeeType in technicalEmployeeTypes)
+                {
+                    if (!IsTechnicalEmployeeType(employeeType.Name) || candidateEmployeeTypeIds.Contains(employeeType.Id))
+                    {
+                        continue;
+                    }
+
+                    candidates.Add(new ServiceRoleAssignments
+                    {
+                        HotelId = hotelId,
+                        DepartmentId = employeeType.DepartmentId,
+                        ServiceId = (int)request.ServiceType,
+                        ServicesEnumId = request.ServiceType,
+                        EmployeeTypeRoleId = employeeType.Id,
+                        IsPrimaryAssignment = false,
+                        Priority = GetTechnicalEmployeeTypeBasePriority(employeeType.Name),
+                        SlaMinutes = 30,
+                        IsActive = true
+                    });
+                    candidateEmployeeTypeIds.Add(employeeType.Id);
+                }
+            }
+
+            return await PrioritizeTechnicalAssignmentsAsync(request, serviceDefinition, candidates);
+        }
+
+        private async Task<IList<ServiceRoleAssignments>> PrioritizeTechnicalAssignmentsAsync(
+            CreateServiceRequestCommandRequest request,
+            ServiceDefinition? serviceDefinition,
+            IList<ServiceRoleAssignments> assignments)
+        {
+            if (!assignments.Any())
+            {
+                return assignments;
+            }
+
+            var requestedSpecialty = DetectTechnicalSpecialty(request, serviceDefinition);
+            if (requestedSpecialty is null)
+            {
+                return assignments.OrderBy(x => x.Priority).ToList();
+            }
+
+            var employeeTypeIds = assignments.Select(x => x.EmployeeTypeRoleId).Distinct().ToList();
+            var employeeTypes = await unitOfWork.GetReadRepository<EmployeeType>().GetAllAsync(
+                x => employeeTypeIds.Contains(x.Id) && !x.IsDeleted && x.IsActive);
+            var employeeTypeNameMap = employeeTypes.ToDictionary(x => x.Id, x => x.Name);
+
+            return assignments
+                .OrderBy(x => GetSpecialtySortScore(employeeTypeNameMap.GetValueOrDefault(x.EmployeeTypeRoleId), requestedSpecialty.Value))
+                .ThenBy(x => x.Priority)
+                .ToList();
+        }
+
+        private static TechnicalSpecialty? DetectTechnicalSpecialty(
+            CreateServiceRequestCommandRequest request,
+            ServiceDefinition? serviceDefinition)
+        {
+            var text = NormalizeForSearch(string.Join(" ", new[]
+            {
+                request.Title,
+                request.Description,
+                serviceDefinition?.Name,
+                serviceDefinition?.Description,
+                string.Join(" ", request.FieldValues.Select(x => $"{x.FieldKey} {x.Value}")),
+                string.Join(" ", request.Items.Select(x => $"{x.ItemName} {x.Note}"))
+            }.Where(x => !string.IsNullOrWhiteSpace(x))));
+
+            if (ContainsAny(text, "klima", "havalandirma", "sogutma", "isitma", "kalorifer", "fan", "termostat", "mekanik"))
+            {
+                return TechnicalSpecialty.Mechanical;
+            }
+
+            if (ContainsAny(text, "elektrik", "priz", "lamba", "isik", "aydinlatma", "sigorta", "enerji", "tv", "televizyon"))
+            {
+                return TechnicalSpecialty.Electrical;
+            }
+
+            if (ContainsAny(text, "tesisat", "su", "musluk", "lavabo", "dus", "tuvalet", "klozet", "gider", "sifon", "sizinti", "akinti"))
+            {
+                return TechnicalSpecialty.Plumbing;
+            }
+
+            return null;
+        }
+
+        private static int GetSpecialtySortScore(string? employeeTypeName, TechnicalSpecialty requestedSpecialty)
+        {
+            var normalizedName = NormalizeForSearch(employeeTypeName ?? string.Empty);
+
+            if (requestedSpecialty == TechnicalSpecialty.Mechanical &&
+                ContainsAny(normalizedName, "mekanik", "teknik mudur"))
+            {
+                return ContainsAny(normalizedName, "mekanik") ? 0 : 2;
+            }
+
+            if (requestedSpecialty == TechnicalSpecialty.Electrical &&
+                ContainsAny(normalizedName, "elektrik", "teknik mudur"))
+            {
+                return ContainsAny(normalizedName, "elektrik") ? 0 : 2;
+            }
+
+            if (requestedSpecialty == TechnicalSpecialty.Plumbing &&
+                ContainsAny(normalizedName, "tesisat", "teknik mudur"))
+            {
+                return ContainsAny(normalizedName, "tesisat") ? 0 : 2;
+            }
+
+            return 10;
+        }
+
+        private static bool IsTechnicalEmployeeType(string employeeTypeName)
+        {
+            var normalizedName = NormalizeForSearch(employeeTypeName);
+            return ContainsAny(normalizedName, "elektrik", "mekanik", "tesisat", "teknik mudur");
+        }
+
+        private static int GetTechnicalEmployeeTypeBasePriority(string employeeTypeName)
+        {
+            var normalizedName = NormalizeForSearch(employeeTypeName);
+            if (ContainsAny(normalizedName, "elektrik")) return 1;
+            if (ContainsAny(normalizedName, "mekanik")) return 2;
+            if (ContainsAny(normalizedName, "tesisat")) return 3;
+            if (ContainsAny(normalizedName, "teknik mudur")) return 4;
+            return 9;
+        }
+
+        private static bool ContainsAny(string value, params string[] needles)
+        {
+            return needles.Any(value.Contains);
+        }
+
+        private static string NormalizeForSearch(string value)
+        {
+            var lowerValue = value.ToLower(new CultureInfo("tr-TR"));
+            var normalized = lowerValue.Normalize(NormalizationForm.FormD);
+            var builder = new StringBuilder(normalized.Length);
+
+            foreach (var character in normalized)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(character) != UnicodeCategory.NonSpacingMark)
+                {
+                    builder.Append(character);
+                }
+            }
+
+            return builder
+                .ToString()
+                .Replace('ı', 'i')
+                .Normalize(NormalizationForm.FormC);
+        }
+
+        private enum TechnicalSpecialty
+        {
+            Electrical,
+            Mechanical,
+            Plumbing
         }
 
         private async Task<Employee?> FindAvailableEmployeeAsync(int hotelId, IList<ServiceRoleAssignments> assignments)

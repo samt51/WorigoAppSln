@@ -14,5 +14,8 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.UpdateServiceR
         public int? DepartmentId { get; set; }
         public int? AssignedEmployeeId { get; set; }
         public int GuestStayId { get; set; }
+        public IList<int> NotificationIds { get; set; } = new List<int>();
+        public string? NotificationTitle { get; set; }
+        public string? NotificationMessage { get; set; }
     }
 }

@@ -4,7 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WorigoApp.Application.Interfaces.Auth.Jwt.Tokens;
+using WorigoApp.Application.Interfaces.Notifications;
 using WorigoApp.Application.Interfaces.Translation;
+using WorigoApp.Infrastructure.Notifications;
 using WorigoApp.Infrastructure.Tokens;
 using WorigoApp.Infrastructure.Translation;
 
@@ -16,8 +18,10 @@ namespace WorigoApp.Infrastructure
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT"));
             services.Configure<OpenAiTranslationSettings>(configuration.GetSection("OpenAI"));
+            services.Configure<FirebasePushNotificationSettings>(configuration.GetSection("Firebase"));
             services.AddTransient<ITokenService, TokenService>();
             services.AddHttpClient<IChatTranslationService, OpenAiChatTranslationService>();
+            services.AddHttpClient<IPushNotificationService, FirebasePushNotificationService>();
 
             services.AddAuthentication(opt =>
             {

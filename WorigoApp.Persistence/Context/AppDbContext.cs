@@ -553,6 +553,22 @@ namespace WorigoApp.Persistence.Context
                 .HasForeignKey(x => x.ServiceRequestId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<EmployeeDeviceToken>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EmployeeDeviceToken>()
+                .HasOne(x => x.Employee)
+                .WithMany()
+                .HasForeignKey(x => x.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EmployeeDeviceToken>()
+                .HasIndex(x => x.Token)
+                .IsUnique();
+
             modelBuilder.Entity<SpaAppointment>()
                 .HasOne(x => x.GuestStay)
                 .WithMany()
@@ -624,5 +640,6 @@ namespace WorigoApp.Persistence.Context
         public DbSet<ServiceRequestFieldValue> ServiceRequestFieldValues { get; set; }
         public DbSet<ServiceRequestItem> ServiceRequestItems { get; set; }
         public DbSet<UserNotification> UserNotifications { get; set; }
+        public DbSet<EmployeeDeviceToken> EmployeeDeviceTokens { get; set; }
     }
 }

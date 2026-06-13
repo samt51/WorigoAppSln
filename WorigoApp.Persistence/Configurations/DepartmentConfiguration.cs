@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WorigoApp.Domain.Entites;
 
@@ -14,8 +14,9 @@ namespace WorigoApp.Persistence.Configurations
             var department3 = new Department(3, "Yiyecek İçecek ve Mutfak Departmanı", "1.jpeg", 1);
             var department4 = new Department(4, "Teknik Servis Departmanı", "1.jpeg", 1);
             var department11 = new Department(5, "Sağlık Kulübü & Spa Departmanı", "1.jpeg", 1);
+            var departmentManagement = new Department(100, "Yönetim Departmanı", "1.jpeg", 1);
 
-            builder.HasData(department, department2, department3, department4, department11);
+            builder.HasData(department, department2, department3, department4, department11, departmentManagement);
         }
     }
 }

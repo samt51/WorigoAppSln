@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
 
@@ -20,12 +21,9 @@ namespace WorigoApp.Application.Middleware
         {
             var request = context.GetRouteValue("action");
 
-            //translation tablosunu cachte yoksa doldurur.
-            await TransactionAddOrControllToCache(context);
-            //ContentsOfFood tablosunu cachte yoksa doldurur.
-            await CacheSetContentsOfFoodDatas(context);
-            //Validasyon mesajlarını doldurur.
-            await SetCacheValidationMessages(context);
+            await TryPopulateCache(context, TransactionAddOrControllToCache, "translation");
+            await TryPopulateCache(context, CacheSetContentsOfFoodDatas, "contentsOfFood");
+            await TryPopulateCache(context, SetCacheValidationMessages, "validationMessage");
 
 
 
@@ -99,6 +97,20 @@ namespace WorigoApp.Application.Middleware
 
             return localTime;
         }
+
+        private async Task TryPopulateCache(HttpContext context, Func<HttpContext, Task> populateCache, string cacheName)
+        {
+            try
+            {
+                await populateCache(context);
+            }
+            catch (Exception exception)
+            {
+                var logger = context.RequestServices.GetService(typeof(ILogger<JwtExpirationMiddleware>)) as ILogger<JwtExpirationMiddleware>;
+                logger?.LogWarning(exception, "Cache warm-up failed for {CacheName}. Request will continue.", cacheName);
+            }
+        }
+
         public async Task TransactionAddOrControllToCache(HttpContext context)
         {
             var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));

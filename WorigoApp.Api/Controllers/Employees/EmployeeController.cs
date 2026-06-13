@@ -19,7 +19,7 @@ namespace WorigoApp.Api.Controllers.Employees
             this.mediator = mediator;
         }
 
-        [HttpGet("{hotelId}")]
+        [HttpGet("~/api/Employee/{hotelId}")]
         public async Task<ResponseDto<IList<GetAllEmployeesQueryResponse>>> GetAllAsync(int hotelId)
         {
             return await this.mediator.Send(new GetAllEmployeesQueryRequest(hotelId));

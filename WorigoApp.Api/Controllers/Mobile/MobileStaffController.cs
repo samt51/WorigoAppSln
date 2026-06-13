@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.SignalR;
+using MediatR;
 using System.Security.Claims;
 using WorigoApp.Api.Hubs;
 using WorigoApp.Application.Bases;
+using WorigoApp.Application.Features.ServiceRequestMessages.Commands.CreateServiceRequestMessage;
+using WorigoApp.Application.Features.ServiceRequestMessages.Queries.GetServiceRequestMessages;
 using WorigoApp.Application.Features.Auth.Dtos;
 using WorigoApp.Application.Helpers;
 using WorigoApp.Application.Interfaces.Auth.Jwt.Tokens;
@@ -27,16 +30,22 @@ namespace WorigoApp.Api.Controllers.Mobile
         private readonly AppDbContext _dbContext;
         private readonly ITokenService _tokenService;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
+        private readonly IMediator _mediator;
 
-        public MobileStaffController(AppDbContext dbContext, ITokenService tokenService, IHubContext<HotelOperationsHub> hubContext)
+        public MobileStaffController(AppDbContext dbContext, ITokenService tokenService, IHubContext<HotelOperationsHub> hubContext, IMediator mediator)
         {
             _dbContext = dbContext;
             _tokenService = tokenService;
             _hubContext = hubContext;
+            _mediator = mediator;
         }
 
         [AllowAnonymous]
         [HttpPost("login")]
+        [HttpPost("/api/personel/login")]
+        [HttpPost("/api/personnel/login")]
+        [HttpPost("/api/employee/login")]
+        [HttpPost("/api/staff/login")]
         public async Task<ResponseDto<MobileStaffLoginResponse>> Login(
             [FromBody] MobileStaffLoginRequest request,
             CancellationToken cancellationToken)
@@ -140,6 +149,61 @@ namespace WorigoApp.Api.Controllers.Mobile
         }
 
         [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        [HttpPost("device-token")]
+        public async Task<ResponseDto<bool>> RegisterDeviceToken(
+            [FromBody] MobileStaffDeviceTokenRequest request,
+            CancellationToken cancellationToken)
+        {
+            var user = await ResolveCurrentStaffUserAsync(cancellationToken);
+            var employee = user?.Employee;
+            if (user is null || employee is null)
+            {
+                return new ResponseDto<bool>().Fail(false, "Personel oturumu bulunamadi.", 401);
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Token))
+            {
+                return new ResponseDto<bool>().Fail(false, "Firebase token zorunludur.", 400);
+            }
+
+            var token = request.Token.Trim();
+            var now = DateTime.UtcNow;
+
+            var existingToken = await _dbContext.EmployeeDeviceTokens
+                .FirstOrDefaultAsync(x => x.Token == token, cancellationToken);
+
+            if (existingToken is null)
+            {
+                await _dbContext.EmployeeDeviceTokens.AddAsync(new EmployeeDeviceToken
+                {
+                    UserId = user.Id,
+                    EmployeeId = employee.Id,
+                    Token = token,
+                    Platform = string.IsNullOrWhiteSpace(request.Platform) ? "unknown" : request.Platform.Trim(),
+                    DeviceId = request.DeviceId,
+                    LastSeenAt = now,
+                    CreatedDate = now,
+                    ModifyDate = now,
+                    IsActive = true
+                }, cancellationToken);
+            }
+            else
+            {
+                existingToken.UserId = user.Id;
+                existingToken.EmployeeId = employee.Id;
+                existingToken.Platform = string.IsNullOrWhiteSpace(request.Platform) ? existingToken.Platform : request.Platform.Trim();
+                existingToken.DeviceId = request.DeviceId ?? existingToken.DeviceId;
+                existingToken.LastSeenAt = now;
+                existingToken.ModifyDate = now;
+                existingToken.IsActive = true;
+                existingToken.IsDeleted = false;
+            }
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return new ResponseDto<bool>().Success(true);
+        }
+
+        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpGet("work-items")]
         public async Task<ResponseDto<IList<MobileStaffWorkItemResponse>>> GetWorkItems(CancellationToken cancellationToken)
         {
@@ -165,7 +229,12 @@ namespace WorigoApp.Api.Controllers.Mobile
             }
             else if (!RoleEquals(roleName, "HotelAdmin") && !RoleEquals(roleName, "Management"))
             {
-                query = query.Where(x => x.AssignedEmployeeId == employee.Id);
+                var departmentId = employee.EmployeeType?.DepartmentId;
+                query = query.Where(x =>
+                    x.AssignedEmployeeId == employee.Id ||
+                    (!x.AssignedEmployeeId.HasValue &&
+                     departmentId.HasValue &&
+                     x.DepartmentId == departmentId.Value));
             }
 
             if (employee.HotelId > 0)
@@ -399,6 +468,121 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
+        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        [HttpGet("work-items/{id:int}/messages")]
+        public async Task<ResponseDto<IList<MobileStaffChatMessageResponse>>> GetWorkItemMessages(int id, CancellationToken cancellationToken)
+        {
+            var serviceRequest = await QueryMobileWorkItems()
+                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+            if (serviceRequest is null)
+            {
+                return new ResponseDto<IList<MobileStaffChatMessageResponse>>().Fail("Is bulunamadi.", 404);
+            }
+
+            if (!await CanAccessWorkItemAsync(serviceRequest, cancellationToken))
+            {
+                return new ResponseDto<IList<MobileStaffChatMessageResponse>>().Fail("Bu isin mesajlarina erisim yetkiniz yok.", 403);
+            }
+
+            var queryResponse = await _mediator.Send(new GetServiceRequestMessagesQueryRequest
+            {
+                ServiceRequestId = id
+            }, cancellationToken);
+
+            if (!queryResponse.IsSuccess || queryResponse.Data is null)
+            {
+                return new ResponseDto<IList<MobileStaffChatMessageResponse>>()
+                    .Fail(queryResponse.Errors ?? new List<string> { "Mesajlar yuklenemedi." }, queryResponse.StatusCode);
+            }
+
+            var guestName = BuildGuestName(serviceRequest);
+            var employeeName = serviceRequest.AssignedEmployee is null
+                ? "Personel"
+                : $"{serviceRequest.AssignedEmployee.Name} {serviceRequest.AssignedEmployee.Surname}".Trim();
+
+            var messages = queryResponse.Data.Select(x => new MobileStaffChatMessageResponse
+            {
+                Id = x.Id,
+                ServiceRequestId = id,
+                SenderType = x.SenderType.ToString(),
+                OriginalText = x.OriginalText,
+                TranslatedText = x.TranslatedText,
+                SenderName = x.SenderType == MessageSenderTypeEnum.Customer ? guestName : employeeName,
+                SentAt = x.SentAt
+            }).ToList();
+
+            return new ResponseDto<IList<MobileStaffChatMessageResponse>>().Success(messages);
+        }
+
+        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        [HttpPost("work-items/{id:int}/message")]
+        public async Task<ResponseDto<MobileStaffChatMessageResponse>> SendWorkItemMessage(
+            int id,
+            [FromBody] MobileStaffSendMessageRequest request,
+            CancellationToken cancellationToken)
+        {
+            var serviceRequest = await QueryMobileWorkItems()
+                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+            if (serviceRequest is null)
+            {
+                return new ResponseDto<MobileStaffChatMessageResponse>().Fail("Is bulunamadi.", 404);
+            }
+
+            if (!await CanAccessWorkItemAsync(serviceRequest, cancellationToken))
+            {
+                return new ResponseDto<MobileStaffChatMessageResponse>().Fail("Bu ise mesaj yazma yetkiniz yok.", 403);
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Message))
+            {
+                return new ResponseDto<MobileStaffChatMessageResponse>().Fail("Mesaj zorunludur.", 400);
+            }
+
+            var user = await ResolveCurrentStaffUserAsync(cancellationToken);
+            var languageCode = string.IsNullOrWhiteSpace(user?.PreferredLanguageCode) ? "tr-TR" : user.PreferredLanguageCode;
+            var commandResponse = await _mediator.Send(new CreateServiceRequestMessageCommandRequest
+            {
+                ServiceRequestId = id,
+                SenderUserId = ResolveUserId(),
+                SenderType = MessageSenderTypeEnum.Employee,
+                OriginalLanguageCode = languageCode,
+                OriginalText = request.Message.Trim(),
+                MessageType = "Text"
+            }, cancellationToken);
+
+            if (!commandResponse.IsSuccess || commandResponse.Data is null)
+            {
+                return new ResponseDto<MobileStaffChatMessageResponse>()
+                    .Fail(commandResponse.Errors ?? new List<string> { "Mesaj gonderilemedi." }, commandResponse.StatusCode);
+            }
+
+            var senderName = user?.Employee is null
+                ? user?.UserName ?? "Personel"
+                : $"{user.Employee.Name} {user.Employee.Surname}".Trim();
+
+            var response = new MobileStaffChatMessageResponse
+            {
+                Id = commandResponse.Data.Id,
+                ServiceRequestId = commandResponse.Data.ServiceRequestId,
+                SenderType = commandResponse.Data.SenderType,
+                OriginalText = commandResponse.Data.OriginalText,
+                TranslatedText = commandResponse.Data.TranslatedText,
+                SenderName = string.IsNullOrWhiteSpace(senderName) ? "Personel" : senderName,
+                SentAt = commandResponse.Data.SentAt
+            };
+
+            await _hubContext.Clients.Group(HotelOperationsHub.GroupNames.ServiceRequest(id))
+                .SendAsync("ServiceRequestMessageCreated", response, cancellationToken);
+            await _hubContext.Clients.Group(HotelOperationsHub.GroupNames.GuestStay(serviceRequest.GuestStayId))
+                .SendAsync("ServiceRequestMessageCreated", response, cancellationToken);
+            await _hubContext.Clients.Group(HotelOperationsHub.GroupNames.Reception(serviceRequest.HotelId))
+                .SendAsync("ServiceRequestUpdated", new { Id = serviceRequest.Id, Status = (int)serviceRequest.Status }, cancellationToken);
+
+            return new ResponseDto<MobileStaffChatMessageResponse>().Success(response);
+        }
+
         private IQueryable<Users> QueryStaffUser()
         {
             return _dbContext.Set<Users>()
@@ -465,7 +649,10 @@ namespace WorigoApp.Api.Controllers.Mobile
                         serviceRequest.DepartmentId == employee.EmployeeType.DepartmentId);
             }
 
-            return serviceRequest.AssignedEmployeeId == employee.Id;
+            return serviceRequest.AssignedEmployeeId == employee.Id ||
+                   (!serviceRequest.AssignedEmployeeId.HasValue &&
+                    employee.EmployeeType?.DepartmentId is not null &&
+                    serviceRequest.DepartmentId == employee.EmployeeType.DepartmentId);
         }
 
         private async Task BroadcastWorkItemAsync(ServiceRequest serviceRequest, string eventName, CancellationToken cancellationToken)
@@ -494,15 +681,7 @@ namespace WorigoApp.Api.Controllers.Mobile
 
         private static MobileStaffWorkItemResponse MapWorkItem(ServiceRequest request)
         {
-            var stayCustomer = request.GuestStay?.Customers
-                .OrderByDescending(x => x.IsPrimaryGuest)
-                .FirstOrDefault();
-
-            var guestName = request.Customer is not null
-                ? $"{request.Customer.Name} {request.Customer.SurName}".Trim()
-                : stayCustomer is not null
-                    ? $"{stayCustomer.Name} {stayCustomer.SurName}".Trim()
-                    : "Misafir";
+            var guestName = BuildGuestName(request);
 
             var serviceName = request.ServiceDefinition?.Name
                               ?? request.ServiceDefinition?.ServiceCategory?.Name
@@ -532,6 +711,19 @@ namespace WorigoApp.Api.Controllers.Mobile
                 RequiresPhotoProof = serviceName.Contains("Teknik", StringComparison.OrdinalIgnoreCase),
                 RequiresRoomQr = serviceName.Contains("Teknik", StringComparison.OrdinalIgnoreCase)
             };
+        }
+
+        private static string BuildGuestName(ServiceRequest request)
+        {
+            var stayCustomer = request.GuestStay?.Customers
+                .OrderByDescending(x => x.IsPrimaryGuest)
+                .FirstOrDefault();
+
+            return request.Customer is not null
+                ? $"{request.Customer.Name} {request.Customer.SurName}".Trim()
+                : stayCustomer is not null
+                    ? $"{stayCustomer.Name} {stayCustomer.SurName}".Trim()
+                    : "Misafir";
         }
 
         private static bool TryResolveStatus(string? statusKey, out ServiceRequestStatusEnum status)
@@ -880,6 +1072,13 @@ namespace WorigoApp.Api.Controllers.Mobile
         public MobileStaffRealtimeDto Realtime { get; set; } = new();
     }
 
+    public class MobileStaffDeviceTokenRequest
+    {
+        public string Token { get; set; } = string.Empty;
+        public string? Platform { get; set; }
+        public string? DeviceId { get; set; }
+    }
+
     public class MobileStaffProfileDto
     {
         public int UserId { get; set; }
@@ -995,5 +1194,21 @@ namespace WorigoApp.Api.Controllers.Mobile
         public int WorkItemId { get; set; }
         public string PhotoType { get; set; } = string.Empty;
         public DateTime UploadedAt { get; set; }
+    }
+
+    public class MobileStaffSendMessageRequest
+    {
+        public string Message { get; set; } = string.Empty;
+    }
+
+    public class MobileStaffChatMessageResponse
+    {
+        public int Id { get; set; }
+        public int ServiceRequestId { get; set; }
+        public string SenderType { get; set; } = string.Empty;
+        public string OriginalText { get; set; } = string.Empty;
+        public string? TranslatedText { get; set; }
+        public string SenderName { get; set; } = string.Empty;
+        public DateTime SentAt { get; set; }
     }
 }

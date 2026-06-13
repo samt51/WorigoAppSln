@@ -18,9 +18,12 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.UpdateServiceR
             var serviceRequest = await unitOfWork.GetReadRepository<ServiceRequest>()
                 .GetAsync(x => x.Id == request.ServiceRequestId && !x.IsDeleted, enableTracking: true);
 
+            var previousAssignedEmployeeId = serviceRequest.AssignedEmployeeId;
+            Employee? assignedEmployee = null;
+
             if (request.AssignedEmployeeId.HasValue)
             {
-                await unitOfWork.GetReadRepository<Employee>()
+                assignedEmployee = await unitOfWork.GetReadRepository<Employee>()
                     .GetAsync(x => x.Id == request.AssignedEmployeeId.Value && !x.IsDeleted && x.IsActive);
 
                 serviceRequest.AssignedEmployeeId = request.AssignedEmployeeId;
@@ -61,6 +64,35 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.UpdateServiceR
                 Note = request.Note
             });
 
+            var notifications = new List<UserNotification>();
+            var isNewEmployeeAssignment =
+                assignedEmployee is not null &&
+                previousAssignedEmployeeId != assignedEmployee.Id;
+
+            if (isNewEmployeeAssignment)
+            {
+                notifications.Add(new UserNotification
+                {
+                    HotelId = serviceRequest.HotelId,
+                    UserId = assignedEmployee.UserId,
+                    EmployeeId = assignedEmployee.Id,
+                    DepartmentId = serviceRequest.DepartmentId,
+                    ServiceRequestId = serviceRequest.Id,
+                    Title = "Servis talebi atandı",
+                    Message = string.IsNullOrWhiteSpace(serviceRequest.Title)
+                        ? "Yeni bir servis talebi size atandı."
+                        : $"{serviceRequest.Title} talebi size atandı.",
+                    NotificationType = "ServiceRequestAssigned",
+                    CreatedDate = now,
+                    ModifyDate = now
+                });
+            }
+
+            if (notifications.Any())
+            {
+                await unitOfWork.GetWriteRepository<UserNotification>().AddRangeAsync(notifications);
+            }
+
             await unitOfWork.SaveAsync(cancellationToken);
             await unitOfWork.CommitAsync(cancellationToken);
 
@@ -75,7 +107,10 @@ namespace WorigoApp.Application.Features.ServiceRequests.Commands.UpdateServiceR
                 HotelId = serviceRequest.HotelId,
                 DepartmentId = serviceRequest.DepartmentId,
                 AssignedEmployeeId = serviceRequest.AssignedEmployeeId,
-                GuestStayId = serviceRequest.GuestStayId
+                GuestStayId = serviceRequest.GuestStayId,
+                NotificationIds = notifications.Select(x => x.Id).ToList(),
+                NotificationTitle = notifications.FirstOrDefault()?.Title,
+                NotificationMessage = notifications.FirstOrDefault()?.Message
             });
         }
     }
