@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi.Models;
 using WorigoApp.Persistence;
 using WorigoApp.Application;
 using WorigoApp.Infrastructure;
@@ -28,6 +28,16 @@ internal class Program
         builder.Services.AddControllers();
         builder.Services.AddSignalR();
         builder.Services.AddHttpClient();
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.SetIsOriginAllowed(origin => true)
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .AllowCredentials();
+            });
+        });
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -125,6 +135,7 @@ internal class Program
         app.UseSerilogRequestLogging();
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseCors();
         app.UseMiddleware<JwtExpirationMiddleware>();
 
         app.ConfigureExceptionHandlingMiddleware();

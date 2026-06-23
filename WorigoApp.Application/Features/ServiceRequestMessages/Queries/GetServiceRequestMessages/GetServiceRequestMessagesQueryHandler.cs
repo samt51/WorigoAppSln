@@ -14,8 +14,16 @@ namespace WorigoApp.Application.Features.ServiceRequestMessages.Queries.GetServi
 
         public async Task<ResponseDto<IList<GetServiceRequestMessagesQueryResponse>>> Handle(GetServiceRequestMessagesQueryRequest request, CancellationToken cancellationToken)
         {
-            var messages = await unitOfWork.GetReadRepository<ServiceRequestMessage>().GetAllAsync(
-                x => x.ServiceRequestId == request.ServiceRequestId && !x.IsDeleted,
+            var serviceRequest = await unitOfWork.GetReadRepository<ServiceRequest>()
+                .GetAsync(x => x.Id == request.ServiceRequestId && !x.IsDeleted);
+
+            if (serviceRequest == null || !serviceRequest.ConversationId.HasValue)
+            {
+                return new ResponseDto<IList<GetServiceRequestMessagesQueryResponse>>().Success(new List<GetServiceRequestMessagesQueryResponse>());
+            }
+
+            var messages = await unitOfWork.GetReadRepository<ConversationMessage>().GetAllAsync(
+                x => x.ConversationId == serviceRequest.ConversationId.Value && !x.IsDeleted,
                 orderBy: x => x.OrderBy(y => y.SentAt));
 
             var response = messages.Select(x => new GetServiceRequestMessagesQueryResponse

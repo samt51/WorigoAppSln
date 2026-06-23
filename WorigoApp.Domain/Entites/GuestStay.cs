@@ -98,6 +98,8 @@ namespace WorigoApp.Domain.Entites
         public bool HasAllergy { get; set; } = false;
         public bool DoNotDisturb { get; set; } = false;
         public bool IsLateCheckOut { get; set; } = false;
+        public string? RoomAvailabilityStatus { get; set; } = "Normal";
+        public DateTime? RoomAvailabilityUpdatedAt { get; set; }
 
         public IList<Order> Orders { get; set; } = new List<Order>();
         public IList<Customer> Customers { get; set; } = new List<Customer>();

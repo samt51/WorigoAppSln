@@ -40,6 +40,7 @@ namespace WorigoApp.Api.Controllers.Reception
                 .AsNoTracking()
                 .Include(x => x.Orders)
                 .Include(x => x.Charges)
+                .Include(x => x.Customers)
                 .Where(x => x.HotelId == hotelId && x.IsActive && !x.IsDeleted && x.ActualCheckOutAt == null)
                 .ToListAsync(cancellationToken);
 
@@ -56,12 +57,31 @@ namespace WorigoApp.Api.Controllers.Reception
                 var lateCheckout = false;
                 var hasUnpaidFolio = false;
 
+                string? guestName = null;
+                string? accommodationConcept = null;
+
                 if (stay is not null)
                 {
                     isVip = stay.IsVip || stay.AccommodationConceptType == AccommodationConceptTypeEnum.UltraAllInclusive;
                     hasAllergy = stay.HasAllergy;
                     dnd = stay.DoNotDisturb;
                     lateCheckout = stay.IsLateCheckOut;
+
+                    var customer = stay.PrimaryCustomerId.HasValue
+                        ? stay.Customers.FirstOrDefault(x => x.Id == stay.PrimaryCustomerId.Value && !x.IsDeleted)
+                        : null;
+                    customer ??= stay.Customers.FirstOrDefault(x => !x.IsDeleted);
+                    guestName = customer is null ? null : $"{customer.Name} {customer.SurName}".Trim();
+                    accommodationConcept = stay.AccommodationConceptType switch
+                    {
+                        AccommodationConceptTypeEnum.RoomOnly => "Sadece Oda",
+                        AccommodationConceptTypeEnum.BedAndBreakfast => "Oda Kahvaltı",
+                        AccommodationConceptTypeEnum.HalfBoard => "Yarım Pansiyon",
+                        AccommodationConceptTypeEnum.FullBoard => "Tam Pansiyon",
+                        AccommodationConceptTypeEnum.AllInclusive => "Her Şey Dahil",
+                        AccommodationConceptTypeEnum.UltraAllInclusive => "Ultra Her Şey Dahil",
+                        _ => stay.AccommodationConceptType.ToString()
+                    };
 
                     // Calculate remaining balance
                     var stayDays = Math.Max(1, (stay.CheckOutDate.Date - stay.CheckInDate.Date).Days);
@@ -100,7 +120,9 @@ namespace WorigoApp.Api.Controllers.Reception
                     IsLateCheckOut = lateCheckout,
                     HasUnpaidFolio = hasUnpaidFolio,
                     CheckInDate = stay?.CheckInDate,
-                    CheckOutDate = stay?.CheckOutDate
+                    CheckOutDate = stay?.CheckOutDate,
+                    GuestName = guestName,
+                    AccommodationConcept = accommodationConcept
                 };
             }).ToList();
  
@@ -132,5 +154,7 @@ namespace WorigoApp.Api.Controllers.Reception
         public bool HasUnpaidFolio { get; set; }
         public DateTime? CheckInDate { get; set; }
         public DateTime? CheckOutDate { get; set; }
+        public string? GuestName { get; set; }
+        public string? AccommodationConcept { get; set; }
     }
 }

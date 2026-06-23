@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.Employees.Dto;
 using WorigoApp.Application.Interfaces.AutoMapper;
@@ -21,15 +21,20 @@ namespace WorigoApp.Application.Features.Employees.Commands.CreateEmployee
 
 
             var employeeMap = mapper.Map<Employee, CreateEmployeeCommonRequest>(request);
+            if (request.employeeDetailRequest != null)
+            {
+                employeeMap.DateOfBirth = request.employeeDetailRequest.DateOfBirth;
+                employeeMap.FloorNo = request.employeeDetailRequest.FloorNo;
+                employeeMap.PhoneNumber = request.employeeDetailRequest.PhoneNumber;
+                employeeMap.Gender = request.employeeDetailRequest.Gender;
+                employeeMap.StartDateOfWork = request.employeeDetailRequest.StartDateOfWork;
+                employeeMap.ExitDateOfWork = request.employeeDetailRequest.ExitDateOfWork;
+                employeeMap.LastOnlineTime = request.employeeDetailRequest.LastOnlineTime;
+                employeeMap.OnlineOrOfflineNow = request.employeeDetailRequest.OnlineOrOfflineNow;
+            }
 
             await unitOfWork.OpenTransactionAsync(cancellationToken);
             var saveEntity = await unitOfWork.GetWriteRepository<Employee>().AddAsync(employeeMap);
-
-            var employeeDetailMap = mapper.Map<EmployeeDetail, EmployeeDetailRequestDto>(request.employeeDetailRequest);
-
-            employeeDetailMap.EmployeeId = saveEntity.Id;
-
-            await unitOfWork.GetWriteRepository<EmployeeDetail>().AddAsync(employeeDetailMap);
 
             await unitOfWork.SaveAsync();
 

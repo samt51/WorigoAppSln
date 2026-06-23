@@ -1,4 +1,4 @@
-﻿using WorigoApp.Domain.Common;
+using WorigoApp.Domain.Common;
 using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Domain.Entites
@@ -26,7 +26,7 @@ namespace WorigoApp.Domain.Entites
         public FoodMenuCategory FoodMenuCategory { get; set; }
         public ICollection<FoodContentsOfFood> FoodContentsOfFoods { get; set; }
         public IList<Image> Images { get; set; }
-        public IList<CommentAndRating> CommentAndRatings { get; set; }
+        public IList<ServiceRequestRating> ServiceRequestRatings { get; set; }
         public ICollection<FoodAllergens> FoodAllergens { get; set; }
         public ICollection<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }
         public NutritionalInfo NutritionalInfo { get; set; }

@@ -13,6 +13,10 @@ using WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailableServ
 using WorigoApp.Domain.Entites;
 using WorigoApp.Domain.Enums;
 using WorigoApp.Persistence.Context;
+using System.Text;
+using System.Text.Json;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace WorigoApp.Api.Controllers.Mobile
 {
@@ -24,6 +28,8 @@ namespace WorigoApp.Api.Controllers.Mobile
         private readonly AppDbContext _dbContext;
         private readonly IMediator _mediator;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
+        private readonly IConfiguration _configuration;
+        private static readonly HttpClient _httpClient = new HttpClient();
         private static readonly HashSet<string> SupportedMobileLanguageCodes = new(StringComparer.OrdinalIgnoreCase)
         {
             "tr-TR",
@@ -35,11 +41,12 @@ namespace WorigoApp.Api.Controllers.Mobile
             "es-ES"
         };
 
-        public MobileGuestController(AppDbContext dbContext, IMediator mediator, IHubContext<HotelOperationsHub> hubContext)
+        public MobileGuestController(AppDbContext dbContext, IMediator mediator, IHubContext<HotelOperationsHub> hubContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _mediator = mediator;
             _hubContext = hubContext;
+            _configuration = configuration;
         }
 
         [HttpPost("qr-login")]
@@ -583,7 +590,8 @@ namespace WorigoApp.Api.Controllers.Mobile
                 SessionToken = session.SessionToken,
                 LanguageCode = session.LanguageCode,
                 CheckInDate = session.GuestStay.CheckInDate,
-                CheckOutDate = session.GuestStay.CheckOutDate
+                CheckOutDate = session.GuestStay.CheckOutDate,
+                DoNotDisturb = session.GuestStay.DoNotDisturb
             };
         }
 
@@ -1024,6 +1032,16 @@ namespace WorigoApp.Api.Controllers.Mobile
                 return new ResponseDto<MobileAiResponse>().Fail("Misafir oturumu bulunamadı veya süresi doldu.", 404);
             }
 
+            var geminiApiKey = _configuration["Gemini:ApiKey"];
+            if (!string.IsNullOrWhiteSpace(geminiApiKey))
+            {
+                var aiResponseText = await CallGeminiApiAsync(geminiApiKey, request.Message ?? "", session.LanguageCode, cancellationToken);
+                if (!string.IsNullOrWhiteSpace(aiResponseText))
+                {
+                    return new ResponseDto<MobileAiResponse>().Success(new MobileAiResponse { Response = aiResponseText.Trim() });
+                }
+            }
+
             var query = (request.Message ?? "").ToLower(new System.Globalization.CultureInfo("tr-TR"));
             string responseText = "";
             string lang = session.LanguageCode.Split('-')[0].ToLower();
@@ -1228,6 +1246,559 @@ namespace WorigoApp.Api.Controllers.Mobile
 
             return new ResponseDto<bool>().Success(true);
         }
+
+        [HttpPost("spa/cancel")]
+        public async Task<ResponseDto<bool>> CancelSpaAppointment([FromBody] MobileSpaCancelRequest request, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<bool>().Fail("Misafir oturumu bulunamadı.", 404);
+            }
+
+            var appointment = await _dbContext.SpaAppointments
+                .FirstOrDefaultAsync(x => x.Id == request.AppointmentId && x.GuestStayId == session.GuestStayId, cancellationToken);
+
+            if (appointment is null)
+            {
+                return new ResponseDto<bool>().Fail("Randevu bulunamadı.", 404);
+            }
+
+            appointment.Status = "Cancelled";
+            appointment.ModifyDate = DateTime.Now;
+
+            var charge = await _dbContext.Charges
+                .FirstOrDefaultAsync(x => x.GuestStayId == session.GuestStayId && 
+                                          x.Description.Contains("SPA Rezervasyonu") && 
+                                          x.Description.Contains(appointment.ServiceName), cancellationToken);
+            if (charge is not null)
+            {
+                charge.IsDeleted = true;
+                charge.IsActive = false;
+            }
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return new ResponseDto<bool>().Success(true);
+        }
+
+        [HttpPost("rate")]
+        public async Task<ResponseDto<bool>> SubmitRating([FromBody] MobileRatingRequest request, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<bool>().Fail("Misafir oturumu bulunamadı.", 404);
+            }
+
+            var rating = new ServiceRequestRating
+            {
+                ServiceRequestId = request.ServiceRequestId,
+                CustomerId = session.CustomerId,
+                SpeedScore = request.SpeedScore,
+                QualityScore = request.QualityScore,
+                StaffScore = request.StaffScore,
+                Comment = request.Comment ?? string.Empty,
+                RatedAt = DateTime.Now,
+                OrderId = request.OrderId,
+                CreatedDate = DateTime.Now,
+                IsActive = true
+            };
+
+            _dbContext.ServiceRequestRatings.Add(rating);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return new ResponseDto<bool>().Success(true);
+        }
+
+        private static readonly List<MobileRestaurantDto> _restaurants = new()
+        {
+            new MobileRestaurantDto { Id = 1, Name = "L'Olivo Ristorante", CuisineType = "İtalyan & Akdeniz", ImageUrl = "restaurant_italian.jpg", Rating = 4.8, Hours = "19:00 - 23:00", Description = "Özel şef sunumları ve şık İtalyan lezzetleri." },
+            new MobileRestaurantDto { Id = 2, Name = "Safran Anatolian", CuisineType = "Geleneksel Türk & Ocakbaşı", ImageUrl = "restaurant_turkish.jpg", Rating = 4.9, Hours = "18:30 - 22:30", Description = "Köz ateşinde pişmiş mezeler ve geleneksel lezzetler." },
+            new MobileRestaurantDto { Id = 3, Name = "Mizu Sushi & Teppanyaki", CuisineType = "Uzak Doğu", ImageUrl = "restaurant_asian.jpg", Rating = 4.7, Hours = "19:00 - 22:30", Description = "Taze sushiler ve heyecan verici teppanyaki şovları." }
+        };
+
+        private static readonly List<MobileRestaurantReservationDto> _reservations = new();
+
+        [HttpGet("restaurants/{sessionToken}")]
+        public async Task<ResponseDto<IList<MobileRestaurantDto>>> GetRestaurants(string sessionToken, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<IList<MobileRestaurantDto>>().Fail("Oturum bulunamadı.", 404);
+            }
+            return new ResponseDto<IList<MobileRestaurantDto>>().Success(_restaurants);
+        }
+
+        [HttpGet("restaurants/my-reservations/{sessionToken}")]
+        public async Task<ResponseDto<IList<MobileRestaurantReservationDto>>> GetRestaurantReservations(string sessionToken, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<IList<MobileRestaurantReservationDto>>().Fail("Oturum bulunamadı.", 404);
+            }
+
+            var guestStayId = session.GuestStayId;
+            var list = _reservations.Where(x => x.GuestStayId == guestStayId && x.Status == "Confirmed").ToList();
+            return new ResponseDto<IList<MobileRestaurantReservationDto>>().Success(list);
+        }
+
+        [HttpPost("restaurants/book")]
+        public async Task<ResponseDto<bool>> BookRestaurantTable([FromBody] MobileRestaurantBookRequest request, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<bool>().Fail("Oturum bulunamadı.", 404);
+            }
+
+            var rest = _restaurants.FirstOrDefault(x => x.Id == request.RestaurantId);
+            if (rest is null)
+            {
+                return new ResponseDto<bool>().Fail("Restoran bulunamadı.", 404);
+            }
+
+            var newRes = new MobileRestaurantReservationDto
+            {
+                Id = _reservations.Count + 1,
+                GuestStayId = session.GuestStayId,
+                RestaurantId = request.RestaurantId,
+                RestaurantName = rest.Name,
+                ReservationDate = request.Date,
+                TimeSlot = request.TimeSlot,
+                GuestsCount = request.GuestsCount,
+                Note = request.Note,
+                Status = "Confirmed"
+            };
+
+            _reservations.Add(newRes);
+            return new ResponseDto<bool>().Success(true);
+        }
+
+        [HttpPost("restaurants/cancel")]
+        public async Task<ResponseDto<bool>> CancelRestaurantReservation([FromBody] MobileRestaurantCancelRequest request, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<bool>().Fail("Oturum bulunamadı.", 404);
+            }
+
+            var res = _reservations.FirstOrDefault(x => x.Id == request.ReservationId && x.GuestStayId == session.GuestStayId);
+            if (res is null)
+            {
+                return new ResponseDto<bool>().Fail("Rezervasyon bulunamadı.", 404);
+            }
+
+            res.Status = "Cancelled";
+            return new ResponseDto<bool>().Success(true);
+        }
+
+        [HttpGet("transfer/tracking/{sessionToken}")]
+        public async Task<ResponseDto<MobileTransferTrackingDto>> GetTransferTracking(string sessionToken, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<MobileTransferTrackingDto>().Fail("Oturum bulunamadı.", 404);
+            }
+
+            var req = await _dbContext.ServiceRequests
+                .Where(x => x.GuestStayId == session.GuestStayId && x.ServiceType == ServicesEnum.TravelOrTransportation && !x.IsDeleted)
+                .OrderByDescending(x => x.RequestedAt)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            var tracking = new MobileTransferTrackingDto();
+
+            if (req is not null)
+            {
+                tracking.ServiceRequestId = req.Id;
+                tracking.Status = req.Status.ToString();
+                tracking.RequestedAt = req.RequestedAt;
+
+                tracking.DriverName = "Ahmet Yılmaz";
+                tracking.DriverPhone = "+90 532 999 8877";
+                tracking.VehiclePlate = "34 ZOR 442";
+                tracking.VehicleModel = "Mercedes Vito Premium";
+                tracking.PickupLocation = "Havalimanı Terminal 1";
+                tracking.DropoffLocation = "StayZora Hotel Lobby";
+                tracking.EstimatedArrival = req.RequestedAt.AddMinutes(45);
+
+                tracking.StatusKey = req.Status switch
+                {
+                    ServiceRequestStatusEnum.Open => "planlandi",
+                    ServiceRequestStatusEnum.Assigned => "yolda",
+                    ServiceRequestStatusEnum.InProgress => "yolda",
+                    ServiceRequestStatusEnum.OnTheWay => "yolda",
+                    ServiceRequestStatusEnum.WaitingCustomer => "bekliyor",
+                    ServiceRequestStatusEnum.Completed => "ulasti",
+                    _ => "planlandi"
+                };
+            }
+            else
+            {
+                tracking.ServiceRequestId = 0;
+                tracking.Status = "OnTheWay";
+                tracking.StatusKey = "yolda";
+                tracking.DriverName = "Ahmet Yılmaz";
+                tracking.DriverPhone = "+90 532 999 8877";
+                tracking.VehiclePlate = "34 ZOR 442";
+                tracking.VehicleModel = "Mercedes Vito Premium";
+                tracking.PickupLocation = "Havalimanı Terminal 1";
+                tracking.DropoffLocation = "StayZora Hotel Lobby";
+                tracking.RequestedAt = DateTime.Now.AddMinutes(-15);
+                tracking.EstimatedArrival = DateTime.Now.AddMinutes(20);
+            }
+
+            return new ResponseDto<MobileTransferTrackingDto>().Success(tracking);
+        }
+
+        private static readonly List<MobileDiscoverPoiCategoryDto> _discoverList = new()
+        {
+            new MobileDiscoverPoiCategoryDto
+            {
+                CategoryKey = "Gezilecek Yerler",
+                Items = new List<MobileDiscoverPoiItemDto>
+                {
+                    new MobileDiscoverPoiItemDto { Title = "Kaleiçi (Antik Şehir)", Description = "Tarihi surları, dar sokakları ve ahşap konaklarıyla şehrin kalbi.", ImageUrl = "discover_kaleici.jpg", Address = "Selçuk, Kaleiçi, Antalya Merkez", Phone = "", Latitude = 36.8841, Longitude = 30.7042 },
+                    new MobileDiscoverPoiItemDto { Title = "Düden Şelalesi", Description = "Denize dökülen koluyla muhteşem bir doğa harikası.", ImageUrl = "discover_duden.jpg", Address = "Çağlayan, Lara Cd., Muratpaşa/Antalya", Phone = "", Latitude = 36.8523, Longitude = 30.7834 }
+                }
+            },
+            new MobileDiscoverPoiCategoryDto
+            {
+                CategoryKey = "Restoranlar",
+                Items = new List<MobileDiscoverPoiItemDto>
+                {
+                    new MobileDiscoverPoiItemDto { Title = "Seraser Fine Dining", Description = "Tarihi bir konakta dünya mutfağının seçkin lezzetleri.", ImageUrl = "discover_seraser.jpg", Address = "Tuzcular, Karanlık Sk. No:18, Kaleiçi", Phone = "+90 242 248 7878", Latitude = 36.8837, Longitude = 30.7061 }
+                }
+            },
+            new MobileDiscoverPoiCategoryDto
+            {
+                CategoryKey = "Eczane",
+                Items = new List<MobileDiscoverPoiItemDto>
+                {
+                    new MobileDiscoverPoiItemDto { Title = "Lara Nöbetçi Eczane", Description = "Otele en yakın nöbetçi eczane.", ImageUrl = "discover_pharmacy.jpg", Address = "Lara Cd. No:120, Muratpaşa/Antalya", Phone = "+90 242 324 1234", Latitude = 36.8550, Longitude = 30.7720 }
+                }
+            },
+            new MobileDiscoverPoiCategoryDto
+            {
+                CategoryKey = "Hastane",
+                Items = new List<MobileDiscoverPoiItemDto>
+                {
+                    new MobileDiscoverPoiItemDto { Title = "Medical Park Hastanesi", Description = "7/24 acil servis ve yabancı dil destekli uluslararası hastane.", ImageUrl = "discover_hospital.jpg", Address = "Fener, Tekelioğlu Cd. No:7, Muratpaşa", Phone = "+90 242 314 3434", Latitude = 36.8598, Longitude = 30.7602 }
+                }
+            },
+            new MobileDiscoverPoiCategoryDto
+            {
+                CategoryKey = "Taksi",
+                Items = new List<MobileDiscoverPoiItemDto>
+                {
+                    new MobileDiscoverPoiItemDto { Title = "Lara Taksi Durağı", Description = "Otel kapısına 3 dakikada hızlı taksi çağırma servisi.", ImageUrl = "discover_taxi.jpg", Address = "Otel Önü Ana Giriş Lara Cd.", Phone = "+90 242 324 5555", Latitude = 36.8520, Longitude = 30.7810 }
+                }
+            },
+            new MobileDiscoverPoiCategoryDto
+            {
+                CategoryKey = "Turlar",
+                Items = new List<MobileDiscoverPoiItemDto>
+                {
+                    new MobileDiscoverPoiItemDto { Title = "Köprülü Kanyon Rafting Turu", Description = "Macera dolu günübirlik rafting ve doğa yürüyüşü turları.", ImageUrl = "discover_tour.jpg", Address = "Manavgat/Antalya", Phone = "+90 242 746 1122", Latitude = 37.1920, Longitude = 31.1820 }
+                }
+            },
+            new MobileDiscoverPoiCategoryDto
+            {
+                CategoryKey = "Plajlar",
+                Items = new List<MobileDiscoverPoiItemDto>
+                {
+                    new MobileDiscoverPoiItemDto { Title = "Lara Plajı (Kumlu Sahil)", Description = "İnce kumu ve sakin denizi ile otelimize en yakın halk plajı.", ImageUrl = "discover_beach.jpg", Address = "Kundu, Muratpaşa/Antalya", Phone = "", Latitude = 36.8540, Longitude = 30.8200 }
+                }
+            }
+        };
+
+        [HttpGet("discover/{sessionToken}")]
+        public async Task<ResponseDto<IList<MobileDiscoverPoiCategoryDto>>> GetDiscoverList(string sessionToken, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<IList<MobileDiscoverPoiCategoryDto>>().Fail("Oturum bulunamadı.", 404);
+            }
+            return new ResponseDto<IList<MobileDiscoverPoiCategoryDto>>().Success(_discoverList);
+        }
+
+        private static readonly List<MobileNotificationDto> _notifications = new()
+        {
+            new MobileNotificationDto { Id = 1, Title = "Yemek Siparişiniz Yolda 🍕", Message = "Margherita siparişiniz hazırlanıp yola çıktı. Afiyet olsun!", Type = "FoodOrder", IsRead = false, CreatedDate = DateTime.Now.AddMinutes(-5) },
+            new MobileNotificationDto { Id = 2, Title = "SPA Randevunuz Onaylandı 💆", Message = "Bugün saat 15:00'teki Klasik Masaj randevunuz onaylanmıştır.", Type = "Spa", IsRead = false, CreatedDate = DateTime.Now.AddHours(-2) },
+            new MobileNotificationDto { Id = 3, Title = "Taksi Çağrınız Alındı 🚖", Message = "Lara Taksi durağından aracınız yönlendirilmiştir.", Type = "ServiceRequest", IsRead = true, CreatedDate = DateTime.Now.AddDays(-1) }
+        };
+
+        [HttpGet("notifications/{sessionToken}")]
+        public async Task<ResponseDto<IList<MobileNotificationDto>>> GetNotifications(string sessionToken, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<IList<MobileNotificationDto>>().Fail("Oturum bulunamadı.", 404);
+            }
+            return new ResponseDto<IList<MobileNotificationDto>>().Success(_notifications);
+        }
+
+        [HttpPost("notifications/read")]
+        public async Task<ResponseDto<bool>> MarkNotificationAsRead([FromBody] MobileNotificationReadRequest request, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<bool>().Fail("Oturum bulunamadı.", 404);
+            }
+
+            var notif = _notifications.FirstOrDefault(x => x.Id == request.NotificationId);
+            if (notif is not null)
+            {
+                notif.IsRead = true;
+            }
+
+            return new ResponseDto<bool>().Success(true);
+        }
+
+        public class MobileSpaCancelRequest
+        {
+            public string SessionToken { get; set; } = string.Empty;
+            public int AppointmentId { get; set; }
+        }
+
+        public class MobileRatingRequest
+        {
+            public string SessionToken { get; set; } = string.Empty;
+            public int? ServiceRequestId { get; set; }
+            public int? OrderId { get; set; }
+            public decimal SpeedScore { get; set; }
+            public decimal QualityScore { get; set; }
+            public decimal StaffScore { get; set; }
+            public string? Comment { get; set; }
+        }
+
+        public class MobileRestaurantDto
+        {
+            public int Id { get; set; }
+            public string Name { get; set; } = string.Empty;
+            public string CuisineType { get; set; } = string.Empty;
+            public string ImageUrl { get; set; } = string.Empty;
+            public double Rating { get; set; }
+            public string Hours { get; set; } = string.Empty;
+            public string Description { get; set; } = string.Empty;
+        }
+
+        public class MobileRestaurantReservationDto
+        {
+            public int Id { get; set; }
+            public int GuestStayId { get; set; }
+            public int RestaurantId { get; set; }
+            public string RestaurantName { get; set; } = string.Empty;
+            public DateTime ReservationDate { get; set; }
+            public string TimeSlot { get; set; } = string.Empty;
+            public int GuestsCount { get; set; }
+            public string? Note { get; set; }
+            public string Status { get; set; } = "Confirmed";
+        }
+
+        public class MobileRestaurantBookRequest
+        {
+            public string SessionToken { get; set; } = string.Empty;
+            public int RestaurantId { get; set; }
+            public DateTime Date { get; set; }
+            public string TimeSlot { get; set; } = string.Empty;
+            public int GuestsCount { get; set; }
+            public string? Note { get; set; }
+        }
+
+        public class MobileRestaurantCancelRequest
+        {
+            public string SessionToken { get; set; } = string.Empty;
+            public int ReservationId { get; set; }
+        }
+
+        public class MobileTransferTrackingDto
+        {
+            public int ServiceRequestId { get; set; }
+            public string Status { get; set; } = string.Empty;
+            public string StatusKey { get; set; } = string.Empty;
+            public string DriverName { get; set; } = string.Empty;
+            public string DriverPhone { get; set; } = string.Empty;
+            public string VehiclePlate { get; set; } = string.Empty;
+            public string VehicleModel { get; set; } = string.Empty;
+            public string PickupLocation { get; set; } = string.Empty;
+            public string DropoffLocation { get; set; } = string.Empty;
+            public DateTime RequestedAt { get; set; }
+            public DateTime EstimatedArrival { get; set; }
+        }
+
+        public class MobileDiscoverPoiCategoryDto
+        {
+            public string CategoryKey { get; set; } = string.Empty;
+            public IList<MobileDiscoverPoiItemDto> Items { get; set; } = new List<MobileDiscoverPoiItemDto>();
+        }
+
+        public class MobileDiscoverPoiItemDto
+        {
+            public string Title { get; set; } = string.Empty;
+            public string Description { get; set; } = string.Empty;
+            public string ImageUrl { get; set; } = string.Empty;
+            public string Address { get; set; } = string.Empty;
+            public string Phone { get; set; } = string.Empty;
+            public double Latitude { get; set; }
+            public double Longitude { get; set; }
+        }
+
+        public class MobileNotificationDto
+        {
+            public int Id { get; set; }
+            public string Title { get; set; } = string.Empty;
+            public string Message { get; set; } = string.Empty;
+            public string Type { get; set; } = string.Empty;
+            public bool IsRead { get; set; }
+            public DateTime CreatedDate { get; set; }
+        }
+
+        [HttpPost("device-token")]
+        public async Task<ResponseDto<bool>> RegisterDeviceToken([FromBody] MobileGuestDeviceTokenRequest request, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<bool>().Fail(false, "Misafir oturumu bulunamadı veya süresi doldu.", 401);
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Token))
+            {
+                return new ResponseDto<bool>().Fail(false, "Firebase token zorunludur.", 400);
+            }
+
+            session.DeviceToken = request.Token.Trim();
+            session.ModifyDate = DateTime.Now;
+
+            if (session.GuestStay != null)
+            {
+                session.GuestStay.DeviceToken = request.Token.Trim();
+                session.GuestStay.ModifyDate = DateTime.Now;
+            }
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return new ResponseDto<bool>().Success(true);
+        }
+
+        [HttpPost("update-dnd")]
+        public async Task<ResponseDto<bool>> UpdateDnd([FromBody] MobileGuestUpdateDndRequest request, CancellationToken cancellationToken)
+        {
+            var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
+            if (session is null)
+            {
+                return new ResponseDto<bool>().Fail(false, "Misafir oturumu bulunamadı veya süresi doldu.", 401);
+            }
+
+            if (session.GuestStay != null)
+            {
+                session.GuestStay.DoNotDisturb = request.DoNotDisturb;
+                session.GuestStay.ModifyDate = DateTime.Now;
+                await _dbContext.SaveChangesAsync(cancellationToken);
+
+                // Broadcast live update to guest session and reception
+                await _hubContext.Clients.Group(Hubs.HotelOperationsHub.GroupNames.GuestStay(session.GuestStayId))
+                    .SendAsync("GuestStayFlagsChanged", new
+                    {
+                        guestStayId = session.GuestStayId,
+                        isVip = session.GuestStay.IsVip,
+                        hasAllergy = session.GuestStay.HasAllergy,
+                        doNotDisturb = session.GuestStay.DoNotDisturb,
+                        isLateCheckOut = session.GuestStay.IsLateCheckOut
+                    }, cancellationToken);
+
+                await _hubContext.Clients.Group(Hubs.HotelOperationsHub.GroupNames.Reception(session.GuestStay.HotelId))
+                    .SendAsync("GuestStayFlagsChanged", new
+                    {
+                        guestStayId = session.GuestStayId,
+                        isVip = session.GuestStay.IsVip,
+                        hasAllergy = session.GuestStay.HasAllergy,
+                        doNotDisturb = session.GuestStay.DoNotDisturb,
+                        isLateCheckOut = session.GuestStay.IsLateCheckOut
+                    }, cancellationToken);
+
+                return new ResponseDto<bool>().Success(true);
+            }
+
+            return new ResponseDto<bool>().Fail(false, "Konaklama kaydı bulunamadı.", 404);
+        }
+
+        public class MobileNotificationReadRequest
+        {
+            public string SessionToken { get; set; } = string.Empty;
+            public int NotificationId { get; set; }
+        }
+
+        private async Task<string?> CallGeminiApiAsync(string apiKey, string userMessage, string languageCode, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={apiKey}";
+                
+                var systemInstruction = "Sen StayZora Oteli'nin akıllı yapay zeka asistanısın. Görevin misafirlerin sorularını kibar, profesyonel ve kısa bir şekilde yanıtlamaktır. " +
+                                        "Otel Bilgileri:\n" +
+                                        "- Wi-Fi: 'StayZora_Guest' ağına bağlanıp oda numarası ve doğum yılı ile giriş yapılabilir.\n" +
+                                        "- Kahvaltı: Her gün 07:00 - 10:30 arasında Ana Restoranda açık büfe servis edilir.\n" +
+                                        "- Açık Havuz: 08:00 - 20:00 saatleri arasında açıktır.\n" +
+                                        "- SPA ve Kapalı Havuz: 09:00 - 22:00 saatleri arasında hizmet verir.\n" +
+                                        "- Çıkış (Check-out): En geç saat 12:00'dir. Profil sayfasındaki 'Mobil Hızlı Çıkış' menüsünden resepsiyona uğramadan yapılabilir.\n" +
+                                        "Kurallar:\n" +
+                                        "- Misafirin soruyu sorduğu dilde yanıt ver.\n" +
+                                        "- Otelde bulunmayan hizmetler hakkında bilgi uydurma. Bilmediğin bir şey olursa resepsiyona yönlendir.";
+
+                var payload = new
+                {
+                    contents = new[]
+                    {
+                        new
+                        {
+                            parts = new[]
+                            {
+                                new { text = userMessage }
+                            }
+                        }
+                    },
+                    systemInstruction = new
+                    {
+                        parts = new[]
+                        {
+                            new { text = systemInstruction }
+                        }
+                    }
+                };
+
+                var json = JsonSerializer.Serialize(payload);
+                using var content = new StringContent(json, Encoding.UTF8, "application/json");
+                
+                using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                cts.CancelAfter(TimeSpan.FromSeconds(5));
+
+                using var response = await _httpClient.PostAsync(url, content, cts.Token);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseJson = await response.Content.ReadAsStringAsync(cts.Token);
+                    using var doc = JsonDocument.Parse(responseJson);
+                    return doc.RootElement
+                        .GetProperty("candidates")[0]
+                        .GetProperty("content")
+                        .GetProperty("parts")[0]
+                        .GetProperty("text")
+                        .GetString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Gemini Error] {ex}");
+            }
+
+            return null;
+        }
     }
 
     public class MobileFolioResponse
@@ -1363,6 +1934,7 @@ namespace WorigoApp.Api.Controllers.Mobile
         public string LanguageCode { get; set; } = "tr-TR";
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
+        public bool DoNotDisturb { get; set; }
     }
 
     public class MobileRoomIotResponse
@@ -1449,5 +2021,17 @@ namespace WorigoApp.Api.Controllers.Mobile
         public string? TranslatedText { get; set; }
         public string SenderName { get; set; } = string.Empty;
         public DateTime SentAt { get; set; }
+    }
+
+    public class MobileGuestDeviceTokenRequest
+    {
+        public string SessionToken { get; set; } = string.Empty;
+        public string Token { get; set; } = string.Empty;
+    }
+
+    public class MobileGuestUpdateDndRequest
+    {
+        public string SessionToken { get; set; } = string.Empty;
+        public bool DoNotDisturb { get; set; }
     }
 }

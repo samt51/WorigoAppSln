@@ -60,7 +60,7 @@ namespace WorigoApp.Domain.Entites
         public DateTime? AppointmentLastDate { get; set; }
         public int OrderId { get; set; }
         public Order Order { get; set; } = null!;
-        public CommentAndRating CommentAndRating { get; set; } = null!;
+        public ServiceRequestRating? ServiceRequestRating { get; set; }
         public StatusTypeEnum StatusTypeEnum { get; set; }
         public string Text { get; set; } = string.Empty;
         public IList<Image> Images { get; set; } = new List<Image>();

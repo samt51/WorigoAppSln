@@ -142,7 +142,6 @@ namespace WorigoApp.Domain.Entites
         public Conversation? Conversation { get; set; }
 
         public IList<ServiceRequestHistory> Histories { get; set; } = new List<ServiceRequestHistory>();
-        public IList<ServiceRequestMessage> Messages { get; set; } = new List<ServiceRequestMessage>();
         public IList<ServiceRequestRating> Ratings { get; set; } = new List<ServiceRequestRating>();
         public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
         public IList<ServiceRequestFieldValue> FieldValues { get; set; } = new List<ServiceRequestFieldValue>();

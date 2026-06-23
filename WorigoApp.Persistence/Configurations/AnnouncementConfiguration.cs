@@ -39,6 +39,16 @@ namespace WorigoApp.Persistence.Configurations
                     x.StartAt,
                     x.EndAt
                 });
+
+            builder.HasOne(x => x.Department)
+                .WithMany(x => x.InternalAnnouncements)
+                .HasForeignKey(x => x.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(x => x.CreatedByEmployee)
+                .WithMany(x => x.InternalAnnouncements)
+                .HasForeignKey(x => x.CreatedByEmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

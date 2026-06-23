@@ -1,18 +1,12 @@
-﻿namespace WorigoApp.Domain.Enums
+namespace WorigoApp.Domain.Enums
 {
     public enum OrderStatusEnum
     {
-        /// <summary>
-        /// Hazırlanıyor
-        /// </summary>
-        Preparing = 1,
-        /// <summary>
-        /// Geliyor
-        /// </summary>
-        IsComing = 2,
-        /// <summary>
-        /// Teslim Edildi
-        /// </summary>
-        Delivered = 3,
+        Received = 1,
+        Preparing = 2,
+        Ready = 3,
+        OnTheWay = 4,
+        Delivered = 5,
+        Cancelled = 6
     }
 }

@@ -76,7 +76,7 @@ namespace WorigoApp.Application.Features.ServiceRequestRatings.Commands.CreateSe
             return new ResponseDto<CreateServiceRequestRatingCommandResponse>().Success(new CreateServiceRequestRatingCommandResponse
             {
                 Id = createdRating.Id,
-                ServiceRequestId = createdRating.ServiceRequestId,
+                ServiceRequestId = createdRating.ServiceRequestId ?? 0,
                 SpeedScore = createdRating.SpeedScore,
                 QualityScore = createdRating.QualityScore,
                 StaffScore = createdRating.StaffScore,

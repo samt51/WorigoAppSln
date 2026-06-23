@@ -295,11 +295,6 @@ namespace WorigoApp.Persistence.Context
                 .HasForeignKey(x => x.ChangedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<ServiceRequestMessage>()
-                .HasOne(x => x.SenderUser)
-                .WithMany(x => x.ServiceRequestMessages)
-                .HasForeignKey(x => x.SenderUserId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<StockItem>()
                 .HasOne(x => x.Hotel)
@@ -457,24 +452,6 @@ namespace WorigoApp.Persistence.Context
                 .HasForeignKey(x => x.DepartmentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<InternalAnnouncement>()
-                .HasOne(x => x.Hotel)
-                .WithMany(x => x.InternalAnnouncements)
-                .HasForeignKey(x => x.HotelId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<InternalAnnouncement>()
-                .HasOne(x => x.Department)
-                .WithMany(x => x.InternalAnnouncements)
-                .HasForeignKey(x => x.DepartmentId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<InternalAnnouncement>()
-                .HasOne(x => x.CreatedByEmployee)
-                .WithMany(x => x.InternalAnnouncements)
-                .HasForeignKey(x => x.CreatedByEmployeeId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<EmployeeTask>()
                 .HasOne(x => x.Hotel)
                 .WithMany(x => x.EmployeeTasks)
@@ -574,10 +551,111 @@ namespace WorigoApp.Persistence.Context
                 .WithMany()
                 .HasForeignKey(x => x.GuestStayId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Restaurant>()
+                .HasOne(x => x.Hotel)
+                .WithMany()
+                .HasForeignKey(x => x.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RestaurantReservation>()
+                .HasOne(x => x.Hotel)
+                .WithMany()
+                .HasForeignKey(x => x.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RestaurantReservation>()
+                .HasOne(x => x.Restaurant)
+                .WithMany(x => x.Reservations)
+                .HasForeignKey(x => x.RestaurantId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RestaurantReservation>()
+                .HasOne(x => x.GuestStay)
+                .WithMany()
+                .HasForeignKey(x => x.GuestStayId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RestaurantReservation>()
+                .HasOne(x => x.Customer)
+                .WithMany()
+                .HasForeignKey(x => x.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<RestaurantReservation>()
+                .HasOne(x => x.ApprovedByEmployee)
+                .WithMany()
+                .HasForeignKey(x => x.ApprovedByEmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransferTracking>()
+                .HasOne(x => x.Hotel)
+                .WithMany()
+                .HasForeignKey(x => x.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransferTracking>()
+                .HasOne(x => x.ServiceRequest)
+                .WithMany()
+                .HasForeignKey(x => x.ServiceRequestId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransferTracking>()
+                .HasOne(x => x.GuestStay)
+                .WithMany()
+                .HasForeignKey(x => x.GuestStayId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransferTracking>()
+                .HasOne(x => x.Customer)
+                .WithMany()
+                .HasForeignKey(x => x.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<TransferTracking>()
+                .HasOne(x => x.AssignedEmployee)
+                .WithMany()
+                .HasForeignKey(x => x.AssignedEmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ConciergePlace>()
+                .HasOne(x => x.Hotel)
+                .WithMany()
+                .HasForeignKey(x => x.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GuestNotification>()
+                .HasOne(x => x.Hotel)
+                .WithMany()
+                .HasForeignKey(x => x.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GuestNotification>()
+                .HasOne(x => x.GuestStay)
+                .WithMany()
+                .HasForeignKey(x => x.GuestStayId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GuestNotification>()
+                .HasOne(x => x.Customer)
+                .WithMany()
+                .HasForeignKey(x => x.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<GuestNotification>()
+                .HasOne(x => x.GuestSession)
+                .WithMany()
+                .HasForeignKey(x => x.GuestSessionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SpaService>()
+                .HasOne(x => x.Hotel)
+                .WithMany()
+                .HasForeignKey(x => x.HotelId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public DbSet<Employee> Employee { get; set; }
-        public DbSet<EmployeeDetail> EmployeeDetail { get; set; }
         public DbSet<EmployeeType> EmployeeType { get; set; }
         public DbSet<Shift> Shift { get; set; }
         public DbSet<Company> Company { get; set; }
@@ -596,7 +674,6 @@ namespace WorigoApp.Persistence.Context
         public DbSet<LogEntry> LogEntries { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<CommentAndRating> CommentAndRatings { get; set; }
         public DbSet<Translation> Translations { get; set; }
         public DbSet<GuestStay> GuestStays { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -613,7 +690,6 @@ namespace WorigoApp.Persistence.Context
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<ServiceRequest> ServiceRequests { get; set; }
         public DbSet<ServiceRequestHistory> ServiceRequestHistories { get; set; }
-        public DbSet<ServiceRequestMessage> ServiceRequestMessages { get; set; }
         public DbSet<ServiceRequestRating> ServiceRequestRatings { get; set; }
         public DbSet<StockItem> StockItems { get; set; }
         public DbSet<StockMovement> StockMovements { get; set; }
@@ -622,7 +698,6 @@ namespace WorigoApp.Persistence.Context
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
         public DbSet<PerformanceReview> PerformanceReviews { get; set; }
-        public DbSet<InternalAnnouncement> InternalAnnouncements { get; set; }
         public DbSet<EmployeeTask> EmployeeTasks { get; set; }
         public DbSet<EmployeeDocument> EmployeeDocuments { get; set; }
         public DbSet<HotelServicePolicy> HotelServicePolicies { get; set; }
@@ -641,5 +716,11 @@ namespace WorigoApp.Persistence.Context
         public DbSet<ServiceRequestItem> ServiceRequestItems { get; set; }
         public DbSet<UserNotification> UserNotifications { get; set; }
         public DbSet<EmployeeDeviceToken> EmployeeDeviceTokens { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<RestaurantReservation> RestaurantReservations { get; set; }
+        public DbSet<TransferTracking> TransferTrackings { get; set; }
+        public DbSet<ConciergePlace> ConciergePlaces { get; set; }
+        public DbSet<GuestNotification> GuestNotifications { get; set; }
+        public DbSet<SpaService> SpaServices { get; set; }
     }
 }

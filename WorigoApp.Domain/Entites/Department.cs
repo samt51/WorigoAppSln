@@ -59,7 +59,7 @@ namespace WorigoApp.Domain.Entites
         public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
         public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
         public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
-        public IList<InternalAnnouncement> InternalAnnouncements { get; set; } = new List<InternalAnnouncement>();
+        public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
         public IList<EmployeeTask> EmployeeTasks { get; set; } = new List<EmployeeTask>();
         public IList<ServiceDefinition> ServiceDefinitions { get; set; } = new List<ServiceDefinition>();
     }

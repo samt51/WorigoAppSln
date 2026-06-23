@@ -59,7 +59,6 @@ namespace WorigoApp.Domain.Entites
         public Employee? Employee { get; set; }
         public int RoleId { get; set; }
         public Roles Role { get; set; } = null!;
-        public IList<ServiceRequestMessage> ServiceRequestMessages { get; set; } = new List<ServiceRequestMessage>();
         public IList<ConversationMessage> ConversationMessages { get; set; } = new List<ConversationMessage>();
         public IList<ServiceRequestHistory> ServiceRequestHistories { get; set; } = new List<ServiceRequestHistory>();
 

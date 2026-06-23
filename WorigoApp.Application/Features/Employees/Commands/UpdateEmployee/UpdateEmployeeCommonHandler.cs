@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Features.Employees.Dto;
 using WorigoApp.Application.Interfaces.AutoMapper;
@@ -18,12 +18,19 @@ namespace WorigoApp.Application.Features.Employees.Commands.UpdateEmployee
             var employeeTypeIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
             var employeeMap = mapper.Map<Employee, UpdateEmployeeCommonRequest>(request);
-
-            var employeeDetailMap = mapper.Map<EmployeeDetail, EmployeeDetailRequestDto>(request.employeeDetailRequest);
+            if (request.employeeDetailRequest != null)
+            {
+                employeeMap.DateOfBirth = request.employeeDetailRequest.DateOfBirth;
+                employeeMap.FloorNo = request.employeeDetailRequest.FloorNo;
+                employeeMap.PhoneNumber = request.employeeDetailRequest.PhoneNumber;
+                employeeMap.Gender = request.employeeDetailRequest.Gender;
+                employeeMap.StartDateOfWork = request.employeeDetailRequest.StartDateOfWork;
+                employeeMap.ExitDateOfWork = request.employeeDetailRequest.ExitDateOfWork;
+                employeeMap.LastOnlineTime = request.employeeDetailRequest.LastOnlineTime;
+                employeeMap.OnlineOrOfflineNow = request.employeeDetailRequest.OnlineOrOfflineNow;
+            }
 
             await unitOfWork.GetWriteRepository<Employee>().UpdateAsync(employeeMap);
-
-            await unitOfWork.GetWriteRepository<EmployeeDetail>().UpdateAsync(employeeDetailMap);
 
             await unitOfWork.OpenTransactionAsync(cancellationToken);
 

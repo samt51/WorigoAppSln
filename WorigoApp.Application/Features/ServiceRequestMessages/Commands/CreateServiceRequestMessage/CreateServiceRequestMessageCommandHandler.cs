@@ -30,14 +30,42 @@ namespace WorigoApp.Application.Features.ServiceRequestMessages.Commands.CreateS
 
             var targetLanguageCode = await ResolveTargetLanguageCodeAsync(serviceRequest, request.SenderType);
 
-            var message = new ServiceRequestMessage
+            await unitOfWork.OpenTransactionAsync(cancellationToken);
+
+            // Ensure Conversation exists
+            if (!serviceRequest.ConversationId.HasValue)
             {
-                ServiceRequestId = request.ServiceRequestId,
+                var newConversation = new Conversation
+                {
+                    HotelId = serviceRequest.HotelId,
+                    GuestStayId = serviceRequest.GuestStayId,
+                    CustomerId = serviceRequest.CustomerId,
+                    Subject = serviceRequest.Title,
+                    Status = ConversationStatusEnum.Open,
+                    ConversationType = ConversationTypeEnum.General,
+                    LanguageCode = serviceRequest.LanguageCode,
+                    StartedAt = DateTime.UtcNow
+                };
+                var createdConversation = await unitOfWork.GetWriteRepository<Conversation>().AddAsync(newConversation);
+                await unitOfWork.SaveAsync(cancellationToken);
+
+                serviceRequest.ConversationId = createdConversation.Id;
+                serviceRequest.IsChatStarted = true;
+                await unitOfWork.GetWriteRepository<ServiceRequest>().UpdateAsync(serviceRequest);
+                await unitOfWork.SaveAsync(cancellationToken);
+            }
+
+            Enum.TryParse<ConversationMessageTypeEnum>(request.MessageType, true, out var typeEnum);
+
+            var message = new ConversationMessage
+            {
+                ConversationId = serviceRequest.ConversationId.Value,
                 SenderUserId = request.SenderUserId,
+                SenderCustomerId = request.SenderType == MessageSenderTypeEnum.Customer ? serviceRequest.CustomerId : null,
                 SenderType = request.SenderType,
                 OriginalLanguageCode = request.OriginalLanguageCode,
                 OriginalText = request.OriginalText,
-                MessageType = request.MessageType,
+                MessageType = typeEnum == default ? ConversationMessageTypeEnum.Text : typeEnum,
                 SentAt = DateTime.UtcNow
             };
 
@@ -67,15 +95,14 @@ namespace WorigoApp.Application.Features.ServiceRequestMessages.Commands.CreateS
                 message.TranslationStatus = "Failed";
             }
 
-            await unitOfWork.OpenTransactionAsync(cancellationToken);
-            var createdMessage = await unitOfWork.GetWriteRepository<ServiceRequestMessage>().AddAsync(message);
+            var createdMessage = await unitOfWork.GetWriteRepository<ConversationMessage>().AddAsync(message);
             await unitOfWork.SaveAsync(cancellationToken);
             await unitOfWork.CommitAsync(cancellationToken);
 
             return new ResponseDto<CreateServiceRequestMessageCommandResponse>().Success(new CreateServiceRequestMessageCommandResponse
             {
                 Id = createdMessage.Id,
-                ServiceRequestId = createdMessage.ServiceRequestId,
+                ServiceRequestId = serviceRequest.Id,
                 SenderUserId = createdMessage.SenderUserId,
                 SenderType = createdMessage.SenderType.ToString(),
                 OriginalLanguageCode = createdMessage.OriginalLanguageCode,

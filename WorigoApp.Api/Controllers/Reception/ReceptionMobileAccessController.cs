@@ -5,6 +5,7 @@ using QRCoder;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using WorigoApp.Application.Bases;
 using WorigoApp.Domain.Entites;
 using WorigoApp.Domain.Enums;
@@ -19,11 +20,13 @@ namespace WorigoApp.Api.Controllers.Reception
     {
         private readonly AppDbContext _dbContext;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public ReceptionMobileAccessController(AppDbContext dbContext, IHttpClientFactory httpClientFactory)
+        public ReceptionMobileAccessController(AppDbContext dbContext, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         [HttpPost("mobile-check-in")]
@@ -308,7 +311,7 @@ namespace WorigoApp.Api.Controllers.Reception
         [AllowAnonymous]
         [HttpGet("mobile-check-in/qr.png")]
         [Produces("image/png")]
-        public async Task<IActionResult> GetMobileCheckInQr([FromQuery] string qrCodeToken, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetMobileCheckInQr([FromQuery] string qrCodeToken, [FromQuery] string? guestAppUrl, CancellationToken cancellationToken)
         {
             qrCodeToken = qrCodeToken?.Trim() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(qrCodeToken))
@@ -330,7 +333,7 @@ namespace WorigoApp.Api.Controllers.Reception
                 return NotFound(new ResponseDto<string>().Fail("QR oturumu bulunamadi veya suresi doldu.", 404));
             }
 
-            var mobileLoginUrl = BuildMobileLoginUrl(qrCodeToken);
+            var mobileLoginUrl = BuildMobileLoginUrl(qrCodeToken, guestAppUrl);
             using var qrGenerator = new QRCodeGenerator();
             using var qrData = qrGenerator.CreateQrCode(mobileLoginUrl, QRCodeGenerator.ECCLevel.Q);
             var qrCode = new PngByteQRCode(qrData);
@@ -358,10 +361,13 @@ namespace WorigoApp.Api.Controllers.Reception
             return $"{prefix}_{Convert.ToBase64String(bytes).Replace("+", "-").Replace("/", "_").TrimEnd('=')}";
         }
 
-        private string BuildMobileLoginUrl(string qrCodeToken)
+        private string BuildMobileLoginUrl(string qrCodeToken, string? guestAppUrl = null)
         {
             var encodedToken = Uri.EscapeDataString(qrCodeToken);
-            return $"{Request.Scheme}://{Request.Host}/mobile/guest/qr-login?qrCodeToken={encodedToken}";
+            var baseUrl = !string.IsNullOrWhiteSpace(guestAppUrl) 
+                ? guestAppUrl 
+                : (_configuration["GuestAppUrl"] ?? $"{Request.Scheme}://{Request.Host}/mobile/guest/qr-login");
+            return $"{baseUrl.TrimEnd('/')}?qrCodeToken={encodedToken}";
         }
 
         private async Task<CurrencyConversionResult> ConvertCurrencyAsync(decimal amount, string from, string to, CancellationToken cancellationToken)

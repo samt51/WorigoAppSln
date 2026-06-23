@@ -3,6 +3,7 @@ using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
+using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Commands.CreateInternalAnnouncement
 {
@@ -21,17 +22,19 @@ namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Commands.Creat
                 await unitOfWork.GetReadRepository<Department>().GetAsync(x => x.Id == request.DepartmentId.Value && x.HotelId == request.HotelId && !x.IsDeleted);
             }
 
-            var entity = await unitOfWork.GetWriteRepository<InternalAnnouncement>().AddAsync(new InternalAnnouncement
+            var entity = await unitOfWork.GetWriteRepository<Announcement>().AddAsync(new Announcement
             {
                 HotelId = request.HotelId,
                 DepartmentId = request.DepartmentId,
                 CreatedByEmployeeId = request.CreatedByEmployeeId,
                 Title = request.Title,
-                Content = request.Content,
-                Audience = request.Audience,
-                PublishAt = DateTime.UtcNow,
-                ExpireAt = request.ExpireAt,
-                IsPinned = request.IsPinned
+                Description = request.Content,
+                InternalAudience = request.Audience,
+                StartAt = DateTime.UtcNow,
+                EndAt = request.ExpireAt,
+                IsPinned = request.IsPinned,
+                IsVisibleToGuest = false,
+                Type = AnnouncementTypeEnum.Announcement
             });
 
             await unitOfWork.SaveAsync(cancellationToken);
@@ -39,7 +42,7 @@ namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Commands.Creat
             return new ResponseDto<CreateInternalAnnouncementCommandResponse>().Success(new CreateInternalAnnouncementCommandResponse
             {
                 Id = entity.Id,
-                PublishAt = entity.PublishAt
+                PublishAt = entity.StartAt
             });
         }
     }

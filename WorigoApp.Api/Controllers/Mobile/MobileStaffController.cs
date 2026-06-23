@@ -222,12 +222,19 @@ namespace WorigoApp.Api.Controllers.Mobile
             var roleName = user.Role?.Name ?? string.Empty;
             var query = QueryMobileWorkItems();
 
-            if (RoleEquals(roleName, "DepartmentManager") && employee.EmployeeType?.DepartmentId is not null)
+            bool isReceptionist = employee.EmployeeType?.Name == "Resepsiyonist" || 
+                                  employee.EmployeeType?.DepartmentId == 1;
+
+            if (isReceptionist || RoleEquals(roleName, "HotelAdmin") || RoleEquals(roleName, "Management"))
+            {
+                // Receptionists and admins see all requests for the hotel
+            }
+            else if (RoleEquals(roleName, "DepartmentManager") && employee.EmployeeType?.DepartmentId is not null)
             {
                 var departmentId = employee.EmployeeType.DepartmentId;
                 query = query.Where(x => x.DepartmentId == departmentId || x.AssignedEmployeeId == employee.Id);
             }
-            else if (!RoleEquals(roleName, "HotelAdmin") && !RoleEquals(roleName, "Management"))
+            else
             {
                 var departmentId = employee.EmployeeType?.DepartmentId;
                 query = query.Where(x =>
@@ -606,7 +613,8 @@ namespace WorigoApp.Api.Controllers.Mobile
                 .Include(x => x.ServiceDefinition)
                     .ThenInclude(x => x!.ServiceCategory)
                 .Include(x => x.AssignedEmployee)
-                .Include(x => x.Messages)
+                .Include(x => x.Conversation)
+                    .ThenInclude(x => x!.Messages)
                 .Where(x => !x.IsDeleted &&
                             x.Status != ServiceRequestStatusEnum.Completed &&
                             x.Status != ServiceRequestStatusEnum.Closed &&
@@ -687,7 +695,7 @@ namespace WorigoApp.Api.Controllers.Mobile
                               ?? request.ServiceDefinition?.ServiceCategory?.Name
                               ?? request.ServiceType.ToString();
 
-            var unreadMessages = request.Messages.Count(x => !x.IsDeleted && x.SenderType != MessageSenderTypeEnum.Employee);
+            var unreadMessages = request.Conversation?.Messages.Count(x => !x.IsDeleted && x.SenderType != MessageSenderTypeEnum.Employee) ?? 0;
 
             return new MobileStaffWorkItemResponse
             {
@@ -888,6 +896,9 @@ namespace WorigoApp.Api.Controllers.Mobile
                 });
             }
 
+            bool isReceptionist = employee?.EmployeeType?.Name == "Resepsiyonist" || 
+                                  employee?.EmployeeType?.DepartmentId == 1;
+
             if (RoleEquals(roleName, "HotelAdmin"))
             {
                 Add("hotel-dashboard", "Otel Ozeti", "/staff/hotel-dashboard", "layout-dashboard", 10);
@@ -898,6 +909,13 @@ namespace WorigoApp.Api.Controllers.Mobile
                 Add("announcements", "Duyurular", "/staff/announcements", "megaphone", 60);
                 Add("staff", "Personel", "/staff/employees", "users", 70);
                 Add("reports", "Raporlar", "/staff/reports", "bar-chart", 80);
+            }
+            else if (isReceptionist)
+            {
+                Add("reception-dashboard", "Resepsiyon", "/staff/reception-dashboard", "layout-dashboard", 10);
+                Add("service-requests", "Talepler", "/staff/service-requests", "bell", 20);
+                Add("messages", "Mesajlar", "/staff/messages", "message-circle", 30);
+                Add("attendance", "Vardiya", "/staff/attendance", "clock", 40);
             }
             else if (RoleEquals(roleName, "Management"))
             {

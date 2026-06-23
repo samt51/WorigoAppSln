@@ -10,9 +10,9 @@ namespace WorigoApp.Domain.Entites
         /// <summary>
         /// Puanlanan servis talebi.
         /// </summary>
-        public int ServiceRequestId { get; set; }
+        public int? ServiceRequestId { get; set; }
 
-        public ServiceRequest ServiceRequest { get; set; } = null!;
+        public ServiceRequest? ServiceRequest { get; set; }
 
         /// <summary>
         /// Puanlamayı yapan misafir.
@@ -40,10 +40,18 @@ namespace WorigoApp.Domain.Entites
         /// Misafir yorumu.
         /// </summary>
         public string? Comment { get; set; }
+        public decimal? OverallScore { get; set; }
 
         /// <summary>
         /// Puanlama zamanı.
         /// </summary>
         public DateTime RatedAt { get; set; } = DateTime.UtcNow;
+
+        public int? OrderId { get; set; }
+        public Order? Order { get; set; }
+        public int? OrderItemId { get; set; }
+        public OrderItem? OrderItem { get; set; }
+        public int? FoodId { get; set; }
+        public Food? Food { get; set; }
     }
 }

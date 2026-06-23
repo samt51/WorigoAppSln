@@ -64,5 +64,11 @@ namespace WorigoApp.Domain.Entites
         /// Hedef kitle bilgisi. Örn: Tüm misafirler, VIP, çocuklu aileler.
         /// </summary>
         public string? AudienceType { get; set; }
+
+        public int? DepartmentId { get; set; }
+        public Department? Department { get; set; }
+        public int? CreatedByEmployeeId { get; set; }
+        public Employee? CreatedByEmployee { get; set; }
+        public InternalAnnouncementAudienceEnum? InternalAudience { get; set; }
     }
 }

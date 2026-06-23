@@ -15,21 +15,22 @@ namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Queries.GetInt
 
         public async Task<ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>> Handle(GetInternalAnnouncementsQueryRequest request, CancellationToken cancellationToken)
         {
-            var announcements = await unitOfWork.GetReadRepository<InternalAnnouncement>().GetAllAsync(
+            var announcements = await unitOfWork.GetReadRepository<Announcement>().GetAllAsync(
                 x => x.HotelId == request.HotelId &&
                      !x.IsDeleted &&
-                     (!request.DepartmentId.HasValue || x.DepartmentId == request.DepartmentId || x.Audience == InternalAnnouncementAudienceEnum.AllEmployees) &&
-                     (!x.ExpireAt.HasValue || x.ExpireAt >= DateTime.UtcNow),
-                orderBy: x => x.OrderByDescending(y => y.IsPinned).ThenByDescending(y => y.PublishAt));
+                     x.InternalAudience.HasValue &&
+                     (!request.DepartmentId.HasValue || x.DepartmentId == request.DepartmentId || x.InternalAudience == InternalAnnouncementAudienceEnum.AllEmployees) &&
+                     (!x.EndAt.HasValue || x.EndAt >= DateTime.UtcNow),
+                orderBy: x => x.OrderByDescending(y => y.IsPinned).ThenByDescending(y => y.StartAt));
 
             var response = announcements.Select(x => new GetInternalAnnouncementsQueryResponse
             {
                 Id = x.Id,
                 Title = x.Title,
-                Content = x.Content,
-                Audience = x.Audience,
-                PublishAt = x.PublishAt,
-                ExpireAt = x.ExpireAt,
+                Content = x.Description,
+                Audience = x.InternalAudience.Value,
+                PublishAt = x.StartAt,
+                ExpireAt = x.EndAt,
                 IsPinned = x.IsPinned
             }).ToList();
 

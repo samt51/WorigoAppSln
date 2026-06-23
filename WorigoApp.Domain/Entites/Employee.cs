@@ -30,7 +30,71 @@ namespace WorigoApp.Domain.Entites
         public EmployeeType? EmployeeType { get; set; }
         public int? HotelId { get; set; }
         public Hotel? Hotel { get; set; }
-        public EmployeeDetail? EmployeeDetail { get; set; }
+
+        /// <summary>
+        /// Doğum tarihi.
+        /// </summary>
+        public DateTime DateOfBirth { get; set; }
+
+        /// <summary>
+        /// Telefon numarası.
+        /// </summary>
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Mevcut akışlarla uyumlu basit cinsiyet alanı.
+        /// </summary>
+        public bool Gender { get; set; }
+
+        /// <summary>
+        /// İşe başlama tarihi.
+        /// </summary>
+        public DateTime StartDateOfWork { get; set; }
+
+        /// <summary>
+        /// İşten ayrılma tarihi.
+        /// </summary>
+        public DateTime? ExitDateOfWork { get; set; }
+
+        /// <summary>
+        /// Personelin son çevrim içi olduğu an.
+        /// </summary>
+        public DateTime? LastOnlineTime { get; set; }
+
+        /// <summary>
+        /// Personelin ağırlıklı çalıştığı kat bilgisi.
+        /// </summary>
+        public int? FloorNo { get; set; }
+
+        /// <summary>
+        /// Personelin o anda çevrim içi görünüp görünmediği.
+        /// </summary>
+        public bool OnlineOrOfflineNow { get; set; }
+
+        /// <summary>
+        /// Acil durumda aranacak kişi adı.
+        /// </summary>
+        public string? EmergencyContactName { get; set; }
+
+        /// <summary>
+        /// Acil durumda aranacak kişi telefonu.
+        /// </summary>
+        public string? EmergencyContactPhone { get; set; }
+
+        /// <summary>
+        /// Kimlik veya pasaport numarası gibi resmi numara bilgisi.
+        /// </summary>
+        public string? NationalId { get; set; }
+
+        /// <summary>
+        /// Personelin ikamet adresi.
+        /// </summary>
+        public string? Address { get; set; }
+
+        /// <summary>
+        /// Personelin profil dili.
+        /// </summary>
+        public string? ProfileLanguage { get; set; }
 
         /// <summary>
         /// Personelin giriş yapabildiği kullanıcı hesabı.
@@ -94,7 +158,7 @@ namespace WorigoApp.Domain.Entites
         public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
         public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
         public IList<PerformanceReview> ReviewerPerformanceReviews { get; set; } = new List<PerformanceReview>();
-        public IList<InternalAnnouncement> InternalAnnouncements { get; set; } = new List<InternalAnnouncement>();
+        public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
         public IList<EmployeeTask> AssignedEmployeeTasks { get; set; } = new List<EmployeeTask>();
         public IList<EmployeeTask> CreatedEmployeeTasks { get; set; } = new List<EmployeeTask>();
         public IList<EmployeeDocument> EmployeeDocuments { get; set; } = new List<EmployeeDocument>();
