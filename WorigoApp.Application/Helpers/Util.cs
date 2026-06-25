@@ -4,16 +4,24 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Helpers
 {
+    /// <summary>
+    /// Util sınıfını temsil eder.
+    /// </summary>
     public class Util
     {
-
-        public static string GetAcceptLanguageCodeFromToken()
+/// <summary>
+/// GetAcceptLanguageCodeFromToken işlemini gerçekleştirir.
+/// </summary>
+public static string GetAcceptLanguageCodeFromToken()
         {
             var htp = new HttpContextAccessor();
 
             return htp.HttpContext.Request.Headers.AcceptLanguage;
         }
-        public static IList<Translation> GetTranslationFromCache(string cacheKey)
+/// <summary>
+/// GetTranslationFromCache işlemini gerçekleştirir.
+/// </summary>
+public static IList<Translation> GetTranslationFromCache(string cacheKey)
         {
             var htp = new HttpContextAccessor();
             var memoryCacheService = (IMemoryCache)htp.HttpContext.RequestServices.GetService(typeof(IMemoryCache));

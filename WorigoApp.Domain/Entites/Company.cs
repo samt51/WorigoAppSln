@@ -2,15 +2,30 @@
 
 namespace WorigoApp.Domain.Entites
 {
-    public class Company : EntityBase
+/// <summary>
+/// Company sınıfını temsil eder.
+/// </summary>
+public class Company : EntityBase
     {
-        public Company()
+/// <summary>
+/// Company sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Company()
         {
 
         }
-        public string Name { get; set; }
-        public IList<Hotel> Hotels { get; set; }
-        public Company(int id, string name)
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// Hotels değerini alır veya ayarlar.
+/// </summary>
+public IList<Hotel> Hotels { get; set; }
+/// <summary>
+/// Company sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Company(int id, string name)
         {
             this.Id = id;
             this.Name = name;

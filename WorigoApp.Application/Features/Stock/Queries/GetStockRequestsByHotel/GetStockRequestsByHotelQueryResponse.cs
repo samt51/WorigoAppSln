@@ -2,17 +2,50 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Stock.Queries.GetStockRequestsByHotel
 {
-    public class GetStockRequestsByHotelQueryResponse
+/// <summary>
+/// GetStockRequestsByHotelQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetStockRequestsByHotelQueryResponse
     {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public string RequestedByEmployeeName { get; set; } = string.Empty;
-        public string? AssignedManagerEmployeeName { get; set; }
-        public string? DepartmentName { get; set; }
-        public StockRequestPriorityEnum Priority { get; set; }
-        public StockRequestStatusEnum Status { get; set; }
-        public DateTime RequestedAt { get; set; }
-        public int ItemCount { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
+/// <summary>
+/// RequestedByEmployeeName değerini alır veya ayarlar.
+/// </summary>
+public string RequestedByEmployeeName { get; set; } = string.Empty;
+/// <summary>
+/// AssignedManagerEmployeeName değerini alır veya ayarlar.
+/// </summary>
+public string? AssignedManagerEmployeeName { get; set; }
+/// <summary>
+/// DepartmentName değerini alır veya ayarlar.
+/// </summary>
+public string? DepartmentName { get; set; }
+/// <summary>
+/// Priority değerini alır veya ayarlar.
+/// </summary>
+public StockRequestPriorityEnum Priority { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public StockRequestStatusEnum Status { get; set; }
+/// <summary>
+/// RequestedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime RequestedAt { get; set; }
+/// <summary>
+/// ItemCount değerini alır veya ayarlar.
+/// </summary>
+public int ItemCount { get; set; }
     }
 }

@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailableServices
 {
-    public class GetGuestAvailableServicesQueryRequest : IRequest<ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>>
+/// <summary>
+/// GetGuestAvailableServicesQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetGuestAvailableServicesQueryRequest : IRequest<ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>>
     {
-        public int GuestStayId { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
     }
 }

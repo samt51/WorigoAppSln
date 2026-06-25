@@ -12,14 +12,20 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int StockRequestId { get; set; }
 
-        public StockRequest StockRequest { get; set; } = null!;
+/// <summary>
+/// StockRequest değerini alır veya ayarlar.
+/// </summary>
+public StockRequest StockRequest { get; set; } = null!;
 
         /// <summary>
         /// Talep edilen stok kalemi.
         /// </summary>
         public int StockItemId { get; set; }
 
-        public StockItem StockItem { get; set; } = null!;
+/// <summary>
+/// StockItem değerini alır veya ayarlar.
+/// </summary>
+public StockItem StockItem { get; set; } = null!;
 
         /// <summary>
         /// Ilk istenen miktar.

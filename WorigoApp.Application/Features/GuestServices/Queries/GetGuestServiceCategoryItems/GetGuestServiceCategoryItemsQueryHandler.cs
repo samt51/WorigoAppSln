@@ -6,16 +6,23 @@ using WorigoApp.Application.Interfaces.UnitOfWorks;
 
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCategoryItems
 {
-    public class GetGuestServiceCategoryItemsQueryHandler : BaseHandler, IRequestHandler<GetGuestServiceCategoryItemsQueryRequest, ResponseDto<IList<GetGuestServiceCategoryItemsQueryResponse>>>
+/// <summary>
+/// GetGuestServiceCategoryItemsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetGuestServiceCategoryItemsQueryHandler : BaseHandler, IRequestHandler<GetGuestServiceCategoryItemsQueryRequest, ResponseDto<IList<GetGuestServiceCategoryItemsQueryResponse>>>
     {
         private readonly IMediator _mediator;
-
-        public GetGuestServiceCategoryItemsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork, IMediator mediator) : base(mapper, unitOfWork)
+/// <summary>
+/// GetGuestServiceCategoryItemsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetGuestServiceCategoryItemsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork, IMediator mediator) : base(mapper, unitOfWork)
         {
             _mediator = mediator;
         }
-
-        public async Task<ResponseDto<IList<GetGuestServiceCategoryItemsQueryResponse>>> Handle(GetGuestServiceCategoryItemsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetGuestServiceCategoryItemsQueryResponse>>> Handle(GetGuestServiceCategoryItemsQueryRequest request, CancellationToken cancellationToken)
         {
             var serviceResponse = await _mediator.Send(new GetGuestAvailableServicesQueryRequest
             {

@@ -8,7 +8,10 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class OrderItem : EntityBase
     {
-        public OrderItem()
+/// <summary>
+/// OrderItem sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public OrderItem()
         {
         }
 
@@ -27,7 +30,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int Quantity { get; set; }
 
-        public decimal? Price { get; set; }
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal? Price { get; set; }
 
         /// <summary>
         /// Sipariş anında uygulanan birim fiyattır.
@@ -39,10 +45,22 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public decimal LineTotal { get; set; }
 
-        public decimal DiscountAmount { get; set; }
-        public decimal TaxAmount { get; set; }
-        public decimal ServiceChargeAmount { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// DiscountAmount değerini alır veya ayarlar.
+/// </summary>
+public decimal DiscountAmount { get; set; }
+/// <summary>
+/// TaxAmount değerini alır veya ayarlar.
+/// </summary>
+public decimal TaxAmount { get; set; }
+/// <summary>
+/// ServiceChargeAmount değerini alır veya ayarlar.
+/// </summary>
+public decimal ServiceChargeAmount { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
 
         /// <summary>
         /// İlgili kalemin konaklama paketine ücretsiz dahil edildiğini belirtir.
@@ -54,18 +72,50 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? AppliedHotelServicePolicyId { get; set; }
 
-        public OrderPaymentOptionEnum PaymentOption { get; set; } = OrderPaymentOptionEnum.RoomCharge;
-        public int PriceStatusId { get; set; }
-        public DateTime? AppointmentDate { get; set; }
-        public DateTime? AppointmentLastDate { get; set; }
-        public int OrderId { get; set; }
-        public Order Order { get; set; } = null!;
-        public ServiceRequestRating? ServiceRequestRating { get; set; }
-        public StatusTypeEnum StatusTypeEnum { get; set; }
-        public string Text { get; set; } = string.Empty;
-        public IList<Image> Images { get; set; } = new List<Image>();
-
-        public OrderItem(ServicesEnum serviceEnumId, int serviceItemId, int quantity, decimal? price, DateTime? appointmentDate,
+/// <summary>
+/// PaymentOption değerini alır veya ayarlar.
+/// </summary>
+public OrderPaymentOptionEnum PaymentOption { get; set; } = OrderPaymentOptionEnum.RoomCharge;
+/// <summary>
+/// PriceStatusId değerini alır veya ayarlar.
+/// </summary>
+public int PriceStatusId { get; set; }
+/// <summary>
+/// AppointmentDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime? AppointmentDate { get; set; }
+/// <summary>
+/// AppointmentLastDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime? AppointmentLastDate { get; set; }
+/// <summary>
+/// OrderId değerini alır veya ayarlar.
+/// </summary>
+public int OrderId { get; set; }
+/// <summary>
+/// Order değerini alır veya ayarlar.
+/// </summary>
+public Order Order { get; set; } = null!;
+/// <summary>
+/// ServiceRequestRating değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequestRating? ServiceRequestRating { get; set; }
+/// <summary>
+/// StatusTypeEnum değerini alır veya ayarlar.
+/// </summary>
+public StatusTypeEnum StatusTypeEnum { get; set; }
+/// <summary>
+/// Text değerini alır veya ayarlar.
+/// </summary>
+public string Text { get; set; } = string.Empty;
+/// <summary>
+/// Images değerini alır veya ayarlar.
+/// </summary>
+public IList<Image> Images { get; set; } = new List<Image>();
+/// <summary>
+/// OrderItem sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public OrderItem(ServicesEnum serviceEnumId, int serviceItemId, int quantity, decimal? price, DateTime? appointmentDate,
             DateTime? appointmentLastDate, int orderId, StatusTypeEnum orderStatusEnum, string text)
         {
             ServicesEnumId = serviceEnumId;

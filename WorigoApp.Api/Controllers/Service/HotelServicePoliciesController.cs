@@ -10,24 +10,35 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize]
+    /// <summary>
+    /// HotelServicePoliciesController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class HotelServicePoliciesController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public HotelServicePoliciesController(IMediator mediator) : base(mediator)
+/// <summary>
+/// HotelServicePoliciesController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public HotelServicePoliciesController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Otelin servis görünürlük, ücret ve ödeme kurallarını oluşturur veya günceller.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Otelin servis görünürlük, ücret ve ödeme kurallarını oluşturur veya günceller.")]
         public async Task<ResponseDto<UpsertHotelServicePolicyCommandResponse>> Upsert(UpsertHotelServicePolicyCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpGet("{hotelId}")]
+        /// <summary>
+        /// Otele ait servis paket kurallarını listeler.
+        /// </summary>
+[HttpGet("{hotelId}")]
         [SwaggerDescriptionAttirbute("Otele ait servis paket kurallarını listeler.")]
         public async Task<ResponseDto<IList<GetHotelServicePoliciesQueryResponse>>> GetByHotel(int hotelId, [FromQuery] AccommodationConceptTypeEnum? accommodationConceptType)
         {

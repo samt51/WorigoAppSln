@@ -8,7 +8,10 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class Hotel : EntityBase
     {
-        public Hotel()
+/// <summary>
+/// Hotel sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Hotel()
         {
         }
 
@@ -102,27 +105,90 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int Companyid { get; set; }
 
-        public Company Company { get; set; } = null!;
-        public IList<ImageCategory> ImageCategories { get; set; } = new List<ImageCategory>();
-        public IList<Employee> Employees { get; set; } = new List<Employee>();
-        public IList<FoodMenuCategory> FoodMenuCategories { get; set; } = new List<FoodMenuCategory>();
-        public IList<Room> Rooms { get; set; } = new List<Room>();
-        public IList<Department> Departments { get; set; } = new List<Department>();
-        public IList<Announcement> Announcements { get; set; } = new List<Announcement>();
-        public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
-        public IList<StockItem> StockItems { get; set; } = new List<StockItem>();
-        public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
-        public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
-        public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
-        public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
-        public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
-        public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
-        public IList<EmployeeTask> EmployeeTasks { get; set; } = new List<EmployeeTask>();
-        public IList<EmployeeDocument> EmployeeDocuments { get; set; } = new List<EmployeeDocument>();
-        public IList<HotelServicePolicy> HotelServicePolicies { get; set; } = new List<HotelServicePolicy>();
-        public IList<ServiceCategory> ServiceCategories { get; set; } = new List<ServiceCategory>();
-        public IList<ServiceDefinition> ServiceDefinitions { get; set; } = new List<ServiceDefinition>();
-        public IList<Conversation> Conversations { get; set; } = new List<Conversation>();
+/// <summary>
+/// Company değerini alır veya ayarlar.
+/// </summary>
+public Company Company { get; set; } = null!;
+/// <summary>
+/// ImageCategories değerini alır veya ayarlar.
+/// </summary>
+public IList<ImageCategory> ImageCategories { get; set; } = new List<ImageCategory>();
+/// <summary>
+/// Employees değerini alır veya ayarlar.
+/// </summary>
+public IList<Employee> Employees { get; set; } = new List<Employee>();
+/// <summary>
+/// FoodMenuCategories değerini alır veya ayarlar.
+/// </summary>
+public IList<FoodMenuCategory> FoodMenuCategories { get; set; } = new List<FoodMenuCategory>();
+/// <summary>
+/// Rooms değerini alır veya ayarlar.
+/// </summary>
+public IList<Room> Rooms { get; set; } = new List<Room>();
+/// <summary>
+/// Departments değerini alır veya ayarlar.
+/// </summary>
+public IList<Department> Departments { get; set; } = new List<Department>();
+/// <summary>
+/// Announcements değerini alır veya ayarlar.
+/// </summary>
+public IList<Announcement> Announcements { get; set; } = new List<Announcement>();
+/// <summary>
+/// ServiceRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
+/// <summary>
+/// StockItems değerini alır veya ayarlar.
+/// </summary>
+public IList<StockItem> StockItems { get; set; } = new List<StockItem>();
+/// <summary>
+/// StockMovements değerini alır veya ayarlar.
+/// </summary>
+public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
+/// <summary>
+/// StockRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
+/// <summary>
+/// LeaveRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
+/// <summary>
+/// AttendanceRecords değerini alır veya ayarlar.
+/// </summary>
+public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
+/// <summary>
+/// PerformanceReviews değerini alır veya ayarlar.
+/// </summary>
+public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
+/// <summary>
+/// InternalAnnouncements değerini alır veya ayarlar.
+/// </summary>
+public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
+/// <summary>
+/// EmployeeTasks değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeTask> EmployeeTasks { get; set; } = new List<EmployeeTask>();
+/// <summary>
+/// EmployeeDocuments değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeDocument> EmployeeDocuments { get; set; } = new List<EmployeeDocument>();
+/// <summary>
+/// HotelServicePolicies değerini alır veya ayarlar.
+/// </summary>
+public IList<HotelServicePolicy> HotelServicePolicies { get; set; } = new List<HotelServicePolicy>();
+/// <summary>
+/// ServiceCategories değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceCategory> ServiceCategories { get; set; } = new List<ServiceCategory>();
+/// <summary>
+/// ServiceDefinitions değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceDefinition> ServiceDefinitions { get; set; } = new List<ServiceDefinition>();
+/// <summary>
+/// Conversations değerini alır veya ayarlar.
+/// </summary>
+public IList<Conversation> Conversations { get; set; } = new List<Conversation>();
 
         [NotMapped]
         public string Address
@@ -137,8 +203,10 @@ namespace WorigoApp.Domain.Entites
             get => Companyid;
             set => Companyid = value;
         }
-
-        public Hotel(int id, string name, string location, string adress, string phoneNumber, string email, int numberOfStart, int companyId)
+/// <summary>
+/// Hotel sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Hotel(int id, string name, string location, string adress, string phoneNumber, string email, int numberOfStart, int companyId)
         {
             Id = id;
             Name = name;

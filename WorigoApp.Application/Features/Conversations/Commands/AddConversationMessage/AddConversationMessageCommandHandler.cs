@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Conversations.Commands.AddConversationMessage
 {
-    public class AddConversationMessageCommandHandler : BaseHandler, IRequestHandler<AddConversationMessageCommandRequest, ResponseDto<AddConversationMessageCommandResponse>>
+/// <summary>
+/// AddConversationMessageCommandHandler sınıfını temsil eder.
+/// </summary>
+public class AddConversationMessageCommandHandler : BaseHandler, IRequestHandler<AddConversationMessageCommandRequest, ResponseDto<AddConversationMessageCommandResponse>>
     {
-        public AddConversationMessageCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// AddConversationMessageCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AddConversationMessageCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<AddConversationMessageCommandResponse>> Handle(AddConversationMessageCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<AddConversationMessageCommandResponse>> Handle(AddConversationMessageCommandRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Conversation>()
                 .GetAsync(x => x.Id == request.ConversationId && x.IsActive && !x.IsDeleted);

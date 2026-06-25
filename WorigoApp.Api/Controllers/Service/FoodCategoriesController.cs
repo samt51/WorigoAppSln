@@ -9,27 +9,41 @@ using WorigoApp.Application.Features.FoodMenuCategories.Queries.GetAllFoodMenuCa
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize(Roles = "SystemAdmin")]
+    /// <summary>
+    /// FoodCategoriesController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin")]
     public class FoodCategoriesController : BaseController
     {
         private readonly IMediator mediator;
-
-        public FoodCategoriesController(IMediator mediator) : base(mediator)
+/// <summary>
+/// FoodCategoriesController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public FoodCategoriesController(IMediator mediator) : base(mediator)
         {
             this.mediator = mediator;   
         }
 
-        [HttpGet("{hotelid}")]
+        /// <summary>
+        /// GetAllAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("{hotelid}")]
         public async Task<ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>> GetAllAsync(int hotelId)
         {
             return await this.mediator.Send(new GetAllFoodMenuCategoriesQueryRequest(hotelId));
         }
-        [HttpPost]
+        /// <summary>
+        /// AddAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<CreateFoodMenuCategoryCommonResponse>> AddAsync(CreateFoodMenuCategoryCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
-        [HttpPost]
+        /// <summary>
+        /// UpdateAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<UpdateFoodMenuCategoryCommonResponse>> UpdateAsync(UpdateFoodMenuCategoryCommonRequest request)
         {
             return await this.mediator.Send(request);

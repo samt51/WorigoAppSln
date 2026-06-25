@@ -7,14 +7,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Companies.Queries.GetAllCompanies
 {
-    public class GetAllCompaniesQueryHandler : BaseHandler, IRequestHandler<GetAllCompaniesQueryRequest, ResponseDto<IList<GetAllCompaniesQueryResponse>>>
+/// <summary>
+/// GetAllCompaniesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetAllCompaniesQueryHandler : BaseHandler, IRequestHandler<GetAllCompaniesQueryRequest, ResponseDto<IList<GetAllCompaniesQueryResponse>>>
     {
         private readonly ILogger<GetAllCompaniesQueryHandler> _logger;
-        public GetAllCompaniesQueryHandler(ILogger<GetAllCompaniesQueryHandler> logger, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetAllCompaniesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllCompaniesQueryHandler(ILogger<GetAllCompaniesQueryHandler> logger, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
             _logger = logger;
         }
-        public async Task<ResponseDto<IList<GetAllCompaniesQueryResponse>>> Handle(GetAllCompaniesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetAllCompaniesQueryResponse>>> Handle(GetAllCompaniesQueryRequest request, CancellationToken cancellationToken)
         {
             var companies = await unitOfWork.GetReadRepository<Company>().GetAllAsync();
 

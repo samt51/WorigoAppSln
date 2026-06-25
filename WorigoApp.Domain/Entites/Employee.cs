@@ -7,7 +7,10 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class Employee : EntityBase
     {
-        public Employee()
+/// <summary>
+/// Employee sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Employee()
         {
         }
 
@@ -26,10 +29,22 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public string? ImageUrl { get; set; }
 
-        public int? EmployeeTypeId { get; set; }
-        public EmployeeType? EmployeeType { get; set; }
-        public int? HotelId { get; set; }
-        public Hotel? Hotel { get; set; }
+/// <summary>
+/// EmployeeTypeId değerini alır veya ayarlar.
+/// </summary>
+public int? EmployeeTypeId { get; set; }
+/// <summary>
+/// EmployeeType değerini alır veya ayarlar.
+/// </summary>
+public EmployeeType? EmployeeType { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int? HotelId { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel? Hotel { get; set; }
 
         /// <summary>
         /// Doğum tarihi.
@@ -101,7 +116,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? UserId { get; set; }
 
-        public Users? User { get; set; }
+/// <summary>
+/// User değerini alır veya ayarlar.
+/// </summary>
+public Users? User { get; set; }
 
         /// <summary>
         /// Personel için dış sistemlerde veya raporlarda kullanılacak kod.
@@ -148,23 +166,70 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public string? LanguageCodes { get; set; }
 
-        public IList<ServiceRequest> AssignedServiceRequests { get; set; } = new List<ServiceRequest>();
-        public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
-        public IList<StockRequest> RequestedStockRequests { get; set; } = new List<StockRequest>();
-        public IList<StockRequest> ManagedStockRequests { get; set; } = new List<StockRequest>();
-        public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
-        public IList<LeaveRequest> ManagedLeaveRequests { get; set; } = new List<LeaveRequest>();
-        public IList<LeaveRequest> HrManagedLeaveRequests { get; set; } = new List<LeaveRequest>();
-        public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
-        public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
-        public IList<PerformanceReview> ReviewerPerformanceReviews { get; set; } = new List<PerformanceReview>();
-        public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
-        public IList<EmployeeTask> AssignedEmployeeTasks { get; set; } = new List<EmployeeTask>();
-        public IList<EmployeeTask> CreatedEmployeeTasks { get; set; } = new List<EmployeeTask>();
-        public IList<EmployeeDocument> EmployeeDocuments { get; set; } = new List<EmployeeDocument>();
-        public IList<EmployeeDocument> VerifiedEmployeeDocuments { get; set; } = new List<EmployeeDocument>();
-
-        public Employee(int id, string name, string surName, string imageUrl, int employeeTypeId, int hotelId, int userId)
+/// <summary>
+/// AssignedServiceRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequest> AssignedServiceRequests { get; set; } = new List<ServiceRequest>();
+/// <summary>
+/// StockMovements değerini alır veya ayarlar.
+/// </summary>
+public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
+/// <summary>
+/// RequestedStockRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<StockRequest> RequestedStockRequests { get; set; } = new List<StockRequest>();
+/// <summary>
+/// ManagedStockRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<StockRequest> ManagedStockRequests { get; set; } = new List<StockRequest>();
+/// <summary>
+/// LeaveRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
+/// <summary>
+/// ManagedLeaveRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<LeaveRequest> ManagedLeaveRequests { get; set; } = new List<LeaveRequest>();
+/// <summary>
+/// HrManagedLeaveRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<LeaveRequest> HrManagedLeaveRequests { get; set; } = new List<LeaveRequest>();
+/// <summary>
+/// AttendanceRecords değerini alır veya ayarlar.
+/// </summary>
+public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
+/// <summary>
+/// PerformanceReviews değerini alır veya ayarlar.
+/// </summary>
+public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
+/// <summary>
+/// ReviewerPerformanceReviews değerini alır veya ayarlar.
+/// </summary>
+public IList<PerformanceReview> ReviewerPerformanceReviews { get; set; } = new List<PerformanceReview>();
+/// <summary>
+/// InternalAnnouncements değerini alır veya ayarlar.
+/// </summary>
+public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
+/// <summary>
+/// AssignedEmployeeTasks değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeTask> AssignedEmployeeTasks { get; set; } = new List<EmployeeTask>();
+/// <summary>
+/// CreatedEmployeeTasks değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeTask> CreatedEmployeeTasks { get; set; } = new List<EmployeeTask>();
+/// <summary>
+/// EmployeeDocuments değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeDocument> EmployeeDocuments { get; set; } = new List<EmployeeDocument>();
+/// <summary>
+/// VerifiedEmployeeDocuments değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeDocument> VerifiedEmployeeDocuments { get; set; } = new List<EmployeeDocument>();
+/// <summary>
+/// Employee sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Employee(int id, string name, string surName, string imageUrl, int employeeTypeId, int hotelId, int userId)
         {
             Id = id;
             Name = name;

@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ImageCategories.Commands.UpdateImageCategory
 {
-    public class UpdateImageCategoryCommonHandler : BaseHandler, IRequestHandler<UpdateImageCategoryCommonRequest, ResponseDto<UpdateImageCategoryCommonResponse>>
+/// <summary>
+/// UpdateImageCategoryCommonHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateImageCategoryCommonHandler : BaseHandler, IRequestHandler<UpdateImageCategoryCommonRequest, ResponseDto<UpdateImageCategoryCommonResponse>>
     {
-        public UpdateImageCategoryCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateImageCategoryCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateImageCategoryCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateImageCategoryCommonResponse>> Handle(UpdateImageCategoryCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateImageCategoryCommonResponse>> Handle(UpdateImageCategoryCommonRequest request, CancellationToken cancellationToken)
         {
 
             var entityMap = mapper.Map<ImageCategory, UpdateImageCategoryCommonRequest>(request);

@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Stock.Commands.CreateStockRequest
 {
-    public class CreateStockRequestCommandHandler : BaseHandler, IRequestHandler<CreateStockRequestCommandRequest, ResponseDto<CreateStockRequestCommandResponse>>
+/// <summary>
+/// CreateStockRequestCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateStockRequestCommandHandler : BaseHandler, IRequestHandler<CreateStockRequestCommandRequest, ResponseDto<CreateStockRequestCommandResponse>>
     {
-        public CreateStockRequestCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateStockRequestCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateStockRequestCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateStockRequestCommandResponse>> Handle(CreateStockRequestCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateStockRequestCommandResponse>> Handle(CreateStockRequestCommandRequest request, CancellationToken cancellationToken)
         {
             if (request.Items.Count == 0)
             {

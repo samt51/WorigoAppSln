@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Queries.GetByIdEmployeeType
 {
-    public class GetByIdEmployeeTypeQueryHandler : BaseHandler, IRequestHandler<GetByIdEmployeeTypeQueryRequest, ResponseDto<GetByIdEmployeeTypeQueryResponse>>
+/// <summary>
+/// GetByIdEmployeeTypeQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetByIdEmployeeTypeQueryHandler : BaseHandler, IRequestHandler<GetByIdEmployeeTypeQueryRequest, ResponseDto<GetByIdEmployeeTypeQueryResponse>>
     {
-        public GetByIdEmployeeTypeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetByIdEmployeeTypeQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdEmployeeTypeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetByIdEmployeeTypeQueryResponse>> Handle(GetByIdEmployeeTypeQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetByIdEmployeeTypeQueryResponse>> Handle(GetByIdEmployeeTypeQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.EmployeeTypeId && !x.IsDeleted, y => y.Include(x => x.Department));
 

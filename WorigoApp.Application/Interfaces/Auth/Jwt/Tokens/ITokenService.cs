@@ -6,11 +6,17 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Interfaces.Auth.Jwt.Tokens
 {
-    public interface ITokenService
+/// <summary>
+/// ITokenService arayüzünü tanımlar.
+/// </summary>
+public interface ITokenService
     {
         Task<JwtSecurityToken> CreateToken(Users user, IList<string> roles);
         string GenerateRefreshToken();
         ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token);
-        public Task<LoginCommandResponse> GenerateToken(GenerateTokenRequest roleRequest);
+/// <summary>
+/// GenerateToken işlemini gerçekleştirir.
+/// </summary>
+public Task<LoginCommandResponse> GenerateToken(GenerateTokenRequest roleRequest);
     }
 }

@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Employees.Commands.CreateEmployee
 {
-    public class CreateEmployeeCommonHandler : BaseHandler, IRequestHandler<CreateEmployeeCommonRequest, ResponseDto<CreateEmployeeCommonResponse>>
+/// <summary>
+/// CreateEmployeeCommonHandler sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeCommonHandler : BaseHandler, IRequestHandler<CreateEmployeeCommonRequest, ResponseDto<CreateEmployeeCommonResponse>>
     {
-        public CreateEmployeeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateEmployeeCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateEmployeeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateEmployeeCommonResponse>> Handle(CreateEmployeeCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateEmployeeCommonResponse>> Handle(CreateEmployeeCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.EmployeeTypeId);
 

@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum InternalAnnouncementAudienceEnum
+/// <summary>
+/// InternalAnnouncementAudienceEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum InternalAnnouncementAudienceEnum
     {
         AllEmployees = 1,
         DepartmentOnly = 2,

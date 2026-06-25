@@ -9,24 +9,35 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Hr
 {
-    [Authorize]
+    /// <summary>
+    /// EmployeeDocumentsController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class EmployeeDocumentsController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public EmployeeDocumentsController(IMediator mediator) : base(mediator)
+/// <summary>
+/// EmployeeDocumentsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public EmployeeDocumentsController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Personel ozluk dosyasina evrak ekler.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Personel ozluk dosyasina evrak ekler.")]
         public async Task<ResponseDto<CreateEmployeeDocumentCommandResponse>> Create(CreateEmployeeDocumentCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpGet("employee/{employeeId}")]
+        /// <summary>
+        /// Personelin ozluk evraklarini listeler.
+        /// </summary>
+[HttpGet("employee/{employeeId}")]
         [SwaggerDescriptionAttirbute("Personelin ozluk evraklarini listeler.")]
         public async Task<ResponseDto<IList<GetEmployeeDocumentsQueryResponse>>> GetByEmployee(int employeeId)
         {

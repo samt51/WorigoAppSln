@@ -4,17 +4,27 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Persistence.Context
 {
+    /// <summary>
+    /// AppDbContext sınıfını temsil eder.
+    /// </summary>
     public class AppDbContext : DbContext
     {
-        public AppDbContext()
+/// <summary>
+/// AppDbContext sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AppDbContext()
         {
         }
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+/// <summary>
+/// AppDbContext sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+/// <summary>
+/// OnModelCreating işlemini gerçekleştirir.
+/// </summary>
+protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
@@ -655,72 +665,289 @@ namespace WorigoApp.Persistence.Context
                 .OnDelete(DeleteBehavior.Restrict);
         }
 
-        public DbSet<Employee> Employee { get; set; }
-        public DbSet<EmployeeType> EmployeeType { get; set; }
-        public DbSet<Shift> Shift { get; set; }
-        public DbSet<Company> Company { get; set; }
-        public DbSet<ContentsOfFood> ContentsOfFood { get; set; }
-        public DbSet<Department> Department { get; set; }
-        public DbSet<Food> Food { get; set; }
-        public DbSet<FoodMenuCategory> FoodMenuCategory { get; set; }
-        public DbSet<FoodType> FoodType { get; set; }
-        public DbSet<Hotel> Hotel { get; set; }
-        public DbSet<Image> Image { get; set; }
-        public DbSet<ImageCategory> ImageCategory { get; set; }
-        public DbSet<Room> Room { get; set; }
-        public DbSet<RoomType> RoomType { get; set; }
-        public DbSet<Users> Users { get; set; }
-        public DbSet<Roles> Roles { get; set; }
-        public DbSet<LogEntry> LogEntries { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Translation> Translations { get; set; }
-        public DbSet<GuestStay> GuestStays { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<FoodContentsOfFood> FoodContentsOfFood { get; set; }
-        public DbSet<SystemParametre> SystemParameter { get; set; }
-        public DbSet<SystemParametreValues> SystemParametreValues { get; set; }
-        public DbSet<ServiceRoleAssignments> ServiceRoleAssignment { get; set; }
-        public DbSet<Allergen> Allergen { get; set; }
-        public DbSet<DietaryRestriction> DietaryRestriction { get; set; }
-        public DbSet<NutritionalInfo> NutritionalInfo { get; set; }
-        public DbSet<FoodAllergens> FoodAllergen { get; set; }
-        public DbSet<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }
-        public DbSet<ValidationMessages> ValidationMessages { get; set; }
-        public DbSet<Announcement> Announcements { get; set; }
-        public DbSet<ServiceRequest> ServiceRequests { get; set; }
-        public DbSet<ServiceRequestHistory> ServiceRequestHistories { get; set; }
-        public DbSet<ServiceRequestRating> ServiceRequestRatings { get; set; }
-        public DbSet<StockItem> StockItems { get; set; }
-        public DbSet<StockMovement> StockMovements { get; set; }
-        public DbSet<StockRequest> StockRequests { get; set; }
-        public DbSet<StockRequestItem> StockRequestItems { get; set; }
-        public DbSet<LeaveRequest> LeaveRequests { get; set; }
-        public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
-        public DbSet<PerformanceReview> PerformanceReviews { get; set; }
-        public DbSet<EmployeeTask> EmployeeTasks { get; set; }
-        public DbSet<EmployeeDocument> EmployeeDocuments { get; set; }
-        public DbSet<HotelServicePolicy> HotelServicePolicies { get; set; }
-        public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
-        public DbSet<GuestSession> GuestSessions { get; set; }
-        public DbSet<SpaAppointment> SpaAppointments { get; set; }
-        public DbSet<Conversation> Conversations { get; set; }
-        public DbSet<ConversationMessage> ConversationMessages { get; set; }
-        public DbSet<ConversationFlowSession> ConversationFlowSessions { get; set; }
-        public DbSet<Charge> Charges { get; set; }
-        public DbSet<ServiceCategory> ServiceCategories { get; set; }
-        public DbSet<ServiceDefinition> ServiceDefinitions { get; set; }
-        public DbSet<ServiceDefinitionField> ServiceDefinitionFields { get; set; }
-        public DbSet<ServiceDefinitionFieldOption> ServiceDefinitionFieldOptions { get; set; }
-        public DbSet<ServiceRequestFieldValue> ServiceRequestFieldValues { get; set; }
-        public DbSet<ServiceRequestItem> ServiceRequestItems { get; set; }
-        public DbSet<UserNotification> UserNotifications { get; set; }
-        public DbSet<EmployeeDeviceToken> EmployeeDeviceTokens { get; set; }
-        public DbSet<Restaurant> Restaurants { get; set; }
-        public DbSet<RestaurantReservation> RestaurantReservations { get; set; }
-        public DbSet<TransferTracking> TransferTrackings { get; set; }
-        public DbSet<ConciergePlace> ConciergePlaces { get; set; }
-        public DbSet<GuestNotification> GuestNotifications { get; set; }
-        public DbSet<SpaService> SpaServices { get; set; }
+/// <summary>
+/// Employee değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Employee> Employee { get; set; }
+/// <summary>
+/// EmployeeType değerini alır veya ayarlar.
+/// </summary>
+public DbSet<EmployeeType> EmployeeType { get; set; }
+/// <summary>
+/// Shift değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Shift> Shift { get; set; }
+/// <summary>
+/// Company değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Company> Company { get; set; }
+/// <summary>
+/// ContentsOfFood değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ContentsOfFood> ContentsOfFood { get; set; }
+/// <summary>
+/// Department değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Department> Department { get; set; }
+/// <summary>
+/// Food değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Food> Food { get; set; }
+/// <summary>
+/// FoodMenuCategory değerini alır veya ayarlar.
+/// </summary>
+public DbSet<FoodMenuCategory> FoodMenuCategory { get; set; }
+/// <summary>
+/// FoodType değerini alır veya ayarlar.
+/// </summary>
+public DbSet<FoodType> FoodType { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Hotel> Hotel { get; set; }
+/// <summary>
+/// Image değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Image> Image { get; set; }
+/// <summary>
+/// ImageCategory değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ImageCategory> ImageCategory { get; set; }
+/// <summary>
+/// Room değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Room> Room { get; set; }
+/// <summary>
+/// RoomType değerini alır veya ayarlar.
+/// </summary>
+public DbSet<RoomType> RoomType { get; set; }
+/// <summary>
+/// Users değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Users> Users { get; set; }
+/// <summary>
+/// Roles değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Roles> Roles { get; set; }
+/// <summary>
+/// LogEntries değerini alır veya ayarlar.
+/// </summary>
+public DbSet<LogEntry> LogEntries { get; set; }
+/// <summary>
+/// Orders değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Order> Orders { get; set; }
+/// <summary>
+/// OrderItems değerini alır veya ayarlar.
+/// </summary>
+public DbSet<OrderItem> OrderItems { get; set; }
+/// <summary>
+/// Translations değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Translation> Translations { get; set; }
+/// <summary>
+/// GuestStays değerini alır veya ayarlar.
+/// </summary>
+public DbSet<GuestStay> GuestStays { get; set; }
+/// <summary>
+/// Customers değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Customer> Customers { get; set; }
+/// <summary>
+/// FoodContentsOfFood değerini alır veya ayarlar.
+/// </summary>
+public DbSet<FoodContentsOfFood> FoodContentsOfFood { get; set; }
+/// <summary>
+/// SystemParameter değerini alır veya ayarlar.
+/// </summary>
+public DbSet<SystemParametre> SystemParameter { get; set; }
+/// <summary>
+/// SystemParametreValues değerini alır veya ayarlar.
+/// </summary>
+public DbSet<SystemParametreValues> SystemParametreValues { get; set; }
+/// <summary>
+/// ServiceRoleAssignment değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceRoleAssignments> ServiceRoleAssignment { get; set; }
+/// <summary>
+/// Allergen değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Allergen> Allergen { get; set; }
+/// <summary>
+/// DietaryRestriction değerini alır veya ayarlar.
+/// </summary>
+public DbSet<DietaryRestriction> DietaryRestriction { get; set; }
+/// <summary>
+/// NutritionalInfo değerini alır veya ayarlar.
+/// </summary>
+public DbSet<NutritionalInfo> NutritionalInfo { get; set; }
+/// <summary>
+/// FoodAllergen değerini alır veya ayarlar.
+/// </summary>
+public DbSet<FoodAllergens> FoodAllergen { get; set; }
+/// <summary>
+/// FoodDietaryRestrictions değerini alır veya ayarlar.
+/// </summary>
+public DbSet<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }
+/// <summary>
+/// ValidationMessages değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ValidationMessages> ValidationMessages { get; set; }
+/// <summary>
+/// Announcements değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Announcement> Announcements { get; set; }
+/// <summary>
+/// ServiceRequests değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceRequest> ServiceRequests { get; set; }
+/// <summary>
+/// ServiceRequestHistories değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceRequestHistory> ServiceRequestHistories { get; set; }
+/// <summary>
+/// ServiceRequestRatings değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceRequestRating> ServiceRequestRatings { get; set; }
+/// <summary>
+/// StockItems değerini alır veya ayarlar.
+/// </summary>
+public DbSet<StockItem> StockItems { get; set; }
+/// <summary>
+/// StockMovements değerini alır veya ayarlar.
+/// </summary>
+public DbSet<StockMovement> StockMovements { get; set; }
+/// <summary>
+/// StockRequests değerini alır veya ayarlar.
+/// </summary>
+public DbSet<StockRequest> StockRequests { get; set; }
+/// <summary>
+/// StockRequestItems değerini alır veya ayarlar.
+/// </summary>
+public DbSet<StockRequestItem> StockRequestItems { get; set; }
+/// <summary>
+/// LeaveRequests değerini alır veya ayarlar.
+/// </summary>
+public DbSet<LeaveRequest> LeaveRequests { get; set; }
+/// <summary>
+/// AttendanceRecords değerini alır veya ayarlar.
+/// </summary>
+public DbSet<AttendanceRecord> AttendanceRecords { get; set; }
+/// <summary>
+/// PerformanceReviews değerini alır veya ayarlar.
+/// </summary>
+public DbSet<PerformanceReview> PerformanceReviews { get; set; }
+/// <summary>
+/// EmployeeTasks değerini alır veya ayarlar.
+/// </summary>
+public DbSet<EmployeeTask> EmployeeTasks { get; set; }
+/// <summary>
+/// EmployeeDocuments değerini alır veya ayarlar.
+/// </summary>
+public DbSet<EmployeeDocument> EmployeeDocuments { get; set; }
+/// <summary>
+/// HotelServicePolicies değerini alır veya ayarlar.
+/// </summary>
+public DbSet<HotelServicePolicy> HotelServicePolicies { get; set; }
+/// <summary>
+/// PaymentTransactions değerini alır veya ayarlar.
+/// </summary>
+public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
+/// <summary>
+/// GuestSessions değerini alır veya ayarlar.
+/// </summary>
+public DbSet<GuestSession> GuestSessions { get; set; }
+/// <summary>
+/// SpaAppointments değerini alır veya ayarlar.
+/// </summary>
+public DbSet<SpaAppointment> SpaAppointments { get; set; }
+/// <summary>
+/// Conversations değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Conversation> Conversations { get; set; }
+/// <summary>
+/// ConversationMessages değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ConversationMessage> ConversationMessages { get; set; }
+/// <summary>
+/// ConversationFlowSessions değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ConversationFlowSession> ConversationFlowSessions { get; set; }
+/// <summary>
+/// Charges değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Charge> Charges { get; set; }
+/// <summary>
+/// ServiceCategories değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceCategory> ServiceCategories { get; set; }
+/// <summary>
+/// ServiceDefinitions değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceDefinition> ServiceDefinitions { get; set; }
+/// <summary>
+/// ServiceDefinitionFields değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceDefinitionField> ServiceDefinitionFields { get; set; }
+/// <summary>
+/// ServiceDefinitionFieldOptions değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceDefinitionFieldOption> ServiceDefinitionFieldOptions { get; set; }
+/// <summary>
+/// ServiceRequestFieldValues değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceRequestFieldValue> ServiceRequestFieldValues { get; set; }
+/// <summary>
+/// ServiceRequestItems değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ServiceRequestItem> ServiceRequestItems { get; set; }
+/// <summary>
+/// UserNotifications değerini alır veya ayarlar.
+/// </summary>
+public DbSet<UserNotification> UserNotifications { get; set; }
+/// <summary>
+/// EmployeeDeviceTokens değerini alır veya ayarlar.
+/// </summary>
+public DbSet<EmployeeDeviceToken> EmployeeDeviceTokens { get; set; }
+/// <summary>
+/// Restaurants değerini alır veya ayarlar.
+/// </summary>
+public DbSet<Restaurant> Restaurants { get; set; }
+/// <summary>
+/// RestaurantReservations değerini alır veya ayarlar.
+/// </summary>
+public DbSet<RestaurantReservation> RestaurantReservations { get; set; }
+/// <summary>
+/// TransferTrackings değerini alır veya ayarlar.
+/// </summary>
+public DbSet<TransferTracking> TransferTrackings { get; set; }
+/// <summary>
+/// ConciergePlaces değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ConciergePlace> ConciergePlaces { get; set; }
+/// <summary>
+/// GuestNotifications değerini alır veya ayarlar.
+/// </summary>
+public DbSet<GuestNotification> GuestNotifications { get; set; }
+/// <summary>
+/// SpaServices değerini alır veya ayarlar.
+/// </summary>
+public DbSet<SpaService> SpaServices { get; set; }
+/// <summary>
+/// ReceptionShiftNotes değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ReceptionShiftNote> ReceptionShiftNotes { get; set; }
+/// <summary>
+/// ReceptionAuditLogs değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ReceptionAuditLog> ReceptionAuditLogs { get; set; }
+/// <summary>
+/// ReceptionCashShifts değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ReceptionCashShift> ReceptionCashShifts { get; set; }
+/// <summary>
+/// ReceptionCashTransactions değerini alır veya ayarlar.
+/// </summary>
+public DbSet<ReceptionCashTransaction> ReceptionCashTransactions { get; set; }
     }
 }

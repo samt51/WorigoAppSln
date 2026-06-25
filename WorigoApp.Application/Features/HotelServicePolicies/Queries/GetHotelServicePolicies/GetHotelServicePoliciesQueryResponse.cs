@@ -1,20 +1,65 @@
 namespace WorigoApp.Application.Features.HotelServicePolicies.Queries.GetHotelServicePolicies
 {
-    public class GetHotelServicePoliciesQueryResponse
+/// <summary>
+/// GetHotelServicePoliciesQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetHotelServicePoliciesQueryResponse
     {
-        public int Id { get; set; }
-        public int HotelId { get; set; }
-        public string ServiceType { get; set; } = string.Empty;
-        public int? ServiceItemId { get; set; }
-        public string AccommodationConceptType { get; set; } = string.Empty;
-        public bool IsVisible { get; set; }
-        public bool IsIncludedInPackage { get; set; }
-        public bool IsChargeable { get; set; }
-        public bool AllowRoomCharge { get; set; }
-        public bool AllowOnlinePayment { get; set; }
-        public bool AllowOnSitePayment { get; set; }
-        public decimal? PriceOverride { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public string? Description { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// ServiceType değerini alır veya ayarlar.
+/// </summary>
+public string ServiceType { get; set; } = string.Empty;
+/// <summary>
+/// ServiceItemId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceItemId { get; set; }
+/// <summary>
+/// AccommodationConceptType değerini alır veya ayarlar.
+/// </summary>
+public string AccommodationConceptType { get; set; } = string.Empty;
+/// <summary>
+/// IsVisible değerini alır veya ayarlar.
+/// </summary>
+public bool IsVisible { get; set; }
+/// <summary>
+/// IsIncludedInPackage değerini alır veya ayarlar.
+/// </summary>
+public bool IsIncludedInPackage { get; set; }
+/// <summary>
+/// IsChargeable değerini alır veya ayarlar.
+/// </summary>
+public bool IsChargeable { get; set; }
+/// <summary>
+/// AllowRoomCharge değerini alır veya ayarlar.
+/// </summary>
+public bool AllowRoomCharge { get; set; }
+/// <summary>
+/// AllowOnlinePayment değerini alır veya ayarlar.
+/// </summary>
+public bool AllowOnlinePayment { get; set; }
+/// <summary>
+/// AllowOnSitePayment değerini alır veya ayarlar.
+/// </summary>
+public bool AllowOnSitePayment { get; set; }
+/// <summary>
+/// PriceOverride değerini alır veya ayarlar.
+/// </summary>
+public decimal? PriceOverride { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
     }
 }

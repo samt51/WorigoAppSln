@@ -3,9 +3,18 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Hr.Tasks.Queries.GetEmployeeTasks
 {
-    public class GetEmployeeTasksQueryRequest : IRequest<ResponseDto<IList<GetEmployeeTasksQueryResponse>>>
+/// <summary>
+/// GetEmployeeTasksQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetEmployeeTasksQueryRequest : IRequest<ResponseDto<IList<GetEmployeeTasksQueryResponse>>>
     {
-        public int? EmployeeId { get; set; }
-        public int? DepartmentId { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? EmployeeId { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
     }
 }

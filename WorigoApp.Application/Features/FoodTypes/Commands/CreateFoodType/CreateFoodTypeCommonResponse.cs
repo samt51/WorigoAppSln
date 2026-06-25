@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.FoodTypes.Commands.CreateFoodType
 {
-    public class CreateFoodTypeCommonResponse
+/// <summary>
+/// CreateFoodTypeCommonResponse sınıfını temsil eder.
+/// </summary>
+public class CreateFoodTypeCommonResponse
     {
     }
 }

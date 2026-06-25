@@ -2,10 +2,22 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Stock.Commands.CreateStockRequest
 {
-    public class CreateStockRequestCommandResponse
+/// <summary>
+/// CreateStockRequestCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateStockRequestCommandResponse
     {
-        public int Id { get; set; }
-        public StockRequestStatusEnum Status { get; set; }
-        public DateTime RequestedAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public StockRequestStatusEnum Status { get; set; }
+/// <summary>
+/// RequestedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime RequestedAt { get; set; }
     }
 }

@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.GuestStays.Commands.CreateCustomer
 {
-    public class CreateCustomerCommandHandler : BaseHandler, IRequestHandler<CreateCustomerCommandRequest, ResponseDto<CreateCustomerCommandResponse>>
+/// <summary>
+/// CreateCustomerCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateCustomerCommandHandler : BaseHandler, IRequestHandler<CreateCustomerCommandRequest, ResponseDto<CreateCustomerCommandResponse>>
     {
-        public CreateCustomerCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateCustomerCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateCustomerCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateCustomerCommandResponse>> Handle(CreateCustomerCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateCustomerCommandResponse>> Handle(CreateCustomerCommandRequest request, CancellationToken cancellationToken)
         {
             var room = await unitOfWork.GetReadRepository<Room>().GetAsync(y => y.HotelId == request.HotelId && y.Id == request.RoomId && !y.IsDeleted && !y.IsFull);
 

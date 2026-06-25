@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Restaurants.Commands.CreateRestaurantReservation
 {
-    public class CreateRestaurantReservationCommandHandler : IRequestHandler<CreateRestaurantReservationCommandRequest, ResponseDto<RestaurantReservation>>
+/// <summary>
+/// CreateRestaurantReservationCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateRestaurantReservationCommandHandler : IRequestHandler<CreateRestaurantReservationCommandRequest, ResponseDto<RestaurantReservation>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CreateRestaurantReservationCommandHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// CreateRestaurantReservationCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateRestaurantReservationCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<RestaurantReservation>> Handle(CreateRestaurantReservationCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<RestaurantReservation>> Handle(CreateRestaurantReservationCommandRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

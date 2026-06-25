@@ -3,12 +3,21 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Departments.Queries.GetByIdDepartment
 {
-    public class GetByIdDepartmentQueryRequest : IRequest<ResponseDto<GetByIdDepartmentQueryResponse>>
+/// <summary>
+/// GetByIdDepartmentQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdDepartmentQueryRequest : IRequest<ResponseDto<GetByIdDepartmentQueryResponse>>
     {
-        public GetByIdDepartmentQueryRequest(int departmentId)
+/// <summary>
+/// GetByIdDepartmentQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdDepartmentQueryRequest(int departmentId)
         {
             this.DepartmentId = departmentId;
         }
-        public int DepartmentId { get; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int DepartmentId { get; }
     }
 }

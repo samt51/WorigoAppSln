@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// FoodContentOfFoodConfiguration sınıfını temsil eder.
+    /// </summary>
     public class FoodContentOfFoodConfiguration : IEntityTypeConfiguration<FoodContentsOfFood>
     {
-        public void Configure(EntityTypeBuilder<FoodContentsOfFood> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<FoodContentsOfFood> builder)
         {
             var data = new FoodContentsOfFood { ContentsOfFoodId = 1, FoodId = 1 };
             var data2 = new FoodContentsOfFood { ContentsOfFoodId = 2, FoodId = 1 };

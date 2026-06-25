@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hr.Documents.Commands.CreateEmployeeDocument
 {
-    public class CreateEmployeeDocumentCommandHandler : BaseHandler, IRequestHandler<CreateEmployeeDocumentCommandRequest, ResponseDto<CreateEmployeeDocumentCommandResponse>>
+/// <summary>
+/// CreateEmployeeDocumentCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeDocumentCommandHandler : BaseHandler, IRequestHandler<CreateEmployeeDocumentCommandRequest, ResponseDto<CreateEmployeeDocumentCommandResponse>>
     {
-        public CreateEmployeeDocumentCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateEmployeeDocumentCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateEmployeeDocumentCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateEmployeeDocumentCommandResponse>> Handle(CreateEmployeeDocumentCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateEmployeeDocumentCommandResponse>> Handle(CreateEmployeeDocumentCommandRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Employee>().GetAsync(x => x.Id == request.EmployeeId && x.HotelId == request.HotelId && !x.IsDeleted);
             if (request.VerifiedByEmployeeId.HasValue)

@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum OrderStatusEnum
+/// <summary>
+/// OrderStatusEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum OrderStatusEnum
     {
         Received = 1,
         Preparing = 2,

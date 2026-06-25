@@ -3,13 +3,31 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Customers.Commands.CreateCustomerByGuestStayId
 {
-    public class CreateCustomerByGuestStayIdRequest : IRequest<ResponseDto<CreateCustomerByGuestStayIdResponse>>
+/// <summary>
+/// CreateCustomerByGuestStayIdRequest sınıfını temsil eder.
+/// </summary>
+public class CreateCustomerByGuestStayIdRequest : IRequest<ResponseDto<CreateCustomerByGuestStayIdResponse>>
     {
-        public int GuestStayId { get; }
-        public string Name { get; set; }
-        public string SurName { get; set; }
-        public bool Gender { get; set; }
-        public CreateCustomerByGuestStayIdRequest(int guestStayId, string name, string surName, bool gender)
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// SurName değerini alır veya ayarlar.
+/// </summary>
+public string SurName { get; set; }
+/// <summary>
+/// Gender değerini alır veya ayarlar.
+/// </summary>
+public bool Gender { get; set; }
+/// <summary>
+/// CreateCustomerByGuestStayIdRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateCustomerByGuestStayIdRequest(int guestStayId, string name, string surName, bool gender)
         {
             this.GuestStayId = guestStayId;
             this.Name = name;

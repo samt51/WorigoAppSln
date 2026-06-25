@@ -13,21 +13,30 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int ConversationId { get; set; }
 
-        public Conversation Conversation { get; set; } = null!;
+/// <summary>
+/// Conversation değerini alır veya ayarlar.
+/// </summary>
+public Conversation Conversation { get; set; } = null!;
 
         /// <summary>
         /// Mesajı gönderen sistem kullanıcısı varsa ilgili kullanıcı bilgisidir.
         /// </summary>
         public int? SenderUserId { get; set; }
 
-        public Users? SenderUser { get; set; }
+/// <summary>
+/// SenderUser değerini alır veya ayarlar.
+/// </summary>
+public Users? SenderUser { get; set; }
 
         /// <summary>
         /// Mesajı gönderen misafir varsa ilgili misafir bilgisidir.
         /// </summary>
         public int? SenderCustomerId { get; set; }
 
-        public Customer? SenderCustomer { get; set; }
+/// <summary>
+/// SenderCustomer değerini alır veya ayarlar.
+/// </summary>
+public Customer? SenderCustomer { get; set; }
 
         /// <summary>
         /// Gönderen tarafın türüdür.

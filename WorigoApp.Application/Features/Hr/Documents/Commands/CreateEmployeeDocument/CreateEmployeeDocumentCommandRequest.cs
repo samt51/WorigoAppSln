@@ -4,18 +4,54 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.Documents.Commands.CreateEmployeeDocument
 {
-    public class CreateEmployeeDocumentCommandRequest : IRequest<ResponseDto<CreateEmployeeDocumentCommandResponse>>
+/// <summary>
+/// CreateEmployeeDocumentCommandRequest sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeDocumentCommandRequest : IRequest<ResponseDto<CreateEmployeeDocumentCommandResponse>>
     {
-        public int HotelId { get; set; }
-        public int EmployeeId { get; set; }
-        public DocumentTypeEnum DocumentType { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string FileUrl { get; set; } = string.Empty;
-        public string? DocumentNumber { get; set; }
-        public DateTime? IssuedAt { get; set; }
-        public DateTime? ExpireAt { get; set; }
-        public bool IsMandatory { get; set; }
-        public int? VerifiedByEmployeeId { get; set; }
-        public string? Note { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeId { get; set; }
+/// <summary>
+/// DocumentType değerini alır veya ayarlar.
+/// </summary>
+public DocumentTypeEnum DocumentType { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// FileUrl değerini alır veya ayarlar.
+/// </summary>
+public string FileUrl { get; set; } = string.Empty;
+/// <summary>
+/// DocumentNumber değerini alır veya ayarlar.
+/// </summary>
+public string? DocumentNumber { get; set; }
+/// <summary>
+/// IssuedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? IssuedAt { get; set; }
+/// <summary>
+/// ExpireAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? ExpireAt { get; set; }
+/// <summary>
+/// IsMandatory değerini alır veya ayarlar.
+/// </summary>
+public bool IsMandatory { get; set; }
+/// <summary>
+/// VerifiedByEmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? VerifiedByEmployeeId { get; set; }
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
     }
 }

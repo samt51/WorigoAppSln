@@ -7,14 +7,57 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Commands.CreateLeaveRequest
 {
-    public class CreateLeaveRequestCommandHandler : BaseHandler, IRequestHandler<CreateLeaveRequestCommandRequest, ResponseDto<CreateLeaveRequestCommandResponse>>
+/// <summary>
+/// CreateLeaveRequestCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateLeaveRequestCommandHandler : BaseHandler, IRequestHandler<CreateLeaveRequestCommandRequest, ResponseDto<CreateLeaveRequestCommandResponse>>
     {
-        public CreateLeaveRequestCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateLeaveRequestCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateLeaveRequestCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateLeaveRequestCommandResponse>> Handle(CreateLeaveRequestCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateLeaveRequestCommandResponse>> Handle(CreateLeaveRequestCommandRequest request, CancellationToken cancellationToken)
         {
+            var currentUser = await unitOfWork.GetReadRepository<Users>().GetAsync(
+                x => x.Id == UserId && !x.IsDeleted,
+                include: q => q.Include(u => u.Employee));
+
+            if (currentUser == null)
+            {
+                return new ResponseDto<CreateLeaveRequestCommandResponse>().Fail(new List<string> { "Kullanıcı bulunamadı." }, 401);
+            }
+
+            bool isSystemAdmin = currentUser.RoleId == 1;
+            bool isHotelAdmin = currentUser.RoleId == 2;
+            bool isHrManager = currentUser.RoleId == 7;
+
+            int targetEmployeeId = request.EmployeeId > 0 ? request.EmployeeId : (currentUser.Employee?.Id ?? 0);
+            if (targetEmployeeId == 0)
+            {
+                return new ResponseDto<CreateLeaveRequestCommandResponse>().Fail(new List<string> { "İzin talep edilecek personel belirlenemedi." }, 400);
+            }
+
+            if (currentUser.Employee == null || currentUser.Employee.Id != targetEmployeeId)
+            {
+                bool hasPrivilegedAccess = isSystemAdmin || (currentUser.Employee != null && (isHotelAdmin || isHrManager) && currentUser.Employee.HotelId == request.HotelId);
+                if (!hasPrivilegedAccess)
+                {
+                    return new ResponseDto<CreateLeaveRequestCommandResponse>().Fail(new List<string> { "Başka bir çalışan adına izin talebi oluşturma yetkiniz yok." }, 403);
+                }
+            }
+            else
+            {
+                if (currentUser.Employee.HotelId != request.HotelId)
+                {
+                    return new ResponseDto<CreateLeaveRequestCommandResponse>().Fail(new List<string> { "Çalıştığınız otel dışında izin talebinde bulunamazsınız." }, 403);
+                }
+            }
+
             if (request.EndDate.Date < request.StartDate.Date)
             {
                 return new ResponseDto<CreateLeaveRequestCommandResponse>()
@@ -22,13 +65,22 @@ namespace WorigoApp.Application.Features.LeaveRequests.Commands.CreateLeaveReque
             }
 
             var employee = await unitOfWork.GetReadRepository<Employee>().GetAsync(
-                x => x.Id == request.EmployeeId && x.HotelId == request.HotelId && x.IsActive && !x.IsDeleted,
+                x => x.Id == targetEmployeeId && x.HotelId == request.HotelId && x.IsActive && !x.IsDeleted,
                 include: x => x.Include(y => y.EmployeeType).ThenInclude(y => y.Department));
+
+            if (employee == null)
+            {
+                return new ResponseDto<CreateLeaveRequestCommandResponse>().Fail(new List<string> { "Personel kaydı bulunamadı." }, 404);
+            }
 
             if (request.HrEmployeeId.HasValue)
             {
-                await unitOfWork.GetReadRepository<Employee>().GetAsync(
+                var hrEmp = await unitOfWork.GetReadRepository<Employee>().GetAsync(
                     x => x.Id == request.HrEmployeeId.Value && x.HotelId == request.HotelId && x.IsActive && !x.IsDeleted);
+                if (hrEmp == null)
+                {
+                    return new ResponseDto<CreateLeaveRequestCommandResponse>().Fail(new List<string> { "Seçilen IK sorumlusu bulunamadı." }, 400);
+                }
             }
 
             var departmentId = employee.EmployeeType?.DepartmentId;
@@ -47,7 +99,7 @@ namespace WorigoApp.Application.Features.LeaveRequests.Commands.CreateLeaveReque
             var entity = new LeaveRequest
             {
                 HotelId = request.HotelId,
-                EmployeeId = request.EmployeeId,
+                EmployeeId = targetEmployeeId,
                 DepartmentId = departmentId,
                 ManagerEmployeeId = department?.ManagerEmployeeId,
                 HrEmployeeId = request.HrEmployeeId,

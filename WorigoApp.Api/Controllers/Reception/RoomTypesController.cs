@@ -13,19 +13,27 @@ using WorigoApp.Application.Features.RoomTypes.Queries.GetRoomTypes;
 
 namespace WorigoApp.Api.Controllers.Reception
 {
-    [ApiController]
+    /// <summary>
+    /// RoomTypesController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
     [Route("api/room-types")]
     public class RoomTypesController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public RoomTypesController(IMediator mediator)
+/// <summary>
+/// RoomTypesController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public RoomTypesController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpGet]
+        /// <summary>
+        /// GetRoomTypes işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet]
         public async Task<ResponseDto<IList<GetRoomTypesQueryResponse>>> GetRoomTypes([FromQuery] int hotelId, [FromQuery] bool? activeOnly)
         {
             var request = new GetRoomTypesQueryRequest(hotelId, activeOnly);
@@ -33,34 +41,49 @@ namespace WorigoApp.Api.Controllers.Reception
             return new ResponseDto<IList<GetRoomTypesQueryResponse>>().Success(result);
         }
 
-        [HttpGet("{id}")]
+        /// <summary>
+        /// GetById işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("{id}")]
         public async Task<ResponseDto<GetByIdRoomTypeQueryResponse>> GetById(int id)
         {
             var request = new GetByIdRoomTypeQueryRequest(id);
             return await _mediator.Send(request);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Create işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<CreateRoomTypeCommandResponse>> Create(CreateRoomTypeCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpPut("{id}")]
+        /// <summary>
+        /// Update işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("{id}")]
         public async Task<ResponseDto<UpdateRoomTypeCommandResponse>> Update(int id, UpdateRoomTypeCommandRequest request)
         {
             request.Id = id;
             return await _mediator.Send(request);
         }
 
-        [HttpDelete("{id}")]
+        /// <summary>
+        /// Delete işlemini gerçekleştirir.
+        /// </summary>
+[HttpDelete("{id}")]
         public async Task<ResponseDto<DeleteRoomTypeCommandResponse>> Delete(int id)
         {
             var request = new DeleteRoomTypeCommandRequest(id);
             return await _mediator.Send(request);
         }
 
-        [HttpPatch("{id}/status")]
+        /// <summary>
+        /// ToggleStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpPatch("{id}/status")]
         public async Task<ResponseDto<ToggleRoomTypeStatusCommandResponse>> ToggleStatus(int id)
         {
             var request = new ToggleRoomTypeStatusCommandRequest(id);

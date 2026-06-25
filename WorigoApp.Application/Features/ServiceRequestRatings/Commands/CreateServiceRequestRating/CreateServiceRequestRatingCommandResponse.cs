@@ -1,12 +1,33 @@
 namespace WorigoApp.Application.Features.ServiceRequestRatings.Commands.CreateServiceRequestRating
 {
-    public class CreateServiceRequestRatingCommandResponse
+/// <summary>
+/// CreateServiceRequestRatingCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateServiceRequestRatingCommandResponse
     {
-        public int Id { get; set; }
-        public int ServiceRequestId { get; set; }
-        public decimal SpeedScore { get; set; }
-        public decimal QualityScore { get; set; }
-        public decimal StaffScore { get; set; }
-        public DateTime RatedAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// SpeedScore değerini alır veya ayarlar.
+/// </summary>
+public decimal SpeedScore { get; set; }
+/// <summary>
+/// QualityScore değerini alır veya ayarlar.
+/// </summary>
+public decimal QualityScore { get; set; }
+/// <summary>
+/// StaffScore değerini alır veya ayarlar.
+/// </summary>
+public decimal StaffScore { get; set; }
+/// <summary>
+/// RatedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime RatedAt { get; set; }
     }
 }

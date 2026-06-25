@@ -10,24 +10,42 @@ using WorigoApp.Application.Features.Departments.Queries.GetByIdDepartment;
 
 namespace WorigoApp.Api.Controllers.Departments
 {
-    [Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
+    /// <summary>
+    /// DepartmentController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
     public class DepartmentController : BaseController
     {
         private readonly IMediator _mediator;
-        public DepartmentController(IMediator mediator) : base(mediator) { _mediator = mediator; }
+/// <summary>
+/// DepartmentController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public DepartmentController(IMediator mediator) : base(mediator) { _mediator = mediator; }
 
-        [HttpGet]
+        /// <summary>
+        /// GetAllAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet]
         public async Task<ResponseDto<IList<GetAllDepartmentQueryResponse>>> GetAllAsync() => await _mediator.Send(new GetAllDepartmentQueryRequest());
 
-        [HttpPost]
+        /// <summary>
+        /// AddAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         [Authorize(Roles = "SystemAdmin")]
         public async Task<ResponseDto<CreateDepartmentCommonResponse>> AddAsync(CreateDepartmentCommonRequest request) => await _mediator.Send(request);
 
-        [HttpPost]
+        /// <summary>
+        /// UpdateAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         [Authorize(Roles = "SystemAdmin")]
         public async Task<ResponseDto<UpdateDepartmentCommonResponse>> UpdateAsync(UpdateDepartmentCommonRequest request) => await _mediator.Send(request);
 
-        [HttpGet("{id}")]
+        /// <summary>
+        /// GetByIdAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("{id}")]
         public async Task<ResponseDto<GetByIdDepartmentQueryResponse>> GetByIdAsync(int id) => await _mediator.Send(new GetByIdDepartmentQueryRequest(id));
     }
 }

@@ -9,21 +9,29 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.Reception
 {
-    [ApiController]
+    /// <summary>
+    /// ReceptionCurrenciesController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
     [Route("api/reception")]
     public class ReceptionCurrenciesController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public ReceptionCurrenciesController(AppDbContext dbContext, IHttpClientFactory httpClientFactory)
+/// <summary>
+/// ReceptionCurrenciesController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ReceptionCurrenciesController(AppDbContext dbContext, IHttpClientFactory httpClientFactory)
         {
             _dbContext = dbContext;
             _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet("currencies")]
+        /// <summary>
+        /// GetCurrencies işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("currencies")]
         public async Task<ResponseDto<IList<CurrencyResponse>>> GetCurrencies(CancellationToken cancellationToken)
         {
             var currencies = await _dbContext.Set<Currency>()
@@ -47,6 +55,9 @@ namespace WorigoApp.Api.Controllers.Reception
             return new ResponseDto<IList<CurrencyResponse>>().Success(currencies);
         }
 
+        /// <summary>
+        /// Convert işlemini gerçekleştirir.
+        /// </summary>
         [HttpGet("currency/convert")]
         public async Task<ResponseDto<CurrencyConversionResponse>> Convert(
             [FromQuery] decimal amount,
@@ -142,26 +153,77 @@ namespace WorigoApp.Api.Controllers.Reception
         }
     }
 
-    public class CurrencyResponse
+/// <summary>
+/// CurrencyResponse sınıfını temsil eder.
+/// </summary>
+public class CurrencyResponse
     {
-        public int Id { get; set; }
-        public string Code { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string Symbol { get; set; } = string.Empty;
-        public string Country { get; set; } = string.Empty;
-        public string CultureCode { get; set; } = string.Empty;
-        public int DecimalDigits { get; set; }
-        public bool IsBaseCurrency { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Code değerini alır veya ayarlar.
+/// </summary>
+public string Code { get; set; } = string.Empty;
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; } = string.Empty;
+/// <summary>
+/// Symbol değerini alır veya ayarlar.
+/// </summary>
+public string Symbol { get; set; } = string.Empty;
+/// <summary>
+/// Country değerini alır veya ayarlar.
+/// </summary>
+public string Country { get; set; } = string.Empty;
+/// <summary>
+/// CultureCode değerini alır veya ayarlar.
+/// </summary>
+public string CultureCode { get; set; } = string.Empty;
+/// <summary>
+/// DecimalDigits değerini alır veya ayarlar.
+/// </summary>
+public int DecimalDigits { get; set; }
+/// <summary>
+/// IsBaseCurrency değerini alır veya ayarlar.
+/// </summary>
+public bool IsBaseCurrency { get; set; }
     }
 
-    public class CurrencyConversionResponse
+/// <summary>
+/// CurrencyConversionResponse sınıfını temsil eder.
+/// </summary>
+public class CurrencyConversionResponse
     {
-        public string From { get; set; } = "TRY";
-        public string To { get; set; } = "TRY";
-        public decimal Amount { get; set; }
-        public decimal ConvertedAmount { get; set; }
-        public decimal Rate { get; set; }
-        public DateTime RateDate { get; set; }
-        public string Provider { get; set; } = string.Empty;
+/// <summary>
+/// From değerini alır veya ayarlar.
+/// </summary>
+public string From { get; set; } = "TRY";
+/// <summary>
+/// To değerini alır veya ayarlar.
+/// </summary>
+public string To { get; set; } = "TRY";
+/// <summary>
+/// Amount değerini alır veya ayarlar.
+/// </summary>
+public decimal Amount { get; set; }
+/// <summary>
+/// ConvertedAmount değerini alır veya ayarlar.
+/// </summary>
+public decimal ConvertedAmount { get; set; }
+/// <summary>
+/// Rate değerini alır veya ayarlar.
+/// </summary>
+public decimal Rate { get; set; }
+/// <summary>
+/// RateDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime RateDate { get; set; }
+/// <summary>
+/// Provider değerini alır veya ayarlar.
+/// </summary>
+public string Provider { get; set; } = string.Empty;
     }
 }

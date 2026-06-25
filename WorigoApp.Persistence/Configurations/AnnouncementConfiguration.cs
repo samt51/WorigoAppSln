@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// AnnouncementConfiguration sınıfını temsil eder.
+    /// </summary>
     public class AnnouncementConfiguration : IEntityTypeConfiguration<Announcement>
     {
-        public void Configure(EntityTypeBuilder<Announcement> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Announcement> builder)
         {
             builder.Property(x => x.Title)
                 .HasMaxLength(200)

@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Foods.Commands.UpdateFood
 {
-    public class UpdateFoodCommonResponse
+/// <summary>
+/// UpdateFoodCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateFoodCommonResponse
     {
     }
 }

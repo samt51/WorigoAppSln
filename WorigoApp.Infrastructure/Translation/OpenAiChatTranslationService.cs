@@ -6,12 +6,17 @@ using WorigoApp.Application.Interfaces.Translation;
 
 namespace WorigoApp.Infrastructure.Translation
 {
+    /// <summary>
+    /// OpenAiChatTranslationService sınıfını temsil eder.
+    /// </summary>
     public class OpenAiChatTranslationService : IChatTranslationService
     {
         private readonly HttpClient _httpClient;
         private readonly OpenAiTranslationSettings _settings;
-
-        public OpenAiChatTranslationService(HttpClient httpClient, IOptions<OpenAiTranslationSettings> options)
+/// <summary>
+/// OpenAiChatTranslationService sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public OpenAiChatTranslationService(HttpClient httpClient, IOptions<OpenAiTranslationSettings> options)
         {
             _httpClient = httpClient;
             _settings = options.Value;
@@ -21,8 +26,10 @@ namespace WorigoApp.Infrastructure.Translation
                 _httpClient.BaseAddress = new Uri(_settings.BaseUrl);
             }
         }
-
-        public async Task<TranslationResult> TranslateAsync(string originalText, string sourceLanguageCode, string targetLanguageCode, CancellationToken cancellationToken = default)
+/// <summary>
+/// TranslateAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task<TranslationResult> TranslateAsync(string originalText, string sourceLanguageCode, string targetLanguageCode, CancellationToken cancellationToken = default)
         {
             if (string.Equals(sourceLanguageCode, targetLanguageCode, StringComparison.OrdinalIgnoreCase))
             {

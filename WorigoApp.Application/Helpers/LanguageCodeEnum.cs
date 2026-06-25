@@ -1,5 +1,8 @@
 ﻿namespace WorigoApp.Application.Helpers
 {
+    /// <summary>
+    /// LanguageCodeEnum sınıfını temsil eder.
+    /// </summary>
     public class LanguageCodeEnum
     {
         /// <summary>

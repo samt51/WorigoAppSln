@@ -1,15 +1,45 @@
 namespace WorigoApp.Application.Features.Reports.Queries.GetDepartmentPerformanceReport
 {
-    public class GetDepartmentPerformanceReportQueryResponse
+/// <summary>
+/// GetDepartmentPerformanceReportQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetDepartmentPerformanceReportQueryResponse
     {
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; } = string.Empty;
-        public int TotalRequestCount { get; set; }
-        public int OpenRequestCount { get; set; }
-        public int CompletedRequestCount { get; set; }
-        public decimal AverageResolutionMinutes { get; set; }
-        public decimal AverageRating { get; set; }
-        public int PendingStockRequestCount { get; set; }
-        public int LowStockItemCount { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int DepartmentId { get; set; }
+/// <summary>
+/// DepartmentName değerini alır veya ayarlar.
+/// </summary>
+public string DepartmentName { get; set; } = string.Empty;
+/// <summary>
+/// TotalRequestCount değerini alır veya ayarlar.
+/// </summary>
+public int TotalRequestCount { get; set; }
+/// <summary>
+/// OpenRequestCount değerini alır veya ayarlar.
+/// </summary>
+public int OpenRequestCount { get; set; }
+/// <summary>
+/// CompletedRequestCount değerini alır veya ayarlar.
+/// </summary>
+public int CompletedRequestCount { get; set; }
+/// <summary>
+/// AverageResolutionMinutes değerini alır veya ayarlar.
+/// </summary>
+public decimal AverageResolutionMinutes { get; set; }
+/// <summary>
+/// AverageRating değerini alır veya ayarlar.
+/// </summary>
+public decimal AverageRating { get; set; }
+/// <summary>
+/// PendingStockRequestCount değerini alır veya ayarlar.
+/// </summary>
+public int PendingStockRequestCount { get; set; }
+/// <summary>
+/// LowStockItemCount değerini alır veya ayarlar.
+/// </summary>
+public int LowStockItemCount { get; set; }
     }
 }

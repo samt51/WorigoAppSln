@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Commands.CreateServiceCategory
 {
-    public class CreateServiceCategoryCommandHandler : BaseHandler, IRequestHandler<CreateServiceCategoryCommandRequest, ResponseDto<CreateServiceCategoryCommandResponse>>
+/// <summary>
+/// CreateServiceCategoryCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateServiceCategoryCommandHandler : BaseHandler, IRequestHandler<CreateServiceCategoryCommandRequest, ResponseDto<CreateServiceCategoryCommandResponse>>
     {
-        public CreateServiceCategoryCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateServiceCategoryCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateServiceCategoryCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateServiceCategoryCommandResponse>> Handle(CreateServiceCategoryCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateServiceCategoryCommandResponse>> Handle(CreateServiceCategoryCommandRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Hotel>()
                 .GetAsync(x => x.Id == request.HotelId && x.IsActive && !x.IsDeleted);

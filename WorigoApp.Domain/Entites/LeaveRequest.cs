@@ -13,35 +13,50 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int HotelId { get; set; }
 
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Izin talebini olusturan personel.
         /// </summary>
         public int EmployeeId { get; set; }
 
-        public Employee Employee { get; set; } = null!;
+/// <summary>
+/// Employee değerini alır veya ayarlar.
+/// </summary>
+public Employee Employee { get; set; } = null!;
 
         /// <summary>
         /// Personelin bagli oldugu departman.
         /// </summary>
         public int? DepartmentId { get; set; }
 
-        public Department? Department { get; set; }
+/// <summary>
+/// Department değerini alır veya ayarlar.
+/// </summary>
+public Department? Department { get; set; }
 
         /// <summary>
         /// Ilk onayi verecek departman muduru.
         /// </summary>
         public int? ManagerEmployeeId { get; set; }
 
-        public Employee? ManagerEmployee { get; set; }
+/// <summary>
+/// ManagerEmployee değerini alır veya ayarlar.
+/// </summary>
+public Employee? ManagerEmployee { get; set; }
 
         /// <summary>
         /// Ikinci asama IK sorumlusu.
         /// </summary>
         public int? HrEmployeeId { get; set; }
 
-        public Employee? HrEmployee { get; set; }
+/// <summary>
+/// HrEmployee değerini alır veya ayarlar.
+/// </summary>
+public Employee? HrEmployee { get; set; }
 
         /// <summary>
         /// Izin tipi.

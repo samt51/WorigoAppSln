@@ -2,14 +2,38 @@
 
 namespace WorigoApp.Domain.Entites
 {
-    public class LogEntry :EntityBase
+/// <summary>
+/// LogEntry sınıfını temsil eder.
+/// </summary>
+public class LogEntry :EntityBase
     {
-        public string Message { get; set; }
-        public string MessageTemplate { get; set; }
-        public string Level { get; set; }
-        public DateTime TimeStamp { get; set; }
-        public string? Exception { get; set; }
-        public string? Properties { get; set; }
-        public string? LogEvent { get; set; }
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; }
+/// <summary>
+/// MessageTemplate değerini alır veya ayarlar.
+/// </summary>
+public string MessageTemplate { get; set; }
+/// <summary>
+/// Level değerini alır veya ayarlar.
+/// </summary>
+public string Level { get; set; }
+/// <summary>
+/// TimeStamp değerini alır veya ayarlar.
+/// </summary>
+public DateTime TimeStamp { get; set; }
+/// <summary>
+/// Exception değerini alır veya ayarlar.
+/// </summary>
+public string? Exception { get; set; }
+/// <summary>
+/// Properties değerini alır veya ayarlar.
+/// </summary>
+public string? Properties { get; set; }
+/// <summary>
+/// LogEvent değerini alır veya ayarlar.
+/// </summary>
+public string? LogEvent { get; set; }
     }
 }

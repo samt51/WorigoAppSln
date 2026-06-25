@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
@@ -6,15 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Commands.CreateEmployeeType
 {
-    public class CreateEmployeeTypeCommonHandler : BaseHandler, IRequestHandler<CreateEmployeeTypeCommonRequest, ResponseDto<CreateEmployeeTypeCommonResponse>>
+/// <summary>
+/// CreateEmployeeTypeCommonHandler sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeTypeCommonHandler : BaseHandler, IRequestHandler<CreateEmployeeTypeCommonRequest, ResponseDto<CreateEmployeeTypeCommonResponse>>
     {
-        public CreateEmployeeTypeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateEmployeeTypeCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateEmployeeTypeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateEmployeeTypeCommonResponse>> Handle(CreateEmployeeTypeCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateEmployeeTypeCommonResponse>> Handle(CreateEmployeeTypeCommonRequest request, CancellationToken cancellationToken)
         {
-            await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.DepartmentId);
+            await unitOfWork.GetReadRepository<Department>().GetAsync(x => x.Id == request.DepartmentId);
 
             var creatMapper = mapper.Map<EmployeeType, CreateEmployeeTypeCommonRequest>(request);
 

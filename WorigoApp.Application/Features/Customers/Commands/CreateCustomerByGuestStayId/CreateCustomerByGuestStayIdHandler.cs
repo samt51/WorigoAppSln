@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Customers.Commands.CreateCustomerByGuestStayId
 {
-    public class CreateCustomerByGuestStayIdHandler : BaseHandler, IRequestHandler<CreateCustomerByGuestStayIdRequest, ResponseDto<CreateCustomerByGuestStayIdResponse>>
+/// <summary>
+/// CreateCustomerByGuestStayIdHandler sınıfını temsil eder.
+/// </summary>
+public class CreateCustomerByGuestStayIdHandler : BaseHandler, IRequestHandler<CreateCustomerByGuestStayIdRequest, ResponseDto<CreateCustomerByGuestStayIdResponse>>
     {
-        public CreateCustomerByGuestStayIdHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateCustomerByGuestStayIdHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateCustomerByGuestStayIdHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateCustomerByGuestStayIdResponse>> Handle(CreateCustomerByGuestStayIdRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateCustomerByGuestStayIdResponse>> Handle(CreateCustomerByGuestStayIdRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<GuestStay>().GetAsync(y => y.IsActive && y.Id == request.GuestStayId);
 

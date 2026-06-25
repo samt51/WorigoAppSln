@@ -5,9 +5,15 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ServiceDefinitionConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ServiceDefinitionConfiguration : IEntityTypeConfiguration<ServiceDefinition>
     {
-        public void Configure(EntityTypeBuilder<ServiceDefinition> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<ServiceDefinition> builder)
         {
             builder.Property(x => x.OpeningMessage)
                 .HasMaxLength(500);

@@ -4,19 +4,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// DepartmentConfiguration sınıfını temsil eder.
+    /// </summary>
     public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
     {
-
-        public void Configure(EntityTypeBuilder<Department> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Department> builder)
         {
-            var department = new Department(1, "Ön Büro Resepsiyon Departmanı", "1.jpeg", 1);
-            var department2 = new Department(2, "Housekeeping Departmanı", "1.jpeg", 1);
-            var department3 = new Department(3, "Yiyecek İçecek ve Mutfak Departmanı", "1.jpeg", 1);
-            var department4 = new Department(4, "Teknik Servis Departmanı", "1.jpeg", 1);
-            var department11 = new Department(5, "Sağlık Kulübü & Spa Departmanı", "1.jpeg", 1);
-            var departmentManagement = new Department(100, "Yönetim Departmanı", "1.jpeg", 1);
+            var department = new Department(1, "Resepsiyon", "1.jpeg", 1);
+            var department2 = new Department(2, "Housekeeping", "1.jpeg", 1);
+            var department3 = new Department(3, "Yiyecek ve İçecek", "1.jpeg", 1);
+            var department4 = new Department(4, "Teknik Servis", "1.jpeg", 1);
+            var departmentManagement = new Department(5, "Yönetim", "1.jpeg", 1);
 
-            builder.HasData(department, department2, department3, department4, department11, departmentManagement);
+            builder.HasData(department, department2, department3, department4, departmentManagement);
         }
     }
 }

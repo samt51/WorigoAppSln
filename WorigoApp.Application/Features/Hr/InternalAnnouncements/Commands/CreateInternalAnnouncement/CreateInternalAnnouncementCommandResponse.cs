@@ -1,8 +1,17 @@
 namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Commands.CreateInternalAnnouncement
 {
-    public class CreateInternalAnnouncementCommandResponse
+/// <summary>
+/// CreateInternalAnnouncementCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateInternalAnnouncementCommandResponse
     {
-        public int Id { get; set; }
-        public DateTime PublishAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// PublishAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime PublishAt { get; set; }
     }
 }

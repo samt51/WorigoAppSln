@@ -4,9 +4,18 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Concierge.Queries.GetConciergePlaces
 {
-    public class GetConciergePlacesQueryRequest : IRequest<ResponseDto<IList<ConciergePlace>>>
+/// <summary>
+/// GetConciergePlacesQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetConciergePlacesQueryRequest : IRequest<ResponseDto<IList<ConciergePlace>>>
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public string? Category { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// Category değerini alır veya ayarlar.
+/// </summary>
+public string? Category { get; set; }
     }
 }

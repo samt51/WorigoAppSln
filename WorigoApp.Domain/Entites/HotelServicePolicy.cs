@@ -8,8 +8,14 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class HotelServicePolicy : EntityBase
     {
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Kuralın bağlı olduğu genel servis tipidir.
@@ -21,8 +27,14 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? ServiceItemId { get; set; }
 
-        public int? ServiceDefinitionId { get; set; }
-        public ServiceDefinition? ServiceDefinition { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// ServiceDefinition değerini alır veya ayarlar.
+/// </summary>
+public ServiceDefinition? ServiceDefinition { get; set; }
 
         /// <summary>
         /// Kuralın geçerli olduğu konaklama konsepti.

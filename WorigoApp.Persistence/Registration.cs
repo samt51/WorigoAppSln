@@ -11,9 +11,15 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Persistence
 {
+    /// <summary>
+    /// Registration sınıfını temsil eder.
+    /// </summary>
     public static class Registration
     {
-        public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
+/// <summary>
+/// AddPersistence işlemini gerçekleştirir.
+/// </summary>
+public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             if (string.IsNullOrWhiteSpace(connectionString))

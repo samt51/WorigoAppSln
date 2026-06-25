@@ -8,13 +8,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
 {
-    public class CreateOrderCommandHandler : BaseHandler, IRequestHandler<CreateOrderCommandRequest, ResponseDto<CreateOrderCommandResponse>>
+/// <summary>
+/// CreateOrderCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateOrderCommandHandler : BaseHandler, IRequestHandler<CreateOrderCommandRequest, ResponseDto<CreateOrderCommandResponse>>
     {
-        public CreateOrderCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateOrderCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateOrderCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateOrderCommandResponse>> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateOrderCommandResponse>> Handle(CreateOrderCommandRequest request, CancellationToken cancellationToken)
         {
             if (request.CreateOrderItems.Count == 0)
             {

@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Hr.Documents.Queries.GetEmployeeDocuments
 {
-    public class GetEmployeeDocumentsQueryRequest : IRequest<ResponseDto<IList<GetEmployeeDocumentsQueryResponse>>>
+/// <summary>
+/// GetEmployeeDocumentsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetEmployeeDocumentsQueryRequest : IRequest<ResponseDto<IList<GetEmployeeDocumentsQueryResponse>>>
     {
-        public int EmployeeId { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeId { get; set; }
     }
 }

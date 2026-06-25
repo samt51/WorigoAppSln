@@ -28,7 +28,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int HotelId { get; set; }
 
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Duyuru türü.
@@ -65,10 +68,25 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public string? AudienceType { get; set; }
 
-        public int? DepartmentId { get; set; }
-        public Department? Department { get; set; }
-        public int? CreatedByEmployeeId { get; set; }
-        public Employee? CreatedByEmployee { get; set; }
-        public InternalAnnouncementAudienceEnum? InternalAudience { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
+/// <summary>
+/// Department değerini alır veya ayarlar.
+/// </summary>
+public Department? Department { get; set; }
+/// <summary>
+/// CreatedByEmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? CreatedByEmployeeId { get; set; }
+/// <summary>
+/// CreatedByEmployee değerini alır veya ayarlar.
+/// </summary>
+public Employee? CreatedByEmployee { get; set; }
+/// <summary>
+/// InternalAudience değerini alır veya ayarlar.
+/// </summary>
+public InternalAnnouncementAudienceEnum? InternalAudience { get; set; }
     }
 }

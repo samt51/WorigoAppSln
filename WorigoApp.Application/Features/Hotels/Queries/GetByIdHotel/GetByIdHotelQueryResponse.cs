@@ -1,14 +1,41 @@
 ﻿namespace WorigoApp.Application.Features.Hotels.Queries.GetByIdHotel
 {
-    public class GetByIdHotelQueryResponse
+/// <summary>
+/// GetByIdHotelQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetByIdHotelQueryResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
-        public string Adress { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public int NumberOfStar { get; set; }
-        public int Companyid { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// Location değerini alır veya ayarlar.
+/// </summary>
+public string Location { get; set; }
+/// <summary>
+/// Adress değerini alır veya ayarlar.
+/// </summary>
+public string Adress { get; set; }
+/// <summary>
+/// PhoneNumber değerini alır veya ayarlar.
+/// </summary>
+public string PhoneNumber { get; set; }
+/// <summary>
+/// Email değerini alır veya ayarlar.
+/// </summary>
+public string Email { get; set; }
+/// <summary>
+/// NumberOfStar değerini alır veya ayarlar.
+/// </summary>
+public int NumberOfStar { get; set; }
+/// <summary>
+/// Companyid değerini alır veya ayarlar.
+/// </summary>
+public int Companyid { get; set; }
     }
 }

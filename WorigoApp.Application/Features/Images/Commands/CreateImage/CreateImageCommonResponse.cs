@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Images.Commands.CreateImage
 {
-    public class CreateImageCommonResponse
+/// <summary>
+/// CreateImageCommonResponse sınıfını temsil eder.
+/// </summary>
+public class CreateImageCommonResponse
     {
     }
 }

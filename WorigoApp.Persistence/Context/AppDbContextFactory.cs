@@ -4,9 +4,15 @@ using Microsoft.Extensions.Configuration;
 
 namespace WorigoApp.Persistence.Context
 {
+    /// <summary>
+    /// AppDbContextFactory sınıfını temsil eder.
+    /// </summary>
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
-        public AppDbContext CreateDbContext(string[] args)
+/// <summary>
+/// CreateDbContext işlemini gerçekleştirir.
+/// </summary>
+public AppDbContext CreateDbContext(string[] args)
         {
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 

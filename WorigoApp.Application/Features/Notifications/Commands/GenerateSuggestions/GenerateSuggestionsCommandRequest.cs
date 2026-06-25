@@ -3,7 +3,10 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Notifications.Commands.GenerateSuggestions
 {
-    public class GenerateSuggestionsCommandRequest : IRequest<ResponseDto<GenerateSuggestionsResponse>>
+/// <summary>
+/// GenerateSuggestionsCommandRequest sınıfını temsil eder.
+/// </summary>
+public class GenerateSuggestionsCommandRequest : IRequest<ResponseDto<GenerateSuggestionsResponse>>
     {
     }
 }

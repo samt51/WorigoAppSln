@@ -3,12 +3,21 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Companies.Queries.GetByCompany
 {
-    public class GetByIdCompanyQueryRequest : IRequest<ResponseDto<GetByIdCompanyQueryResponse>>
+/// <summary>
+/// GetByIdCompanyQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdCompanyQueryRequest : IRequest<ResponseDto<GetByIdCompanyQueryResponse>>
     {
-        public GetByIdCompanyQueryRequest(int companyId)
+/// <summary>
+/// GetByIdCompanyQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdCompanyQueryRequest(int companyId)
         {
             this.CompanyId = companyId;
         }
-        public int CompanyId { get; }
+/// <summary>
+/// CompanyId değerini alır veya ayarlar.
+/// </summary>
+public int CompanyId { get; }
     }
 }

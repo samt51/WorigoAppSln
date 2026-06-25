@@ -7,11 +7,16 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class Department : EntityBase
     {
-        public Department()
+/// <summary>
+/// Department sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Department()
         {
         }
-
-        public Department(int id, string name, string imageUrl, int hotelid)
+/// <summary>
+/// Department sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Department(int id, string name, string imageUrl, int hotelid)
         {
             Id = id;
             Name = name;
@@ -49,18 +54,57 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public bool IsGuestFacing { get; set; }
 
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; } = null!;
-        public IList<EmployeeType> EmployeeTypes { get; set; } = new List<EmployeeType>();
-        public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
-        public IList<StockItem> StockItems { get; set; } = new List<StockItem>();
-        public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
-        public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
-        public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
-        public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
-        public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
-        public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
-        public IList<EmployeeTask> EmployeeTasks { get; set; } = new List<EmployeeTask>();
-        public IList<ServiceDefinition> ServiceDefinitions { get; set; } = new List<ServiceDefinition>();
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// EmployeeTypes değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeType> EmployeeTypes { get; set; } = new List<EmployeeType>();
+/// <summary>
+/// ServiceRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
+/// <summary>
+/// StockItems değerini alır veya ayarlar.
+/// </summary>
+public IList<StockItem> StockItems { get; set; } = new List<StockItem>();
+/// <summary>
+/// StockMovements değerini alır veya ayarlar.
+/// </summary>
+public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
+/// <summary>
+/// StockRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
+/// <summary>
+/// LeaveRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
+/// <summary>
+/// AttendanceRecords değerini alır veya ayarlar.
+/// </summary>
+public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
+/// <summary>
+/// PerformanceReviews değerini alır veya ayarlar.
+/// </summary>
+public IList<PerformanceReview> PerformanceReviews { get; set; } = new List<PerformanceReview>();
+/// <summary>
+/// InternalAnnouncements değerini alır veya ayarlar.
+/// </summary>
+public IList<Announcement> InternalAnnouncements { get; set; } = new List<Announcement>();
+/// <summary>
+/// EmployeeTasks değerini alır veya ayarlar.
+/// </summary>
+public IList<EmployeeTask> EmployeeTasks { get; set; } = new List<EmployeeTask>();
+/// <summary>
+/// ServiceDefinitions değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceDefinition> ServiceDefinitions { get; set; } = new List<ServiceDefinition>();
     }
 }

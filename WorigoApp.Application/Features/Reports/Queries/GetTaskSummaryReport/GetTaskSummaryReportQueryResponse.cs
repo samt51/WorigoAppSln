@@ -1,11 +1,29 @@
 namespace WorigoApp.Application.Features.Reports.Queries.GetTaskSummaryReport
 {
-    public class GetTaskSummaryReportQueryResponse
+/// <summary>
+/// GetTaskSummaryReportQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetTaskSummaryReportQueryResponse
     {
-        public int TotalTaskCount { get; set; }
-        public int OpenTaskCount { get; set; }
-        public int InProgressTaskCount { get; set; }
-        public int CompletedTaskCount { get; set; }
-        public int OverdueTaskCount { get; set; }
+/// <summary>
+/// TotalTaskCount değerini alır veya ayarlar.
+/// </summary>
+public int TotalTaskCount { get; set; }
+/// <summary>
+/// OpenTaskCount değerini alır veya ayarlar.
+/// </summary>
+public int OpenTaskCount { get; set; }
+/// <summary>
+/// InProgressTaskCount değerini alır veya ayarlar.
+/// </summary>
+public int InProgressTaskCount { get; set; }
+/// <summary>
+/// CompletedTaskCount değerini alır veya ayarlar.
+/// </summary>
+public int CompletedTaskCount { get; set; }
+/// <summary>
+/// OverdueTaskCount değerini alır veya ayarlar.
+/// </summary>
+public int OverdueTaskCount { get; set; }
     }
 }

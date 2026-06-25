@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Concierge.Queries.GetConciergeCategories
 {
-    public class GetConciergeCategoriesQueryHandler : IRequestHandler<GetConciergeCategoriesQueryRequest, ResponseDto<IList<string>>>
+/// <summary>
+/// GetConciergeCategoriesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetConciergeCategoriesQueryHandler : IRequestHandler<GetConciergeCategoriesQueryRequest, ResponseDto<IList<string>>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetConciergeCategoriesQueryHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GetConciergeCategoriesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetConciergeCategoriesQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<IList<string>>> Handle(GetConciergeCategoriesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<string>>> Handle(GetConciergeCategoriesQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

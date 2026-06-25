@@ -3,12 +3,23 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.AddContentOfFoodByFoodId
 {
-    public class AddContentOfFoodByFoodIdRequest : IRequest<ResponseDto<AddContentOfFoodByFoodIdResponse>>
+/// <summary>
+/// AddContentOfFoodByFoodIdRequest sınıfını temsil eder.
+/// </summary>
+public class AddContentOfFoodByFoodIdRequest : IRequest<ResponseDto<AddContentOfFoodByFoodIdResponse>>
     {
-        public int FoodId { get; }
-        public int ContentsOfFoodId { get; }
-
-        public AddContentOfFoodByFoodIdRequest(int foodId, int contentOfFoodId)
+/// <summary>
+/// FoodId değerini alır veya ayarlar.
+/// </summary>
+public int FoodId { get; }
+/// <summary>
+/// ContentsOfFoodId değerini alır veya ayarlar.
+/// </summary>
+public int ContentsOfFoodId { get; }
+/// <summary>
+/// AddContentOfFoodByFoodIdRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AddContentOfFoodByFoodIdRequest(int foodId, int contentOfFoodId)
         {
             this.FoodId = foodId;
             this.ContentsOfFoodId = contentOfFoodId;

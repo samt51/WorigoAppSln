@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Queries.GetLeaveRequestsByEmployee
 {
-    public class GetLeaveRequestsByEmployeeQueryHandler : BaseHandler, IRequestHandler<GetLeaveRequestsByEmployeeQueryRequest, ResponseDto<IList<GetLeaveRequestsByEmployeeQueryResponse>>>
+/// <summary>
+/// GetLeaveRequestsByEmployeeQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetLeaveRequestsByEmployeeQueryHandler : BaseHandler, IRequestHandler<GetLeaveRequestsByEmployeeQueryRequest, ResponseDto<IList<GetLeaveRequestsByEmployeeQueryResponse>>>
     {
-        public GetLeaveRequestsByEmployeeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetLeaveRequestsByEmployeeQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetLeaveRequestsByEmployeeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetLeaveRequestsByEmployeeQueryResponse>>> Handle(GetLeaveRequestsByEmployeeQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetLeaveRequestsByEmployeeQueryResponse>>> Handle(GetLeaveRequestsByEmployeeQueryRequest request, CancellationToken cancellationToken)
         {
             var leaveRequests = await unitOfWork.GetReadRepository<LeaveRequest>().GetAllAsync(
                 x => x.EmployeeId == request.EmployeeId && !x.IsDeleted,

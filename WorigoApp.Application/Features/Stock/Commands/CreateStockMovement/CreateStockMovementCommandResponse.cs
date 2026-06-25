@@ -1,9 +1,21 @@
 namespace WorigoApp.Application.Features.Stock.Commands.CreateStockMovement
 {
-    public class CreateStockMovementCommandResponse
+/// <summary>
+/// CreateStockMovementCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateStockMovementCommandResponse
     {
-        public int Id { get; set; }
-        public decimal CurrentQuantity { get; set; }
-        public decimal TotalAmount { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// CurrentQuantity değerini alır veya ayarlar.
+/// </summary>
+public decimal CurrentQuantity { get; set; }
+/// <summary>
+/// TotalAmount değerini alır veya ayarlar.
+/// </summary>
+public decimal TotalAmount { get; set; }
     }
 }

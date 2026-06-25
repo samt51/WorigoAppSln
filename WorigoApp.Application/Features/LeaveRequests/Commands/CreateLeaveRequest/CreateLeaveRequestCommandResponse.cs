@@ -2,11 +2,26 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Commands.CreateLeaveRequest
 {
-    public class CreateLeaveRequestCommandResponse
+/// <summary>
+/// CreateLeaveRequestCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateLeaveRequestCommandResponse
     {
-        public int Id { get; set; }
-        public LeaveRequestStatusEnum Status { get; set; }
-        public decimal TotalDayCount { get; set; }
-        public DateTime RequestedAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public LeaveRequestStatusEnum Status { get; set; }
+/// <summary>
+/// TotalDayCount değerini alır veya ayarlar.
+/// </summary>
+public decimal TotalDayCount { get; set; }
+/// <summary>
+/// RequestedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime RequestedAt { get; set; }
     }
 }

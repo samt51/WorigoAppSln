@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Commands.UpdateEmployeeType
 {
-    public class UpdateEmployeeTypeCommonHandler : BaseHandler, IRequestHandler<UpdateEmployeeTypeCommonRequest, ResponseDto<UpdateEmployeeTypeCommonResponse>>
+/// <summary>
+/// UpdateEmployeeTypeCommonHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateEmployeeTypeCommonHandler : BaseHandler, IRequestHandler<UpdateEmployeeTypeCommonRequest, ResponseDto<UpdateEmployeeTypeCommonResponse>>
     {
-        public UpdateEmployeeTypeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateEmployeeTypeCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateEmployeeTypeCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateEmployeeTypeCommonResponse>> Handle(UpdateEmployeeTypeCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateEmployeeTypeCommonResponse>> Handle(UpdateEmployeeTypeCommonRequest request, CancellationToken cancellationToken)
         {
             var dataIsControll = await unitOfWork.GetReadRepository<EmployeeType>().GetAsync(x => x.Id == request.Id);
 

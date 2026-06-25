@@ -1,9 +1,21 @@
 ﻿namespace WorigoApp.Application.Features.Departments.Queries.GetByIdDepartment
 {
-    public class GetByIdDepartmentQueryResponse
+/// <summary>
+/// GetByIdDepartmentQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetByIdDepartmentQueryResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string ImageUrl { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string ImageUrl { get; set; }
     }
 }

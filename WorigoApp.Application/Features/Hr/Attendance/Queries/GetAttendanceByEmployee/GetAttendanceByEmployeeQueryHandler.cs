@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hr.Attendance.Queries.GetAttendanceByEmployee
 {
-    public class GetAttendanceByEmployeeQueryHandler : BaseHandler, IRequestHandler<GetAttendanceByEmployeeQueryRequest, ResponseDto<IList<GetAttendanceByEmployeeQueryResponse>>>
+/// <summary>
+/// GetAttendanceByEmployeeQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetAttendanceByEmployeeQueryHandler : BaseHandler, IRequestHandler<GetAttendanceByEmployeeQueryRequest, ResponseDto<IList<GetAttendanceByEmployeeQueryResponse>>>
     {
-        public GetAttendanceByEmployeeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetAttendanceByEmployeeQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAttendanceByEmployeeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetAttendanceByEmployeeQueryResponse>>> Handle(GetAttendanceByEmployeeQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetAttendanceByEmployeeQueryResponse>>> Handle(GetAttendanceByEmployeeQueryRequest request, CancellationToken cancellationToken)
         {
             var records = await unitOfWork.GetReadRepository<AttendanceRecord>().GetAllAsync(
                 x => x.EmployeeId == request.EmployeeId && !x.IsDeleted,

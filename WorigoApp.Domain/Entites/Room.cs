@@ -7,23 +7,47 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class Room : EntityBase
     {
-        public Room()
+/// <summary>
+/// Room sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Room()
         {
         }
 
-        public string Name { get; set; } = string.Empty;
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Odanın fiziksel numarası.
         /// </summary>
         public string? RoomNumber { get; set; }
 
-        public int RoomTypeId { get; set; }
-        public RoomType RoomType { get; set; } = null!;
-        public int RoomFoodTypeId { get; set; }
-        public FoodType RoomFoodType { get; set; } = null!;
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// RoomTypeId değerini alır veya ayarlar.
+/// </summary>
+public int RoomTypeId { get; set; }
+/// <summary>
+/// RoomType değerini alır veya ayarlar.
+/// </summary>
+public RoomType RoomType { get; set; } = null!;
+/// <summary>
+/// RoomFoodTypeId değerini alır veya ayarlar.
+/// </summary>
+public int RoomFoodTypeId { get; set; }
+/// <summary>
+/// RoomFoodType değerini alır veya ayarlar.
+/// </summary>
+public FoodType RoomFoodType { get; set; } = null!;
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Odanın bulunduğu kat numarası.
@@ -49,20 +73,49 @@ namespace WorigoApp.Domain.Entites
         /// Odanın operasyonel durumu. Örn: Available, Occupied, Cleaning.
         /// </summary>
         public string CurrentStatus { get; set; } = "Available";
+/// <summary>
+/// OperationalNote değerini alır veya ayarlar.
+/// </summary>
+public string? OperationalNote { get; set; }
+/// <summary>
+/// StatusUpdatedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? StatusUpdatedAt { get; set; }
+/// <summary>
+/// HousekeepingEmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? HousekeepingEmployeeId { get; set; }
 
-        public double TargetTemperature { get; set; } = 22.0;
-        public int LightsIntensity { get; set; } = 80;
-        public bool AreCurtainsOpen { get; set; } = true;
+/// <summary>
+/// TargetTemperature değerini alır veya ayarlar.
+/// </summary>
+public double TargetTemperature { get; set; } = 22.0;
+/// <summary>
+/// LightsIntensity değerini alır veya ayarlar.
+/// </summary>
+public int LightsIntensity { get; set; } = 80;
+/// <summary>
+/// AreCurtainsOpen değerini alır veya ayarlar.
+/// </summary>
+public bool AreCurtainsOpen { get; set; } = true;
 
-        public decimal Price { get; set; }
-        public int PriceStatusId { get; set; }
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal Price { get; set; }
+/// <summary>
+/// PriceStatusId değerini alır veya ayarlar.
+/// </summary>
+public int PriceStatusId { get; set; }
 
         /// <summary>
         /// Oda içi telefon numarası.
         /// </summary>
         public string? InternalPhoneNumber { get; set; }
-
-        public Room(string name, int roomTypeId, int roomFoodTypeId, int hotelid, bool isFull, decimal price, int priceStatusId)
+/// <summary>
+/// Room sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Room(string name, int roomTypeId, int roomFoodTypeId, int hotelid, bool isFull, decimal price, int priceStatusId)
         {
             Name = name;
             RoomTypeId = roomTypeId;

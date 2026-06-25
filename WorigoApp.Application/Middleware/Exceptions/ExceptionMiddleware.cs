@@ -9,17 +9,25 @@ using Serilog.Context;
 using WorigoApp.Domain.Entites;
 namespace WorigoApp.Application.Middleware.Exceptions
 {
+    /// <summary>
+    /// ExceptionMiddleware sınıfını temsil eder.
+    /// </summary>
     public class ExceptionMiddleware : LogDetailConsume, IMiddleware
     {
         private readonly ILogger<ExceptionMiddleware> _logger;
         private readonly IStringLocalizer<ObjectResult> _stringLocalizer;
-        public ExceptionMiddleware(IStringLocalizer<ObjectResult> stringLocalizer, ILogger<ExceptionMiddleware> logger) : base(logger)
+/// <summary>
+/// ExceptionMiddleware sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ExceptionMiddleware(IStringLocalizer<ObjectResult> stringLocalizer, ILogger<ExceptionMiddleware> logger) : base(logger)
         {
             _logger = logger;
             _stringLocalizer = stringLocalizer;
         }
-
-        public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next)
+/// <summary>
+/// InvokeAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next)
         {
             try
             {

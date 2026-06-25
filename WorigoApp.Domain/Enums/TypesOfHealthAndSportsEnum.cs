@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Domain.Enums
 {
-    public enum TypesOfHealthAndSportsEnum
+/// <summary>
+/// TypesOfHealthAndSportsEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum TypesOfHealthAndSportsEnum
     {
         Spa = 1,
         Massage = 2,

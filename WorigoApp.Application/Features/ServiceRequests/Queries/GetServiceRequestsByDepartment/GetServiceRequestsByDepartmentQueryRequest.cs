@@ -4,9 +4,18 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetServiceRequestsByDepartment
 {
-    public class GetServiceRequestsByDepartmentQueryRequest : IRequest<ResponseDto<IList<GetServiceRequestsByDepartmentQueryResponse>>>
+/// <summary>
+/// GetServiceRequestsByDepartmentQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetServiceRequestsByDepartmentQueryRequest : IRequest<ResponseDto<IList<GetServiceRequestsByDepartmentQueryResponse>>>
     {
-        public int DepartmentId { get; set; }
-        public ServiceRequestStatusEnum? Status { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int DepartmentId { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequestStatusEnum? Status { get; set; }
     }
 }

@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Application.Features.Foods.Commands.CreateFood
 {
-    public class CreateFoodCommonHandler : BaseHandler, IRequestHandler<CreateFoodCommonRequest, ResponseDto<CreateFoodCommonResponse>>
+/// <summary>
+/// CreateFoodCommonHandler sınıfını temsil eder.
+/// </summary>
+public class CreateFoodCommonHandler : BaseHandler, IRequestHandler<CreateFoodCommonRequest, ResponseDto<CreateFoodCommonResponse>>
     {
-        public CreateFoodCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateFoodCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateFoodCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateFoodCommonResponse>> Handle(CreateFoodCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateFoodCommonResponse>> Handle(CreateFoodCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAsync(x => x.Id == request.FoodMenuCategoryId);
 

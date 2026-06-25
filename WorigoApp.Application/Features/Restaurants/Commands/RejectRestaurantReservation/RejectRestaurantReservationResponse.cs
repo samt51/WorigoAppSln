@@ -1,8 +1,17 @@
 namespace WorigoApp.Application.Features.Restaurants.Commands.RejectRestaurantReservation
 {
-    public class RejectRestaurantReservationResponse
+/// <summary>
+/// RejectRestaurantReservationResponse sınıfını temsil eder.
+/// </summary>
+public class RejectRestaurantReservationResponse
     {
-        public int ReservationId { get; set; }
-        public int GuestStayId { get; set; }
+/// <summary>
+/// ReservationId değerini alır veya ayarlar.
+/// </summary>
+public int ReservationId { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
     }
 }

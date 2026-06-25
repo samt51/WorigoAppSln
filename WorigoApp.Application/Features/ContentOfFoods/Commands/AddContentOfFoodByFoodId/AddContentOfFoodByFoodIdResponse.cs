@@ -1,8 +1,14 @@
 ﻿namespace WorigoApp.Application.Features.ContentOfFoods.Commands.AddContentOfFoodByFoodId
 {
-    public class AddContentOfFoodByFoodIdResponse
+/// <summary>
+/// AddContentOfFoodByFoodIdResponse sınıfını temsil eder.
+/// </summary>
+public class AddContentOfFoodByFoodIdResponse
     {
-        public AddContentOfFoodByFoodIdResponse()
+/// <summary>
+/// AddContentOfFoodByFoodIdResponse sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AddContentOfFoodByFoodIdResponse()
         {
 
         }

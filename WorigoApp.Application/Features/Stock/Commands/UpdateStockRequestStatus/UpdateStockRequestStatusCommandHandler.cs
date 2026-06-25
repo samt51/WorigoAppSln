@@ -8,17 +8,57 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Stock.Commands.UpdateStockRequestStatus
 {
-    public class UpdateStockRequestStatusCommandHandler : BaseHandler, IRequestHandler<UpdateStockRequestStatusCommandRequest, ResponseDto<UpdateStockRequestStatusCommandResponse>>
+/// <summary>
+/// UpdateStockRequestStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateStockRequestStatusCommandHandler : BaseHandler, IRequestHandler<UpdateStockRequestStatusCommandRequest, ResponseDto<UpdateStockRequestStatusCommandResponse>>
     {
-        public UpdateStockRequestStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateStockRequestStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateStockRequestStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateStockRequestStatusCommandResponse>> Handle(UpdateStockRequestStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateStockRequestStatusCommandResponse>> Handle(UpdateStockRequestStatusCommandRequest request, CancellationToken cancellationToken)
         {
+            var currentUser = await unitOfWork.GetReadRepository<Users>().GetAsync(
+                x => x.Id == UserId && !x.IsDeleted,
+                include: q => q.Include(u => u.Employee).ThenInclude(e => e.EmployeeType));
+
+            if (currentUser == null)
+            {
+                return new ResponseDto<UpdateStockRequestStatusCommandResponse>().Fail(new List<string> { "Kullanıcı bulunamadı." }, 401);
+            }
+
+            bool isSystemAdmin = currentUser.RoleId == 1;
+            bool isHotelAdmin = currentUser.RoleId == 2;
+            bool isPurchasingManager = currentUser.RoleId == 8;
+            bool isDepartmentManager = currentUser.RoleId == 4;
+
             var stockRequest = await unitOfWork.GetReadRepository<StockRequest>().GetAsync(
                 x => x.Id == request.StockRequestId && !x.IsDeleted,
                 include: x => x.Include(y => y.Items));
+
+            if (stockRequest == null)
+            {
+                return new ResponseDto<UpdateStockRequestStatusCommandResponse>().Fail(new List<string> { "Stok talebi bulunamadı." }, 404);
+            }
+
+            if (!isSystemAdmin && currentUser.Employee != null && stockRequest.HotelId != currentUser.Employee.HotelId)
+            {
+                return new ResponseDto<UpdateStockRequestStatusCommandResponse>().Fail(new List<string> { "Bu oteldeki stok talebine müdahale etme yetkiniz yok." }, 403);
+            }
+
+            bool canManage = isSystemAdmin || isHotelAdmin || isPurchasingManager || 
+                             (isDepartmentManager && currentUser.Employee != null && stockRequest.DepartmentId == currentUser.Employee.EmployeeType?.DepartmentId);
+
+            if (!canManage)
+            {
+                return new ResponseDto<UpdateStockRequestStatusCommandResponse>().Fail(new List<string> { "Bu stok talebini güncelleme yetkiniz bulunmamaktadır." }, 403);
+            }
 
             await unitOfWork.OpenTransactionAsync(cancellationToken);
 

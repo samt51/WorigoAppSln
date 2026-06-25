@@ -33,33 +33,47 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Api.Controllers
 {
-    [ApiController]
+    /// <summary>
+    /// GuestOperationsController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [AllowAnonymous]
     [Route("guest")]
     public class GuestOperationsController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public GuestOperationsController(IMediator mediator)
+/// <summary>
+/// GuestOperationsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GuestOperationsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         #region 1. Yemek Sipariş Takibi
 
-        [HttpGet("orders/food")]
+        /// <summary>
+        /// GetFoodOrders işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("orders/food")]
         public async Task<ResponseDto<IList<Order>>> GetFoodOrders([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetFoodOrdersQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpGet("orders/food/{orderId:int}")]
+        /// <summary>
+        /// GetFoodOrderDetails işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("orders/food/{orderId:int}")]
         public async Task<ResponseDto<Order>> GetFoodOrderDetails(int orderId, [FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetFoodOrderDetailsQueryRequest { OrderId = orderId, SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpGet("orders/food/{orderId:int}/tracking")]
+        /// <summary>
+        /// GetFoodOrderTracking işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("orders/food/{orderId:int}/tracking")]
         public async Task<ResponseDto<OrderTrackingDto>> GetFoodOrderTracking(int orderId, [FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetFoodOrderTrackingQueryRequest { OrderId = orderId, SessionToken = sessionToken }, cancellationToken);
@@ -69,13 +83,19 @@ namespace WorigoApp.Api.Controllers
 
         #region 2. Housekeeping / Oda Durum Yönetimi
 
-        [HttpGet("room/availability-status")]
+        /// <summary>
+        /// GetRoomAvailabilityStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("room/availability-status")]
         public async Task<ResponseDto<RoomAvailabilityStatusResponse>> GetRoomAvailabilityStatus([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetRoomAvailabilityStatusQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpPut("room/availability-status")]
+        /// <summary>
+        /// UpdateRoomAvailabilityStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("room/availability-status")]
         public async Task<ResponseDto<bool>> UpdateRoomAvailabilityStatus([FromBody] UpdateRoomAvailabilityStatusCommandRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
@@ -85,19 +105,28 @@ namespace WorigoApp.Api.Controllers
 
         #region 3. Memnuniyet / Rating
 
-        [HttpPost("ratings/service-request")]
+        /// <summary>
+        /// RateServiceRequest işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("ratings/service-request")]
         public async Task<ResponseDto<bool>> RateServiceRequest([FromBody] RateServiceRequestCommandRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
         }
 
-        [HttpPost("ratings/order")]
+        /// <summary>
+        /// RateOrder işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("ratings/order")]
         public async Task<ResponseDto<bool>> RateOrder([FromBody] RateOrderCommandRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
         }
 
-        [HttpGet("ratings/my")]
+        /// <summary>
+        /// GetMyRatings işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("ratings/my")]
         public async Task<ResponseDto<IList<ServiceRequestRating>>> GetMyRatings([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetMyRatingsQueryRequest { SessionToken = sessionToken }, cancellationToken);
@@ -107,37 +136,55 @@ namespace WorigoApp.Api.Controllers
 
         #region 4. Restaurant Rezervasyon Modülü
 
-        [HttpGet("restaurants")]
+        /// <summary>
+        /// GetRestaurants işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("restaurants")]
         public async Task<ResponseDto<IList<Restaurant>>> GetRestaurants([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetRestaurantsQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpGet("restaurants/{restaurantId:int}")]
+        /// <summary>
+        /// GetRestaurant işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("restaurants/{restaurantId:int}")]
         public async Task<ResponseDto<Restaurant>> GetRestaurant(int restaurantId, [FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetRestaurantQueryRequest { RestaurantId = restaurantId, SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpGet("restaurants/{restaurantId:int}/slots")]
+        /// <summary>
+        /// GetRestaurantSlots işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("restaurants/{restaurantId:int}/slots")]
         public async Task<ResponseDto<IList<string>>> GetRestaurantSlots(int restaurantId, [FromQuery] string date, [FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetRestaurantSlotsQueryRequest { RestaurantId = restaurantId, Date = date, SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpPost("restaurants/reservations")]
+        /// <summary>
+        /// CreateRestaurantReservation işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("restaurants/reservations")]
         public async Task<ResponseDto<RestaurantReservation>> CreateRestaurantReservation([FromBody] CreateRestaurantReservationCommandRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
         }
 
-        [HttpGet("restaurants/my-reservations")]
+        /// <summary>
+        /// GetMyRestaurantReservations işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("restaurants/my-reservations")]
         public async Task<ResponseDto<IList<RestaurantReservation>>> GetMyRestaurantReservations([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetMyRestaurantReservationsQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpPut("restaurants/reservations/{id:int}/cancel")]
+        /// <summary>
+        /// CancelRestaurantReservation işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("restaurants/reservations/{id:int}/cancel")]
         public async Task<ResponseDto<bool>> CancelRestaurantReservation(int id, [FromBody] CancelReservationRequestModel request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new CancelRestaurantReservationCommandRequest { Id = id, SessionToken = request.SessionToken }, cancellationToken);
@@ -147,13 +194,19 @@ namespace WorigoApp.Api.Controllers
 
         #region 5. Transfer Takip Modülü
 
-        [HttpGet("transfers")]
+        /// <summary>
+        /// GetTransfers işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("transfers")]
         public async Task<ResponseDto<IList<TransferTracking>>> GetTransfers([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetTransfersQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpGet("transfers/{serviceRequestId:int}/tracking")]
+        /// <summary>
+        /// GetTransferTracking işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("transfers/{serviceRequestId:int}/tracking")]
         public async Task<ResponseDto<TransferTracking>> GetTransferTracking(int serviceRequestId, [FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetTransferTrackingQueryRequest { ServiceRequestId = serviceRequestId, SessionToken = sessionToken }, cancellationToken);
@@ -163,19 +216,28 @@ namespace WorigoApp.Api.Controllers
 
         #region 6. Digital Concierge
 
-        [HttpGet("concierge/categories")]
+        /// <summary>
+        /// GetConciergeCategories işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("concierge/categories")]
         public async Task<ResponseDto<IList<string>>> GetConciergeCategories([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetConciergeCategoriesQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpGet("concierge/places")]
+        /// <summary>
+        /// GetConciergePlaces işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("concierge/places")]
         public async Task<ResponseDto<IList<ConciergePlace>>> GetConciergePlaces([FromQuery] string sessionToken, [FromQuery] string? category, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetConciergePlacesQueryRequest { SessionToken = sessionToken, Category = category }, cancellationToken);
         }
 
-        [HttpGet("concierge/places/{id:int}")]
+        /// <summary>
+        /// GetConciergePlace işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("concierge/places/{id:int}")]
         public async Task<ResponseDto<ConciergePlace>> GetConciergePlace(int id, [FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetConciergePlaceQueryRequest { Id = id, SessionToken = sessionToken }, cancellationToken);
@@ -185,13 +247,19 @@ namespace WorigoApp.Api.Controllers
 
         #region 7. Guest Notification / Proaktif Öneriler
 
-        [HttpGet("notifications")]
+        /// <summary>
+        /// GetNotifications işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("notifications")]
         public async Task<ResponseDto<IList<GuestNotification>>> GetNotifications([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetNotificationsQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpPut("notifications/{id:int}/read")]
+        /// <summary>
+        /// MarkNotificationAsRead işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("notifications/{id:int}/read")]
         public async Task<ResponseDto<bool>> MarkNotificationAsRead(int id, [FromBody] MarkNotificationReadRequestModel request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new MarkNotificationAsReadCommandRequest { Id = id, SessionToken = request.SessionToken }, cancellationToken);
@@ -201,31 +269,46 @@ namespace WorigoApp.Api.Controllers
 
         #region 8. SPA İyileştirme
 
-        [HttpGet("spa/services")]
+        /// <summary>
+        /// GetSpaServices işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("spa/services")]
         public async Task<ResponseDto<IList<SpaService>>> GetSpaServices([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetSpaServicesQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpGet("spa/slots")]
+        /// <summary>
+        /// GetSpaSlots işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("spa/slots")]
         public async Task<ResponseDto<IList<string>>> GetSpaSlots([FromQuery] string date, [FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetSpaSlotsQueryRequest { Date = date, SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpPost("spa/appointments")]
+        /// <summary>
+        /// CreateSpaAppointment işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("spa/appointments")]
         public async Task<ResponseDto<SpaAppointment>> CreateSpaAppointment([FromBody] CreateSpaAppointmentCommandRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
         }
 
-        [HttpGet("spa/appointments")]
+        /// <summary>
+        /// GetSpaAppointments işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("spa/appointments")]
         public async Task<ResponseDto<IList<SpaAppointment>>> GetSpaAppointments([FromQuery] string sessionToken, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetSpaAppointmentsQueryRequest { SessionToken = sessionToken }, cancellationToken);
         }
 
-        [HttpPut("spa/appointments/{id:int}/cancel")]
+        /// <summary>
+        /// CancelSpaAppointment işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("spa/appointments/{id:int}/cancel")]
         public async Task<ResponseDto<bool>> CancelSpaAppointment(int id, [FromBody] CancelSpaAppointmentRequestModel request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new CancelSpaAppointmentCommandRequest { Id = id, SessionToken = request.SessionToken }, cancellationToken);
@@ -236,19 +319,37 @@ namespace WorigoApp.Api.Controllers
 
     #region Models
 
-    public class CancelReservationRequestModel
+/// <summary>
+/// CancelReservationRequestModel sınıfını temsil eder.
+/// </summary>
+public class CancelReservationRequestModel
     {
-        public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
     }
 
-    public class MarkNotificationReadRequestModel
+/// <summary>
+/// MarkNotificationReadRequestModel sınıfını temsil eder.
+/// </summary>
+public class MarkNotificationReadRequestModel
     {
-        public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
     }
 
-    public class CancelSpaAppointmentRequestModel
+/// <summary>
+/// CancelSpaAppointmentRequestModel sınıfını temsil eder.
+/// </summary>
+public class CancelSpaAppointmentRequestModel
     {
-        public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
     }
 
     #endregion

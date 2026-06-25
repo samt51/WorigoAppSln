@@ -14,52 +14,79 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.ContentOfFoods
 {
-    [Authorize]
+    /// <summary>
+    /// ContentOfFoodController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class ContentOfFoodController : BaseController
     {
         private readonly IMediator _mediator;
-        public ContentOfFoodController(IMediator mediator) : base(mediator)
+/// <summary>
+/// ContentOfFoodController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ContentOfFoodController(IMediator mediator) : base(mediator)
         {
             this._mediator = mediator;
         }
-        [HttpPost]
+        /// <summary>
+        /// Yeni içerik ekleme
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Yeni içerik ekleme")]
         public async Task<ResponseDto<CreateContentOfFoodResponse>> CreateContentOfFoodAsync(CreateContentOfFoodRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
         }
-        [HttpPost]
+        /// <summary>
+        /// İçerik güncelleme
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("İçerik güncelleme")]
         public async Task<ResponseDto<UpdateContentOfFoodResponse>> UpdateContentOfFoodAsync(UpdateContentOfFoodRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
         }
-        [HttpPost]
+        /// <summary>
+        /// Menüden içerik çıkarma işlemini yapar.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Menüden içerik çıkarma işlemini yapar.")]
         public async Task<ResponseDto<RemoveContentOfFoodByFoodIdResponse>> RemoveContentOfFoodAsync(RemoveContentOfFoodByFoodIdRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(request, cancellationToken);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Menüye içerik ekleme işlemini yapar.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Menüye içerik ekleme işlemini yapar.")]
         public async Task<ResponseDto<AddContentOfFoodByFoodIdResponse>> AddContentOfFoodAsync(AddContentOfFoodByFoodIdRequest request, CancellationToken cancellationToken)
         {
             return await this._mediator.Send(request, cancellationToken);
         }
-        [HttpGet]
+        /// <summary>
+        /// Tüm içerikleri listeler.
+        /// </summary>
+[HttpGet]
         [SwaggerDescriptionAttirbute("Tüm içerikleri listeler.")]
         public async Task<ResponseDto<IList<GetAllContentQueryResponse>>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetAllContentQueryRequest(), cancellationToken);
         }
-        [HttpGet("{contentId}")]
+        /// <summary>
+        /// Id bazlı içerik getirir.
+        /// </summary>
+[HttpGet("{contentId}")]
         [SwaggerDescriptionAttirbute("Id bazlı içerik getirir.")]
         public async Task<ResponseDto<GetByIdContentQueryResponse>> GetContentByIdAsync(int contentId, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetByIdContentQueryRequest(contentId), cancellationToken);
         }
-        [HttpGet]
+        /// <summary>
+        /// Menü ait içerikleri listeler
+        /// </summary>
+[HttpGet]
         [SwaggerDescriptionAttirbute("Menü ait içerikleri listeler")]
         public async Task<ResponseDto<IList<GetAllContentByFoodIdResponse>>> GetContentByFoodId(int foodId, CancellationToken cancellationToken)
         {

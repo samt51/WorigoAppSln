@@ -5,17 +5,33 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.OrderOfOrderItems.Commands.CreateOrder
 {
-    public class CreateOrderCommandRequest : IRequest<ResponseDto<CreateOrderCommandResponse>>
+/// <summary>
+/// CreateOrderCommandRequest sınıfını temsil eder.
+/// </summary>
+public class CreateOrderCommandRequest : IRequest<ResponseDto<CreateOrderCommandResponse>>
     {
-        public int GuestStayId { get; set; }
-        public OrderPaymentOptionEnum RequestedPaymentOption { get; set; } = OrderPaymentOptionEnum.RoomCharge;
-        public IList<CreateOrderItems> CreateOrderItems { get; set; } = new List<CreateOrderItems>();
-
-        public CreateOrderCommandRequest()
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// RequestedPaymentOption değerini alır veya ayarlar.
+/// </summary>
+public OrderPaymentOptionEnum RequestedPaymentOption { get; set; } = OrderPaymentOptionEnum.RoomCharge;
+/// <summary>
+/// CreateOrderItems değerini alır veya ayarlar.
+/// </summary>
+public IList<CreateOrderItems> CreateOrderItems { get; set; } = new List<CreateOrderItems>();
+/// <summary>
+/// CreateOrderCommandRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateOrderCommandRequest()
         {
         }
-
-        public CreateOrderCommandRequest(int guestStayId, IList<CreateOrderItems> createOrderItems)
+/// <summary>
+/// CreateOrderCommandRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateOrderCommandRequest(int guestStayId, IList<CreateOrderItems> createOrderItems)
         {
             GuestStayId = guestStayId;
             CreateOrderItems = createOrderItems;

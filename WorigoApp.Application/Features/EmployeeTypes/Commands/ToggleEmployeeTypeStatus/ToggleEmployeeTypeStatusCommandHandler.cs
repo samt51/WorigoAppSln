@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Commands.ToggleEmployeeTypeStatus
 {
-    public class ToggleEmployeeTypeStatusCommandHandler : BaseHandler, IRequestHandler<ToggleEmployeeTypeStatusCommandRequest, ResponseDto<ToggleEmployeeTypeStatusCommandResponse>>
+/// <summary>
+/// ToggleEmployeeTypeStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class ToggleEmployeeTypeStatusCommandHandler : BaseHandler, IRequestHandler<ToggleEmployeeTypeStatusCommandRequest, ResponseDto<ToggleEmployeeTypeStatusCommandResponse>>
     {
-        public ToggleEmployeeTypeStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// ToggleEmployeeTypeStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ToggleEmployeeTypeStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<ToggleEmployeeTypeStatusCommandResponse>> Handle(ToggleEmployeeTypeStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<ToggleEmployeeTypeStatusCommandResponse>> Handle(ToggleEmployeeTypeStatusCommandRequest request, CancellationToken cancellationToken)
         {
             var employeeType = await unitOfWork.GetReadRepository<EmployeeType>()
                 .GetAsync(x => x.Id == request.EmployeeTypeId && !x.IsDeleted, enableTracking: true);

@@ -4,9 +4,18 @@ using WorigoApp.Application.Features.Services.Dtos;
 
 namespace WorigoApp.Application.Features.Services.Queries.GetServiceDefinitionsByHotel
 {
-    public class GetServiceDefinitionsByHotelQueryRequest : IRequest<ResponseDto<IList<ServiceDefinitionManageDto>>>
+/// <summary>
+/// GetServiceDefinitionsByHotelQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetServiceDefinitionsByHotelQueryRequest : IRequest<ResponseDto<IList<ServiceDefinitionManageDto>>>
     {
-        public int HotelId { get; set; }
-        public int? ServiceCategoryId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// ServiceCategoryId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceCategoryId { get; set; }
     }
 }

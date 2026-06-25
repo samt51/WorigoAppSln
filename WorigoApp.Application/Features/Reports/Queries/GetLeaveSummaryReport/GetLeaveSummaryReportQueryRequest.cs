@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetLeaveSummaryReport
 {
-    public class GetLeaveSummaryReportQueryRequest : IRequest<ResponseDto<IList<GetLeaveSummaryReportQueryResponse>>>
+/// <summary>
+/// GetLeaveSummaryReportQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetLeaveSummaryReportQueryRequest : IRequest<ResponseDto<IList<GetLeaveSummaryReportQueryResponse>>>
     {
-        public int HotelId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
     }
 }

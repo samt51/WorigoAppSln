@@ -11,13 +11,21 @@ using System.Text;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Commands.CreateServiceRequest
 {
-    public class CreateServiceRequestCommandHandler : BaseHandler, IRequestHandler<CreateServiceRequestCommandRequest, ResponseDto<CreateServiceRequestCommandResponse>>
+/// <summary>
+/// CreateServiceRequestCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateServiceRequestCommandHandler : BaseHandler, IRequestHandler<CreateServiceRequestCommandRequest, ResponseDto<CreateServiceRequestCommandResponse>>
     {
-        public CreateServiceRequestCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateServiceRequestCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateServiceRequestCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateServiceRequestCommandResponse>> Handle(CreateServiceRequestCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateServiceRequestCommandResponse>> Handle(CreateServiceRequestCommandRequest request, CancellationToken cancellationToken)
         {
             var guestStay = await unitOfWork.GetReadRepository<GuestStay>()
                 .GetAsync(x => x.Id == request.GuestStayId && x.IsActive && !x.IsDeleted);

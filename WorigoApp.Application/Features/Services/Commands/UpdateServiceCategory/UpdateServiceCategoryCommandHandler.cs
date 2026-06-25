@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Commands.UpdateServiceCategory
 {
-    public class UpdateServiceCategoryCommandHandler : BaseHandler, IRequestHandler<UpdateServiceCategoryCommandRequest, ResponseDto<UpdateServiceCategoryCommandResponse>>
+/// <summary>
+/// UpdateServiceCategoryCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateServiceCategoryCommandHandler : BaseHandler, IRequestHandler<UpdateServiceCategoryCommandRequest, ResponseDto<UpdateServiceCategoryCommandResponse>>
     {
-        public UpdateServiceCategoryCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateServiceCategoryCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateServiceCategoryCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateServiceCategoryCommandResponse>> Handle(UpdateServiceCategoryCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateServiceCategoryCommandResponse>> Handle(UpdateServiceCategoryCommandRequest request, CancellationToken cancellationToken)
         {
             var entity = await unitOfWork.GetReadRepository<ServiceCategory>()
                 .GetAsync(x => x.Id == request.Id && x.HotelId == request.HotelId && !x.IsDeleted, enableTracking: true);

@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Auth.Commands.Register
 {
-    public class RegisterCommandResponse
+/// <summary>
+/// RegisterCommandResponse sınıfını temsil eder.
+/// </summary>
+public class RegisterCommandResponse
     {
     }
 }

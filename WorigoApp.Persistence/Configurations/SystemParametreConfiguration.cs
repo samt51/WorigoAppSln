@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// SystemParametreConfiguration sınıfını temsil eder.
+    /// </summary>
     public class SystemParametreConfiguration : IEntityTypeConfiguration<SystemParametre>
     {
-        public void Configure(EntityTypeBuilder<SystemParametre> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<SystemParametre> builder)
         {
             var systemParametre = new SystemParametre(1, "PriceStatus");
             var systemParametre2 = new SystemParametre(2, "OrderStatus");

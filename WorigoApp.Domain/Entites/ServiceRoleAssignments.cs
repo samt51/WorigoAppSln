@@ -8,11 +8,16 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class ServiceRoleAssignments : EntityBase
     {
-        public ServiceRoleAssignments()
+/// <summary>
+/// ServiceRoleAssignments sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceRoleAssignments()
         {
         }
-
-        public ServiceRoleAssignments(int id, int serviceId, int employeeTypeRoleId)
+/// <summary>
+/// ServiceRoleAssignments sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceRoleAssignments(int id, int serviceId, int employeeTypeRoleId)
         {
             Id = id;
             ServiceId = serviceId;
@@ -34,8 +39,14 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? DepartmentId { get; set; }
 
-        public int ServiceId { get; set; }
-        public int EmployeeTypeRoleId { get; set; }
+/// <summary>
+/// ServiceId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceId { get; set; }
+/// <summary>
+/// EmployeeTypeRoleId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeTypeRoleId { get; set; }
 
         /// <summary>
         /// Kuralın birincil atama olup olmadığını belirtir.

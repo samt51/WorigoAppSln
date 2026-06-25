@@ -5,18 +5,23 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Pipelines.Behaviour
 {
+    /// <summary>
+    /// ValidationBehaviour sınıfını temsil eder.
+    /// </summary>
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, ResponseDto<List<ValidationFailure>>> where TRequest : IRequest<ResponseDto<List<ValidationFailure>>> where TResponse : ResponseDto<List<ValidationFailure>>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
-
-        public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+/// <summary>
+/// ValidationBehaviour sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
         {
             _validators = validators;
         }
-
-
-
-        public async Task<ResponseDto<List<ValidationFailure>>> Handle(TRequest request, RequestHandlerDelegate<ResponseDto<List<ValidationFailure>>> next, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<List<ValidationFailure>>> Handle(TRequest request, RequestHandlerDelegate<ResponseDto<List<ValidationFailure>>> next, CancellationToken cancellationToken)
         {
             if (_validators.Any())
             {

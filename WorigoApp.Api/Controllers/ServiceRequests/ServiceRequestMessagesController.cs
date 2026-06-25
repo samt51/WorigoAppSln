@@ -11,19 +11,27 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.ServiceRequests
 {
-    [Authorize]
+    /// <summary>
+    /// ServiceRequestMessagesController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class ServiceRequestMessagesController : BaseController
     {
         private readonly IMediator _mediator;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
-
-        public ServiceRequestMessagesController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext) : base(mediator)
+/// <summary>
+/// ServiceRequestMessagesController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceRequestMessagesController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext) : base(mediator)
         {
             _mediator = mediator;
             _hubContext = hubContext;
         }
 
-        [HttpPost("~/api/ServiceRequestMessages")]
+        /// <summary>
+        /// Servis talebi icin yeni chat mesaji olusturur ve hedef dile cevirir.
+        /// </summary>
+[HttpPost("~/api/ServiceRequestMessages")]
         [SwaggerDescriptionAttirbute("Servis talebi icin yeni chat mesaji olusturur ve hedef dile cevirir.")]
         public async Task<ResponseDto<CreateServiceRequestMessageCommandResponse>> Create(CreateServiceRequestMessageCommandRequest request)
         {
@@ -38,7 +46,10 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             return response;
         }
 
-        [HttpGet("~/api/ServiceRequestMessages/{serviceRequestId}")]
+        /// <summary>
+        /// Servis talebine ait chat mesajlarini listeler.
+        /// </summary>
+[HttpGet("~/api/ServiceRequestMessages/{serviceRequestId}")]
         [SwaggerDescriptionAttirbute("Servis talebine ait chat mesajlarini listeler.")]
         public async Task<ResponseDto<IList<GetServiceRequestMessagesQueryResponse>>> GetByServiceRequest(int serviceRequestId)
         {

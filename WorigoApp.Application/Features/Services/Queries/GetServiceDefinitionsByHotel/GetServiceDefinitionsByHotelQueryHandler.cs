@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Queries.GetServiceDefinitionsByHotel
 {
-    public class GetServiceDefinitionsByHotelQueryHandler : BaseHandler, IRequestHandler<GetServiceDefinitionsByHotelQueryRequest, ResponseDto<IList<ServiceDefinitionManageDto>>>
+/// <summary>
+/// GetServiceDefinitionsByHotelQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetServiceDefinitionsByHotelQueryHandler : BaseHandler, IRequestHandler<GetServiceDefinitionsByHotelQueryRequest, ResponseDto<IList<ServiceDefinitionManageDto>>>
     {
-        public GetServiceDefinitionsByHotelQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetServiceDefinitionsByHotelQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetServiceDefinitionsByHotelQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<ServiceDefinitionManageDto>>> Handle(GetServiceDefinitionsByHotelQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<ServiceDefinitionManageDto>>> Handle(GetServiceDefinitionsByHotelQueryRequest request, CancellationToken cancellationToken)
         {
             var definitions = await unitOfWork.GetReadRepository<ServiceDefinition>().GetAllAsync(
                 x => x.HotelId == request.HotelId &&

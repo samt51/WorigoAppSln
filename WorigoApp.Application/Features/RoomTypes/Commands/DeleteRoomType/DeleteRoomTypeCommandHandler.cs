@@ -10,13 +10,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.RoomTypes.Commands.DeleteRoomType
 {
-    public class DeleteRoomTypeCommandHandler : BaseHandler, IRequestHandler<DeleteRoomTypeCommandRequest, ResponseDto<DeleteRoomTypeCommandResponse>>
+/// <summary>
+/// DeleteRoomTypeCommandHandler sınıfını temsil eder.
+/// </summary>
+public class DeleteRoomTypeCommandHandler : BaseHandler, IRequestHandler<DeleteRoomTypeCommandRequest, ResponseDto<DeleteRoomTypeCommandResponse>>
     {
-        public DeleteRoomTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// DeleteRoomTypeCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public DeleteRoomTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<DeleteRoomTypeCommandResponse>> Handle(DeleteRoomTypeCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<DeleteRoomTypeCommandResponse>> Handle(DeleteRoomTypeCommandRequest request, CancellationToken cancellationToken)
         {
             var roomType = await unitOfWork.GetReadRepository<RoomType>().GetAsync(
                 predicate: x => x.Id == request.Id && !x.IsDeleted,

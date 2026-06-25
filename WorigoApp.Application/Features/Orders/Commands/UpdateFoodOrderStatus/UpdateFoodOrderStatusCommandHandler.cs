@@ -9,13 +9,21 @@ using WorigoApp.Application.Interfaces.AutoMapper;
 
 namespace WorigoApp.Application.Features.Orders.Commands.UpdateFoodOrderStatus
 {
-    public class UpdateFoodOrderStatusCommandHandler : BaseHandler, IRequestHandler<UpdateFoodOrderStatusCommandRequest, ResponseDto<UpdateFoodOrderStatusResponse>>
+/// <summary>
+/// UpdateFoodOrderStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateFoodOrderStatusCommandHandler : BaseHandler, IRequestHandler<UpdateFoodOrderStatusCommandRequest, ResponseDto<UpdateFoodOrderStatusResponse>>
     {
-        public UpdateFoodOrderStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateFoodOrderStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateFoodOrderStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateFoodOrderStatusResponse>> Handle(UpdateFoodOrderStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateFoodOrderStatusResponse>> Handle(UpdateFoodOrderStatusCommandRequest request, CancellationToken cancellationToken)
         {
             var staff = await unitOfWork.GetReadRepository<Users>().FindAsync(
                 x => x.Id == UserId && !x.IsDeleted,

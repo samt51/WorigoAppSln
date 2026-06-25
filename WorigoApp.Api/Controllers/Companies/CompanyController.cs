@@ -10,32 +10,50 @@ using WorigoApp.Application.Features.Companies.Queries.GetByCompany;
 namespace WorigoApp.Api.Controllers.Companies
 {
  
-    public class CompanyController : BaseController
+/// <summary>
+/// CompanyController sınıfını temsil eder.
+/// </summary>
+public class CompanyController : BaseController
     {
         private readonly IMediator _mediator;
-        public CompanyController(IMediator mediator) : base(mediator)
+/// <summary>
+/// CompanyController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CompanyController(IMediator mediator) : base(mediator)
         {
             this._mediator = mediator;
         }
-        [HttpGet]
+  /// <summary>
+  /// GetAllAsync işlemini gerçekleştirir.
+  /// </summary>
+[HttpGet]
  
         public async Task<ResponseDto<IList<GetAllCompaniesQueryResponse>>> GetAllAsync()
         {
             return await this._mediator.Send(new GetAllCompaniesQueryRequest());
         }
-        [HttpPost]
+  /// <summary>
+  /// AddAsync işlemini gerçekleştirir.
+  /// </summary>
+[HttpPost]
  
         public async Task<ResponseDto<CreateCompanyCommandResponse>> AddAsync(CreateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);
         }
-        [HttpPost]
+   /// <summary>
+   /// UpdateAsync işlemini gerçekleştirir.
+   /// </summary>
+[HttpPost]
   
         public async Task<ResponseDto<UpdateCompanyCommandResponse>> UpdateAsync(UpdateCompanyCommandRequest request)
         {
             return await this._mediator.Send(request);
         }
-        [HttpGet("{id}")]
+        /// <summary>
+        /// GetByIdAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("{id}")]
         public async Task<ResponseDto<GetByIdCompanyQueryResponse>> GetByIdAsync(int id)
         {
             return await _mediator.Send(new GetByIdCompanyQueryRequest(id));

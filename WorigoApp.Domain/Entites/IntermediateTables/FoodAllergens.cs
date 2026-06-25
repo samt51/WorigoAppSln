@@ -2,11 +2,26 @@
 
 namespace WorigoApp.Domain.Entites.IntermediateTables
 {
-    public class FoodAllergens : IEntityBase
+/// <summary>
+/// FoodAllergens sınıfını temsil eder.
+/// </summary>
+public class FoodAllergens : IEntityBase
     {
-        public int FoodId { get; set; }
-        public Food Food { get; set; }
-        public int AllergenId { get; set; }
-        public Allergen Allergen { get; set; }
+/// <summary>
+/// FoodId değerini alır veya ayarlar.
+/// </summary>
+public int FoodId { get; set; }
+/// <summary>
+/// Food değerini alır veya ayarlar.
+/// </summary>
+public Food Food { get; set; }
+/// <summary>
+/// AllergenId değerini alır veya ayarlar.
+/// </summary>
+public int AllergenId { get; set; }
+/// <summary>
+/// Allergen değerini alır veya ayarlar.
+/// </summary>
+public Allergen Allergen { get; set; }
     }
 }

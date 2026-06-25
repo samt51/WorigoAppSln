@@ -3,10 +3,19 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Rooms.Queries.GetByIdRoom
 {
-    public class GetByIdRoomQueryRequest : IRequest<ResponseDto<GetByIdRoomQueryResponse>>
+/// <summary>
+/// GetByIdRoomQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdRoomQueryRequest : IRequest<ResponseDto<GetByIdRoomQueryResponse>>
     {
-        public int Id { get; }
-        public GetByIdRoomQueryRequest(int id)
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; }
+/// <summary>
+/// GetByIdRoomQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdRoomQueryRequest(int id)
         {
             this.Id = id;
         }

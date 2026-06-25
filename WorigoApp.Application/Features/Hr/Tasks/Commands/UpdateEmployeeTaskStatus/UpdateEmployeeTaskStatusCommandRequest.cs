@@ -4,10 +4,22 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.Tasks.Commands.UpdateEmployeeTaskStatus
 {
-    public class UpdateEmployeeTaskStatusCommandRequest : IRequest<ResponseDto<UpdateEmployeeTaskStatusCommandResponse>>
+/// <summary>
+/// UpdateEmployeeTaskStatusCommandRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateEmployeeTaskStatusCommandRequest : IRequest<ResponseDto<UpdateEmployeeTaskStatusCommandResponse>>
     {
-        public int EmployeeTaskId { get; set; }
-        public EmployeeTaskStatusEnum Status { get; set; }
-        public string? CompletionNote { get; set; }
+/// <summary>
+/// EmployeeTaskId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeTaskId { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public EmployeeTaskStatusEnum Status { get; set; }
+/// <summary>
+/// CompletionNote değerini alır veya ayarlar.
+/// </summary>
+public string? CompletionNote { get; set; }
     }
 }

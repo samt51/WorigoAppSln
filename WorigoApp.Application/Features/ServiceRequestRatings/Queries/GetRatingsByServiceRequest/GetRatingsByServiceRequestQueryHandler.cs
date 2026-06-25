@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceRequestRatings.Queries.GetRatingsByServiceRequest
 {
-    public class GetRatingsByServiceRequestQueryHandler : BaseHandler, IRequestHandler<GetRatingsByServiceRequestQueryRequest, ResponseDto<IList<GetRatingsByServiceRequestQueryResponse>>>
+/// <summary>
+/// GetRatingsByServiceRequestQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetRatingsByServiceRequestQueryHandler : BaseHandler, IRequestHandler<GetRatingsByServiceRequestQueryRequest, ResponseDto<IList<GetRatingsByServiceRequestQueryResponse>>>
     {
-        public GetRatingsByServiceRequestQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetRatingsByServiceRequestQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetRatingsByServiceRequestQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetRatingsByServiceRequestQueryResponse>>> Handle(GetRatingsByServiceRequestQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetRatingsByServiceRequestQueryResponse>>> Handle(GetRatingsByServiceRequestQueryRequest request, CancellationToken cancellationToken)
         {
             var ratings = await unitOfWork.GetReadRepository<ServiceRequestRating>().GetAllAsync(
                 x => x.ServiceRequestId == request.ServiceRequestId && !x.IsDeleted,

@@ -9,24 +9,35 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Hr
 {
-    [Authorize]
+    /// <summary>
+    /// InternalAnnouncementsController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class InternalAnnouncementsController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public InternalAnnouncementsController(IMediator mediator) : base(mediator)
+/// <summary>
+/// InternalAnnouncementsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public InternalAnnouncementsController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Personel ve yonetime gosterilecek ic duyuru olusturur.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Personel ve yonetime gosterilecek ic duyuru olusturur.")]
         public async Task<ResponseDto<CreateInternalAnnouncementCommandResponse>> Create(CreateInternalAnnouncementCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Ic duyurulari listeler.
+        /// </summary>
+[HttpGet]
         [SwaggerDescriptionAttirbute("Ic duyurulari listeler.")]
         public async Task<ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>> Get([FromQuery] GetInternalAnnouncementsQueryRequest request)
         {

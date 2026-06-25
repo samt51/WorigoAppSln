@@ -7,16 +7,23 @@ using WorigoApp.Application.Interfaces.UnitOfWorks;
 
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCategories
 {
-    public class GetGuestServiceCategoriesQueryHandler : BaseHandler, IRequestHandler<GetGuestServiceCategoriesQueryRequest, ResponseDto<IList<GetGuestServiceCategoriesQueryResponse>>>
+/// <summary>
+/// GetGuestServiceCategoriesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetGuestServiceCategoriesQueryHandler : BaseHandler, IRequestHandler<GetGuestServiceCategoriesQueryRequest, ResponseDto<IList<GetGuestServiceCategoriesQueryResponse>>>
     {
         private readonly IMediator _mediator;
-
-        public GetGuestServiceCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork, IMediator mediator) : base(mapper, unitOfWork)
+/// <summary>
+/// GetGuestServiceCategoriesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetGuestServiceCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork, IMediator mediator) : base(mapper, unitOfWork)
         {
             _mediator = mediator;
         }
-
-        public async Task<ResponseDto<IList<GetGuestServiceCategoriesQueryResponse>>> Handle(GetGuestServiceCategoriesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetGuestServiceCategoriesQueryResponse>>> Handle(GetGuestServiceCategoriesQueryRequest request, CancellationToken cancellationToken)
         {
             var serviceResponse = await _mediator.Send(new GetGuestAvailableServicesQueryRequest
             {

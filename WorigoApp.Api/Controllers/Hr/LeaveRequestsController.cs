@@ -11,38 +11,55 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Hr
 {
-    [Authorize]
+    /// <summary>
+    /// LeaveRequestsController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin,HotelAdmin,HRManager,DepartmentManager,Employee")]
     public class LeaveRequestsController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public LeaveRequestsController(IMediator mediator) : base(mediator)
+/// <summary>
+/// LeaveRequestsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public LeaveRequestsController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Personelin departman mudurune ve gerekirse IK'ya izin talebi acmasini saglar.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Personelin departman mudurune ve gerekirse IK'ya izin talebi acmasini saglar.")]
         public async Task<ResponseDto<CreateLeaveRequestCommandResponse>> Create(CreateLeaveRequestCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Mudurun veya IK'nin izin talebi durumunu guncellemesini saglar.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Mudurun veya IK'nin izin talebi durumunu guncellemesini saglar.")]
         public async Task<ResponseDto<UpdateLeaveRequestStatusCommandResponse>> UpdateStatus(UpdateLeaveRequestStatusCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpGet("employee/{employeeId}")]
+        /// <summary>
+        /// Personelin kendi izin taleplerini listeler.
+        /// </summary>
+[HttpGet("employee/{employeeId}")]
         [SwaggerDescriptionAttirbute("Personelin kendi izin taleplerini listeler.")]
         public async Task<ResponseDto<IList<GetLeaveRequestsByEmployeeQueryResponse>>> GetByEmployee(int employeeId)
         {
             return await _mediator.Send(new GetLeaveRequestsByEmployeeQueryRequest { EmployeeId = employeeId });
         }
 
-        [HttpGet("manager/{managerEmployeeId}")]
+        /// <summary>
+        /// Mudure veya IK sorumlusuna dusen izin taleplerini listeler.
+        /// </summary>
+[HttpGet("manager/{managerEmployeeId}")]
         [SwaggerDescriptionAttirbute("Mudure veya IK sorumlusuna dusen izin taleplerini listeler.")]
         public async Task<ResponseDto<IList<GetLeaveRequestsByManagerQueryResponse>>> GetByManager(int managerEmployeeId, [FromQuery] bool isHrView = false)
         {

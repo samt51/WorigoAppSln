@@ -8,13 +8,21 @@ using WorigoApp.Application.Interfaces.AutoMapper;
 
 namespace WorigoApp.Application.Features.Restaurants.Commands.RejectRestaurantReservation
 {
-    public class RejectRestaurantReservationCommandHandler : BaseHandler, IRequestHandler<RejectRestaurantReservationCommandRequest, ResponseDto<RejectRestaurantReservationResponse>>
+/// <summary>
+/// RejectRestaurantReservationCommandHandler sınıfını temsil eder.
+/// </summary>
+public class RejectRestaurantReservationCommandHandler : BaseHandler, IRequestHandler<RejectRestaurantReservationCommandRequest, ResponseDto<RejectRestaurantReservationResponse>>
     {
-        public RejectRestaurantReservationCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// RejectRestaurantReservationCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public RejectRestaurantReservationCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<RejectRestaurantReservationResponse>> Handle(RejectRestaurantReservationCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<RejectRestaurantReservationResponse>> Handle(RejectRestaurantReservationCommandRequest request, CancellationToken cancellationToken)
         {
             var user = await unitOfWork.GetReadRepository<Users>().FindAsync(
                 x => x.Id == UserId && !x.IsDeleted,

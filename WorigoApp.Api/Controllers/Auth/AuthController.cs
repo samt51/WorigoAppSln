@@ -8,32 +8,49 @@ using WorigoApp.Application.Features.Auth.Commands.Register;
 
 namespace WorigoApp.Api.Controllers.Auth
 {
-    [AllowAnonymous]
+    /// <summary>
+    /// AuthController sınıfını temsil eder.
+    /// </summary>
+[AllowAnonymous]
     public class AuthController : BaseController
     {
         private readonly IMediator mediator;
-
-        public AuthController(IMediator mediator) : base(mediator)
+/// <summary>
+/// AuthController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AuthController(IMediator mediator) : base(mediator)
         {
             this.mediator = mediator;
 
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Login işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<LoginCommandResponse>> Login(LoginCommandRequest request)
         {
             return await mediator.Send(request);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Register işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<RegisterCommandResponse>> Register(RegisterCommandRequest request)
         {
             return await mediator.Send(request);
         }
-        [HttpPost]
+        /// <summary>
+        /// Logout işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<IActionResult> Logout() => Ok();
 
-        [HttpGet]
+        /// <summary>
+        /// Localization işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet]
         public async Task<IActionResult> Localization()
         {
             return Ok();

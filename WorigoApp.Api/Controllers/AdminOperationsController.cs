@@ -13,15 +13,20 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Api.Controllers
 {
-    [ApiController]
+    /// <summary>
+    /// AdminOperationsController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Authorize(Roles = "HotelAdmin,Management")]
     [Route("admin")]
     public class AdminOperationsController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
-
-        public AdminOperationsController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext)
+/// <summary>
+/// AdminOperationsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AdminOperationsController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext)
         {
             _mediator = mediator;
             _hubContext = hubContext;
@@ -31,7 +36,10 @@ namespace WorigoApp.Api.Controllers
 
         #region 1. Yemek Sipariş Takibi
 
-        [HttpPut("orders/food/{orderId:int}/status")]
+        /// <summary>
+        /// UpdateFoodOrderStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("orders/food/{orderId:int}/status")]
         public async Task<ResponseDto<bool>> UpdateFoodOrderStatus(int orderId, [FromBody] UpdateFoodOrderStatusRequest request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new UpdateFoodOrderStatusCommandRequest
@@ -62,13 +70,19 @@ namespace WorigoApp.Api.Controllers
 
         #region 4. Restaurant Rezervasyon Modülü
 
-        [HttpGet("restaurants/reservations")]
+        /// <summary>
+        /// GetRestaurantReservations işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("restaurants/reservations")]
         public async Task<ResponseDto<IList<RestaurantReservation>>> GetRestaurantReservations(CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetRestaurantReservationsQueryRequest(), cancellationToken);
         }
 
-        [HttpPut("restaurants/reservations/{id:int}/approve")]
+        /// <summary>
+        /// ApproveRestaurantReservation işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("restaurants/reservations/{id:int}/approve")]
         public async Task<ResponseDto<bool>> ApproveRestaurantReservation(int id, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new ApproveRestaurantReservationCommandRequest
@@ -93,7 +107,10 @@ namespace WorigoApp.Api.Controllers
             return new ResponseDto<bool>().Fail(response.Errors ?? new List<string> { "Rezervasyon onaylanamadı." }, response.StatusCode);
         }
 
-        [HttpPut("restaurants/reservations/{id:int}/reject")]
+        /// <summary>
+        /// RejectRestaurantReservation işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("restaurants/reservations/{id:int}/reject")]
         public async Task<ResponseDto<bool>> RejectRestaurantReservation(int id, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new RejectRestaurantReservationCommandRequest
@@ -123,9 +140,15 @@ namespace WorigoApp.Api.Controllers
 
     #region Models
 
-    public class UpdateFoodOrderStatusRequest
+/// <summary>
+/// UpdateFoodOrderStatusRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateFoodOrderStatusRequest
     {
-        public string Status { get; set; } = string.Empty;
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = string.Empty;
     }
 
     #endregion

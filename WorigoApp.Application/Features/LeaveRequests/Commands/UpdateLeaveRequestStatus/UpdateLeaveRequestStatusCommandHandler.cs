@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using WorigoApp.Application.Bases;
 using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
@@ -7,22 +8,55 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Commands.UpdateLeaveRequestStatus
 {
-    public class UpdateLeaveRequestStatusCommandHandler : BaseHandler, IRequestHandler<UpdateLeaveRequestStatusCommandRequest, ResponseDto<UpdateLeaveRequestStatusCommandResponse>>
+/// <summary>
+/// UpdateLeaveRequestStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateLeaveRequestStatusCommandHandler : BaseHandler, IRequestHandler<UpdateLeaveRequestStatusCommandRequest, ResponseDto<UpdateLeaveRequestStatusCommandResponse>>
     {
-        public UpdateLeaveRequestStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateLeaveRequestStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateLeaveRequestStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateLeaveRequestStatusCommandResponse>> Handle(UpdateLeaveRequestStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateLeaveRequestStatusCommandResponse>> Handle(UpdateLeaveRequestStatusCommandRequest request, CancellationToken cancellationToken)
         {
+            var currentUser = await unitOfWork.GetReadRepository<Users>().GetAsync(
+                x => x.Id == UserId && !x.IsDeleted,
+                include: q => q.Include(u => u.Employee));
+
+            if (currentUser == null)
+            {
+                return new ResponseDto<UpdateLeaveRequestStatusCommandResponse>().Fail(new List<string> { "Kullanıcı bulunamadı." }, 401);
+            }
+
+            bool isSystemAdmin = currentUser.RoleId == 1;
+            bool isHotelAdmin = currentUser.RoleId == 2;
+            bool isHrManager = currentUser.RoleId == 7;
+
             var leaveRequest = await unitOfWork.GetReadRepository<LeaveRequest>().GetAsync(x => x.Id == request.LeaveRequestId && !x.IsDeleted);
+            if (leaveRequest == null)
+            {
+                return new ResponseDto<UpdateLeaveRequestStatusCommandResponse>().Fail(new List<string> { "İzin talebi bulunamadı." }, 404);
+            }
+
+            if (!isSystemAdmin && currentUser.Employee != null && leaveRequest.HotelId != currentUser.Employee.HotelId)
+            {
+                return new ResponseDto<UpdateLeaveRequestStatusCommandResponse>().Fail(new List<string> { "Bu oteldeki izin talebine müdahale etme yetkiniz yok." }, 403);
+            }
+
+            int? currentEmployeeId = currentUser.Employee?.Id;
 
             if (request.IsHrAction)
             {
-                if (leaveRequest.HrEmployeeId != request.ActionEmployeeId)
+                bool canHrApprove = isSystemAdmin || (currentUser.Employee != null && (isHotelAdmin || isHrManager || leaveRequest.HrEmployeeId == currentEmployeeId));
+                if (!canHrApprove)
                 {
                     return new ResponseDto<UpdateLeaveRequestStatusCommandResponse>()
-                        .Fail(new List<string> { "Bu izin talebi icin IK onay yetkisi bulunmuyor." }, 403);
+                        .Fail(new List<string> { "Bu izin talebi için IK onay yetkisi bulunmuyor." }, 403);
                 }
 
                 leaveRequest.HrActionAt = DateTime.UtcNow;
@@ -31,10 +65,11 @@ namespace WorigoApp.Application.Features.LeaveRequests.Commands.UpdateLeaveReque
             }
             else
             {
-                if (leaveRequest.ManagerEmployeeId != request.ActionEmployeeId)
+                bool canManagerApprove = isSystemAdmin || (currentUser.Employee != null && (isHotelAdmin || leaveRequest.ManagerEmployeeId == currentEmployeeId));
+                if (!canManagerApprove)
                 {
                     return new ResponseDto<UpdateLeaveRequestStatusCommandResponse>()
-                        .Fail(new List<string> { "Bu izin talebi icin mudur onay yetkisi bulunmuyor." }, 403);
+                        .Fail(new List<string> { "Bu izin talebi için müdür onay yetkisi bulunmuyor." }, 403);
                 }
 
                 leaveRequest.ManagerActionAt = DateTime.UtcNow;

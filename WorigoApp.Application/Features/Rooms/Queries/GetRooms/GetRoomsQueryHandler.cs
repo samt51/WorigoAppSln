@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Rooms.Queries.GetRooms
 {
-    public class GetRoomsQueryHandler : BaseHandler, IRequestHandler<GetRoomsQueryRequest, IList<GetRoomsQueryResponse>>
+/// <summary>
+/// GetRoomsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetRoomsQueryHandler : BaseHandler, IRequestHandler<GetRoomsQueryRequest, IList<GetRoomsQueryResponse>>
     {
-        public GetRoomsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetRoomsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetRoomsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<IList<GetRoomsQueryResponse>> Handle(GetRoomsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<IList<GetRoomsQueryResponse>> Handle(GetRoomsQueryRequest request, CancellationToken cancellationToken)
         {
             var list = await unitOfWork.GetReadRepository<Room>().GetAllAsync();
             

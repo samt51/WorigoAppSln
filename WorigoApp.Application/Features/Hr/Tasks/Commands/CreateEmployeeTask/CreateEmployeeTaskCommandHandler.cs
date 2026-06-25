@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hr.Tasks.Commands.CreateEmployeeTask
 {
-    public class CreateEmployeeTaskCommandHandler : BaseHandler, IRequestHandler<CreateEmployeeTaskCommandRequest, ResponseDto<CreateEmployeeTaskCommandResponse>>
+/// <summary>
+/// CreateEmployeeTaskCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeTaskCommandHandler : BaseHandler, IRequestHandler<CreateEmployeeTaskCommandRequest, ResponseDto<CreateEmployeeTaskCommandResponse>>
     {
-        public CreateEmployeeTaskCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateEmployeeTaskCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateEmployeeTaskCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateEmployeeTaskCommandResponse>> Handle(CreateEmployeeTaskCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateEmployeeTaskCommandResponse>> Handle(CreateEmployeeTaskCommandRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Employee>().GetAsync(x => x.Id == request.AssignedEmployeeId && x.HotelId == request.HotelId && !x.IsDeleted);
             await unitOfWork.GetReadRepository<Employee>().GetAsync(x => x.Id == request.AssignedByEmployeeId && x.HotelId == request.HotelId && !x.IsDeleted);

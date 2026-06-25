@@ -4,6 +4,9 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ServiceTranslationSeedConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ServiceTranslationSeedConfiguration : IEntityTypeConfiguration<Translation>
     {
         private const string Tr = "tr-TR";
@@ -13,8 +16,10 @@ namespace WorigoApp.Persistence.Configurations
         private const string Es = "es-ES";
         private const string Ar = "ar-SA";
         private const string De = "de-DE";
-
-        public void Configure(EntityTypeBuilder<Translation> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Translation> builder)
         {
             var translations = new List<Translation>();
             var id = 10000;

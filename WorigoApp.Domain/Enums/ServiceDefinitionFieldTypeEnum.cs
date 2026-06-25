@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum ServiceDefinitionFieldTypeEnum
+/// <summary>
+/// ServiceDefinitionFieldTypeEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum ServiceDefinitionFieldTypeEnum
     {
         Text = 1,
         TextArea = 2,

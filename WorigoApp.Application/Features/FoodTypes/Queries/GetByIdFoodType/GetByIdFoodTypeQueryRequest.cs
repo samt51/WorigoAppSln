@@ -3,12 +3,21 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.FoodTypes.Queries.GetByIdFoodType
 {
-    public class GetByIdFoodTypeQueryRequest : IRequest<ResponseDto<GetByIdFoodTypeQueryResponse>>
+/// <summary>
+/// GetByIdFoodTypeQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdFoodTypeQueryRequest : IRequest<ResponseDto<GetByIdFoodTypeQueryResponse>>
     {
-        public GetByIdFoodTypeQueryRequest(int id)
+/// <summary>
+/// GetByIdFoodTypeQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdFoodTypeQueryRequest(int id)
         {
             this.Id = id;
         }
-        public int Id { get; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; }
     }
 }

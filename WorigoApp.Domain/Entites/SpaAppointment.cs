@@ -3,18 +3,51 @@ using WorigoApp.Domain.Common;
 
 namespace WorigoApp.Domain.Entites
 {
-    public class SpaAppointment : EntityBase
+/// <summary>
+/// SpaAppointment sınıfını temsil eder.
+/// </summary>
+public class SpaAppointment : EntityBase
     {
-        public int HotelId { get; set; }
-        public int GuestStayId { get; set; }
-        public string ServiceName { get; set; } = string.Empty;
-        public string TherapistName { get; set; } = string.Empty;
-        public DateTime AppointmentDate { get; set; }
-        public string TimeSlot { get; set; } = string.Empty;
-        public decimal Price { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public string Status { get; set; } = "Confirmed";
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// ServiceName değerini alır veya ayarlar.
+/// </summary>
+public string ServiceName { get; set; } = string.Empty;
+/// <summary>
+/// TherapistName değerini alır veya ayarlar.
+/// </summary>
+public string TherapistName { get; set; } = string.Empty;
+/// <summary>
+/// AppointmentDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime AppointmentDate { get; set; }
+/// <summary>
+/// TimeSlot değerini alır veya ayarlar.
+/// </summary>
+public string TimeSlot { get; set; } = string.Empty;
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal Price { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = "Confirmed";
         
-        public GuestStay GuestStay { get; set; } = null!;
+/// <summary>
+/// GuestStay değerini alır veya ayarlar.
+/// </summary>
+public GuestStay GuestStay { get; set; } = null!;
     }
 }

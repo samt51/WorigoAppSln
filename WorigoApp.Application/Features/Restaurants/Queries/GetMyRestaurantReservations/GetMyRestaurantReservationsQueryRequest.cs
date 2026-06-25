@@ -4,8 +4,14 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Restaurants.Queries.GetMyRestaurantReservations
 {
-    public class GetMyRestaurantReservationsQueryRequest : IRequest<ResponseDto<IList<RestaurantReservation>>>
+/// <summary>
+/// GetMyRestaurantReservationsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetMyRestaurantReservationsQueryRequest : IRequest<ResponseDto<IList<RestaurantReservation>>>
     {
-        public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
     }
 }

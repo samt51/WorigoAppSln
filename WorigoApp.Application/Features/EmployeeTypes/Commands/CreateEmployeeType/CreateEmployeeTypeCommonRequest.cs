@@ -3,11 +3,23 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Commands.CreateEmployeeType
 {
-    public class CreateEmployeeTypeCommonRequest : IRequest<ResponseDto<CreateEmployeeTypeCommonResponse>>
+/// <summary>
+/// CreateEmployeeTypeCommonRequest sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeTypeCommonRequest : IRequest<ResponseDto<CreateEmployeeTypeCommonResponse>>
     {
-        public string Name { get; }
-        public int DepartmentId { get; }
-        public CreateEmployeeTypeCommonRequest(string name, int departmentId)
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int DepartmentId { get; }
+/// <summary>
+/// CreateEmployeeTypeCommonRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateEmployeeTypeCommonRequest(string name, int departmentId)
         {
             this.Name = name;
             this.DepartmentId = departmentId;

@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Domain.Enums
 {
-    public enum HealthAndFirstHelpTypeEnum
+/// <summary>
+/// HealthAndFirstHelpTypeEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum HealthAndFirstHelpTypeEnum
     {
         DoktorTalep=1,
         İlkYardım = 2,

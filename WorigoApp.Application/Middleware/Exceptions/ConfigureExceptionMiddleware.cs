@@ -2,9 +2,15 @@
 
 namespace WorigoApp.Application.Middleware.Exceptions
 {
+    /// <summary>
+    /// ConfigureExceptionMiddleware sınıfını temsil eder.
+    /// </summary>
     public static class ConfigureExceptionMiddleware
     {
-        public static void ConfigureExceptionHandlingMiddleware(this IApplicationBuilder app)
+/// <summary>
+/// ConfigureExceptionHandlingMiddleware işlemini gerçekleştirir.
+/// </summary>
+public static void ConfigureExceptionHandlingMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionMiddleware>();
         }

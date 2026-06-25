@@ -3,9 +3,18 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodMenuCategory
 {
-    public class UpdateFoodMenuCategoryCommonRequest : IRequest<ResponseDto<UpdateFoodMenuCategoryCommonResponse>>
+/// <summary>
+/// UpdateFoodMenuCategoryCommonRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateFoodMenuCategoryCommonRequest : IRequest<ResponseDto<UpdateFoodMenuCategoryCommonResponse>>
     {
-        public int Id { get; }
-        public string Name { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
     }
 }

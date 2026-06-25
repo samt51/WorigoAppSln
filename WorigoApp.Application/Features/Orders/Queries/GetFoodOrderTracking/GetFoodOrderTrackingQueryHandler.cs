@@ -7,16 +7,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Orders.Queries.GetFoodOrderTracking
 {
-    public class GetFoodOrderTrackingQueryHandler : IRequestHandler<GetFoodOrderTrackingQueryRequest, ResponseDto<OrderTrackingDto>>
+/// <summary>
+/// GetFoodOrderTrackingQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetFoodOrderTrackingQueryHandler : IRequestHandler<GetFoodOrderTrackingQueryRequest, ResponseDto<OrderTrackingDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetFoodOrderTrackingQueryHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GetFoodOrderTrackingQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetFoodOrderTrackingQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<OrderTrackingDto>> Handle(GetFoodOrderTrackingQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<OrderTrackingDto>> Handle(GetFoodOrderTrackingQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

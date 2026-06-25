@@ -1,8 +1,14 @@
 namespace WorigoApp.Application.Features.GuestStays.Commands.UpdatedCustomer
 {
-    public class UpdatedCustomerCommandResponse
+/// <summary>
+/// UpdatedCustomerCommandResponse sınıfını temsil eder.
+/// </summary>
+public class UpdatedCustomerCommandResponse
     {
-        public UpdatedCustomerCommandResponse()
+/// <summary>
+/// UpdatedCustomerCommandResponse sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdatedCustomerCommandResponse()
         {
 
         }

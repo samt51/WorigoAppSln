@@ -1,8 +1,14 @@
 ﻿namespace WorigoApp.Application.Features.ContentOfFoods.Commands.UpdateContentOfFood
 {
-    public class UpdateContentOfFoodResponse
+/// <summary>
+/// UpdateContentOfFoodResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateContentOfFoodResponse
     {
-        public UpdateContentOfFoodResponse()
+/// <summary>
+/// UpdateContentOfFoodResponse sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateContentOfFoodResponse()
         {
             
         }

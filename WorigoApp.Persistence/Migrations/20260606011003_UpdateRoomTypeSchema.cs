@@ -5,9 +5,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WorigoApp.Persistence.Migrations
 {
+    /// <summary>
+    /// UpdateRoomTypeSchema sınıfını temsil eder.
+    /// </summary>
     public partial class UpdateRoomTypeSchema : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+/// <summary>
+/// Up işlemini gerçekleştirir.
+/// </summary>
+protected override void Up(MigrationBuilder migrationBuilder)
         {
             // Drop old column
             migrationBuilder.DropColumn(
@@ -104,8 +110,10 @@ namespace WorigoApp.Persistence.Migrations
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
         }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
+/// <summary>
+/// Down işlemini gerçekleştirir.
+/// </summary>
+protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_RoomType_Hotel_HotelId",

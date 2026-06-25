@@ -2,11 +2,26 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Commands.UpdateLeaveRequestStatus
 {
-    public class UpdateLeaveRequestStatusCommandResponse
+/// <summary>
+/// UpdateLeaveRequestStatusCommandResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateLeaveRequestStatusCommandResponse
     {
-        public int Id { get; set; }
-        public LeaveRequestStatusEnum Status { get; set; }
-        public DateTime? ManagerActionAt { get; set; }
-        public DateTime? HrActionAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public LeaveRequestStatusEnum Status { get; set; }
+/// <summary>
+/// ManagerActionAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? ManagerActionAt { get; set; }
+/// <summary>
+/// HrActionAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? HrActionAt { get; set; }
     }
 }

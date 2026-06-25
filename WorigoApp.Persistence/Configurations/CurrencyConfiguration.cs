@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// CurrencyConfiguration sınıfını temsil eder.
+    /// </summary>
     public class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
     {
-        public void Configure(EntityTypeBuilder<Currency> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Currency> builder)
         {
             builder.Property(x => x.Code).HasMaxLength(3).IsRequired();
             builder.Property(x => x.Name).HasMaxLength(100).IsRequired();

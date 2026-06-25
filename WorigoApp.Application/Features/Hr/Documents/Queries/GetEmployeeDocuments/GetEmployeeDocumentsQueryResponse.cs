@@ -2,13 +2,34 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.Documents.Queries.GetEmployeeDocuments
 {
-    public class GetEmployeeDocumentsQueryResponse
+/// <summary>
+/// GetEmployeeDocumentsQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetEmployeeDocumentsQueryResponse
     {
-        public int Id { get; set; }
-        public DocumentTypeEnum DocumentType { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string FileUrl { get; set; } = string.Empty;
-        public DateTime? ExpireAt { get; set; }
-        public bool IsMandatory { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// DocumentType değerini alır veya ayarlar.
+/// </summary>
+public DocumentTypeEnum DocumentType { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// FileUrl değerini alır veya ayarlar.
+/// </summary>
+public string FileUrl { get; set; } = string.Empty;
+/// <summary>
+/// ExpireAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? ExpireAt { get; set; }
+/// <summary>
+/// IsMandatory değerini alır veya ayarlar.
+/// </summary>
+public bool IsMandatory { get; set; }
     }
 }

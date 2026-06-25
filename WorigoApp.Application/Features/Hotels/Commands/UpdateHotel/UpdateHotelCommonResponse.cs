@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Hotels.Commands.UpdateHotel
 {
-    public class UpdateHotelCommonResponse
+/// <summary>
+/// UpdateHotelCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateHotelCommonResponse
     {
     }
 }

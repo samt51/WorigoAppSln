@@ -3,10 +3,22 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Hotels.Queries.GetByIdHotel
 {
-    public class GetByIdHotelQueryRequest : IRequest<ResponseDto<GetByIdHotelQueryResponse>>
+/// <summary>
+/// GetByIdHotelQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdHotelQueryRequest : IRequest<ResponseDto<GetByIdHotelQueryResponse>>
     {
-        public int HotelId { get; set; }
-        public GetByIdHotelQueryRequest(int id) { HotelId = id; }
-        public GetByIdHotelQueryRequest() { }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// GetByIdHotelQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdHotelQueryRequest(int id) { HotelId = id; }
+/// <summary>
+/// GetByIdHotelQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdHotelQueryRequest() { }
     }
 }

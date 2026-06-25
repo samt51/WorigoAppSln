@@ -2,10 +2,19 @@
 
 namespace WorigoApp.Application.Features.ImageCategories.Queries.GetAllImageCategories
 {
-    public class GetAllImageCategoriesQueryRequest : IRequest<IList<GetAllImageCategoriesQueryResponse>>
+/// <summary>
+/// GetAllImageCategoriesQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetAllImageCategoriesQueryRequest : IRequest<IList<GetAllImageCategoriesQueryResponse>>
     {
-        public int HotelId { get; set; }
-        public GetAllImageCategoriesQueryRequest(int hotelid)
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// GetAllImageCategoriesQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllImageCategoriesQueryRequest(int hotelid)
         {
             this.HotelId = hotelid;
         }

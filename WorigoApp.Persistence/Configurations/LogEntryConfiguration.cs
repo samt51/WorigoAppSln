@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// LogEntryConfiguration sınıfını temsil eder.
+    /// </summary>
     public class LogEntryConfiguration : IEntityTypeConfiguration<LogEntry>
     {
-        public void Configure(EntityTypeBuilder<LogEntry> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<LogEntry> builder)
         {
             builder.ToTable("Logs");
 

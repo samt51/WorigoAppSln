@@ -1,6 +1,9 @@
 namespace WorigoApp.Application.Interfaces.Notifications
 {
-    public interface IPushNotificationService
+/// <summary>
+/// IPushNotificationService arayüzünü tanımlar.
+/// </summary>
+public interface IPushNotificationService
     {
         Task SendToDeviceAsync(
             string deviceToken,

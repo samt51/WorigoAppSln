@@ -4,7 +4,10 @@ using WorigoApp.Domain.Common;
 
 namespace WorigoApp.Application.Interfaces.Repositories
 {
-    public interface IReadRepository<T> where T : class, IEntityBase, new()
+/// <summary>
+/// IReadRepository arayüzünü tanımlar.
+/// </summary>
+public interface IReadRepository<T> where T : class, IEntityBase, new()
     {
 
       

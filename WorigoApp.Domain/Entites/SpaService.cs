@@ -2,15 +2,42 @@ using WorigoApp.Domain.Common;
 
 namespace WorigoApp.Domain.Entites
 {
-    public class SpaService : EntityBase
+/// <summary>
+/// SpaService sınıfını temsil eder.
+/// </summary>
+public class SpaService : EntityBase
     {
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; } = null!;
-        public string Name { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public int DurationMinutes { get; set; }
-        public decimal Price { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public string? ImageUrl { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
+/// <summary>
+/// DurationMinutes değerini alır veya ayarlar.
+/// </summary>
+public int DurationMinutes { get; set; }
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal Price { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string? ImageUrl { get; set; }
     }
 }

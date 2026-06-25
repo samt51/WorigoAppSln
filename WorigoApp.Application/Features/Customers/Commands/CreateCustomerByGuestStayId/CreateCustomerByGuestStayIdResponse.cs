@@ -1,8 +1,14 @@
 namespace WorigoApp.Application.Features.Customers.Commands.CreateCustomerByGuestStayId
 {
-    public class CreateCustomerByGuestStayIdResponse
+/// <summary>
+/// CreateCustomerByGuestStayIdResponse sınıfını temsil eder.
+/// </summary>
+public class CreateCustomerByGuestStayIdResponse
     {
-        public CreateCustomerByGuestStayIdResponse()
+/// <summary>
+/// CreateCustomerByGuestStayIdResponse sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateCustomerByGuestStayIdResponse()
         {
             
         }

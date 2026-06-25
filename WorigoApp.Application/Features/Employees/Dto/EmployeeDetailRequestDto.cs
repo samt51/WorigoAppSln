@@ -1,14 +1,41 @@
 ﻿namespace WorigoApp.Application.Features.Employees.Dto
 {
-    public class EmployeeDetailRequestDto
+/// <summary>
+/// EmployeeDetailRequestDto sınıfını temsil eder.
+/// </summary>
+public class EmployeeDetailRequestDto
     {
-        public DateTime DateOfBirth { get; set; }
-        public int? FloorNo { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool Gender { get; set; }
-        public DateTime StartDateOfWork { get; set; }
-        public DateTime? ExitDateOfWork { get; set; }
-        public DateTime? LastOnlineTime { get; set; }
-        public bool OnlineOrOfflineNow { get; set; }
+/// <summary>
+/// DateOfBirth değerini alır veya ayarlar.
+/// </summary>
+public DateTime DateOfBirth { get; set; }
+/// <summary>
+/// FloorNo değerini alır veya ayarlar.
+/// </summary>
+public int? FloorNo { get; set; }
+/// <summary>
+/// PhoneNumber değerini alır veya ayarlar.
+/// </summary>
+public string PhoneNumber { get; set; }
+/// <summary>
+/// Gender değerini alır veya ayarlar.
+/// </summary>
+public bool Gender { get; set; }
+/// <summary>
+/// StartDateOfWork değerini alır veya ayarlar.
+/// </summary>
+public DateTime StartDateOfWork { get; set; }
+/// <summary>
+/// ExitDateOfWork değerini alır veya ayarlar.
+/// </summary>
+public DateTime? ExitDateOfWork { get; set; }
+/// <summary>
+/// LastOnlineTime değerini alır veya ayarlar.
+/// </summary>
+public DateTime? LastOnlineTime { get; set; }
+/// <summary>
+/// OnlineOrOfflineNow değerini alır veya ayarlar.
+/// </summary>
+public bool OnlineOrOfflineNow { get; set; }
     }
 }

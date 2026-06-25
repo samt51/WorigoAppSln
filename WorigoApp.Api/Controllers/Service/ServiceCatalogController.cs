@@ -7,17 +7,25 @@ using WorigoApp.Application.Features.Services.Commands.ToggleServiceCatalogStatu
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize(Roles = "SystemAdmin")]
+    /// <summary>
+    /// ServiceCatalogController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin")]
     public class ServiceCatalogController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public ServiceCatalogController(IMediator mediator) : base(mediator)
+/// <summary>
+/// ServiceCatalogController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceCatalogController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// ToggleStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<ToggleServiceCatalogStatusCommandResponse>> ToggleStatus(ToggleServiceCatalogStatusCommandRequest request)
         {
             return await _mediator.Send(request);

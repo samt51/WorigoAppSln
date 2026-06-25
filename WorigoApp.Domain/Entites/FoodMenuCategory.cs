@@ -2,21 +2,42 @@
 
 namespace WorigoApp.Domain.Entites
 {
-    public class FoodMenuCategory : EntityBase
+/// <summary>
+/// FoodMenuCategory sınıfını temsil eder.
+/// </summary>
+public class FoodMenuCategory : EntityBase
     {
-        public FoodMenuCategory()
+/// <summary>
+/// FoodMenuCategory sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public FoodMenuCategory()
         {
             
         }
-        public FoodMenuCategory(int id,string name, int hotelId)
+/// <summary>
+/// FoodMenuCategory sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public FoodMenuCategory(int id,string name, int hotelId)
         {
             this.Id = id;
             this.Name = name;
             this.HotelId = hotelId;
         }
-        public string Name { get; set; }
-        public int HotelId { get; set; }
-        public Hotel Hotel { get; set; }
-        public IList<Food> Foods { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; }
+/// <summary>
+/// Foods değerini alır veya ayarlar.
+/// </summary>
+public IList<Food> Foods { get; set; }
     }
 }

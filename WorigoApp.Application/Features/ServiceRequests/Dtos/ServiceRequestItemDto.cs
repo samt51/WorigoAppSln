@@ -1,10 +1,25 @@
 namespace WorigoApp.Application.Features.ServiceRequests.Dtos
 {
-    public class ServiceRequestItemDto
+/// <summary>
+/// ServiceRequestItemDto sınıfını temsil eder.
+/// </summary>
+public class ServiceRequestItemDto
     {
-        public int? ServiceDefinitionId { get; set; }
-        public string ItemName { get; set; } = string.Empty;
-        public int Quantity { get; set; } = 1;
-        public string? Note { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// ItemName değerini alır veya ayarlar.
+/// </summary>
+public string ItemName { get; set; } = string.Empty;
+/// <summary>
+/// Quantity değerini alır veya ayarlar.
+/// </summary>
+public int Quantity { get; set; } = 1;
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
     }
 }

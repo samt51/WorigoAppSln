@@ -2,9 +2,15 @@
 
 namespace WorigoApp.Application.Features.FoodTypes.Queries.GetAllFoodTypes
 {
-    public class GetAllFoodTypesQueryRequest : IRequest<IList<GetAllFoodTypesQueryResponse>>
+/// <summary>
+/// GetAllFoodTypesQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetAllFoodTypesQueryRequest : IRequest<IList<GetAllFoodTypesQueryResponse>>
     {
-        public GetAllFoodTypesQueryRequest()
+/// <summary>
+/// GetAllFoodTypesQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllFoodTypesQueryRequest()
         {
             
         }

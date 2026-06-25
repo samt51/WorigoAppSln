@@ -2,16 +2,40 @@ using WorigoApp.Domain.Common;
 
 namespace WorigoApp.Domain.Entites
 {
-    public class ServiceRequestItem : EntityBase
+/// <summary>
+/// ServiceRequestItem sınıfını temsil eder.
+/// </summary>
+public class ServiceRequestItem : EntityBase
     {
-        public int ServiceRequestId { get; set; }
-        public ServiceRequest ServiceRequest { get; set; } = null!;
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// ServiceRequest değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequest ServiceRequest { get; set; } = null!;
 
-        public int? ServiceDefinitionId { get; set; }
-        public ServiceDefinition? ServiceDefinition { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// ServiceDefinition değerini alır veya ayarlar.
+/// </summary>
+public ServiceDefinition? ServiceDefinition { get; set; }
 
-        public string ItemName { get; set; } = string.Empty;
-        public int Quantity { get; set; } = 1;
-        public string? Note { get; set; }
+/// <summary>
+/// ItemName değerini alır veya ayarlar.
+/// </summary>
+public string ItemName { get; set; } = string.Empty;
+/// <summary>
+/// Quantity değerini alır veya ayarlar.
+/// </summary>
+public int Quantity { get; set; } = 1;
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
     }
 }

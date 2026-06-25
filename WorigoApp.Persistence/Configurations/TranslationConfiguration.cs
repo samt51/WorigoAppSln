@@ -5,9 +5,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// TranslationConfiguration sınıfını temsil eder.
+    /// </summary>
     public class TranslationConfiguration : IEntityTypeConfiguration<Translation>
     {
-        public void Configure(EntityTypeBuilder<Translation> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Translation> builder)
         {
             #region SystemException
             var data1 = new Translation(1, string.Empty, 0, "UnknownError", "İşlem yaparken bir sorun oluştu. Lütfen tekrar deneyiniz.", LanguageCodeEnum.TR);

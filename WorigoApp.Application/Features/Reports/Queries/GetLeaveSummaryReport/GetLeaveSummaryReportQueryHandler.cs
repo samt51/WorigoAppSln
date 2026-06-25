@@ -8,14 +8,27 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetLeaveSummaryReport
 {
-    public class GetLeaveSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetLeaveSummaryReportQueryRequest, ResponseDto<IList<GetLeaveSummaryReportQueryResponse>>>
+/// <summary>
+/// GetLeaveSummaryReportQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetLeaveSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetLeaveSummaryReportQueryRequest, ResponseDto<IList<GetLeaveSummaryReportQueryResponse>>>
     {
-        public GetLeaveSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetLeaveSummaryReportQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetLeaveSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetLeaveSummaryReportQueryResponse>>> Handle(GetLeaveSummaryReportQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetLeaveSummaryReportQueryResponse>>> Handle(GetLeaveSummaryReportQueryRequest request, CancellationToken cancellationToken)
         {
+            if (!await CheckHotelAccessAsync(request.HotelId))
+            {
+                return new ResponseDto<IList<GetLeaveSummaryReportQueryResponse>>().Fail("Bu işlem için yetkiniz bulunmamaktadır.", 403);
+            }
+
             var departments = await unitOfWork.GetReadRepository<Department>().GetAllAsync(x => x.HotelId == request.HotelId && !x.IsDeleted);
             var leaveRequests = await unitOfWork.GetReadRepository<LeaveRequest>().GetAllAsync(
                 x => x.HotelId == request.HotelId && !x.IsDeleted,

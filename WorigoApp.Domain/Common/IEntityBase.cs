@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Domain.Common
 {
-    public interface IEntityBase
+/// <summary>
+/// IEntityBase arayüzünü tanımlar.
+/// </summary>
+public interface IEntityBase
     {
     }
 }

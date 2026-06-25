@@ -13,7 +13,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int ServiceRequestId { get; set; }
 
-        public ServiceRequest ServiceRequest { get; set; } = null!;
+/// <summary>
+/// ServiceRequest değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequest ServiceRequest { get; set; } = null!;
 
         /// <summary>
         /// Önceki durum.
@@ -30,7 +33,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? ChangedByUserId { get; set; }
 
-        public Users? ChangedByUser { get; set; }
+/// <summary>
+/// ChangedByUser değerini alır veya ayarlar.
+/// </summary>
+public Users? ChangedByUser { get; set; }
 
         /// <summary>
         /// Değişikliğin yapıldığı zaman.

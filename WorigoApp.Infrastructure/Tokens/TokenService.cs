@@ -16,18 +16,27 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Infrastructure.Tokens
 {
+    /// <summary>
+    /// TokenService sınıfını temsil eder.
+    /// </summary>
     public class TokenService : ITokenService
     {
 
         private readonly TokenSettings tokenSettings;
 
         readonly IConfiguration configuration;
-        public TokenService(IOptions<TokenSettings> options, IConfiguration configuration)
+/// <summary>
+/// TokenService sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public TokenService(IOptions<TokenSettings> options, IConfiguration configuration)
         {
             tokenSettings = options.Value;
             this.configuration = configuration;
         }
-        public async Task<JwtSecurityToken> CreateToken(Users user, IList<string> roles)
+/// <summary>
+/// CreateToken işlemini gerçekleştirir.
+/// </summary>
+public async Task<JwtSecurityToken> CreateToken(Users user, IList<string> roles)
         {
             var claims = new List<Claim>()
             {
@@ -55,17 +64,20 @@ namespace WorigoApp.Infrastructure.Tokens
             return token;
 
         }
-
-
-        public string GenerateRefreshToken()
+/// <summary>
+/// GenerateRefreshToken işlemini gerçekleştirir.
+/// </summary>
+public string GenerateRefreshToken()
         {
             var randomNumber = new byte[64];
             using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
-
-        public Task<LoginCommandResponse> GenerateToken(GenerateTokenRequest roleRequest)
+/// <summary>
+/// GenerateToken işlemini gerçekleştirir.
+/// </summary>
+public Task<LoginCommandResponse> GenerateToken(GenerateTokenRequest roleRequest)
         {
 
             SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Secret"]));
@@ -97,8 +109,10 @@ namespace WorigoApp.Infrastructure.Tokens
                 TokenExpireDate = expiresTime
             });
         }
-
-        public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
+/// <summary>
+/// GetPrincipalFromExpiredToken işlemini gerçekleştirir.
+/// </summary>
+public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
             TokenValidationParameters tokenValidationParamaters = new()
             {

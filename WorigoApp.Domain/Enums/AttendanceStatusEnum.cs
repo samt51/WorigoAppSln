@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum AttendanceStatusEnum
+/// <summary>
+/// AttendanceStatusEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum AttendanceStatusEnum
     {
         Present = 1,
         Late = 2,

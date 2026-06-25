@@ -3,7 +3,10 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Logout
 {
-    public class LogoutCommandRequest : IRequest<ResponseDto<LogoutCommandResponse>>
+/// <summary>
+/// LogoutCommandRequest sınıfını temsil eder.
+/// </summary>
+public class LogoutCommandRequest : IRequest<ResponseDto<LogoutCommandResponse>>
     {
     }
 }

@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Notifications.Commands.MarkNotificationAsRead
 {
-    public class MarkNotificationAsReadCommandHandler : IRequestHandler<MarkNotificationAsReadCommandRequest, ResponseDto<bool>>
+/// <summary>
+/// MarkNotificationAsReadCommandHandler sınıfını temsil eder.
+/// </summary>
+public class MarkNotificationAsReadCommandHandler : IRequestHandler<MarkNotificationAsReadCommandRequest, ResponseDto<bool>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public MarkNotificationAsReadCommandHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// MarkNotificationAsReadCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public MarkNotificationAsReadCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<bool>> Handle(MarkNotificationAsReadCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<bool>> Handle(MarkNotificationAsReadCommandRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

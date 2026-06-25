@@ -2,8 +2,14 @@
 
 namespace WorigoApp.Application.Features.FoodTypes.Queries.GetByIdFoodType
 {
-    public class GetByIdFoodTypeQueryResponse
+/// <summary>
+/// GetByIdFoodTypeQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetByIdFoodTypeQueryResponse
     {
-        public RoomFoodTypeEnum RoomFoodTypeEnum { get; set; }
+/// <summary>
+/// RoomFoodTypeEnum değerini alır veya ayarlar.
+/// </summary>
+public RoomFoodTypeEnum RoomFoodTypeEnum { get; set; }
     }
 }

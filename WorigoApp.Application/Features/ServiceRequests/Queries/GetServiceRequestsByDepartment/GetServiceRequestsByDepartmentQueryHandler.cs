@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetServiceRequestsByDepartment
 {
-    public class GetServiceRequestsByDepartmentQueryHandler : BaseHandler, IRequestHandler<GetServiceRequestsByDepartmentQueryRequest, ResponseDto<IList<GetServiceRequestsByDepartmentQueryResponse>>>
+/// <summary>
+/// GetServiceRequestsByDepartmentQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetServiceRequestsByDepartmentQueryHandler : BaseHandler, IRequestHandler<GetServiceRequestsByDepartmentQueryRequest, ResponseDto<IList<GetServiceRequestsByDepartmentQueryResponse>>>
     {
-        public GetServiceRequestsByDepartmentQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetServiceRequestsByDepartmentQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetServiceRequestsByDepartmentQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetServiceRequestsByDepartmentQueryResponse>>> Handle(GetServiceRequestsByDepartmentQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetServiceRequestsByDepartmentQueryResponse>>> Handle(GetServiceRequestsByDepartmentQueryRequest request, CancellationToken cancellationToken)
         {
             var serviceRequests = await unitOfWork.GetReadRepository<ServiceRequest>().GetAllAsync(
                 x => x.DepartmentId == request.DepartmentId &&

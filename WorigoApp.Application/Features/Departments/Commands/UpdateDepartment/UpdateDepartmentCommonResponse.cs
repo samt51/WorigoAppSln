@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Departments.Commands.UpdateDepartment
 {
-    public class UpdateDepartmentCommonResponse
+/// <summary>
+/// UpdateDepartmentCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateDepartmentCommonResponse
     {
 
     }

@@ -6,12 +6,17 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Auth.Validator
 {
-    public class LoginValidator : AbstractValidator<LoginCommandRequest>
+/// <summary>
+/// LoginValidator sınıfını temsil eder.
+/// </summary>
+public class LoginValidator : AbstractValidator<LoginCommandRequest>
     {
         private readonly GetDataFromCache _getDataFromCache;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public LoginValidator(GetDataFromCache getDataFromCache, IHttpContextAccessor httpContextAccessor)
+/// <summary>
+/// LoginValidator sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public LoginValidator(GetDataFromCache getDataFromCache, IHttpContextAccessor httpContextAccessor)
         {
             _getDataFromCache = getDataFromCache;
             this._httpContextAccessor = httpContextAccessor;

@@ -10,6 +10,9 @@ using WorigoApp.Application.Interfaces.Notifications;
 
 namespace WorigoApp.Infrastructure.Notifications
 {
+    /// <summary>
+    /// FirebasePushNotificationService sınıfını temsil eder.
+    /// </summary>
     public class FirebasePushNotificationService : IPushNotificationService
     {
         private static readonly string[] Scopes = { "https://www.googleapis.com/auth/firebase.messaging" };
@@ -19,12 +22,17 @@ namespace WorigoApp.Infrastructure.Notifications
         private readonly SemaphoreSlim _tokenLock = new(1, 1);
         private string? _accessToken;
         private DateTime _accessTokenExpiresAt;
-
-        public FirebasePushNotificationService(HttpClient httpClient, IOptions<FirebasePushNotificationSettings> options)
+/// <summary>
+/// FirebasePushNotificationService sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public FirebasePushNotificationService(HttpClient httpClient, IOptions<FirebasePushNotificationSettings> options)
         {
             _httpClient = httpClient;
             _settings = options.Value;
         }
+ /// <summary>
+ /// SendToDeviceAsync işlemini gerçekleştirir.
+ /// </summary>
 
         public async Task SendToDeviceAsync(
             string deviceToken,
@@ -163,12 +171,30 @@ namespace WorigoApp.Infrastructure.Notifications
         }
     }
 
+    /// <summary>
+    /// FirebasePushNotificationSettings sınıfını temsil eder.
+    /// </summary>
     public class FirebasePushNotificationSettings
     {
-        public bool Enabled { get; set; }
-        public string ProjectId { get; set; } = string.Empty;
-        public string ClientEmail { get; set; } = string.Empty;
-        public string PrivateKey { get; set; } = string.Empty;
-        public string AndroidChannelId { get; set; } = "default";
+/// <summary>
+/// Enabled değerini alır veya ayarlar.
+/// </summary>
+public bool Enabled { get; set; }
+/// <summary>
+/// ProjectId değerini alır veya ayarlar.
+/// </summary>
+public string ProjectId { get; set; } = string.Empty;
+/// <summary>
+/// ClientEmail değerini alır veya ayarlar.
+/// </summary>
+public string ClientEmail { get; set; } = string.Empty;
+/// <summary>
+/// PrivateKey değerini alır veya ayarlar.
+/// </summary>
+public string PrivateKey { get; set; } = string.Empty;
+/// <summary>
+/// AndroidChannelId değerini alır veya ayarlar.
+/// </summary>
+public string AndroidChannelId { get; set; } = "default";
     }
 }

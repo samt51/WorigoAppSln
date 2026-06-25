@@ -11,38 +11,59 @@ using WorigoApp.Application.Features.EmployeeTypes.Queries.GetAllEmployeeTypes;
 
 namespace WorigoApp.Api.Controllers.Employees
 {
-    [Authorize(Roles = "SystemAdmin")]
+    /// <summary>
+    /// EmployeeTypeController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin")]
     public class EmployeeTypeController : BaseController
     {
         private readonly IMediator mediator;
-        public EmployeeTypeController(IMediator mediator) : base(mediator)
+/// <summary>
+/// EmployeeTypeController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public EmployeeTypeController(IMediator mediator) : base(mediator)
         {
             this.mediator = mediator;
         }
 
-        [HttpGet("{departmentId}")]
+        /// <summary>
+        /// GetAllAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("{departmentId}")]
         public async Task<ResponseDto<IList<GetAllEmployeeTypesQueryResponse>>> GetAllAsync(int departmentId)
         {
             return await this.mediator.Send(new GetAllEmployeeTypesQueryRequest(departmentId));
         }
-        [HttpPost]
+        /// <summary>
+        /// AddAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<CreateEmployeeTypeCommonResponse>> AddAsync(CreateEmployeeTypeCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
-        [HttpPost]
+        /// <summary>
+        /// UpdateAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<UpdateEmployeeTypeCommonResponse>> UpdateAsync(UpdateEmployeeTypeCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// ToggleStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<ToggleEmployeeTypeStatusCommandResponse>> ToggleStatus(ToggleEmployeeTypeStatusCommandRequest request)
         {
             return await mediator.Send(request);
         }
 
-        [HttpGet("{id}")]
+        /// <summary>
+        /// GetByIdAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("{id}")]
         public async Task<ResponseDto<GetByIdEmployeeTypeQueryResponse>> GetByIdAsync(int id)
         {
             return await mediator.Send(new GetByIdEmployeeTypeQueryRequest(id));

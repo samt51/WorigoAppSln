@@ -3,7 +3,10 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Queries.GetAllContent
 {
-    public class GetAllContentQueryRequest : IRequest<ResponseDto<IList<GetAllContentQueryResponse>>>
+/// <summary>
+/// GetAllContentQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetAllContentQueryRequest : IRequest<ResponseDto<IList<GetAllContentQueryResponse>>>
     {
     }
 }

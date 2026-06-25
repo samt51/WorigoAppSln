@@ -13,19 +13,27 @@ using WorigoApp.Application.Features.Services.Queries.GetServiceDefinitionsByHot
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize(Roles = "SystemAdmin,HotelAdmin")]
+    /// <summary>
+    /// ServiceManagementController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin,HotelAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ServiceManagementController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public ServiceManagementController(IMediator mediator) : base(mediator)
+/// <summary>
+/// ServiceManagementController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceManagementController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpGet("categories/{hotelId}")]
+        /// <summary>
+        /// GetCategories işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("categories/{hotelId}")]
         public async Task<ResponseDto<IList<ServiceCategoryManageDto>>> GetCategories(int hotelId)
         {
             return await _mediator.Send(new GetServiceCategoriesByHotelQueryRequest
@@ -34,20 +42,29 @@ namespace WorigoApp.Api.Controllers.Service
             });
         }
 
-        [HttpPost("categories")]
+        /// <summary>
+        /// CreateCategory işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("categories")]
         public async Task<ResponseDto<CreateServiceCategoryCommandResponse>> CreateCategory(CreateServiceCategoryCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpPut("categories/{id}")]
+        /// <summary>
+        /// UpdateCategory işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("categories/{id}")]
         public async Task<ResponseDto<UpdateServiceCategoryCommandResponse>> UpdateCategory(int id, UpdateServiceCategoryCommandRequest request)
         {
             request.Id = id;
             return await _mediator.Send(request);
         }
 
-        [HttpGet("definitions/{hotelId}")]
+        /// <summary>
+        /// GetDefinitions işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("definitions/{hotelId}")]
         public async Task<ResponseDto<IList<ServiceDefinitionManageDto>>> GetDefinitions(int hotelId, [FromQuery] int? serviceCategoryId)
         {
             return await _mediator.Send(new GetServiceDefinitionsByHotelQueryRequest
@@ -57,13 +74,19 @@ namespace WorigoApp.Api.Controllers.Service
             });
         }
 
-        [HttpPost("definitions")]
+        /// <summary>
+        /// CreateDefinition işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("definitions")]
         public async Task<ResponseDto<CreateServiceDefinitionCommandResponse>> CreateDefinition(CreateServiceDefinitionCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpPut("definitions/{id}")]
+        /// <summary>
+        /// UpdateDefinition işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("definitions/{id}")]
         public async Task<ResponseDto<UpdateServiceDefinitionCommandResponse>> UpdateDefinition(int id, UpdateServiceDefinitionCommandRequest request)
         {
             request.Id = id;

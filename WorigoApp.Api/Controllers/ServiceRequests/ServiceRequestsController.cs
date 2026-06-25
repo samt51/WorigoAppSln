@@ -18,13 +18,19 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.ServiceRequests
 {
-    [Authorize]
+    /// <summary>
+    /// ServiceRequestsController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class ServiceRequestsController : BaseController
     {
         private readonly IMediator _mediator;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
         private readonly AppDbContext _dbContext;
         private readonly IPushNotificationService _pushNotificationService;
+ /// <summary>
+ /// ServiceRequestsController sınıfının yeni bir örneğini başlatır.
+ /// </summary>
 
         public ServiceRequestsController(
             IMediator mediator,
@@ -38,7 +44,10 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             _pushNotificationService = pushNotificationService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Misafir veya personel tarafindan yeni servis talebi olusturur.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Misafir veya personel tarafindan yeni servis talebi olusturur.")]
         public async Task<ResponseDto<CreateServiceRequestCommandResponse>> Create(CreateServiceRequestCommandRequest request)
         {
@@ -83,7 +92,10 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             return response;
         }
 
-        [HttpGet("guest-stay/{guestStayId}")]
+        /// <summary>
+        /// Konaklama kaydina ait servis taleplerini listeler.
+        /// </summary>
+[HttpGet("guest-stay/{guestStayId}")]
         [SwaggerDescriptionAttirbute("Konaklama kaydina ait servis taleplerini listeler.")]
         public async Task<ResponseDto<IList<GetServiceRequestsByGuestStayQueryResponse>>> GetByGuestStay(int guestStayId)
         {
@@ -93,7 +105,10 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             });
         }
 
-        [HttpPost("~/api/ServiceRequests/status")]
+        /// <summary>
+        /// Servis talebinin durumunu gunceller.
+        /// </summary>
+[HttpPost("~/api/ServiceRequests/status")]
         [SwaggerDescriptionAttirbute("Servis talebinin durumunu gunceller.")]
         public async Task<ResponseDto<UpdateServiceRequestStatusCommandResponse>> UpdateStatus(UpdateServiceRequestStatusCommandRequest request)
         {
@@ -201,7 +216,10 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             }
         }
 
-        [HttpGet("assigned/{employeeId}")]
+        /// <summary>
+        /// Personele atanmis servis taleplerini listeler.
+        /// </summary>
+[HttpGet("assigned/{employeeId}")]
         [SwaggerDescriptionAttirbute("Personele atanmis servis taleplerini listeler.")]
         public async Task<ResponseDto<IList<GetAssignedServiceRequestsQueryResponse>>> GetAssigned(int employeeId)
         {
@@ -211,7 +229,10 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             });
         }
 
-        [HttpGet("department/{departmentId}")]
+        /// <summary>
+        /// Departmana gelen servis taleplerini listeler.
+        /// </summary>
+[HttpGet("department/{departmentId}")]
         [SwaggerDescriptionAttirbute("Departmana gelen servis taleplerini listeler.")]
         public async Task<ResponseDto<IList<GetServiceRequestsByDepartmentQueryResponse>>> GetByDepartment(int departmentId)
         {
@@ -221,7 +242,10 @@ namespace WorigoApp.Api.Controllers.ServiceRequests
             });
         }
 
-        [HttpGet("~/api/ServiceRequests/hotel/{hotelId}")]
+        /// <summary>
+        /// Otele ait tum servis taleplerini listeler. Resepsiyon ekrani bu endpointi kullanabilir.
+        /// </summary>
+[HttpGet("~/api/ServiceRequests/hotel/{hotelId}")]
         [SwaggerDescriptionAttirbute("Otele ait tum servis taleplerini listeler. Resepsiyon ekrani bu endpointi kullanabilir.")]
         public async Task<ResponseDto<IList<GetServiceRequestsByHotelQueryResponse>>> GetByHotel(int hotelId)
         {

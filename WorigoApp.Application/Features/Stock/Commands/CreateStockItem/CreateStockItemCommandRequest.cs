@@ -3,18 +3,54 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Stock.Commands.CreateStockItem
 {
-    public class CreateStockItemCommandRequest : IRequest<ResponseDto<CreateStockItemCommandResponse>>
+/// <summary>
+/// CreateStockItemCommandRequest sınıfını temsil eder.
+/// </summary>
+public class CreateStockItemCommandRequest : IRequest<ResponseDto<CreateStockItemCommandResponse>>
     {
-        public int HotelId { get; set; }
-        public int? DepartmentId { get; set; }
-        public string Code { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string Unit { get; set; } = "Adet";
-        public decimal CurrentQuantity { get; set; }
-        public decimal MinimumQuantity { get; set; }
-        public decimal? LastPurchasePrice { get; set; }
-        public decimal AverageUnitCost { get; set; }
-        public bool IsCritical { get; set; }
-        public string? Description { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
+/// <summary>
+/// Code değerini alır veya ayarlar.
+/// </summary>
+public string Code { get; set; } = string.Empty;
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; } = string.Empty;
+/// <summary>
+/// Unit değerini alır veya ayarlar.
+/// </summary>
+public string Unit { get; set; } = "Adet";
+/// <summary>
+/// CurrentQuantity değerini alır veya ayarlar.
+/// </summary>
+public decimal CurrentQuantity { get; set; }
+/// <summary>
+/// MinimumQuantity değerini alır veya ayarlar.
+/// </summary>
+public decimal MinimumQuantity { get; set; }
+/// <summary>
+/// LastPurchasePrice değerini alır veya ayarlar.
+/// </summary>
+public decimal? LastPurchasePrice { get; set; }
+/// <summary>
+/// AverageUnitCost değerini alır veya ayarlar.
+/// </summary>
+public decimal AverageUnitCost { get; set; }
+/// <summary>
+/// IsCritical değerini alır veya ayarlar.
+/// </summary>
+public bool IsCritical { get; set; }
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
     }
 }

@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.EmployeeTypes.Commands.CreateEmployeeType
 {
-    public class CreateEmployeeTypeCommonResponse
+/// <summary>
+/// CreateEmployeeTypeCommonResponse sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeTypeCommonResponse
     {
 
     }

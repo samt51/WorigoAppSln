@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.CreateFoodMenuCategory
 {
-    public class CreateFoodMenuCategoryCommonResponse
+/// <summary>
+/// CreateFoodMenuCategoryCommonResponse sınıfını temsil eder.
+/// </summary>
+public class CreateFoodMenuCategoryCommonResponse
     {
     }
 }

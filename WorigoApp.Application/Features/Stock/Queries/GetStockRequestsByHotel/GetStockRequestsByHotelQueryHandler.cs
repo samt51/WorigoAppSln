@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Stock.Queries.GetStockRequestsByHotel
 {
-    public class GetStockRequestsByHotelQueryHandler : BaseHandler, IRequestHandler<GetStockRequestsByHotelQueryRequest, ResponseDto<IList<GetStockRequestsByHotelQueryResponse>>>
+/// <summary>
+/// GetStockRequestsByHotelQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetStockRequestsByHotelQueryHandler : BaseHandler, IRequestHandler<GetStockRequestsByHotelQueryRequest, ResponseDto<IList<GetStockRequestsByHotelQueryResponse>>>
     {
-        public GetStockRequestsByHotelQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetStockRequestsByHotelQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetStockRequestsByHotelQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetStockRequestsByHotelQueryResponse>>> Handle(GetStockRequestsByHotelQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetStockRequestsByHotelQueryResponse>>> Handle(GetStockRequestsByHotelQueryRequest request, CancellationToken cancellationToken)
         {
             var requests = await unitOfWork.GetReadRepository<StockRequest>().GetAllAsync(
                 x => x.HotelId == request.HotelId && !x.IsDeleted,

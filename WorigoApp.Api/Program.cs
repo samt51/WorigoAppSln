@@ -16,6 +16,8 @@ using WorigoApp.Application.Pipelines.Behaviour;
 using WorigoApp.Application.Filters;
 using WorigoApp.Api.Hubs;
 using WorigoApp.Persistence.Database;
+using Hangfire;
+using WorigoApp.Application.Interfaces.BackgroundJobs;
 
 internal class Program
 {
@@ -141,6 +143,25 @@ internal class Program
         app.ConfigureExceptionHandlingMiddleware();
         app.UseAuthentication();
         app.UseAuthorization();
+
+        var isHangfireEnabled = app.Configuration.GetValue<bool>("HangfireSettings:IsEnabled");
+        if (isHangfireEnabled)
+        {
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization = Array.Empty<Hangfire.Dashboard.IDashboardAuthorizationFilter>()
+            });
+
+            using (var serviceScope = app.Services.CreateScope())
+            {
+                var recurringJobManager = serviceScope.ServiceProvider.GetRequiredService<IRecurringJobManager>();
+                recurringJobManager.AddOrUpdate<IDailyReportJob>(
+                    "daily-morning-report",
+                    job => job.SendDailyReportsAsync(),
+                    Cron.Daily(8)
+                );
+            }
+        }
         app.Use(async (context, next) =>
         {
             var username = context.User?.Identity?.IsAuthenticated != null || true ? context.User.Identities.Select(x => x.FindFirst("Id"))?.FirstOrDefault() : null;

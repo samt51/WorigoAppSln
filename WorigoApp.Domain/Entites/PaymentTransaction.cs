@@ -13,7 +13,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int ChargeId { get; set; }
 
-        public Charge Charge { get; set; } = null!;
+/// <summary>
+/// Charge değerini alır veya ayarlar.
+/// </summary>
+public Charge Charge { get; set; } = null!;
 
         /// <summary>
         /// İşlemin hangi sağlayıcı üzerinden yürütüldüğünü belirtir.

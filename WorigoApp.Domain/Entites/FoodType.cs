@@ -3,15 +3,30 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Domain.Entites
 {
-    public class FoodType : EntityBase
+/// <summary>
+/// FoodType sınıfını temsil eder.
+/// </summary>
+public class FoodType : EntityBase
     {
-        public FoodType()
+/// <summary>
+/// FoodType sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public FoodType()
         {
             
         }
-        public RoomFoodTypeEnum RoomFoodTypeEnum { get; set; }
-        public IList<Room> Rooms { get; set;}
-        public FoodType(RoomFoodTypeEnum roomFoodTypeEnum)
+/// <summary>
+/// RoomFoodTypeEnum değerini alır veya ayarlar.
+/// </summary>
+public RoomFoodTypeEnum RoomFoodTypeEnum { get; set; }
+/// <summary>
+/// Rooms değerini alır veya ayarlar.
+/// </summary>
+public IList<Room> Rooms { get; set;}
+/// <summary>
+/// FoodType sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public FoodType(RoomFoodTypeEnum roomFoodTypeEnum)
         {
             this.RoomFoodTypeEnum = roomFoodTypeEnum;
         }

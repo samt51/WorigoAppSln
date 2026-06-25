@@ -6,13 +6,21 @@ using WorigoApp.Application.Interfaces.UnitOfWorks;
 
 namespace WorigoApp.Application.Features.Stock.Queries.GetStockRequestsByManager
 {
-    public class GetStockRequestsByManagerQueryHandler : BaseHandler, IRequestHandler<GetStockRequestsByManagerQueryRequest, ResponseDto<IList<GetStockRequestsByManagerQueryResponse>>>
+/// <summary>
+/// GetStockRequestsByManagerQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetStockRequestsByManagerQueryHandler : BaseHandler, IRequestHandler<GetStockRequestsByManagerQueryRequest, ResponseDto<IList<GetStockRequestsByManagerQueryResponse>>>
     {
-        public GetStockRequestsByManagerQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetStockRequestsByManagerQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetStockRequestsByManagerQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetStockRequestsByManagerQueryResponse>>> Handle(GetStockRequestsByManagerQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetStockRequestsByManagerQueryResponse>>> Handle(GetStockRequestsByManagerQueryRequest request, CancellationToken cancellationToken)
         {
             var requests = await unitOfWork.GetReadRepository<Domain.Entites.StockRequest>().GetAllAsync(
                 x => x.AssignedManagerEmployeeId == request.ManagerEmployeeId && !x.IsDeleted,

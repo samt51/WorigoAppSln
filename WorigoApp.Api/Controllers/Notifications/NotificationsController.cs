@@ -6,19 +6,27 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.Notifications
 {
-    [Authorize]
+    /// <summary>
+    /// NotificationsController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NotificationsController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
-
-        public NotificationsController(AppDbContext dbContext)
+/// <summary>
+/// NotificationsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public NotificationsController(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        [HttpGet("employee/{employeeId}")]
+        /// <summary>
+        /// GetByEmployee işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("employee/{employeeId}")]
         public async Task<ResponseDto<IList<UserNotificationDto>>> GetByEmployee(int employeeId, [FromQuery] bool unreadOnly = false, CancellationToken cancellationToken = default)
         {
             var query = _dbContext.UserNotifications
@@ -54,7 +62,10 @@ namespace WorigoApp.Api.Controllers.Notifications
             return new ResponseDto<IList<UserNotificationDto>>().Success(data);
         }
 
-        [HttpGet("department/{departmentId}")]
+        /// <summary>
+        /// GetByDepartment işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("department/{departmentId}")]
         public async Task<ResponseDto<IList<UserNotificationDto>>> GetByDepartment(int departmentId, [FromQuery] bool unreadOnly = false, CancellationToken cancellationToken = default)
         {
             var query = _dbContext.UserNotifications
@@ -90,7 +101,10 @@ namespace WorigoApp.Api.Controllers.Notifications
             return new ResponseDto<IList<UserNotificationDto>>().Success(data);
         }
 
-        [HttpPost("{notificationId}/read")]
+        /// <summary>
+        /// MarkAsRead işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("{notificationId}/read")]
         public async Task<ResponseDto<bool>> MarkAsRead(int notificationId, CancellationToken cancellationToken)
         {
             var notification = await _dbContext.UserNotifications
@@ -110,7 +124,10 @@ namespace WorigoApp.Api.Controllers.Notifications
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("employee/{employeeId}/read-all")]
+        /// <summary>
+        /// MarkEmployeeNotificationsAsRead işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("employee/{employeeId}/read-all")]
         public async Task<ResponseDto<bool>> MarkEmployeeNotificationsAsRead(int employeeId, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
@@ -131,19 +148,58 @@ namespace WorigoApp.Api.Controllers.Notifications
         }
     }
 
-    public class UserNotificationDto
+/// <summary>
+/// UserNotificationDto sınıfını temsil eder.
+/// </summary>
+public class UserNotificationDto
     {
-        public int Id { get; set; }
-        public int HotelId { get; set; }
-        public int? UserId { get; set; }
-        public int? EmployeeId { get; set; }
-        public int? DepartmentId { get; set; }
-        public int? ServiceRequestId { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Message { get; set; } = string.Empty;
-        public string NotificationType { get; set; } = string.Empty;
-        public bool IsRead { get; set; }
-        public DateTime? ReadAt { get; set; }
-        public DateTime CreatedDate { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// UserId değerini alır veya ayarlar.
+/// </summary>
+public int? UserId { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? EmployeeId { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceRequestId { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
+/// <summary>
+/// NotificationType değerini alır veya ayarlar.
+/// </summary>
+public string NotificationType { get; set; } = string.Empty;
+/// <summary>
+/// IsRead değerini alır veya ayarlar.
+/// </summary>
+public bool IsRead { get; set; }
+/// <summary>
+/// ReadAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? ReadAt { get; set; }
+/// <summary>
+/// CreatedDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime CreatedDate { get; set; }
     }
 }

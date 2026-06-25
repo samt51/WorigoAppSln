@@ -3,10 +3,22 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Domain.Entites
 {
-    public class DietaryRestriction:EntityBase
+/// <summary>
+/// DietaryRestriction sınıfını temsil eder.
+/// </summary>
+public class DietaryRestriction:EntityBase
     {
-        public string Name { get; set; }         // Diyet adı (örneğin, Vegan, Vejetaryen)
-        public string Description { get; set; }  // Diyet hakkında açıklama
-        public ICollection<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }  // Bu diyete uygun yemekler
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }         // Diyet adı (örneğin, Vegan, Vejetaryen)
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; }  // Diyet hakkında açıklama
+/// <summary>
+/// FoodDietaryRestrictions değerini alır veya ayarlar.
+/// </summary>
+public ICollection<FoodDietaryRestrictions> FoodDietaryRestrictions { get; set; }  // Bu diyete uygun yemekler
     }
 }

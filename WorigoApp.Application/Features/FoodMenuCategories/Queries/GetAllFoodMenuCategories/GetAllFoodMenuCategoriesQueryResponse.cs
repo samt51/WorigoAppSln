@@ -3,10 +3,22 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetAllFoodMenuCategories
 {
-    public class GetAllFoodMenuCategoriesQueryResponse
+/// <summary>
+/// GetAllFoodMenuCategoriesQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetAllFoodMenuCategoriesQueryResponse
     {
-        public string Name { get; set; }
-        public int HotelId { get; set; }
-        public IList<GetAllFoodsQueryResponse> Foods { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Foods değerini alır veya ayarlar.
+/// </summary>
+public IList<GetAllFoodsQueryResponse> Foods { get; set; }
     }
 }

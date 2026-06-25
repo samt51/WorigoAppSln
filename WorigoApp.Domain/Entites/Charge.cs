@@ -13,21 +13,30 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int GuestStayId { get; set; }
 
-        public GuestStay GuestStay { get; set; } = null!;
+/// <summary>
+/// GuestStay değerini alır veya ayarlar.
+/// </summary>
+public GuestStay GuestStay { get; set; } = null!;
 
         /// <summary>
         /// Ücret bir yemek veya ürün siparişinden doğduysa ilgili sipariş bilgisidir.
         /// </summary>
         public int? OrderId { get; set; }
 
-        public Order? Order { get; set; }
+/// <summary>
+/// Order değerini alır veya ayarlar.
+/// </summary>
+public Order? Order { get; set; }
 
         /// <summary>
         /// Ücret bir servis talebinden doğduysa ilgili talep bilgisidir.
         /// </summary>
         public int? ServiceRequestId { get; set; }
 
-        public ServiceRequest? ServiceRequest { get; set; }
+/// <summary>
+/// ServiceRequest değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequest? ServiceRequest { get; set; }
 
         /// <summary>
         /// Misafire gösterilecek ücret açıklamasıdır.
@@ -59,6 +68,9 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public ChargeStatusEnum Status { get; set; } = ChargeStatusEnum.Pending;
 
-        public IList<PaymentTransaction> PaymentTransactions { get; set; } = new List<PaymentTransaction>();
+/// <summary>
+/// PaymentTransactions değerini alır veya ayarlar.
+/// </summary>
+public IList<PaymentTransaction> PaymentTransactions { get; set; } = new List<PaymentTransaction>();
     }
 }

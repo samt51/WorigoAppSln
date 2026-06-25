@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetTaskSummaryReport
 {
-    public class GetTaskSummaryReportQueryRequest : IRequest<ResponseDto<GetTaskSummaryReportQueryResponse>>
+/// <summary>
+/// GetTaskSummaryReportQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetTaskSummaryReportQueryRequest : IRequest<ResponseDto<GetTaskSummaryReportQueryResponse>>
     {
-        public int HotelId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
     }
 }

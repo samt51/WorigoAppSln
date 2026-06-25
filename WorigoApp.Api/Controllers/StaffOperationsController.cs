@@ -10,15 +10,20 @@ using WorigoApp.Application.Features.Transfers.Commands.UpdateTransferStatus;
 
 namespace WorigoApp.Api.Controllers
 {
-    [ApiController]
+    /// <summary>
+    /// StaffOperationsController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
     [Route("staff")]
     public class StaffOperationsController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
-
-        public StaffOperationsController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext)
+/// <summary>
+/// StaffOperationsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public StaffOperationsController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext)
         {
             _mediator = mediator;
             _hubContext = hubContext;
@@ -28,7 +33,10 @@ namespace WorigoApp.Api.Controllers
 
         #region 5. Transfer Takip Modülü
 
-        [HttpPut("transfers/{serviceRequestId:int}/assign-driver")]
+        /// <summary>
+        /// AssignDriver işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("transfers/{serviceRequestId:int}/assign-driver")]
         public async Task<ResponseDto<bool>> AssignDriver(int serviceRequestId, [FromBody] AssignDriverRequest request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new AssignDriverCommandRequest
@@ -61,7 +69,10 @@ namespace WorigoApp.Api.Controllers
             return new ResponseDto<bool>().Fail(response.Errors ?? new List<string> { "Sürücü atanamadı." }, response.StatusCode);
         }
 
-        [HttpPut("transfers/{serviceRequestId:int}/status")]
+        /// <summary>
+        /// UpdateTransferStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("transfers/{serviceRequestId:int}/status")]
         public async Task<ResponseDto<bool>> UpdateTransferStatus(int serviceRequestId, [FromBody] UpdateTransferStatusRequest request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new UpdateTransferStatusCommandRequest
@@ -92,18 +103,42 @@ namespace WorigoApp.Api.Controllers
 
     #region Models
 
-    public class AssignDriverRequest
+/// <summary>
+/// AssignDriverRequest sınıfını temsil eder.
+/// </summary>
+public class AssignDriverRequest
     {
-        public string DriverName { get; set; } = string.Empty;
-        public string DriverPhone { get; set; } = string.Empty;
-        public string VehiclePlate { get; set; } = string.Empty;
-        public string VehicleModel { get; set; } = string.Empty;
-        public DateTime? EstimatedArrivalTime { get; set; }
+/// <summary>
+/// DriverName değerini alır veya ayarlar.
+/// </summary>
+public string DriverName { get; set; } = string.Empty;
+/// <summary>
+/// DriverPhone değerini alır veya ayarlar.
+/// </summary>
+public string DriverPhone { get; set; } = string.Empty;
+/// <summary>
+/// VehiclePlate değerini alır veya ayarlar.
+/// </summary>
+public string VehiclePlate { get; set; } = string.Empty;
+/// <summary>
+/// VehicleModel değerini alır veya ayarlar.
+/// </summary>
+public string VehicleModel { get; set; } = string.Empty;
+/// <summary>
+/// EstimatedArrivalTime değerini alır veya ayarlar.
+/// </summary>
+public DateTime? EstimatedArrivalTime { get; set; }
     }
 
-    public class UpdateTransferStatusRequest
+/// <summary>
+/// UpdateTransferStatusRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateTransferStatusRequest
     {
-        public string Status { get; set; } = string.Empty;
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = string.Empty;
     }
 
     #endregion

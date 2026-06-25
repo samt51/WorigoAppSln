@@ -12,14 +12,20 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int GuestStayId { get; set; }
 
-        public GuestStay GuestStay { get; set; } = null!;
+/// <summary>
+/// GuestStay değerini alır veya ayarlar.
+/// </summary>
+public GuestStay GuestStay { get; set; } = null!;
 
         /// <summary>
         /// Oturum belirli bir misafire bağlıysa ilgili misafir bilgisidir.
         /// </summary>
         public int? CustomerId { get; set; }
 
-        public Customer? Customer { get; set; }
+/// <summary>
+/// Customer değerini alır veya ayarlar.
+/// </summary>
+public Customer? Customer { get; set; }
 
         /// <summary>
         /// QR veya mobil erişimden gelen oturum anahtarıdır.

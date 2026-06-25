@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ShiftConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ShiftConfiguration : IEntityTypeConfiguration<Shift>
     {
-        public void Configure(EntityTypeBuilder<Shift> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Shift> builder)
         {
             var morningShift = new Shift
             {

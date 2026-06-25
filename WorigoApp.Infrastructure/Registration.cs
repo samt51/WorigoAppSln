@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Hangfire;
+using Hangfire.SqlServer;
 using WorigoApp.Application.Interfaces.Auth.Jwt.Tokens;
 using WorigoApp.Application.Interfaces.Notifications;
 using WorigoApp.Application.Interfaces.Translation;
@@ -12,9 +14,15 @@ using WorigoApp.Infrastructure.Translation;
 
 namespace WorigoApp.Infrastructure
 {
+    /// <summary>
+    /// Registration sınıfını temsil eder.
+    /// </summary>
     public static class Registration
     {
-        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+/// <summary>
+/// AddInfrastructure işlemini gerçekleştirir.
+/// </summary>
+public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT"));
             services.Configure<OpenAiTranslationSettings>(configuration.GetSection("OpenAI"));
@@ -22,6 +30,26 @@ namespace WorigoApp.Infrastructure
             services.AddTransient<ITokenService, TokenService>();
             services.AddHttpClient<IChatTranslationService, OpenAiChatTranslationService>();
             services.AddHttpClient<IPushNotificationService, FirebasePushNotificationService>();
+            services.AddTransient<WorigoApp.Application.Interfaces.BackgroundJobs.IDailyReportJob, WorigoApp.Infrastructure.BackgroundJobs.DailyReportJob>();
+
+            var hangfireEnabled = configuration.GetValue<bool>("HangfireSettings:IsEnabled");
+            if (hangfireEnabled)
+            {
+                services.AddHangfire(config => config
+                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                    .UseSimpleAssemblyNameTypeSerializer()
+                    .UseRecommendedSerializerSettings()
+                    .UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection"), new SqlServerStorageOptions
+                    {
+                        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                        QueuePollInterval = TimeSpan.Zero,
+                        UseRecommendedIsolationLevel = true,
+                        DisableGlobalLocks = true
+                    }));
+
+                services.AddHangfireServer();
+            }
 
             services.AddAuthentication(opt =>
             {

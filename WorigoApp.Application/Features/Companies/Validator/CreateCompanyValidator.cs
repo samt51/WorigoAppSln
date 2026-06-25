@@ -3,7 +3,10 @@ using WorigoApp.Application.Features.Companies.Commands.CreateCompany;
 
 namespace WorigoApp.Application.Features.Companies.Validator
 {
-    public class CreateCompanyValidator : AbstractValidator<CreateCompanyCommandRequest>
+/// <summary>
+/// CreateCompanyValidator sınıfını temsil eder.
+/// </summary>
+public class CreateCompanyValidator : AbstractValidator<CreateCompanyCommandRequest>
     {
      
     }

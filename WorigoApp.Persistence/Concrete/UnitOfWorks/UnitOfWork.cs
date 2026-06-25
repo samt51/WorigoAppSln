@@ -5,36 +5,53 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Persistence.Concrete.UnitOfWorks
 {
+    /// <summary>
+    /// UnitOfWork sınıfını temsil eder.
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext dbContext;
-        public UnitOfWork(AppDbContext dbContext)
+/// <summary>
+/// UnitOfWork sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UnitOfWork(AppDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-        public async Task CommitAsync(CancellationToken cancellationToken = default)
+/// <summary>
+/// CommitAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task CommitAsync(CancellationToken cancellationToken = default)
         {
             if (dbContext.Database.CurrentTransaction == null) return;
             await dbContext.Database.CommitTransactionAsync(cancellationToken);
         }
-
-        public async Task RollBackAsync(CancellationToken cancellationToken = default)
+/// <summary>
+/// RollBackAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task RollBackAsync(CancellationToken cancellationToken = default)
         {
             if (dbContext.Database.CurrentTransaction == null) return;
             await dbContext.Database.RollbackTransactionAsync(cancellationToken);
         }
-
-        public async ValueTask DisposeAsync() => await dbContext.DisposeAsync();
-
-        public async Task OpenTransactionAsync(CancellationToken cancellationToken)
+/// <summary>
+/// DisposeAsync işlemini gerçekleştirir.
+/// </summary>
+public async ValueTask DisposeAsync() => await dbContext.DisposeAsync();
+/// <summary>
+/// OpenTransactionAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task OpenTransactionAsync(CancellationToken cancellationToken)
         {
             if (dbContext.Database.CurrentTransaction != null)
                 return;
 
             await dbContext.Database.BeginTransactionAsync(cancellationToken);
         }
-
-        public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
+/// <summary>
+/// SaveAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task<int> SaveAsync(CancellationToken cancellationToken = default)
         {
 
             try

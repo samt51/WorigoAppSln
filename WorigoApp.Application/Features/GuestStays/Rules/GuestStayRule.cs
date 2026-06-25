@@ -3,9 +3,15 @@ using WorigoApp.Application.Features.GuestStays.Commands.UpdatedCustomer;
 
 namespace WorigoApp.Application.Features.GuestStays.Rules
 {
-    public class GuestStayRule : BaseRules
+/// <summary>
+/// GuestStayRule sýnýfýný temsil eder.
+/// </summary>
+public class GuestStayRule : BaseRules
     {
-        public Task ControllCheckInAndCheckOutDates(UpdatedCustomerCommandRequest updatedCustomerCommandRequest)
+/// <summary>
+/// ControllCheckInAndCheckOutDates iþlemini gerçekleþtirir.
+/// </summary>
+public Task ControllCheckInAndCheckOutDates(UpdatedCustomerCommandRequest updatedCustomerCommandRequest)
         {
             if (updatedCustomerCommandRequest.CheckInDate >= DateTime.Now && updatedCustomerCommandRequest.CheckOutDate >= DateTime.Now)
             {

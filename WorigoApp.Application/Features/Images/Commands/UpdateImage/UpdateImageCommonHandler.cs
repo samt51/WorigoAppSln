@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Images.Commands.UpdateImage
 {
-    public class UpdateImageCommonHandler : BaseHandler, IRequestHandler<UpdateImageCommonRequest, ResponseDto<UpdateImageCommonResponse>>
+/// <summary>
+/// UpdateImageCommonHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateImageCommonHandler : BaseHandler, IRequestHandler<UpdateImageCommonRequest, ResponseDto<UpdateImageCommonResponse>>
     {
-        public UpdateImageCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateImageCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateImageCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateImageCommonResponse>> Handle(UpdateImageCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateImageCommonResponse>> Handle(UpdateImageCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Image>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 

@@ -8,7 +8,10 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.Reception
 {
-    [ApiController]
+    /// <summary>
+    /// ReceptionAnnouncementsController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
     [Route("api/reception/announcements")]
     public class ReceptionAnnouncementsController : ControllerBase
@@ -20,14 +23,19 @@ namespace WorigoApp.Api.Controllers.Reception
 
         private readonly AppDbContext _dbContext;
         private readonly IWebHostEnvironment _environment;
-
-        public ReceptionAnnouncementsController(AppDbContext dbContext, IWebHostEnvironment environment)
+/// <summary>
+/// ReceptionAnnouncementsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ReceptionAnnouncementsController(AppDbContext dbContext, IWebHostEnvironment environment)
         {
             _dbContext = dbContext;
             _environment = environment;
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Get işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet]
         public async Task<ResponseDto<IList<ReceptionAnnouncementResponse>>> Get(
             [FromQuery] int hotelId,
             CancellationToken cancellationToken)
@@ -48,7 +56,10 @@ namespace WorigoApp.Api.Controllers.Reception
                 .Success(announcements.Select(ToResponse).ToList());
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Create işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<ResponseDto<ReceptionAnnouncementResponse>> Create(
             [FromForm] ReceptionAnnouncementUpsertRequest request,
@@ -82,7 +93,10 @@ namespace WorigoApp.Api.Controllers.Reception
             return new ResponseDto<ReceptionAnnouncementResponse>().Success(ToResponse(announcement));
         }
 
-        [HttpPut("{id:int}")]
+        /// <summary>
+        /// Update işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("{id:int}")]
         [Consumes("multipart/form-data")]
         public async Task<ResponseDto<ReceptionAnnouncementResponse>> Update(
             int id,
@@ -125,7 +139,10 @@ namespace WorigoApp.Api.Controllers.Reception
             return new ResponseDto<ReceptionAnnouncementResponse>().Success(ToResponse(announcement));
         }
 
-        [HttpDelete("{id:int}")]
+        /// <summary>
+        /// Delete işlemini gerçekleştirir.
+        /// </summary>
+[HttpDelete("{id:int}")]
         public async Task<ResponseDto<bool>> Delete(int id, [FromQuery] int hotelId, CancellationToken cancellationToken)
         {
             var announcement = await _dbContext.Announcements
@@ -166,9 +183,19 @@ namespace WorigoApp.Api.Controllers.Reception
                 return "Duyuru aciklamasi zorunludur.";
             }
 
-            if (request.EndAt.HasValue && request.StartAt.HasValue && request.EndAt < request.StartAt)
+            if (!request.StartAt.HasValue)
             {
-                return "Bitis tarihi baslangic tarihinden once olamaz.";
+                return "Duyuru baslangic tarihi ve saati zorunludur.";
+            }
+
+            if (!request.EndAt.HasValue)
+            {
+                return "Duyuru bitis tarihi ve saati zorunludur.";
+            }
+
+            if (request.EndAt <= request.StartAt)
+            {
+                return "Bitis tarihi baslangic tarihinden sonra olmalidir.";
             }
 
             if (request.Image is not null)
@@ -280,37 +307,121 @@ namespace WorigoApp.Api.Controllers.Reception
         }
     }
 
-    public class ReceptionAnnouncementUpsertRequest
+/// <summary>
+/// ReceptionAnnouncementUpsertRequest sınıfını temsil eder.
+/// </summary>
+public class ReceptionAnnouncementUpsertRequest
     {
-        public int HotelId { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public int Type { get; set; } = 1;
-        public DateTime? StartAt { get; set; }
-        public DateTime? EndAt { get; set; }
-        public string? Location { get; set; }
-        public string? AudienceType { get; set; }
-        public bool IsPinned { get; set; }
-        public bool IsVisibleToGuest { get; set; } = true;
-        public bool IsActive { get; set; } = true;
-        public IFormFile? Image { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// Type değerini alır veya ayarlar.
+/// </summary>
+public int Type { get; set; } = 1;
+/// <summary>
+/// StartAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? StartAt { get; set; }
+/// <summary>
+/// EndAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? EndAt { get; set; }
+/// <summary>
+/// Location değerini alır veya ayarlar.
+/// </summary>
+public string? Location { get; set; }
+/// <summary>
+/// AudienceType değerini alır veya ayarlar.
+/// </summary>
+public string? AudienceType { get; set; }
+/// <summary>
+/// IsPinned değerini alır veya ayarlar.
+/// </summary>
+public bool IsPinned { get; set; }
+/// <summary>
+/// IsVisibleToGuest değerini alır veya ayarlar.
+/// </summary>
+public bool IsVisibleToGuest { get; set; } = true;
+/// <summary>
+/// IsActive değerini alır veya ayarlar.
+/// </summary>
+public bool IsActive { get; set; } = true;
+/// <summary>
+/// Image değerini alır veya ayarlar.
+/// </summary>
+public IFormFile? Image { get; set; }
     }
 
-    public class ReceptionAnnouncementResponse
+/// <summary>
+/// ReceptionAnnouncementResponse sınıfını temsil eder.
+/// </summary>
+public class ReceptionAnnouncementResponse
     {
-        public int Id { get; set; }
-        public int HotelId { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string? ImageUrl { get; set; }
-        public string Type { get; set; } = string.Empty;
-        public int TypeValue { get; set; }
-        public DateTime StartAt { get; set; }
-        public DateTime? EndAt { get; set; }
-        public string? Location { get; set; }
-        public string? AudienceType { get; set; }
-        public bool IsPinned { get; set; }
-        public bool IsVisibleToGuest { get; set; }
-        public bool IsActive { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string? ImageUrl { get; set; }
+/// <summary>
+/// Type değerini alır veya ayarlar.
+/// </summary>
+public string Type { get; set; } = string.Empty;
+/// <summary>
+/// TypeValue değerini alır veya ayarlar.
+/// </summary>
+public int TypeValue { get; set; }
+/// <summary>
+/// StartAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime StartAt { get; set; }
+/// <summary>
+/// EndAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? EndAt { get; set; }
+/// <summary>
+/// Location değerini alır veya ayarlar.
+/// </summary>
+public string? Location { get; set; }
+/// <summary>
+/// AudienceType değerini alır veya ayarlar.
+/// </summary>
+public string? AudienceType { get; set; }
+/// <summary>
+/// IsPinned değerini alır veya ayarlar.
+/// </summary>
+public bool IsPinned { get; set; }
+/// <summary>
+/// IsVisibleToGuest değerini alır veya ayarlar.
+/// </summary>
+public bool IsVisibleToGuest { get; set; }
+/// <summary>
+/// IsActive değerini alır veya ayarlar.
+/// </summary>
+public bool IsActive { get; set; }
     }
 }

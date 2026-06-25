@@ -7,7 +7,10 @@ namespace WorigoApp.Domain.Entites
     /// </summary>
     public class Users : EntityBase
     {
-        public Users()
+/// <summary>
+/// Users sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Users()
         {
         }
 
@@ -56,13 +59,30 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public DateTime? RefreshTokenExpireDate { get; set; }
 
-        public Employee? Employee { get; set; }
-        public int RoleId { get; set; }
-        public Roles Role { get; set; } = null!;
-        public IList<ConversationMessage> ConversationMessages { get; set; } = new List<ConversationMessage>();
-        public IList<ServiceRequestHistory> ServiceRequestHistories { get; set; } = new List<ServiceRequestHistory>();
-
-        public Users(int Id, string email, string password, int roleId)
+/// <summary>
+/// Employee değerini alır veya ayarlar.
+/// </summary>
+public Employee? Employee { get; set; }
+/// <summary>
+/// RoleId değerini alır veya ayarlar.
+/// </summary>
+public int RoleId { get; set; }
+/// <summary>
+/// Role değerini alır veya ayarlar.
+/// </summary>
+public Roles Role { get; set; } = null!;
+/// <summary>
+/// ConversationMessages değerini alır veya ayarlar.
+/// </summary>
+public IList<ConversationMessage> ConversationMessages { get; set; } = new List<ConversationMessage>();
+/// <summary>
+/// ServiceRequestHistories değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequestHistory> ServiceRequestHistories { get; set; } = new List<ServiceRequestHistory>();
+/// <summary>
+/// Users sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Users(int Id, string email, string password, int roleId)
         {
             this.Id = Id;
             Email = email;

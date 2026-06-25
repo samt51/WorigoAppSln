@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Employees.Queries.GetByIdEmployee
 {
-    public class GetByIdEmployeeQueryHandler : BaseHandler, IRequestHandler<GetByIdEmployeeQueryRequest, ResponseDto<GetByIdEmployeeResponse>>
+/// <summary>
+/// GetByIdEmployeeQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetByIdEmployeeQueryHandler : BaseHandler, IRequestHandler<GetByIdEmployeeQueryRequest, ResponseDto<GetByIdEmployeeResponse>>
     {
-        public GetByIdEmployeeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetByIdEmployeeQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdEmployeeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetByIdEmployeeResponse>> Handle(GetByIdEmployeeQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetByIdEmployeeResponse>> Handle(GetByIdEmployeeQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<Employee>().GetAsync(x => x.Id == request.EmployeeId && !x.IsDeleted);
 

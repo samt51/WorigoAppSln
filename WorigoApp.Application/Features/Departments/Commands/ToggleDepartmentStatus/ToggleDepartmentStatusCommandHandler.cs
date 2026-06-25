@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Departments.Commands.ToggleDepartmentStatus
 {
-    public class ToggleDepartmentStatusCommandHandler : BaseHandler, IRequestHandler<ToggleDepartmentStatusCommandRequest, ResponseDto<ToggleDepartmentStatusCommandResponse>>
+/// <summary>
+/// ToggleDepartmentStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class ToggleDepartmentStatusCommandHandler : BaseHandler, IRequestHandler<ToggleDepartmentStatusCommandRequest, ResponseDto<ToggleDepartmentStatusCommandResponse>>
     {
-        public ToggleDepartmentStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// ToggleDepartmentStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ToggleDepartmentStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<ToggleDepartmentStatusCommandResponse>> Handle(ToggleDepartmentStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<ToggleDepartmentStatusCommandResponse>> Handle(ToggleDepartmentStatusCommandRequest request, CancellationToken cancellationToken)
         {
             var department = await unitOfWork.GetReadRepository<Department>()
                 .GetAsync(x => x.Id == request.DepartmentId && !x.IsDeleted, enableTracking: true);

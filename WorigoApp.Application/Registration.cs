@@ -16,9 +16,15 @@ using WorigoApp.Application.Helpers;
 
 namespace WorigoApp.Application
 {
+    /// <summary>
+    /// Registration sınıfını temsil eder.
+    /// </summary>
     public static class Registration
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
+/// <summary>
+/// AddApplication işlemini gerçekleştirir.
+/// </summary>
+public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             var assembly = Assembly.GetExecutingAssembly();
 

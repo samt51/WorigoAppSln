@@ -2,22 +2,61 @@ using WorigoApp.Domain.Common;
 
 namespace WorigoApp.Domain.Entites
 {
-    public class ConversationFlowSession : EntityBase
+/// <summary>
+/// ConversationFlowSession sınıfını temsil eder.
+/// </summary>
+public class ConversationFlowSession : EntityBase
     {
-        public int ConversationId { get; set; }
-        public Conversation Conversation { get; set; } = null!;
+/// <summary>
+/// ConversationId değerini alır veya ayarlar.
+/// </summary>
+public int ConversationId { get; set; }
+/// <summary>
+/// Conversation değerini alır veya ayarlar.
+/// </summary>
+public Conversation Conversation { get; set; } = null!;
 
-        public int? ServiceCategoryId { get; set; }
-        public ServiceCategory? ServiceCategory { get; set; }
+/// <summary>
+/// ServiceCategoryId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceCategoryId { get; set; }
+/// <summary>
+/// ServiceCategory değerini alır veya ayarlar.
+/// </summary>
+public ServiceCategory? ServiceCategory { get; set; }
 
-        public int? ServiceDefinitionId { get; set; }
-        public ServiceDefinition? ServiceDefinition { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// ServiceDefinition değerini alır veya ayarlar.
+/// </summary>
+public ServiceDefinition? ServiceDefinition { get; set; }
 
-        public string FlowType { get; set; } = string.Empty;
-        public string CurrentStep { get; set; } = string.Empty;
-        public string StateJson { get; set; } = "{}";
-        public bool IsCompleted { get; set; }
-        public DateTime StartedAt { get; set; } = DateTime.UtcNow;
-        public DateTime? CompletedAt { get; set; }
+/// <summary>
+/// FlowType değerini alır veya ayarlar.
+/// </summary>
+public string FlowType { get; set; } = string.Empty;
+/// <summary>
+/// CurrentStep değerini alır veya ayarlar.
+/// </summary>
+public string CurrentStep { get; set; } = string.Empty;
+/// <summary>
+/// StateJson değerini alır veya ayarlar.
+/// </summary>
+public string StateJson { get; set; } = "{}";
+/// <summary>
+/// IsCompleted değerini alır veya ayarlar.
+/// </summary>
+public bool IsCompleted { get; set; }
+/// <summary>
+/// StartedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime StartedAt { get; set; } = DateTime.UtcNow;
+/// <summary>
+/// CompletedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? CompletedAt { get; set; }
     }
 }

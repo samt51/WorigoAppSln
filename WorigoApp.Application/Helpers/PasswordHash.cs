@@ -3,9 +3,15 @@ using System.Text;
 
 namespace WorigoApp.Application.Helpers
 {
+    /// <summary>
+    /// PasswordHash sınıfını temsil eder.
+    /// </summary>
     public class PasswordHash
     {
-        public static string HashPassword(string password)
+/// <summary>
+/// HashPassword işlemini gerçekleştirir.
+/// </summary>
+public static string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -18,7 +24,10 @@ namespace WorigoApp.Application.Helpers
                 return builder.ToString();
             }
         }
-        public static bool VerifyPassword(string userInputPassword, string hashedPassword)
+/// <summary>
+/// VerifyPassword işlemini gerçekleştirir.
+/// </summary>
+public static bool VerifyPassword(string userInputPassword, string hashedPassword)
         {
             string userInputHashedPassword = HashPassword(userInputPassword);
             return userInputHashedPassword == hashedPassword;

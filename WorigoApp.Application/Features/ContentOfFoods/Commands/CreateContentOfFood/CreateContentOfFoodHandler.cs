@@ -8,17 +8,25 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Commands.CreateContentOfFood
 {
-    public class CreateContentOfFoodHandler : BaseHandler, IRequestHandler<CreateContentOfFoodRequest, ResponseDto<CreateContentOfFoodResponse>>
+/// <summary>
+/// CreateContentOfFoodHandler sınıfını temsil eder.
+/// </summary>
+public class CreateContentOfFoodHandler : BaseHandler, IRequestHandler<CreateContentOfFoodRequest, ResponseDto<CreateContentOfFoodResponse>>
     {
         private readonly IMemoryCache _memoryCache;
         private readonly ContentOfFoodRule _contentOfFoodRule;
-        public CreateContentOfFoodHandler(ContentOfFoodRule contentOfFoodRule, IMapper mapper, IUnitOfWork unitOfWork, IMemoryCache memoryCache) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateContentOfFoodHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateContentOfFoodHandler(ContentOfFoodRule contentOfFoodRule, IMapper mapper, IUnitOfWork unitOfWork, IMemoryCache memoryCache) : base(mapper, unitOfWork)
         {
             _memoryCache = memoryCache;
             this._contentOfFoodRule = contentOfFoodRule;
         }
-
-        public async Task<ResponseDto<CreateContentOfFoodResponse>> Handle(CreateContentOfFoodRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateContentOfFoodResponse>> Handle(CreateContentOfFoodRequest request, CancellationToken cancellationToken)
         {
             await _contentOfFoodRule.IsThereRequestContentOfFoodToCache(request.Name);
 

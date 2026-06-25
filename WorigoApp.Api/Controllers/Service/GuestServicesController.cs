@@ -11,17 +11,25 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize]
+    /// <summary>
+    /// GuestServicesController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class GuestServicesController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public GuestServicesController(IMediator mediator) : base(mediator)
+/// <summary>
+/// GuestServicesController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GuestServicesController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpGet("{guestStayId}")]
+        /// <summary>
+        /// Misafirin konaklama konseptine göre görebileceği servisleri listeler.
+        /// </summary>
+[HttpGet("{guestStayId}")]
         [SwaggerDescriptionAttirbute("Misafirin konaklama konseptine göre görebileceği servisleri listeler.")]
         public async Task<ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>> GetAvailableServices(int guestStayId)
         {
@@ -31,7 +39,10 @@ namespace WorigoApp.Api.Controllers.Service
             });
         }
 
-        [HttpGet("categories/{guestStayId}")]
+        /// <summary>
+        /// Misafirin görebileceği servis kategorilerini özet olarak listeler.
+        /// </summary>
+[HttpGet("categories/{guestStayId}")]
         [SwaggerDescriptionAttirbute("Misafirin görebileceği servis kategorilerini özet olarak listeler.")]
         public async Task<ResponseDto<IList<GetGuestServiceCategoriesQueryResponse>>> GetCategories(int guestStayId)
         {
@@ -41,7 +52,10 @@ namespace WorigoApp.Api.Controllers.Service
             });
         }
 
-        [HttpGet("categories/{guestStayId}/{serviceType}")]
+        /// <summary>
+        /// Seçilen servis kategorisine ait detay kayıtları listeler.
+        /// </summary>
+[HttpGet("categories/{guestStayId}/{serviceType}")]
         [SwaggerDescriptionAttirbute("Seçilen servis kategorisine ait detay kayıtları listeler.")]
         public async Task<ResponseDto<IList<GetGuestServiceCategoryItemsQueryResponse>>> GetCategoryItems(int guestStayId, ServicesEnum serviceType)
         {

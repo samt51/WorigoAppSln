@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ContentsOfFoodConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ContentsOfFoodConfiguration : IEntityTypeConfiguration<ContentsOfFood>
     {
-        public void Configure(EntityTypeBuilder<ContentsOfFood> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<ContentsOfFood> builder)
         {
             var data = new ContentsOfFood(1, "Siyah Zeytin");
             var data2 = new ContentsOfFood(2, "Mantar");

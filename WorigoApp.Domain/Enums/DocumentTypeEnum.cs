@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum DocumentTypeEnum
+/// <summary>
+/// DocumentTypeEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum DocumentTypeEnum
     {
         Identity = 1,
         Contract = 2,

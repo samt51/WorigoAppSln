@@ -7,13 +7,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Commands.CreateInternalAnnouncement
 {
-    public class CreateInternalAnnouncementCommandHandler : BaseHandler, IRequestHandler<CreateInternalAnnouncementCommandRequest, ResponseDto<CreateInternalAnnouncementCommandResponse>>
+/// <summary>
+/// CreateInternalAnnouncementCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateInternalAnnouncementCommandHandler : BaseHandler, IRequestHandler<CreateInternalAnnouncementCommandRequest, ResponseDto<CreateInternalAnnouncementCommandResponse>>
     {
-        public CreateInternalAnnouncementCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateInternalAnnouncementCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateInternalAnnouncementCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateInternalAnnouncementCommandResponse>> Handle(CreateInternalAnnouncementCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateInternalAnnouncementCommandResponse>> Handle(CreateInternalAnnouncementCommandRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Employee>().GetAsync(x => x.Id == request.CreatedByEmployeeId && x.HotelId == request.HotelId && !x.IsDeleted);
 

@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// UserNotificationConfiguration sınıfını temsil eder.
+    /// </summary>
     public class UserNotificationConfiguration : IEntityTypeConfiguration<UserNotification>
     {
-        public void Configure(EntityTypeBuilder<UserNotification> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<UserNotification> builder)
         {
             builder.Property(x => x.Title).HasMaxLength(256).IsRequired();
             builder.Property(x => x.Message).HasMaxLength(1000).IsRequired();

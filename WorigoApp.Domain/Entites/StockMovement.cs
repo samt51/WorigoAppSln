@@ -13,28 +13,40 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int HotelId { get; set; }
 
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Hareketin iliskili stok karti.
         /// </summary>
         public int StockItemId { get; set; }
 
-        public StockItem StockItem { get; set; } = null!;
+/// <summary>
+/// StockItem değerini alır veya ayarlar.
+/// </summary>
+public StockItem StockItem { get; set; } = null!;
 
         /// <summary>
         /// Hareketten etkilenen departman.
         /// </summary>
         public int? DepartmentId { get; set; }
 
-        public Department? Department { get; set; }
+/// <summary>
+/// Department değerini alır veya ayarlar.
+/// </summary>
+public Department? Department { get; set; }
 
         /// <summary>
         /// Hareketi olusturan veya teslim alan personel.
         /// </summary>
         public int? EmployeeId { get; set; }
 
-        public Employee? Employee { get; set; }
+/// <summary>
+/// Employee değerini alır veya ayarlar.
+/// </summary>
+public Employee? Employee { get; set; }
 
         /// <summary>
         /// Hareket tipi.

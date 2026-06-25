@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum ServiceFlowUiTypeEnum
+/// <summary>
+/// ServiceFlowUiTypeEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum ServiceFlowUiTypeEnum
     {
         DirectChat = 1,
         QuickOption = 2,

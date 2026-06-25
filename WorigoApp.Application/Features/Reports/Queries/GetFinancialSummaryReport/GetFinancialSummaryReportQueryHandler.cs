@@ -8,14 +8,27 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetFinancialSummaryReport
 {
-    public class GetFinancialSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetFinancialSummaryReportQueryRequest, ResponseDto<GetFinancialSummaryReportQueryResponse>>
+/// <summary>
+/// GetFinancialSummaryReportQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetFinancialSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetFinancialSummaryReportQueryRequest, ResponseDto<GetFinancialSummaryReportQueryResponse>>
     {
-        public GetFinancialSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetFinancialSummaryReportQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetFinancialSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetFinancialSummaryReportQueryResponse>> Handle(GetFinancialSummaryReportQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetFinancialSummaryReportQueryResponse>> Handle(GetFinancialSummaryReportQueryRequest request, CancellationToken cancellationToken)
         {
+            if (!await CheckHotelAccessAsync(request.HotelId))
+            {
+                return new ResponseDto<GetFinancialSummaryReportQueryResponse>().Fail("Bu işlem için yetkiniz bulunmamaktadır.", 403);
+            }
+
             var startDate = request.StartDate ?? DateTime.MinValue;
             var endDate = request.EndDate ?? DateTime.MaxValue;
 

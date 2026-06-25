@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ServiceRequestRatings.Queries.GetRatingsByServiceRequest
 {
-    public class GetRatingsByServiceRequestQueryRequest : IRequest<ResponseDto<IList<GetRatingsByServiceRequestQueryResponse>>>
+/// <summary>
+/// GetRatingsByServiceRequestQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetRatingsByServiceRequestQueryRequest : IRequest<ResponseDto<IList<GetRatingsByServiceRequestQueryResponse>>>
     {
-        public int ServiceRequestId { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
     }
 }

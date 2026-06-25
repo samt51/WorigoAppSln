@@ -13,28 +13,40 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int HotelId { get; set; }
 
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Talebin bağlı olduğu konaklama işlemi.
         /// </summary>
         public int GuestStayId { get; set; }
 
-        public GuestStay GuestStay { get; set; } = null!;
+/// <summary>
+/// GuestStay değerini alır veya ayarlar.
+/// </summary>
+public GuestStay GuestStay { get; set; } = null!;
 
         /// <summary>
         /// Talebin geldiği oda.
         /// </summary>
         public int? RoomId { get; set; }
 
-        public Room? Room { get; set; }
+/// <summary>
+/// Room değerini alır veya ayarlar.
+/// </summary>
+public Room? Room { get; set; }
 
         /// <summary>
         /// Talebi açan misafir.
         /// </summary>
         public int? CustomerId { get; set; }
 
-        public Customer? Customer { get; set; }
+/// <summary>
+/// Customer değerini alır veya ayarlar.
+/// </summary>
+public Customer? Customer { get; set; }
 
         /// <summary>
         /// Servis türü.
@@ -46,9 +58,15 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? ServiceCatalogItemId { get; set; }
 
-        public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
 
-        public ServiceDefinition? ServiceDefinition { get; set; }
+/// <summary>
+/// ServiceDefinition değerini alır veya ayarlar.
+/// </summary>
+public ServiceDefinition? ServiceDefinition { get; set; }
 
         /// <summary>
         /// Talebin kısa başlığı.
@@ -80,14 +98,20 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? DepartmentId { get; set; }
 
-        public Department? Department { get; set; }
+/// <summary>
+/// Department değerini alır veya ayarlar.
+/// </summary>
+public Department? Department { get; set; }
 
         /// <summary>
         /// Talep hangi personele atandıysa onun bilgisi.
         /// </summary>
         public int? AssignedEmployeeId { get; set; }
 
-        public Employee? AssignedEmployee { get; set; }
+/// <summary>
+/// AssignedEmployee değerini alır veya ayarlar.
+/// </summary>
+public Employee? AssignedEmployee { get; set; }
 
         /// <summary>
         /// Talebin açıldığı dil.
@@ -139,14 +163,38 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? ConversationId { get; set; }
 
-        public Conversation? Conversation { get; set; }
+/// <summary>
+/// Conversation değerini alır veya ayarlar.
+/// </summary>
+public Conversation? Conversation { get; set; }
 
-        public IList<ServiceRequestHistory> Histories { get; set; } = new List<ServiceRequestHistory>();
-        public IList<ServiceRequestRating> Ratings { get; set; } = new List<ServiceRequestRating>();
-        public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
-        public IList<ServiceRequestFieldValue> FieldValues { get; set; } = new List<ServiceRequestFieldValue>();
-        public IList<ServiceRequestItem> Items { get; set; } = new List<ServiceRequestItem>();
-        public IList<Charge> Charges { get; set; } = new List<Charge>();
-        public IList<Order> Orders { get; set; } = new List<Order>();
+/// <summary>
+/// Histories değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequestHistory> Histories { get; set; } = new List<ServiceRequestHistory>();
+/// <summary>
+/// Ratings değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequestRating> Ratings { get; set; } = new List<ServiceRequestRating>();
+/// <summary>
+/// StockRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<StockRequest> StockRequests { get; set; } = new List<StockRequest>();
+/// <summary>
+/// FieldValues değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequestFieldValue> FieldValues { get; set; } = new List<ServiceRequestFieldValue>();
+/// <summary>
+/// Items değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequestItem> Items { get; set; } = new List<ServiceRequestItem>();
+/// <summary>
+/// Charges değerini alır veya ayarlar.
+/// </summary>
+public IList<Charge> Charges { get; set; } = new List<Charge>();
+/// <summary>
+/// Orders değerini alır veya ayarlar.
+/// </summary>
+public IList<Order> Orders { get; set; } = new List<Order>();
     }
 }

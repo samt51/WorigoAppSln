@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.HotelServicePolicies.Commands.UpsertHotelServicePolicy
 {
-    public class UpsertHotelServicePolicyCommandHandler : BaseHandler, IRequestHandler<UpsertHotelServicePolicyCommandRequest, ResponseDto<UpsertHotelServicePolicyCommandResponse>>
+/// <summary>
+/// UpsertHotelServicePolicyCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpsertHotelServicePolicyCommandHandler : BaseHandler, IRequestHandler<UpsertHotelServicePolicyCommandRequest, ResponseDto<UpsertHotelServicePolicyCommandResponse>>
     {
-        public UpsertHotelServicePolicyCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpsertHotelServicePolicyCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpsertHotelServicePolicyCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpsertHotelServicePolicyCommandResponse>> Handle(UpsertHotelServicePolicyCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpsertHotelServicePolicyCommandResponse>> Handle(UpsertHotelServicePolicyCommandRequest request, CancellationToken cancellationToken)
         {
             var hotel = await unitOfWork.GetReadRepository<Hotel>()
                 .FindAsync(x => x.Id == request.HotelId && x.IsActive && !x.IsDeleted);

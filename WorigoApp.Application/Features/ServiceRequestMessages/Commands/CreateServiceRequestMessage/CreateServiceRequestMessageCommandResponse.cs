@@ -1,16 +1,49 @@
 namespace WorigoApp.Application.Features.ServiceRequestMessages.Commands.CreateServiceRequestMessage
 {
-    public class CreateServiceRequestMessageCommandResponse
+/// <summary>
+/// CreateServiceRequestMessageCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateServiceRequestMessageCommandResponse
     {
-        public int Id { get; set; }
-        public int ServiceRequestId { get; set; }
-        public int? SenderUserId { get; set; }
-        public string SenderType { get; set; } = string.Empty;
-        public string OriginalLanguageCode { get; set; } = string.Empty;
-        public string OriginalText { get; set; } = string.Empty;
-        public string? TranslatedLanguageCode { get; set; }
-        public string? TranslatedText { get; set; }
-        public string TranslationStatus { get; set; } = string.Empty;
-        public DateTime SentAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// SenderUserId değerini alır veya ayarlar.
+/// </summary>
+public int? SenderUserId { get; set; }
+/// <summary>
+/// SenderType değerini alır veya ayarlar.
+/// </summary>
+public string SenderType { get; set; } = string.Empty;
+/// <summary>
+/// OriginalLanguageCode değerini alır veya ayarlar.
+/// </summary>
+public string OriginalLanguageCode { get; set; } = string.Empty;
+/// <summary>
+/// OriginalText değerini alır veya ayarlar.
+/// </summary>
+public string OriginalText { get; set; } = string.Empty;
+/// <summary>
+/// TranslatedLanguageCode değerini alır veya ayarlar.
+/// </summary>
+public string? TranslatedLanguageCode { get; set; }
+/// <summary>
+/// TranslatedText değerini alır veya ayarlar.
+/// </summary>
+public string? TranslatedText { get; set; }
+/// <summary>
+/// TranslationStatus değerini alır veya ayarlar.
+/// </summary>
+public string TranslationStatus { get; set; } = string.Empty;
+/// <summary>
+/// SentAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime SentAt { get; set; }
     }
 }

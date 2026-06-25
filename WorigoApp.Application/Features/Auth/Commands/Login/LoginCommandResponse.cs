@@ -1,8 +1,17 @@
 ﻿namespace WorigoApp.Application.Features.Auth.Commands.Login
 {
-    public class LoginCommandResponse
+/// <summary>
+/// LoginCommandResponse sınıfını temsil eder.
+/// </summary>
+public class LoginCommandResponse
     {
-        public string Token { get; set; }
-        public DateTime TokenExpireDate { get; set; }
+/// <summary>
+/// Token değerini alır veya ayarlar.
+/// </summary>
+public string Token { get; set; }
+/// <summary>
+/// TokenExpireDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime TokenExpireDate { get; set; }
     }
 }

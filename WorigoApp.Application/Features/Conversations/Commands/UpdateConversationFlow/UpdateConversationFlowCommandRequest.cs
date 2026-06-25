@@ -3,13 +3,34 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Conversations.Commands.UpdateConversationFlow
 {
-    public class UpdateConversationFlowCommandRequest : IRequest<ResponseDto<UpdateConversationFlowCommandResponse>>
+/// <summary>
+/// UpdateConversationFlowCommandRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateConversationFlowCommandRequest : IRequest<ResponseDto<UpdateConversationFlowCommandResponse>>
     {
-        public int FlowSessionId { get; set; }
-        public int? ServiceCategoryId { get; set; }
-        public int? ServiceDefinitionId { get; set; }
-        public string CurrentStep { get; set; } = string.Empty;
-        public string StateJson { get; set; } = "{}";
-        public bool IsCompleted { get; set; }
+/// <summary>
+/// FlowSessionId değerini alır veya ayarlar.
+/// </summary>
+public int FlowSessionId { get; set; }
+/// <summary>
+/// ServiceCategoryId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceCategoryId { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// CurrentStep değerini alır veya ayarlar.
+/// </summary>
+public string CurrentStep { get; set; } = string.Empty;
+/// <summary>
+/// StateJson değerini alır veya ayarlar.
+/// </summary>
+public string StateJson { get; set; } = "{}";
+/// <summary>
+/// IsCompleted değerini alır veya ayarlar.
+/// </summary>
+public bool IsCompleted { get; set; }
     }
 }

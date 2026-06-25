@@ -2,8 +2,14 @@
 
 namespace WorigoApp.Application.Features.Auth.Exceptions
 {
-    public class UserAlreadyExistException : BaseException
+/// <summary>
+/// UserAlreadyExistException sınıfını temsil eder.
+/// </summary>
+public class UserAlreadyExistException : BaseException
     {
-        public UserAlreadyExistException() : base("Böyle bir kullanıcı zaten var!") { }
+/// <summary>
+/// UserAlreadyExistException sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UserAlreadyExistException() : base("Böyle bir kullanıcı zaten var!") { }
     }
 }

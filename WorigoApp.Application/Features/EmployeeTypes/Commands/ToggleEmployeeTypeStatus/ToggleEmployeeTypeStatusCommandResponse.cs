@@ -1,8 +1,17 @@
 namespace WorigoApp.Application.Features.EmployeeTypes.Commands.ToggleEmployeeTypeStatus
 {
-    public class ToggleEmployeeTypeStatusCommandResponse
+/// <summary>
+/// ToggleEmployeeTypeStatusCommandResponse sınıfını temsil eder.
+/// </summary>
+public class ToggleEmployeeTypeStatusCommandResponse
     {
-        public int EmployeeTypeId { get; set; }
-        public bool IsActive { get; set; }
+/// <summary>
+/// EmployeeTypeId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeTypeId { get; set; }
+/// <summary>
+/// IsActive değerini alır veya ayarlar.
+/// </summary>
+public bool IsActive { get; set; }
     }
 }

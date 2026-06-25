@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.EmployeeTypes.Commands.UpdateEmployeeType
 {
-    public class UpdateEmployeeTypeCommonResponse
+/// <summary>
+/// UpdateEmployeeTypeCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateEmployeeTypeCommonResponse
     {
     }
 }

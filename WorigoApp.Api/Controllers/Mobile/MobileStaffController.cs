@@ -17,7 +17,10 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.Mobile
 {
-    [ApiController]
+    /// <summary>
+    /// MobileStaffController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Route("api/mobile/staff")]
     public class MobileStaffController : ControllerBase
     {
@@ -31,8 +34,10 @@ namespace WorigoApp.Api.Controllers.Mobile
         private readonly ITokenService _tokenService;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
         private readonly IMediator _mediator;
-
-        public MobileStaffController(AppDbContext dbContext, ITokenService tokenService, IHubContext<HotelOperationsHub> hubContext, IMediator mediator)
+/// <summary>
+/// MobileStaffController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public MobileStaffController(AppDbContext dbContext, ITokenService tokenService, IHubContext<HotelOperationsHub> hubContext, IMediator mediator)
         {
             _dbContext = dbContext;
             _tokenService = tokenService;
@@ -40,7 +45,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             _mediator = mediator;
         }
 
-        [AllowAnonymous]
+        /// <summary>
+        /// Login işlemini gerçekleştirir.
+        /// </summary>
+[AllowAnonymous]
         [HttpPost("login")]
         [HttpPost("/api/personel/login")]
         [HttpPost("/api/personnel/login")]
@@ -113,7 +121,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// Me işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpGet("me")]
         public async Task<ResponseDto<MobileStaffMeResponse>> Me(CancellationToken cancellationToken)
         {
@@ -148,7 +159,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// RegisterDeviceToken işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpPost("device-token")]
         public async Task<ResponseDto<bool>> RegisterDeviceToken(
             [FromBody] MobileStaffDeviceTokenRequest request,
@@ -203,7 +217,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// GetWorkItems işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpGet("work-items")]
         public async Task<ResponseDto<IList<MobileStaffWorkItemResponse>>> GetWorkItems(CancellationToken cancellationToken)
         {
@@ -259,7 +276,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileStaffWorkItemResponse>>().Success(items.Select(MapWorkItem).ToList());
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// GetWorkItem işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpGet("work-items/{id:int}")]
         public async Task<ResponseDto<MobileStaffWorkItemResponse>> GetWorkItem(int id, CancellationToken cancellationToken)
         {
@@ -277,7 +297,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<MobileStaffWorkItemResponse>().Success(MapWorkItem(serviceRequest));
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// UpdateWorkStatus işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpPost("work-items/{id:int}/status")]
         public async Task<ResponseDto<MobileStaffWorkStatusResponse>> UpdateWorkStatus(
             int id,
@@ -361,7 +384,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// UpdateAvailability işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpPost("availability")]
         public async Task<ResponseDto<MobileStaffAvailabilityResponse>> UpdateAvailability(
             [FromBody] MobileStaffUpdateAvailabilityRequest request,
@@ -400,7 +426,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<MobileStaffAvailabilityResponse>().Success(response);
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// VerifyRoomQr işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpPost("work-items/{id:int}/room-qr-verify")]
         public async Task<ResponseDto<MobileStaffQrVerifyResponse>> VerifyRoomQr(
             int id,
@@ -435,7 +464,10 @@ namespace WorigoApp.Api.Controllers.Mobile
                 : new ResponseDto<MobileStaffQrVerifyResponse>().Fail(response, "Oda dogrulanamadi.", 400);
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// AddPhotoProof işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpPost("work-items/{id:int}/photo-proof")]
         public async Task<ResponseDto<MobileStaffPhotoProofResponse>> AddPhotoProof(
             int id,
@@ -475,7 +507,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// GetWorkItemMessages işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpGet("work-items/{id:int}/messages")]
         public async Task<ResponseDto<IList<MobileStaffChatMessageResponse>>> GetWorkItemMessages(int id, CancellationToken cancellationToken)
         {
@@ -522,7 +557,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileStaffChatMessageResponse>>().Success(messages);
         }
 
-        [Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
+        /// <summary>
+        /// SendWorkItemMessage işlemini gerçekleştirir.
+        /// </summary>
+[Authorize(Roles = "HotelAdmin,Management,DepartmentManager,Employee")]
         [HttpPost("work-items/{id:int}/message")]
         public async Task<ResponseDto<MobileStaffChatMessageResponse>> SendWorkItemMessage(
             int id,
@@ -1067,166 +1105,493 @@ namespace WorigoApp.Api.Controllers.Mobile
         }
     }
 
-    public class MobileStaffLoginRequest
+/// <summary>
+/// MobileStaffLoginRequest sınıfını temsil eder.
+/// </summary>
+public class MobileStaffLoginRequest
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string? DeviceId { get; set; }
-        public string? DevicePlatform { get; set; }
+/// <summary>
+/// Email değerini alır veya ayarlar.
+/// </summary>
+public string Email { get; set; } = string.Empty;
+/// <summary>
+/// Password değerini alır veya ayarlar.
+/// </summary>
+public string Password { get; set; } = string.Empty;
+/// <summary>
+/// DeviceId değerini alır veya ayarlar.
+/// </summary>
+public string? DeviceId { get; set; }
+/// <summary>
+/// DevicePlatform değerini alır veya ayarlar.
+/// </summary>
+public string? DevicePlatform { get; set; }
     }
 
-    public class MobileStaffLoginResponse : MobileStaffMeResponse
+/// <summary>
+/// MobileStaffLoginResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffLoginResponse : MobileStaffMeResponse
     {
-        public string Token { get; set; } = string.Empty;
-        public DateTime TokenExpireDate { get; set; }
+/// <summary>
+/// Token değerini alır veya ayarlar.
+/// </summary>
+public string Token { get; set; } = string.Empty;
+/// <summary>
+/// TokenExpireDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime TokenExpireDate { get; set; }
     }
 
-    public class MobileStaffMeResponse
+/// <summary>
+/// MobileStaffMeResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffMeResponse
     {
-        public MobileStaffProfileDto Staff { get; set; } = new();
-        public IList<MobileStaffNavigationItemDto> Navigation { get; set; } = new List<MobileStaffNavigationItemDto>();
-        public IList<string> ApiScopes { get; set; } = new List<string>();
-        public string StartupRoute { get; set; } = "/staff/my-dashboard";
-        public MobileStaffRealtimeDto Realtime { get; set; } = new();
+/// <summary>
+/// Staff değerini alır veya ayarlar.
+/// </summary>
+public MobileStaffProfileDto Staff { get; set; } = new();
+/// <summary>
+/// Navigation değerini alır veya ayarlar.
+/// </summary>
+public IList<MobileStaffNavigationItemDto> Navigation { get; set; } = new List<MobileStaffNavigationItemDto>();
+/// <summary>
+/// ApiScopes değerini alır veya ayarlar.
+/// </summary>
+public IList<string> ApiScopes { get; set; } = new List<string>();
+/// <summary>
+/// StartupRoute değerini alır veya ayarlar.
+/// </summary>
+public string StartupRoute { get; set; } = "/staff/my-dashboard";
+/// <summary>
+/// Realtime değerini alır veya ayarlar.
+/// </summary>
+public MobileStaffRealtimeDto Realtime { get; set; } = new();
     }
 
-    public class MobileStaffDeviceTokenRequest
+/// <summary>
+/// MobileStaffDeviceTokenRequest sınıfını temsil eder.
+/// </summary>
+public class MobileStaffDeviceTokenRequest
     {
-        public string Token { get; set; } = string.Empty;
-        public string? Platform { get; set; }
-        public string? DeviceId { get; set; }
+/// <summary>
+/// Token değerini alır veya ayarlar.
+/// </summary>
+public string Token { get; set; } = string.Empty;
+/// <summary>
+/// Platform değerini alır veya ayarlar.
+/// </summary>
+public string? Platform { get; set; }
+/// <summary>
+/// DeviceId değerini alır veya ayarlar.
+/// </summary>
+public string? DeviceId { get; set; }
     }
 
-    public class MobileStaffProfileDto
+/// <summary>
+/// MobileStaffProfileDto sınıfını temsil eder.
+/// </summary>
+public class MobileStaffProfileDto
     {
-        public int UserId { get; set; }
-        public string Email { get; set; } = string.Empty;
-        public string? UserName { get; set; }
-        public int RoleId { get; set; }
-        public string RoleName { get; set; } = string.Empty;
-        public int? EmployeeId { get; set; }
-        public string? EmployeeCode { get; set; }
-        public string FullName { get; set; } = string.Empty;
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public string? ImageUrl { get; set; }
-        public int? HotelId { get; set; }
-        public string? HotelName { get; set; }
-        public int? DepartmentId { get; set; }
-        public string? DepartmentName { get; set; }
-        public int? EmployeeTypeId { get; set; }
-        public string? EmployeeTypeName { get; set; }
-        public bool IsAvailableForTask { get; set; }
-        public bool IsManager { get; set; }
-        public string PreferredLanguageCode { get; set; } = "tr-TR";
-        public DateTime? LastLoginAt { get; set; }
+/// <summary>
+/// UserId değerini alır veya ayarlar.
+/// </summary>
+public int UserId { get; set; }
+/// <summary>
+/// Email değerini alır veya ayarlar.
+/// </summary>
+public string Email { get; set; } = string.Empty;
+/// <summary>
+/// UserName değerini alır veya ayarlar.
+/// </summary>
+public string? UserName { get; set; }
+/// <summary>
+/// RoleId değerini alır veya ayarlar.
+/// </summary>
+public int RoleId { get; set; }
+/// <summary>
+/// RoleName değerini alır veya ayarlar.
+/// </summary>
+public string RoleName { get; set; } = string.Empty;
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? EmployeeId { get; set; }
+/// <summary>
+/// EmployeeCode değerini alır veya ayarlar.
+/// </summary>
+public string? EmployeeCode { get; set; }
+/// <summary>
+/// FullName değerini alır veya ayarlar.
+/// </summary>
+public string FullName { get; set; } = string.Empty;
+/// <summary>
+/// FirstName değerini alır veya ayarlar.
+/// </summary>
+public string? FirstName { get; set; }
+/// <summary>
+/// LastName değerini alır veya ayarlar.
+/// </summary>
+public string? LastName { get; set; }
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string? ImageUrl { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int? HotelId { get; set; }
+/// <summary>
+/// HotelName değerini alır veya ayarlar.
+/// </summary>
+public string? HotelName { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
+/// <summary>
+/// DepartmentName değerini alır veya ayarlar.
+/// </summary>
+public string? DepartmentName { get; set; }
+/// <summary>
+/// EmployeeTypeId değerini alır veya ayarlar.
+/// </summary>
+public int? EmployeeTypeId { get; set; }
+/// <summary>
+/// EmployeeTypeName değerini alır veya ayarlar.
+/// </summary>
+public string? EmployeeTypeName { get; set; }
+/// <summary>
+/// IsAvailableForTask değerini alır veya ayarlar.
+/// </summary>
+public bool IsAvailableForTask { get; set; }
+/// <summary>
+/// IsManager değerini alır veya ayarlar.
+/// </summary>
+public bool IsManager { get; set; }
+/// <summary>
+/// PreferredLanguageCode değerini alır veya ayarlar.
+/// </summary>
+public string PreferredLanguageCode { get; set; } = "tr-TR";
+/// <summary>
+/// LastLoginAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? LastLoginAt { get; set; }
     }
 
-    public class MobileStaffNavigationItemDto
+/// <summary>
+/// MobileStaffNavigationItemDto sınıfını temsil eder.
+/// </summary>
+public class MobileStaffNavigationItemDto
     {
-        public string Key { get; set; } = string.Empty;
-        public string Title { get; set; } = string.Empty;
-        public string Route { get; set; } = string.Empty;
-        public string Icon { get; set; } = string.Empty;
-        public int Order { get; set; }
+/// <summary>
+/// Key değerini alır veya ayarlar.
+/// </summary>
+public string Key { get; set; } = string.Empty;
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Route değerini alır veya ayarlar.
+/// </summary>
+public string Route { get; set; } = string.Empty;
+/// <summary>
+/// Icon değerini alır veya ayarlar.
+/// </summary>
+public string Icon { get; set; } = string.Empty;
+/// <summary>
+/// Order değerini alır veya ayarlar.
+/// </summary>
+public int Order { get; set; }
     }
 
-    public class MobileStaffRealtimeDto
+/// <summary>
+/// MobileStaffRealtimeDto sınıfını temsil eder.
+/// </summary>
+public class MobileStaffRealtimeDto
     {
-        public string HubUrl { get; set; } = "/hubs/hotel-operations";
-        public IList<string> Groups { get; set; } = new List<string>();
+/// <summary>
+/// HubUrl değerini alır veya ayarlar.
+/// </summary>
+public string HubUrl { get; set; } = "/hubs/hotel-operations";
+/// <summary>
+/// Groups değerini alır veya ayarlar.
+/// </summary>
+public IList<string> Groups { get; set; } = new List<string>();
     }
 
-    public class MobileStaffWorkItemResponse
+/// <summary>
+/// MobileStaffWorkItemResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffWorkItemResponse
     {
-        public int Id { get; set; }
-        public string Icon { get; set; } = "SR";
-        public string Title { get; set; } = string.Empty;
-        public string Room { get; set; } = string.Empty;
-        public int? RoomId { get; set; }
-        public string GuestName { get; set; } = string.Empty;
-        public string GuestLanguage { get; set; } = "Türkçe";
-        public string ServiceType { get; set; } = string.Empty;
-        public string Priority { get; set; } = "Normal";
-        public string EstimatedTime { get; set; } = "10 dk";
-        public string Status { get; set; } = string.Empty;
-        public string StatusKey { get; set; } = string.Empty;
-        public string CreatedAt { get; set; } = string.Empty;
-        public string AssignedBy { get; set; } = "Sistem";
-        public string Description { get; set; } = string.Empty;
-        public string Note { get; set; } = string.Empty;
-        public int UnreadMessages { get; set; }
-        public bool RequiresPhotoProof { get; set; }
-        public bool RequiresRoomQr { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Icon değerini alır veya ayarlar.
+/// </summary>
+public string Icon { get; set; } = "SR";
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Room değerini alır veya ayarlar.
+/// </summary>
+public string Room { get; set; } = string.Empty;
+/// <summary>
+/// RoomId değerini alır veya ayarlar.
+/// </summary>
+public int? RoomId { get; set; }
+/// <summary>
+/// GuestName değerini alır veya ayarlar.
+/// </summary>
+public string GuestName { get; set; } = string.Empty;
+/// <summary>
+/// GuestLanguage değerini alır veya ayarlar.
+/// </summary>
+public string GuestLanguage { get; set; } = "Türkçe";
+/// <summary>
+/// ServiceType değerini alır veya ayarlar.
+/// </summary>
+public string ServiceType { get; set; } = string.Empty;
+/// <summary>
+/// Priority değerini alır veya ayarlar.
+/// </summary>
+public string Priority { get; set; } = "Normal";
+/// <summary>
+/// EstimatedTime değerini alır veya ayarlar.
+/// </summary>
+public string EstimatedTime { get; set; } = "10 dk";
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = string.Empty;
+/// <summary>
+/// StatusKey değerini alır veya ayarlar.
+/// </summary>
+public string StatusKey { get; set; } = string.Empty;
+/// <summary>
+/// CreatedAt değerini alır veya ayarlar.
+/// </summary>
+public string CreatedAt { get; set; } = string.Empty;
+/// <summary>
+/// AssignedBy değerini alır veya ayarlar.
+/// </summary>
+public string AssignedBy { get; set; } = "Sistem";
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string Note { get; set; } = string.Empty;
+/// <summary>
+/// UnreadMessages değerini alır veya ayarlar.
+/// </summary>
+public int UnreadMessages { get; set; }
+/// <summary>
+/// RequiresPhotoProof değerini alır veya ayarlar.
+/// </summary>
+public bool RequiresPhotoProof { get; set; }
+/// <summary>
+/// RequiresRoomQr değerini alır veya ayarlar.
+/// </summary>
+public bool RequiresRoomQr { get; set; }
     }
 
-    public class MobileStaffUpdateWorkStatusRequest
+/// <summary>
+/// MobileStaffUpdateWorkStatusRequest sınıfını temsil eder.
+/// </summary>
+public class MobileStaffUpdateWorkStatusRequest
     {
-        public string StatusKey { get; set; } = string.Empty;
-        public string? Note { get; set; }
-        public string? IncompleteReason { get; set; }
+/// <summary>
+/// StatusKey değerini alır veya ayarlar.
+/// </summary>
+public string StatusKey { get; set; } = string.Empty;
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
+/// <summary>
+/// IncompleteReason değerini alır veya ayarlar.
+/// </summary>
+public string? IncompleteReason { get; set; }
     }
 
-    public class MobileStaffWorkStatusResponse
+/// <summary>
+/// MobileStaffWorkStatusResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffWorkStatusResponse
     {
-        public int Id { get; set; }
-        public string Status { get; set; } = string.Empty;
-        public string StatusKey { get; set; } = string.Empty;
-        public DateTime? StartedAt { get; set; }
-        public DateTime? CompletedAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = string.Empty;
+/// <summary>
+/// StatusKey değerini alır veya ayarlar.
+/// </summary>
+public string StatusKey { get; set; } = string.Empty;
+/// <summary>
+/// StartedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? StartedAt { get; set; }
+/// <summary>
+/// CompletedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? CompletedAt { get; set; }
     }
 
-    public class MobileStaffUpdateAvailabilityRequest
+/// <summary>
+/// MobileStaffUpdateAvailabilityRequest sınıfını temsil eder.
+/// </summary>
+public class MobileStaffUpdateAvailabilityRequest
     {
-        public string Status { get; set; } = "Müsait";
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = "Müsait";
     }
 
-    public class MobileStaffAvailabilityResponse
+/// <summary>
+/// MobileStaffAvailabilityResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffAvailabilityResponse
     {
-        public int? EmployeeId { get; set; }
-        public string Status { get; set; } = "Müsait";
-        public bool IsAvailableForTask { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? EmployeeId { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = "Müsait";
+/// <summary>
+/// IsAvailableForTask değerini alır veya ayarlar.
+/// </summary>
+public bool IsAvailableForTask { get; set; }
     }
 
-    public class MobileStaffVerifyRoomQrRequest
+/// <summary>
+/// MobileStaffVerifyRoomQrRequest sınıfını temsil eder.
+/// </summary>
+public class MobileStaffVerifyRoomQrRequest
     {
-        public string RoomQrCode { get; set; } = string.Empty;
+/// <summary>
+/// RoomQrCode değerini alır veya ayarlar.
+/// </summary>
+public string RoomQrCode { get; set; } = string.Empty;
     }
 
-    public class MobileStaffQrVerifyResponse
+/// <summary>
+/// MobileStaffQrVerifyResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffQrVerifyResponse
     {
-        public int WorkItemId { get; set; }
-        public bool IsVerified { get; set; }
-        public string Message { get; set; } = string.Empty;
+/// <summary>
+/// WorkItemId değerini alır veya ayarlar.
+/// </summary>
+public int WorkItemId { get; set; }
+/// <summary>
+/// IsVerified değerini alır veya ayarlar.
+/// </summary>
+public bool IsVerified { get; set; }
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
     }
 
-    public class MobileStaffPhotoProofRequest
+/// <summary>
+/// MobileStaffPhotoProofRequest sınıfını temsil eder.
+/// </summary>
+public class MobileStaffPhotoProofRequest
     {
-        public string PhotoType { get; set; } = "After";
-        public string? ImageBase64 { get; set; }
-        public string? Note { get; set; }
+/// <summary>
+/// PhotoType değerini alır veya ayarlar.
+/// </summary>
+public string PhotoType { get; set; } = "After";
+/// <summary>
+/// ImageBase64 değerini alır veya ayarlar.
+/// </summary>
+public string? ImageBase64 { get; set; }
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
     }
 
-    public class MobileStaffPhotoProofResponse
+/// <summary>
+/// MobileStaffPhotoProofResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffPhotoProofResponse
     {
-        public int WorkItemId { get; set; }
-        public string PhotoType { get; set; } = string.Empty;
-        public DateTime UploadedAt { get; set; }
+/// <summary>
+/// WorkItemId değerini alır veya ayarlar.
+/// </summary>
+public int WorkItemId { get; set; }
+/// <summary>
+/// PhotoType değerini alır veya ayarlar.
+/// </summary>
+public string PhotoType { get; set; } = string.Empty;
+/// <summary>
+/// UploadedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime UploadedAt { get; set; }
     }
 
-    public class MobileStaffSendMessageRequest
+/// <summary>
+/// MobileStaffSendMessageRequest sınıfını temsil eder.
+/// </summary>
+public class MobileStaffSendMessageRequest
     {
-        public string Message { get; set; } = string.Empty;
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
     }
 
-    public class MobileStaffChatMessageResponse
+/// <summary>
+/// MobileStaffChatMessageResponse sınıfını temsil eder.
+/// </summary>
+public class MobileStaffChatMessageResponse
     {
-        public int Id { get; set; }
-        public int ServiceRequestId { get; set; }
-        public string SenderType { get; set; } = string.Empty;
-        public string OriginalText { get; set; } = string.Empty;
-        public string? TranslatedText { get; set; }
-        public string SenderName { get; set; } = string.Empty;
-        public DateTime SentAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// SenderType değerini alır veya ayarlar.
+/// </summary>
+public string SenderType { get; set; } = string.Empty;
+/// <summary>
+/// OriginalText değerini alır veya ayarlar.
+/// </summary>
+public string OriginalText { get; set; } = string.Empty;
+/// <summary>
+/// TranslatedText değerini alır veya ayarlar.
+/// </summary>
+public string? TranslatedText { get; set; }
+/// <summary>
+/// SenderName değerini alır veya ayarlar.
+/// </summary>
+public string SenderName { get; set; } = string.Empty;
+/// <summary>
+/// SentAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime SentAt { get; set; }
     }
 }

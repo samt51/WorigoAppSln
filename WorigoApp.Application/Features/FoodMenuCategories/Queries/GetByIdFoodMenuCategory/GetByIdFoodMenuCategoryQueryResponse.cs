@@ -2,10 +2,22 @@
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetByIdFoodMenuCategory
 {
-    public class GetByIdFoodMenuCategoryQueryResponse
+/// <summary>
+/// GetByIdFoodMenuCategoryQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetByIdFoodMenuCategoryQueryResponse
     {
-        public string Name { get; set; }
-        public int HotelId { get; set; }
-        public IList<GetAllFoodsQueryResponse> Foods { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Foods değerini alır veya ayarlar.
+/// </summary>
+public IList<GetAllFoodsQueryResponse> Foods { get; set; }
     }
 }

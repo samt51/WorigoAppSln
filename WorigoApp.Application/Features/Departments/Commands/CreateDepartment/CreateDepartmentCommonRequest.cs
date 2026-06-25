@@ -3,11 +3,23 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Departments.Commands.CreateDepartment
 {
-    public class CreateDepartmentCommonRequest : IRequest<ResponseDto<CreateDepartmentCommonResponse>>
+/// <summary>
+/// CreateDepartmentCommonRequest sınıfını temsil eder.
+/// </summary>
+public class CreateDepartmentCommonRequest : IRequest<ResponseDto<CreateDepartmentCommonResponse>>
     {
-        public string Name { get; }
-        public int HotelId { get; }
-        public CreateDepartmentCommonRequest(string name, int hotelid)
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; }
+/// <summary>
+/// CreateDepartmentCommonRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateDepartmentCommonRequest(string name, int hotelid)
         {
             this.Name = name;
             this.HotelId = hotelid;

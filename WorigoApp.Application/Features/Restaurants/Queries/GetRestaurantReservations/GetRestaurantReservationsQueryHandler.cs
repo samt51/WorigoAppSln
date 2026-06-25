@@ -8,13 +8,21 @@ using WorigoApp.Application.Interfaces.AutoMapper;
 
 namespace WorigoApp.Application.Features.Restaurants.Queries.GetRestaurantReservations
 {
-    public class GetRestaurantReservationsQueryHandler : BaseHandler, IRequestHandler<GetRestaurantReservationsQueryRequest, ResponseDto<IList<RestaurantReservation>>>
+/// <summary>
+/// GetRestaurantReservationsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetRestaurantReservationsQueryHandler : BaseHandler, IRequestHandler<GetRestaurantReservationsQueryRequest, ResponseDto<IList<RestaurantReservation>>>
     {
-        public GetRestaurantReservationsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetRestaurantReservationsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetRestaurantReservationsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<RestaurantReservation>>> Handle(GetRestaurantReservationsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<RestaurantReservation>>> Handle(GetRestaurantReservationsQueryRequest request, CancellationToken cancellationToken)
         {
             var user = await unitOfWork.GetReadRepository<Users>().FindAsync(
                 x => x.Id == UserId && !x.IsDeleted,

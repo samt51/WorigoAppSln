@@ -2,10 +2,19 @@
 
 namespace WorigoApp.Application.Features.Rooms.Queries.GetRooms
 {
-    public class GetRoomsQueryRequest : IRequest<IList<GetRoomsQueryResponse>>
+/// <summary>
+/// GetRoomsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetRoomsQueryRequest : IRequest<IList<GetRoomsQueryResponse>>
     {
-        public int HotelId { get; set; }
-        public GetRoomsQueryRequest(int hotelid)
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// GetRoomsQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetRoomsQueryRequest(int hotelid)
         {
             this.HotelId = hotelid;
         }

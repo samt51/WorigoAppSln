@@ -8,14 +8,27 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetEmployeePerformanceReport
 {
-    public class GetEmployeePerformanceReportQueryHandler : BaseHandler, IRequestHandler<GetEmployeePerformanceReportQueryRequest, ResponseDto<IList<GetEmployeePerformanceReportQueryResponse>>>
+/// <summary>
+/// GetEmployeePerformanceReportQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetEmployeePerformanceReportQueryHandler : BaseHandler, IRequestHandler<GetEmployeePerformanceReportQueryRequest, ResponseDto<IList<GetEmployeePerformanceReportQueryResponse>>>
     {
-        public GetEmployeePerformanceReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetEmployeePerformanceReportQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetEmployeePerformanceReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetEmployeePerformanceReportQueryResponse>>> Handle(GetEmployeePerformanceReportQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetEmployeePerformanceReportQueryResponse>>> Handle(GetEmployeePerformanceReportQueryRequest request, CancellationToken cancellationToken)
         {
+            if (!await CheckHotelAccessAsync(request.HotelId))
+            {
+                return new ResponseDto<IList<GetEmployeePerformanceReportQueryResponse>>().Fail("Bu işlem için yetkiniz bulunmamaktadır.", 403);
+            }
+
             var employees = await unitOfWork.GetReadRepository<Employee>().GetAllAsync(
                 x => x.HotelId == request.HotelId && !x.IsDeleted,
                 include: x => x.Include(y => y.EmployeeType));

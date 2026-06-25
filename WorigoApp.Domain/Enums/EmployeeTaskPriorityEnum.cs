@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum EmployeeTaskPriorityEnum
+/// <summary>
+/// EmployeeTaskPriorityEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum EmployeeTaskPriorityEnum
     {
         Low = 1,
         Normal = 2,

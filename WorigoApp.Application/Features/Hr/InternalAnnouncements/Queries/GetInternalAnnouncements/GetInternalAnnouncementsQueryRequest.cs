@@ -3,9 +3,18 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Queries.GetInternalAnnouncements
 {
-    public class GetInternalAnnouncementsQueryRequest : IRequest<ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>>
+/// <summary>
+/// GetInternalAnnouncementsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetInternalAnnouncementsQueryRequest : IRequest<ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>>
     {
-        public int HotelId { get; set; }
-        public int? DepartmentId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
     }
 }

@@ -9,27 +9,41 @@ using WorigoApp.Application.Features.Foods.Queries.GetAllFoods;
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize(Roles = "SystemAdmin")]
+    /// <summary>
+    /// FoodsController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin")]
     public class FoodsController : BaseController
     {
         private readonly IMediator mediator;
-
-        public FoodsController(IMediator mediator) : base(mediator)
+/// <summary>
+/// FoodsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public FoodsController(IMediator mediator) : base(mediator)
         {
             this.mediator = mediator;
         }
 
-        [HttpGet("categoryId")]
+        /// <summary>
+        /// GetAllAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("categoryId")]
         public async Task<ResponseDto<IList<GetAllFoodsQueryResponse>>> GetAllAsync(int categoryId)
         {
             return await this.mediator.Send(new GetAllFoodsQueryRequest(categoryId));
         }
-        [HttpPost]
+        /// <summary>
+        /// AddAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<CreateFoodCommonResponse>> AddAsync(CreateFoodCommonRequest request)
         {
             return await this.mediator.Send(request);
         }
-        [HttpPost]
+        /// <summary>
+        /// UpdateAsyn işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<UpdateFoodCommonResponse>> UpdateAsyn(UpdateFoodCommonRequest request)
         {
             return await this.mediator.Send(request);

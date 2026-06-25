@@ -13,28 +13,40 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int HotelId { get; set; }
 
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Sohbetin bağlı olduğu konaklama kaydıdır.
         /// </summary>
         public int? GuestStayId { get; set; }
 
-        public GuestStay? GuestStay { get; set; }
+/// <summary>
+/// GuestStay değerini alır veya ayarlar.
+/// </summary>
+public GuestStay? GuestStay { get; set; }
 
         /// <summary>
         /// Sohbeti başlatan misafir varsa ilgili misafir bilgisidir.
         /// </summary>
         public int? CustomerId { get; set; }
 
-        public Customer? Customer { get; set; }
+/// <summary>
+/// Customer değerini alır veya ayarlar.
+/// </summary>
+public Customer? Customer { get; set; }
 
         /// <summary>
         /// Sohbet servis talebine dönüştüyse ilgili talep bilgisidir.
         /// </summary>
         public int? ServiceRequestId { get; set; }
 
-        public ServiceRequest? ServiceRequest { get; set; }
+/// <summary>
+/// ServiceRequest değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequest? ServiceRequest { get; set; }
 
         /// <summary>
         /// Sohbetin kısa başlığı veya konusu.
@@ -66,7 +78,13 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public DateTime? ClosedAt { get; set; }
 
-        public IList<ConversationMessage> Messages { get; set; } = new List<ConversationMessage>();
-        public IList<ConversationFlowSession> FlowSessions { get; set; } = new List<ConversationFlowSession>();
+/// <summary>
+/// Messages değerini alır veya ayarlar.
+/// </summary>
+public IList<ConversationMessage> Messages { get; set; } = new List<ConversationMessage>();
+/// <summary>
+/// FlowSessions değerini alır veya ayarlar.
+/// </summary>
+public IList<ConversationFlowSession> FlowSessions { get; set; } = new List<ConversationFlowSession>();
     }
 }

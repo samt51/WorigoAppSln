@@ -1,8 +1,14 @@
 ﻿namespace WorigoApp.Application.Features.ContentOfFoods.Commands.RemoveContentOfFoodByFoodId
 {
-    public class RemoveContentOfFoodByFoodIdResponse
+/// <summary>
+/// RemoveContentOfFoodByFoodIdResponse sınıfını temsil eder.
+/// </summary>
+public class RemoveContentOfFoodByFoodIdResponse
     {
-        public RemoveContentOfFoodByFoodIdResponse()
+/// <summary>
+/// RemoveContentOfFoodByFoodIdResponse sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public RemoveContentOfFoodByFoodIdResponse()
         {
             
         }

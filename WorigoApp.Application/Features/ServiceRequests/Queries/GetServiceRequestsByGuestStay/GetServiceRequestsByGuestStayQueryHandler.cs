@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetServiceRequestsByGuestStay
 {
-    public class GetServiceRequestsByGuestStayQueryHandler : BaseHandler, IRequestHandler<GetServiceRequestsByGuestStayQueryRequest, ResponseDto<IList<GetServiceRequestsByGuestStayQueryResponse>>>
+/// <summary>
+/// GetServiceRequestsByGuestStayQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetServiceRequestsByGuestStayQueryHandler : BaseHandler, IRequestHandler<GetServiceRequestsByGuestStayQueryRequest, ResponseDto<IList<GetServiceRequestsByGuestStayQueryResponse>>>
     {
-        public GetServiceRequestsByGuestStayQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetServiceRequestsByGuestStayQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetServiceRequestsByGuestStayQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetServiceRequestsByGuestStayQueryResponse>>> Handle(GetServiceRequestsByGuestStayQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetServiceRequestsByGuestStayQueryResponse>>> Handle(GetServiceRequestsByGuestStayQueryRequest request, CancellationToken cancellationToken)
         {
             var guestStay = await unitOfWork.GetReadRepository<GuestStay>()
                 .GetAsync(x => x.Id == request.GuestStayId && !x.IsDeleted);

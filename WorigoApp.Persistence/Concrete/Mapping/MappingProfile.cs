@@ -8,9 +8,15 @@ using WorigoApp.Domain.Entites;
 namespace WorigoApp.Persistence.Concrete.Mapping
 {
 
+    /// <summary>
+    /// MappingProfile sınıfını temsil eder.
+    /// </summary>
     public class MappingProfile : Profile
     {
-        public MappingProfile()
+/// <summary>
+/// MappingProfile sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public MappingProfile()
         {
             CreateMap<EmployeeType, GetAllEmployeeTypesQueryResponse>()
                 .ForMember(dest => dest.GetAllDepartmentQueryResponse, opt => opt.MapFrom(src => src.Department));

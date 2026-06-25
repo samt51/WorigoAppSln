@@ -5,9 +5,15 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ServiceDefinitionFieldConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ServiceDefinitionFieldConfiguration : IEntityTypeConfiguration<ServiceDefinitionField>
     {
-        public void Configure(EntityTypeBuilder<ServiceDefinitionField> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<ServiceDefinitionField> builder)
         {
             var fields = new List<ServiceDefinitionField>();
             var id = 1;

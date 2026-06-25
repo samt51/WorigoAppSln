@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Restaurants.Commands.ApproveRestaurantReservation
 {
-    public class ApproveRestaurantReservationCommandHandler : BaseHandler, IRequestHandler<ApproveRestaurantReservationCommandRequest, ResponseDto<ApproveRestaurantReservationResponse>>
+/// <summary>
+/// ApproveRestaurantReservationCommandHandler sınıfını temsil eder.
+/// </summary>
+public class ApproveRestaurantReservationCommandHandler : BaseHandler, IRequestHandler<ApproveRestaurantReservationCommandRequest, ResponseDto<ApproveRestaurantReservationResponse>>
     {
-        public ApproveRestaurantReservationCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// ApproveRestaurantReservationCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ApproveRestaurantReservationCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<ApproveRestaurantReservationResponse>> Handle(ApproveRestaurantReservationCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<ApproveRestaurantReservationResponse>> Handle(ApproveRestaurantReservationCommandRequest request, CancellationToken cancellationToken)
         {
             var user = await unitOfWork.GetReadRepository<Users>().FindAsync(
                 x => x.Id == UserId && !x.IsDeleted,

@@ -4,16 +4,24 @@ using Microsoft.Extensions.Options;
 
 namespace WorigoApp.Api.Controllers
 {
-    [Route("[controller]/[action]")]
+    /// <summary>
+    /// LangController sınıfını temsil eder.
+    /// </summary>
+[Route("[controller]/[action]")]
     [ApiController]
     public class LangController : Controller
     {
         readonly RequestLocalizationOptions _localizationOptions;
-
-        public LangController(IOptions<RequestLocalizationOptions> localizationOptions)
+/// <summary>
+/// LangController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public LangController(IOptions<RequestLocalizationOptions> localizationOptions)
             => _localizationOptions = localizationOptions.Value;
 
-        [HttpGet]
+        /// <summary>
+        /// AllLanguages işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet]
         public IActionResult AllLanguages()
         {
             IRequestCultureFeature requestCulture = HttpContext.Features.Get<IRequestCultureFeature>();

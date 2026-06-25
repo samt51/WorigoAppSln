@@ -7,15 +7,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.GuestStays.Commands.UpdatedCustomer
 {
-    public class UpdatedCustomerCommandHandler : BaseHandler, IRequestHandler<UpdatedCustomerCommandRequest, ResponseDto<UpdatedCustomerCommandResponse>>
+/// <summary>
+/// UpdatedCustomerCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdatedCustomerCommandHandler : BaseHandler, IRequestHandler<UpdatedCustomerCommandRequest, ResponseDto<UpdatedCustomerCommandResponse>>
     {
         private readonly GuestStayRule _guestStayRule;
-        public UpdatedCustomerCommandHandler(GuestStayRule guestStayRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdatedCustomerCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdatedCustomerCommandHandler(GuestStayRule guestStayRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
             _guestStayRule = guestStayRule;
         }
-
-        public async Task<ResponseDto<UpdatedCustomerCommandResponse>> Handle(UpdatedCustomerCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdatedCustomerCommandResponse>> Handle(UpdatedCustomerCommandRequest request, CancellationToken cancellationToken)
         {
             var guestStay = await unitOfWork.GetReadRepository<GuestStay>().GetAsync(y => y.Id == request.Id && y.IsActive);
 

@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetByIdFoodMenuCategory
 {
-    public class GetByIdFoodMenuCategoryQueryHandler : BaseHandler, IRequestHandler<GetByIdFoodMenuCategoryQueryRequest, ResponseDto<GetByIdFoodMenuCategoryQueryResponse>>
+/// <summary>
+/// GetByIdFoodMenuCategoryQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetByIdFoodMenuCategoryQueryHandler : BaseHandler, IRequestHandler<GetByIdFoodMenuCategoryQueryRequest, ResponseDto<GetByIdFoodMenuCategoryQueryResponse>>
     {
-        public GetByIdFoodMenuCategoryQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetByIdFoodMenuCategoryQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdFoodMenuCategoryQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetByIdFoodMenuCategoryQueryResponse>> Handle(GetByIdFoodMenuCategoryQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetByIdFoodMenuCategoryQueryResponse>> Handle(GetByIdFoodMenuCategoryQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAsync(x => x.Id == request.FoodMenuCategoryId && !x.IsDeleted, y => y.Include(x => x.Foods));
 

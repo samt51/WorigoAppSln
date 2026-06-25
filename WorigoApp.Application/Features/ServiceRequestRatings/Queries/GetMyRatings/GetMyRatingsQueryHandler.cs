@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceRequestRatings.Queries.GetMyRatings
 {
-    public class GetMyRatingsQueryHandler : IRequestHandler<GetMyRatingsQueryRequest, ResponseDto<IList<ServiceRequestRating>>>
+/// <summary>
+/// GetMyRatingsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetMyRatingsQueryHandler : IRequestHandler<GetMyRatingsQueryRequest, ResponseDto<IList<ServiceRequestRating>>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetMyRatingsQueryHandler(IUnitOfWork _unitOfWork)
+/// <summary>
+/// GetMyRatingsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetMyRatingsQueryHandler(IUnitOfWork _unitOfWork)
         {
             this._unitOfWork = _unitOfWork;
         }
-
-        public async Task<ResponseDto<IList<ServiceRequestRating>>> Handle(GetMyRatingsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<ServiceRequestRating>>> Handle(GetMyRatingsQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

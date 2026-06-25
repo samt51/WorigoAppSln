@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Restaurants.Commands.ApproveRestaurantReservation
 {
-    public class ApproveRestaurantReservationCommandRequest : IRequest<ResponseDto<ApproveRestaurantReservationResponse>>
+/// <summary>
+/// ApproveRestaurantReservationCommandRequest sınıfını temsil eder.
+/// </summary>
+public class ApproveRestaurantReservationCommandRequest : IRequest<ResponseDto<ApproveRestaurantReservationResponse>>
     {
-        public int Id { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
     }
 }

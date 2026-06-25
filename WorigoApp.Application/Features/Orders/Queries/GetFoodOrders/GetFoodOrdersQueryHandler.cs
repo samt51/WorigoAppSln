@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Orders.Queries.GetFoodOrders
 {
-    public class GetFoodOrdersQueryHandler : IRequestHandler<GetFoodOrdersQueryRequest, ResponseDto<IList<Order>>>
+/// <summary>
+/// GetFoodOrdersQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetFoodOrdersQueryHandler : IRequestHandler<GetFoodOrdersQueryRequest, ResponseDto<IList<Order>>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetFoodOrdersQueryHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GetFoodOrdersQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetFoodOrdersQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<IList<Order>>> Handle(GetFoodOrdersQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<Order>>> Handle(GetFoodOrdersQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Commands.ToggleServiceCatalogStatus
 {
-    public class ToggleServiceCatalogStatusCommandHandler : BaseHandler, IRequestHandler<ToggleServiceCatalogStatusCommandRequest, ResponseDto<ToggleServiceCatalogStatusCommandResponse>>
+/// <summary>
+/// ToggleServiceCatalogStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class ToggleServiceCatalogStatusCommandHandler : BaseHandler, IRequestHandler<ToggleServiceCatalogStatusCommandRequest, ResponseDto<ToggleServiceCatalogStatusCommandResponse>>
     {
-        public ToggleServiceCatalogStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// ToggleServiceCatalogStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ToggleServiceCatalogStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<ToggleServiceCatalogStatusCommandResponse>> Handle(ToggleServiceCatalogStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<ToggleServiceCatalogStatusCommandResponse>> Handle(ToggleServiceCatalogStatusCommandRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.OpenTransactionAsync(cancellationToken);
 

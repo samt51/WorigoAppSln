@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.FoodMenuCategories.Commands.UpdateFoodMenuCategory
 {
-    public class UpdateFoodMenuCategoryCommonResponse
+/// <summary>
+/// UpdateFoodMenuCategoryCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateFoodMenuCategoryCommonResponse
     {
     }
 }

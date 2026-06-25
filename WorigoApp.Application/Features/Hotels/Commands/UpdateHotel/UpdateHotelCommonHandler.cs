@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hotels.Commands.UpdateHotel
 {
-    public class UpdateHotelCommonHandler : BaseHandler, IRequestHandler<UpdateHotelCommonRequest, ResponseDto<UpdateHotelCommonResponse>>
+/// <summary>
+/// UpdateHotelCommonHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateHotelCommonHandler : BaseHandler, IRequestHandler<UpdateHotelCommonRequest, ResponseDto<UpdateHotelCommonResponse>>
     {
-        public UpdateHotelCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateHotelCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateHotelCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateHotelCommonResponse>> Handle(UpdateHotelCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateHotelCommonResponse>> Handle(UpdateHotelCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 

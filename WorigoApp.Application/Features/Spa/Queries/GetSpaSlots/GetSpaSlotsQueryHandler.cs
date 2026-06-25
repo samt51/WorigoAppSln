@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Spa.Queries.GetSpaSlots
 {
-    public class GetSpaSlotsQueryHandler : IRequestHandler<GetSpaSlotsQueryRequest, ResponseDto<IList<string>>>
+/// <summary>
+/// GetSpaSlotsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetSpaSlotsQueryHandler : IRequestHandler<GetSpaSlotsQueryRequest, ResponseDto<IList<string>>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetSpaSlotsQueryHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GetSpaSlotsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetSpaSlotsQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<IList<string>>> Handle(GetSpaSlotsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<string>>> Handle(GetSpaSlotsQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.ImageCategories.Commands.CreateImageCategory
 {
-    public class UpdateImageCategoryCommonResponse
+/// <summary>
+/// UpdateImageCategoryCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateImageCategoryCommonResponse
     {
     }
 }

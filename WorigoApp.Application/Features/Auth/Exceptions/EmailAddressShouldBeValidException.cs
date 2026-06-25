@@ -2,8 +2,14 @@
 
 namespace WorigoApp.Application.Features.Auth.Exceptions
 {
-    public class EmailAddressShouldBeValidException : BaseException
+/// <summary>
+/// EmailAddressShouldBeValidException sınıfını temsil eder.
+/// </summary>
+public class EmailAddressShouldBeValidException : BaseException
     {
-        public EmailAddressShouldBeValidException() : base("Böyle bir email adresi bulunmamaktadır.") { }
+/// <summary>
+/// EmailAddressShouldBeValidException sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public EmailAddressShouldBeValidException() : base("Böyle bir email adresi bulunmamaktadır.") { }
     }
 }

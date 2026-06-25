@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Domain.Enums
 {
-    public enum StatusTypeEnum
+/// <summary>
+/// StatusTypeEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum StatusTypeEnum
     {
         Waiting=1,
         Proccess=2,

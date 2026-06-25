@@ -5,9 +5,15 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// HotelServicePolicyConfiguration sınıfını temsil eder.
+    /// </summary>
     public class HotelServicePolicyConfiguration : IEntityTypeConfiguration<HotelServicePolicy>
     {
-        public void Configure(EntityTypeBuilder<HotelServicePolicy> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<HotelServicePolicy> builder)
         {
             var policies = new List<HotelServicePolicy>();
             var id = 1;

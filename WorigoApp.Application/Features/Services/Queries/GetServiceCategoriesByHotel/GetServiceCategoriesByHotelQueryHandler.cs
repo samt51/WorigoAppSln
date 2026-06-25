@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Queries.GetServiceCategoriesByHotel
 {
-    public class GetServiceCategoriesByHotelQueryHandler : BaseHandler, IRequestHandler<GetServiceCategoriesByHotelQueryRequest, ResponseDto<IList<ServiceCategoryManageDto>>>
+/// <summary>
+/// GetServiceCategoriesByHotelQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetServiceCategoriesByHotelQueryHandler : BaseHandler, IRequestHandler<GetServiceCategoriesByHotelQueryRequest, ResponseDto<IList<ServiceCategoryManageDto>>>
     {
-        public GetServiceCategoriesByHotelQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetServiceCategoriesByHotelQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetServiceCategoriesByHotelQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<ServiceCategoryManageDto>>> Handle(GetServiceCategoriesByHotelQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<ServiceCategoryManageDto>>> Handle(GetServiceCategoriesByHotelQueryRequest request, CancellationToken cancellationToken)
         {
             var categories = await unitOfWork.GetReadRepository<ServiceCategory>().GetAllAsync(
                 x => x.HotelId == request.HotelId && !x.IsDeleted,

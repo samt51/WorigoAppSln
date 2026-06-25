@@ -5,16 +5,23 @@ using WorigoApp.Application.Helpers;
 
 namespace WorigoApp.Application.Filters
 {
+    /// <summary>
+    /// ValidatorActionFilter sınıfını temsil eder.
+    /// </summary>
     public class ValidatorActionFilter : IActionFilter
     {
         private readonly GetDataFromCache _getDataFromCache;
-
-        public ValidatorActionFilter(GetDataFromCache getDataFromCache)
+/// <summary>
+/// ValidatorActionFilter sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ValidatorActionFilter(GetDataFromCache getDataFromCache)
         {
             _getDataFromCache = getDataFromCache;
         }
-
-        public void OnActionExecuted(ActionExecutedContext context)
+/// <summary>
+/// OnActionExecuted işlemini gerçekleştirir.
+/// </summary>
+public void OnActionExecuted(ActionExecutedContext context)
         {
             if (!context.ModelState.IsValid)
             {
@@ -22,7 +29,10 @@ namespace WorigoApp.Application.Filters
                 context.Result = new BadRequestObjectResult(new ResponseDto<NoContentResult>().Fail(errors, 200));
             }
         }
-        public void OnActionExecuting(ActionExecutingContext filterContext)
+/// <summary>
+/// OnActionExecuting işlemini gerçekleştirir.
+/// </summary>
+public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (!filterContext.ModelState.IsValid)
             {

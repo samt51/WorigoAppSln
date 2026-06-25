@@ -4,13 +4,31 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Rooms.Commands.CreateRoom
 {
-    public class UpdateRoomCommonRequest : IRequest<ResponseDto<UpdateRoomCommonResponse>>
+/// <summary>
+/// UpdateRoomCommonRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateRoomCommonRequest : IRequest<ResponseDto<UpdateRoomCommonResponse>>
     {
-        public string Name { get; set; }
-        public int RoomTypeId { get; set; }
-        public RoomFoodTypeEnum RoomFoodTypeId { get; set; }
-        public int HotelId { get; set; }
-        public UpdateRoomCommonRequest(string name, int roomTypeId, RoomFoodTypeEnum roomFoodTypeId, int hotelId)
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// RoomTypeId değerini alır veya ayarlar.
+/// </summary>
+public int RoomTypeId { get; set; }
+/// <summary>
+/// RoomFoodTypeId değerini alır veya ayarlar.
+/// </summary>
+public RoomFoodTypeEnum RoomFoodTypeId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// UpdateRoomCommonRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateRoomCommonRequest(string name, int roomTypeId, RoomFoodTypeEnum roomFoodTypeId, int hotelId)
         {
             this.Name = name;
             this.RoomTypeId = roomTypeId;

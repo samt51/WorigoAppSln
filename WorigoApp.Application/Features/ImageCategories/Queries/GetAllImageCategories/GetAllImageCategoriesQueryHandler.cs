@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ImageCategories.Queries.GetAllImageCategories
 {
-    public class GetAllImageCategoriesQueryHandler : BaseHandler, IRequestHandler<GetAllImageCategoriesQueryRequest, IList<GetAllImageCategoriesQueryResponse>>
+/// <summary>
+/// GetAllImageCategoriesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetAllImageCategoriesQueryHandler : BaseHandler, IRequestHandler<GetAllImageCategoriesQueryRequest, IList<GetAllImageCategoriesQueryResponse>>
     {
-        public GetAllImageCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetAllImageCategoriesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllImageCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<IList<GetAllImageCategoriesQueryResponse>> Handle(GetAllImageCategoriesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<IList<GetAllImageCategoriesQueryResponse>> Handle(GetAllImageCategoriesQueryRequest request, CancellationToken cancellationToken)
         {
             var getImageCategories = await unitOfWork.GetReadRepository<ImageCategory>().GetAllAsync(x => x.HotelId == request.HotelId);
 

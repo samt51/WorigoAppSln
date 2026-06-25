@@ -8,16 +8,28 @@ using WorigoApp.Application.Features.HotelServicePolicies.Queries.GetHotelServic
 
 namespace WorigoApp.Api.Controllers.HotelServicePolicies
 {
-    [Authorize(Roles = "SystemAdmin,HotelAdmin")]
+    /// <summary>
+    /// HotelServicePolicyController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin,HotelAdmin")]
     public class HotelServicePolicyController : BaseController
     {
         private readonly IMediator _mediator;
-        public HotelServicePolicyController(IMediator mediator) : base(mediator) { _mediator = mediator; }
+/// <summary>
+/// HotelServicePolicyController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public HotelServicePolicyController(IMediator mediator) : base(mediator) { _mediator = mediator; }
 
-        [HttpGet]
+        /// <summary>
+        /// GetAllAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet]
         public async Task<ResponseDto<IList<GetHotelServicePoliciesQueryResponse>>> GetAllAsync() => await _mediator.Send(new GetHotelServicePoliciesQueryRequest());
 
-        [HttpPost]
+        /// <summary>
+        /// UpsertAsync işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<UpsertHotelServicePolicyCommandResponse>> UpsertAsync(UpsertHotelServicePolicyCommandRequest request) => await _mediator.Send(request);
     }
 }

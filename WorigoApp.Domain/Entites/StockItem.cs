@@ -12,14 +12,20 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int HotelId { get; set; }
 
-        public Hotel Hotel { get; set; } = null!;
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel Hotel { get; set; } = null!;
 
         /// <summary>
         /// Stok kaleminin en cok kullanildigi departman.
         /// </summary>
         public int? DepartmentId { get; set; }
 
-        public Department? Department { get; set; }
+/// <summary>
+/// Department değerini alır veya ayarlar.
+/// </summary>
+public Department? Department { get; set; }
 
         /// <summary>
         /// Stok kart kodu.
@@ -66,7 +72,13 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public string? Description { get; set; }
 
-        public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
-        public IList<StockRequestItem> StockRequestItems { get; set; } = new List<StockRequestItem>();
+/// <summary>
+/// StockMovements değerini alır veya ayarlar.
+/// </summary>
+public IList<StockMovement> StockMovements { get; set; } = new List<StockMovement>();
+/// <summary>
+/// StockRequestItems değerini alır veya ayarlar.
+/// </summary>
+public IList<StockRequestItem> StockRequestItems { get; set; } = new List<StockRequestItem>();
     }
 }

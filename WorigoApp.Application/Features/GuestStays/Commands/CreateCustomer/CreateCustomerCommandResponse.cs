@@ -1,6 +1,9 @@
 namespace WorigoApp.Application.Features.GuestStays.Commands.CreateCustomer
 {
-    public class CreateCustomerCommandResponse
+/// <summary>
+/// CreateCustomerCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateCustomerCommandResponse
     {
     }
 }

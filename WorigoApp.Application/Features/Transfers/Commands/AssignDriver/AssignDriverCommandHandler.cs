@@ -8,13 +8,21 @@ using WorigoApp.Application.Interfaces.AutoMapper;
 
 namespace WorigoApp.Application.Features.Transfers.Commands.AssignDriver
 {
-    public class AssignDriverCommandHandler : BaseHandler, IRequestHandler<AssignDriverCommandRequest, ResponseDto<AssignDriverResponse>>
+/// <summary>
+/// AssignDriverCommandHandler sınıfını temsil eder.
+/// </summary>
+public class AssignDriverCommandHandler : BaseHandler, IRequestHandler<AssignDriverCommandRequest, ResponseDto<AssignDriverResponse>>
     {
-        public AssignDriverCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// AssignDriverCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public AssignDriverCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<AssignDriverResponse>> Handle(AssignDriverCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<AssignDriverResponse>> Handle(AssignDriverCommandRequest request, CancellationToken cancellationToken)
         {
             var user = await unitOfWork.GetReadRepository<Users>().FindAsync(
                 x => x.Id == UserId && !x.IsDeleted,

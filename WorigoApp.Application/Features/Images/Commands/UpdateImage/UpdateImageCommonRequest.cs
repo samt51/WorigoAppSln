@@ -3,9 +3,18 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Images.Commands.UpdateImage
 {
-    public class UpdateImageCommonRequest :IRequest<ResponseDto<UpdateImageCommonResponse>>
+/// <summary>
+/// UpdateImageCommonRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateImageCommonRequest :IRequest<ResponseDto<UpdateImageCommonResponse>>
     {
-        public int Id { get; set; }
-        public string ImageUrl { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string ImageUrl { get; set; }
     }
 }

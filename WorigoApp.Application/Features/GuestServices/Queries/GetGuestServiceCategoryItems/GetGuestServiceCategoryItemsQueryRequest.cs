@@ -4,9 +4,18 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestServiceCategoryItems
 {
-    public class GetGuestServiceCategoryItemsQueryRequest : IRequest<ResponseDto<IList<GetGuestServiceCategoryItemsQueryResponse>>>
+/// <summary>
+/// GetGuestServiceCategoryItemsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetGuestServiceCategoryItemsQueryRequest : IRequest<ResponseDto<IList<GetGuestServiceCategoryItemsQueryResponse>>>
     {
-        public int GuestStayId { get; set; }
-        public ServicesEnum ServiceType { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// ServiceType değerini alır veya ayarlar.
+/// </summary>
+public ServicesEnum ServiceType { get; set; }
     }
 }

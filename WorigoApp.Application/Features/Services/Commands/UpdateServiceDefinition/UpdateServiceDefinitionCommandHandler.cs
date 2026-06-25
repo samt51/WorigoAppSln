@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Commands.UpdateServiceDefinition
 {
-    public class UpdateServiceDefinitionCommandHandler : BaseHandler, IRequestHandler<UpdateServiceDefinitionCommandRequest, ResponseDto<UpdateServiceDefinitionCommandResponse>>
+/// <summary>
+/// UpdateServiceDefinitionCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateServiceDefinitionCommandHandler : BaseHandler, IRequestHandler<UpdateServiceDefinitionCommandRequest, ResponseDto<UpdateServiceDefinitionCommandResponse>>
     {
-        public UpdateServiceDefinitionCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateServiceDefinitionCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateServiceDefinitionCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateServiceDefinitionCommandResponse>> Handle(UpdateServiceDefinitionCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateServiceDefinitionCommandResponse>> Handle(UpdateServiceDefinitionCommandRequest request, CancellationToken cancellationToken)
         {
             var definition = await unitOfWork.GetReadRepository<ServiceDefinition>()
                 .GetAsync(

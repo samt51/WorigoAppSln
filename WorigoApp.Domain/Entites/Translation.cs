@@ -2,13 +2,22 @@
 
 namespace WorigoApp.Domain.Entites
 {
-    public class Translation : EntityBase
+/// <summary>
+/// Translation sınıfını temsil eder.
+/// </summary>
+public class Translation : EntityBase
     {
-        public Translation()
+/// <summary>
+/// Translation sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Translation()
         {
 
         }
-        public Translation(int id, string tableName, int recordId, string fieldName, string translationValue, string languageCode)
+/// <summary>
+/// Translation sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Translation(int id, string tableName, int recordId, string fieldName, string translationValue, string languageCode)
         {
             this.Id = id;
             this.TableName = tableName;

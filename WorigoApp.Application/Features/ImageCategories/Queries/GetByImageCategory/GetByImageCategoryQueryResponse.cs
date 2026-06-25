@@ -3,11 +3,26 @@ using WorigoApp.Application.Features.Images.Queries.GetImages;
 
 namespace WorigoApp.Application.Features.ImageCategories.Queries.GetByImageCategory
 {
-    public class GetByImageCategoryQueryResponse
+/// <summary>
+/// GetByImageCategoryQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetByImageCategoryQueryResponse
     {
-        public string Name { get; set; }
-        public int HotelId { get; set; }
-        public GetAllHotelsQueryResponse Hotel { get; set; }
-        public IList<GetImagesQueryResponse> Images { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public GetAllHotelsQueryResponse Hotel { get; set; }
+/// <summary>
+/// Images değerini alır veya ayarlar.
+/// </summary>
+public IList<GetImagesQueryResponse> Images { get; set; }
     }
 }

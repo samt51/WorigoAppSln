@@ -1,9 +1,21 @@
 namespace WorigoApp.Application.Features.Hr.Performance.Commands.CreatePerformanceReview
 {
-    public class CreatePerformanceReviewCommandResponse
+/// <summary>
+/// CreatePerformanceReviewCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreatePerformanceReviewCommandResponse
     {
-        public int Id { get; set; }
-        public decimal Score { get; set; }
-        public DateTime ReviewDate { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Score değerini alır veya ayarlar.
+/// </summary>
+public decimal Score { get; set; }
+/// <summary>
+/// ReviewDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime ReviewDate { get; set; }
     }
 }

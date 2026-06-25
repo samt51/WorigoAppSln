@@ -3,12 +3,21 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.RoomTypes.Queries.GetByIdRoomType
 {
-    public class GetByIdRoomTypeQueryRequest : IRequest<ResponseDto<GetByIdRoomTypeQueryResponse>>
+/// <summary>
+/// GetByIdRoomTypeQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdRoomTypeQueryRequest : IRequest<ResponseDto<GetByIdRoomTypeQueryResponse>>
     {
-        public GetByIdRoomTypeQueryRequest(int id)
+/// <summary>
+/// GetByIdRoomTypeQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdRoomTypeQueryRequest(int id)
         {
             this.Id = id;
         }
-        public int Id { get; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; }
     }
 }

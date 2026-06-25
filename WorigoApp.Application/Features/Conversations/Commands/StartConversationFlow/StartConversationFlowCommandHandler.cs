@@ -10,13 +10,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Conversations.Commands.StartConversationFlow
 {
-    public class StartConversationFlowCommandHandler : BaseHandler, IRequestHandler<StartConversationFlowCommandRequest, ResponseDto<StartConversationFlowCommandResponse>>
+/// <summary>
+/// StartConversationFlowCommandHandler sınıfını temsil eder.
+/// </summary>
+public class StartConversationFlowCommandHandler : BaseHandler, IRequestHandler<StartConversationFlowCommandRequest, ResponseDto<StartConversationFlowCommandResponse>>
     {
-        public StartConversationFlowCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// StartConversationFlowCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public StartConversationFlowCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<StartConversationFlowCommandResponse>> Handle(StartConversationFlowCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<StartConversationFlowCommandResponse>> Handle(StartConversationFlowCommandRequest request, CancellationToken cancellationToken)
         {
             var guestStay = await unitOfWork.GetReadRepository<GuestStay>()
                 .GetAsync(x => x.Id == request.GuestStayId && x.IsActive && !x.IsDeleted);

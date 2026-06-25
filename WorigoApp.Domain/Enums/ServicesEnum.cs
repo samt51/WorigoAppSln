@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Domain.Enums
 {
-    public enum ServicesEnum
+/// <summary>
+/// ServicesEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum ServicesEnum
     {
         Menu = 1,
         TechnicalNeed = 2,

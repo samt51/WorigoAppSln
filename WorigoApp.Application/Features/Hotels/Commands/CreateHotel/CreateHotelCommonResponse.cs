@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Hotels.Commands.CreateHotel
 {
-    public class CreateHotelCommonResponse
+/// <summary>
+/// CreateHotelCommonResponse sınıfını temsil eder.
+/// </summary>
+public class CreateHotelCommonResponse
     {
     }
 }

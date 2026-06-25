@@ -2,13 +2,34 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.Tasks.Queries.GetEmployeeTasks
 {
-    public class GetEmployeeTasksQueryResponse
+/// <summary>
+/// GetEmployeeTasksQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetEmployeeTasksQueryResponse
     {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public EmployeeTaskPriorityEnum Priority { get; set; }
-        public EmployeeTaskStatusEnum Status { get; set; }
-        public DateTime? DueAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
+/// <summary>
+/// Priority değerini alır veya ayarlar.
+/// </summary>
+public EmployeeTaskPriorityEnum Priority { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public EmployeeTaskStatusEnum Status { get; set; }
+/// <summary>
+/// DueAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? DueAt { get; set; }
     }
 }

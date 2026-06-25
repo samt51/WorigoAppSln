@@ -2,18 +2,38 @@
 
 namespace WorigoApp.Domain.Entites
 {
-    public class SystemParametre : IEntityBase
+/// <summary>
+/// SystemParametre sınıfını temsil eder.
+/// </summary>
+public class SystemParametre : IEntityBase
     {
-        public int Id { get; set; }
-        public string ParametreKey { get; set; }
-        public bool IsDeleted { get; set; } = false;
-        public IList<SystemParametreValues> SystemParametreValues { get; set; }
-
-        public SystemParametre()
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ParametreKey değerini alır veya ayarlar.
+/// </summary>
+public string ParametreKey { get; set; }
+/// <summary>
+/// IsDeleted değerini alır veya ayarlar.
+/// </summary>
+public bool IsDeleted { get; set; } = false;
+/// <summary>
+/// SystemParametreValues değerini alır veya ayarlar.
+/// </summary>
+public IList<SystemParametreValues> SystemParametreValues { get; set; }
+/// <summary>
+/// SystemParametre sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public SystemParametre()
         {
 
         }
-        public SystemParametre(int id, string parametreKey)
+/// <summary>
+/// SystemParametre sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public SystemParametre(int id, string parametreKey)
         {
             this.Id = id;
             this.ParametreKey = parametreKey;

@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Hotels.Commands.DeleteHotel
 {
-    public class DeleteHotelCommandRequest : IRequest<ResponseDto<DeleteHotelCommandResponse>>
+/// <summary>
+/// DeleteHotelCommandRequest sınıfını temsil eder.
+/// </summary>
+public class DeleteHotelCommandRequest : IRequest<ResponseDto<DeleteHotelCommandResponse>>
     {
-        public int Id { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
     }
 }

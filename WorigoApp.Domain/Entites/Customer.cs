@@ -37,6 +37,19 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public string? Nationality { get; set; }
 
+/// <summary>
+/// IdentityDocumentType değerini alır veya ayarlar.
+/// </summary>
+public string? IdentityDocumentType { get; set; }
+/// <summary>
+/// IdentityDocumentNumber değerini alır veya ayarlar.
+/// </summary>
+public string? IdentityDocumentNumber { get; set; }
+/// <summary>
+/// Address değerini alır veya ayarlar.
+/// </summary>
+public string? Address { get; set; }
+
         /// <summary>
         /// Misafirin tercih ettiği dil kodu.
         /// </summary>
@@ -52,11 +65,29 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public bool IsPrimaryGuest { get; set; }
 
-        public int GuestStayId { get; set; }
-        public GuestStay GuestStay { get; set; } = null!;
-        public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
-        public IList<GuestSession> GuestSessions { get; set; } = new List<GuestSession>();
-        public IList<Conversation> Conversations { get; set; } = new List<Conversation>();
-        public IList<ConversationMessage> ConversationMessages { get; set; } = new List<ConversationMessage>();
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// GuestStay değerini alır veya ayarlar.
+/// </summary>
+public GuestStay GuestStay { get; set; } = null!;
+/// <summary>
+/// ServiceRequests değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequest> ServiceRequests { get; set; } = new List<ServiceRequest>();
+/// <summary>
+/// GuestSessions değerini alır veya ayarlar.
+/// </summary>
+public IList<GuestSession> GuestSessions { get; set; } = new List<GuestSession>();
+/// <summary>
+/// Conversations değerini alır veya ayarlar.
+/// </summary>
+public IList<Conversation> Conversations { get; set; } = new List<Conversation>();
+/// <summary>
+/// ConversationMessages değerini alır veya ayarlar.
+/// </summary>
+public IList<ConversationMessage> ConversationMessages { get; set; } = new List<ConversationMessage>();
     }
 }

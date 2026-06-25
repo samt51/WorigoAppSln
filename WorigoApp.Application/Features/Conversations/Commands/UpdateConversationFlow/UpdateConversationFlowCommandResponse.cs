@@ -1,9 +1,21 @@
 namespace WorigoApp.Application.Features.Conversations.Commands.UpdateConversationFlow
 {
-    public class UpdateConversationFlowCommandResponse
+/// <summary>
+/// UpdateConversationFlowCommandResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateConversationFlowCommandResponse
     {
-        public int FlowSessionId { get; set; }
-        public string CurrentStep { get; set; } = string.Empty;
-        public bool IsCompleted { get; set; }
+/// <summary>
+/// FlowSessionId değerini alır veya ayarlar.
+/// </summary>
+public int FlowSessionId { get; set; }
+/// <summary>
+/// CurrentStep değerini alır veya ayarlar.
+/// </summary>
+public string CurrentStep { get; set; } = string.Empty;
+/// <summary>
+/// IsCompleted değerini alır veya ayarlar.
+/// </summary>
+public bool IsCompleted { get; set; }
     }
 }

@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// RoomConfiguration sınıfını temsil eder.
+    /// </summary>
     public class RoomConfiguration : IEntityTypeConfiguration<Room>
     {
-        public void Configure(EntityTypeBuilder<Room> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Room> builder)
         {
             var rooms = new System.Collections.Generic.List<Room>
             {

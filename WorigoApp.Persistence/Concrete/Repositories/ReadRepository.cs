@@ -7,21 +7,25 @@ using WorigoApp.Domain.Common;
 
 namespace WorigoApp.Persistence.Concrete.Repositories
 {
+    /// <summary>
+    /// ReadRepository sınıfını temsil eder.
+    /// </summary>
     public class ReadRepository<T> : IReadRepository<T> where T : class, IEntityBase, new()
     {
         private readonly DbContext dbContext;
-
-        public ReadRepository(DbContext dbContext)
+/// <summary>
+/// ReadRepository sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ReadRepository(DbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
         private DbSet<T> Table { get => dbContext.Set<T>(); }
-
-
-
-
-        public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, Expression<Func<T, T>>? selector = null, bool enableTracking = false)
+/// <summary>
+/// GetAllAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, Expression<Func<T, T>>? selector = null, bool enableTracking = false)
         {
             IQueryable<T> queryable = Table;
             if (!enableTracking) queryable = queryable.AsNoTracking();
@@ -37,8 +41,10 @@ namespace WorigoApp.Persistence.Concrete.Repositories
 
             return await queryable.ToListAsync();
         }
-
-        public async Task<IList<T>> GetAllByPagingAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false, int currentPage = 1, int pageSize = 3)
+/// <summary>
+/// GetAllByPagingAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task<IList<T>> GetAllByPagingAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false, int currentPage = 1, int pageSize = 3)
         {
             IQueryable<T> queryable = Table;
             if (!enableTracking) queryable = queryable.AsNoTracking();
@@ -71,8 +77,10 @@ namespace WorigoApp.Persistence.Concrete.Repositories
             }
             return data;
         }
-
-        public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
+/// <summary>
+/// CountAsync işlemini gerçekleştirir.
+/// </summary>
+public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
         {
             Table.AsNoTracking();
             if (predicate is not null) Table.Where(predicate);

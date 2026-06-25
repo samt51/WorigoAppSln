@@ -5,9 +5,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// UserConfiguration sınıfını temsil eder.
+    /// </summary>
     public class UserConfiguration : IEntityTypeConfiguration<Users>
     {
-        public void Configure(EntityTypeBuilder<Users> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<Users> builder)
         {
             var user = new Users(1, "samt51.m@icloud.com", PasswordHash.HashPassword("123456"), 1);
 

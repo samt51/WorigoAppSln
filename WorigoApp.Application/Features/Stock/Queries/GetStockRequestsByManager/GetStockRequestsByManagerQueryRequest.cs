@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Stock.Queries.GetStockRequestsByManager
 {
-    public class GetStockRequestsByManagerQueryRequest : IRequest<ResponseDto<IList<GetStockRequestsByManagerQueryResponse>>>
+/// <summary>
+/// GetStockRequestsByManagerQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetStockRequestsByManagerQueryRequest : IRequest<ResponseDto<IList<GetStockRequestsByManagerQueryResponse>>>
     {
-        public int ManagerEmployeeId { get; set; }
+/// <summary>
+/// ManagerEmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int ManagerEmployeeId { get; set; }
     }
 }

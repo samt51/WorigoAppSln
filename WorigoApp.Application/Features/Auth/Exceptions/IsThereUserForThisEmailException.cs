@@ -2,8 +2,14 @@
 
 namespace WorigoApp.Application.Features.Auth.Exceptions
 {
-    public class IsThereUserForThisEmailException : BaseException
+/// <summary>
+/// IsThereUserForThisEmailException sınıfını temsil eder.
+/// </summary>
+public class IsThereUserForThisEmailException : BaseException
     {
-        public IsThereUserForThisEmailException() : base("Bu Maile ait bir hesap bulunmuştur") { }
+/// <summary>
+/// IsThereUserForThisEmailException sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public IsThereUserForThisEmailException() : base("Bu Maile ait bir hesap bulunmuştur") { }
     }
 }

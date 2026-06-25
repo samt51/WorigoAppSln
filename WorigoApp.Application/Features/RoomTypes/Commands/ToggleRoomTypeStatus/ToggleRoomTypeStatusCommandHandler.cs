@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.RoomTypes.Commands.ToggleRoomTypeStatus
 {
-    public class ToggleRoomTypeStatusCommandHandler : BaseHandler, IRequestHandler<ToggleRoomTypeStatusCommandRequest, ResponseDto<ToggleRoomTypeStatusCommandResponse>>
+/// <summary>
+/// ToggleRoomTypeStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class ToggleRoomTypeStatusCommandHandler : BaseHandler, IRequestHandler<ToggleRoomTypeStatusCommandRequest, ResponseDto<ToggleRoomTypeStatusCommandResponse>>
     {
-        public ToggleRoomTypeStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// ToggleRoomTypeStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ToggleRoomTypeStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<ToggleRoomTypeStatusCommandResponse>> Handle(ToggleRoomTypeStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<ToggleRoomTypeStatusCommandResponse>> Handle(ToggleRoomTypeStatusCommandRequest request, CancellationToken cancellationToken)
         {
             var roomType = await unitOfWork.GetReadRepository<RoomType>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
             if (roomType == null)

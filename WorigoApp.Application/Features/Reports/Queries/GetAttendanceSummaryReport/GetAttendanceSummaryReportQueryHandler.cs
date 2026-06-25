@@ -6,14 +6,27 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetAttendanceSummaryReport
 {
-    public class GetAttendanceSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetAttendanceSummaryReportQueryRequest, ResponseDto<GetAttendanceSummaryReportQueryResponse>>
+/// <summary>
+/// GetAttendanceSummaryReportQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetAttendanceSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetAttendanceSummaryReportQueryRequest, ResponseDto<GetAttendanceSummaryReportQueryResponse>>
     {
-        public GetAttendanceSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetAttendanceSummaryReportQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAttendanceSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetAttendanceSummaryReportQueryResponse>> Handle(GetAttendanceSummaryReportQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetAttendanceSummaryReportQueryResponse>> Handle(GetAttendanceSummaryReportQueryRequest request, CancellationToken cancellationToken)
         {
+            if (!await CheckHotelAccessAsync(request.HotelId))
+            {
+                return new ResponseDto<GetAttendanceSummaryReportQueryResponse>().Fail("Bu işlem için yetkiniz bulunmamaktadır.", 403);
+            }
+
             var records = await unitOfWork.GetReadRepository<Domain.Entites.AttendanceRecord>().GetAllAsync(x => x.HotelId == request.HotelId && !x.IsDeleted);
 
             return new ResponseDto<GetAttendanceSummaryReportQueryResponse>().Success(new GetAttendanceSummaryReportQueryResponse

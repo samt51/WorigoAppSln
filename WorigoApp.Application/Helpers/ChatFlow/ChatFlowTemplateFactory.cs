@@ -3,9 +3,15 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Helpers.ChatFlow
 {
+    /// <summary>
+    /// ChatFlowTemplateFactory sınıfını temsil eder.
+    /// </summary>
     public static class ChatFlowTemplateFactory
     {
-        public static ServiceFlowUiTypeEnum ResolveUiType(string serviceType, string? categoryName = null)
+/// <summary>
+/// ResolveUiType işlemini gerçekleştirir.
+/// </summary>
+public static ServiceFlowUiTypeEnum ResolveUiType(string serviceType, string? categoryName = null)
         {
             if (serviceType == ServicesEnum.Menu.ToString() || serviceType == ServicesEnum.Minibar.ToString())
             {
@@ -29,8 +35,10 @@ namespace WorigoApp.Application.Helpers.ChatFlow
 
             return ServiceFlowUiTypeEnum.Form;
         }
-
-        public static ConversationMessageTypeEnum ResolveOpeningMessageType(ServiceFlowUiTypeEnum uiType)
+/// <summary>
+/// ResolveOpeningMessageType işlemini gerçekleştirir.
+/// </summary>
+public static ConversationMessageTypeEnum ResolveOpeningMessageType(ServiceFlowUiTypeEnum uiType)
         {
             return uiType switch
             {
@@ -41,8 +49,10 @@ namespace WorigoApp.Application.Helpers.ChatFlow
                 _ => ConversationMessageTypeEnum.Text
             };
         }
-
-        public static string ResolveOpeningMessage(ServiceFlowUiTypeEnum uiType, string serviceType, string? categoryName = null)
+/// <summary>
+/// ResolveOpeningMessage işlemini gerçekleştirir.
+/// </summary>
+public static string ResolveOpeningMessage(ServiceFlowUiTypeEnum uiType, string serviceType, string? categoryName = null)
         {
             return uiType switch
             {
@@ -54,6 +64,9 @@ namespace WorigoApp.Application.Helpers.ChatFlow
                 _ => "Merhaba, size nasil yardimci olabilirim?"
             };
         }
+ /// <summary>
+ /// BuildOpeningPayloadJson işlemini gerçekleştirir.
+ /// </summary>
 
         public static string BuildOpeningPayloadJson(
             ServiceFlowUiTypeEnum uiType,

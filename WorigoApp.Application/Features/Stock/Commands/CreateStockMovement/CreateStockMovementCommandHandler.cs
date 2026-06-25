@@ -7,13 +7,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Stock.Commands.CreateStockMovement
 {
-    public class CreateStockMovementCommandHandler : BaseHandler, IRequestHandler<CreateStockMovementCommandRequest, ResponseDto<CreateStockMovementCommandResponse>>
+/// <summary>
+/// CreateStockMovementCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateStockMovementCommandHandler : BaseHandler, IRequestHandler<CreateStockMovementCommandRequest, ResponseDto<CreateStockMovementCommandResponse>>
     {
-        public CreateStockMovementCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateStockMovementCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateStockMovementCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateStockMovementCommandResponse>> Handle(CreateStockMovementCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateStockMovementCommandResponse>> Handle(CreateStockMovementCommandRequest request, CancellationToken cancellationToken)
         {
             var stockItem = await unitOfWork.GetReadRepository<StockItem>().GetAsync(
                 x => x.Id == request.StockItemId && x.HotelId == request.HotelId && x.IsActive && !x.IsDeleted);

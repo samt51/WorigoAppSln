@@ -8,16 +8,23 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.ServiceRequestMessages.Commands.CreateServiceRequestMessage
 {
-    public class CreateServiceRequestMessageCommandHandler : BaseHandler, IRequestHandler<CreateServiceRequestMessageCommandRequest, ResponseDto<CreateServiceRequestMessageCommandResponse>>
+/// <summary>
+/// CreateServiceRequestMessageCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateServiceRequestMessageCommandHandler : BaseHandler, IRequestHandler<CreateServiceRequestMessageCommandRequest, ResponseDto<CreateServiceRequestMessageCommandResponse>>
     {
         private readonly IChatTranslationService _translationService;
-
-        public CreateServiceRequestMessageCommandHandler(IChatTranslationService translationService, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateServiceRequestMessageCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateServiceRequestMessageCommandHandler(IChatTranslationService translationService, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
             _translationService = translationService;
         }
-
-        public async Task<ResponseDto<CreateServiceRequestMessageCommandResponse>> Handle(CreateServiceRequestMessageCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateServiceRequestMessageCommandResponse>> Handle(CreateServiceRequestMessageCommandRequest request, CancellationToken cancellationToken)
         {
             var serviceRequest = await unitOfWork.GetReadRepository<ServiceRequest>()
                 .GetAsync(x => x.Id == request.ServiceRequestId && !x.IsDeleted, enableTracking: true);

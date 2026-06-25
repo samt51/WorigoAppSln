@@ -20,7 +20,10 @@ using System.Net.Http;
 
 namespace WorigoApp.Api.Controllers.Mobile
 {
-    [ApiController]
+    /// <summary>
+    /// MobileGuestController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [AllowAnonymous]
     [Route("api/mobile/guest")]
     public class MobileGuestController : ControllerBase
@@ -40,8 +43,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             "ru-RU",
             "es-ES"
         };
-
-        public MobileGuestController(AppDbContext dbContext, IMediator mediator, IHubContext<HotelOperationsHub> hubContext, IConfiguration configuration)
+/// <summary>
+/// MobileGuestController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public MobileGuestController(AppDbContext dbContext, IMediator mediator, IHubContext<HotelOperationsHub> hubContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _mediator = mediator;
@@ -49,7 +54,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             _configuration = configuration;
         }
 
-        [HttpPost("qr-login")]
+        /// <summary>
+        /// QrLogin işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("qr-login")]
         public async Task<ResponseDto<MobileGuestSessionResponse>> QrLogin(MobileGuestQrLoginRequest request, CancellationToken cancellationToken)
         {
             var qrCodeToken = ExtractQrToken(request.QrCodeToken);
@@ -70,7 +78,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<MobileGuestSessionResponse>().Success(ToResponse(session));
         }
 
-        [HttpGet("services/{sessionToken}")]
+        /// <summary>
+        /// GetServices işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("services/{sessionToken}")]
         public async Task<ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>> GetServices(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -88,7 +99,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             }, cancellationToken);
         }
 
-        [HttpGet("service-catalog-version/{sessionToken}")]
+        /// <summary>
+        /// GetServiceCatalogVersion işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("service-catalog-version/{sessionToken}")]
         public async Task<ResponseDto<string>> GetServiceCatalogVersion(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -124,7 +138,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<string>().Success(version);
         }
 
-        [HttpGet("quick-actions/{sessionToken}")]
+        /// <summary>
+        /// GetQuickActions işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("quick-actions/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileGuestQuickActionResponse>>> GetQuickActions(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -205,7 +222,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileGuestQuickActionResponse>>().Success(quickActions);
         }
 
-        [HttpGet("service-categories/{sessionToken}")]
+        /// <summary>
+        /// GetServiceCategories işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("service-categories/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileGuestServiceCategoryResponse>>> GetServiceCategories(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -268,7 +288,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileGuestServiceCategoryResponse>>().Success(response);
         }
 
-        [HttpGet("service-categories/{categoryId:int}/items/{sessionToken}")]
+        /// <summary>
+        /// GetServiceCategoryItems işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("service-categories/{categoryId:int}/items/{sessionToken}")]
         public async Task<ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>> GetServiceCategoryItems(int categoryId, string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -306,7 +329,10 @@ namespace WorigoApp.Api.Controllers.Mobile
                     .ToList());
         }
 
-        [HttpGet("announcements/{sessionToken}")]
+        /// <summary>
+        /// GetGuestAnnouncementsBySessionToken işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("announcements/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileGuestAnnouncementResponse>>> GetGuestAnnouncementsBySessionToken(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -357,7 +383,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return $"{Request.Scheme}://{Request.Host}/{path.TrimStart('/')}";
         }
 
-        [HttpPost("language")]
+        /// <summary>
+        /// UpdateLanguage işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("language")]
         public async Task<ResponseDto<MobileGuestSessionResponse>> UpdateLanguage(MobileGuestUpdateLanguageRequest request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.SessionToken))
@@ -393,7 +422,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<MobileGuestSessionResponse>().Success(ToResponse(session));
         }
 
-        [HttpPost("service-request")]
+        /// <summary>
+        /// CreateServiceRequest işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("service-request")]
         public async Task<ResponseDto<CreateServiceRequestCommandResponse>> CreateServiceRequest(MobileGuestCreateServiceRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -461,7 +493,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return response;
         }
 
-        [HttpPost("start-flow")]
+        /// <summary>
+        /// StartFlow işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("start-flow")]
         public async Task<ResponseDto<StartConversationFlowCommandResponse>> StartFlow(MobileGuestStartFlowRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -491,7 +526,10 @@ namespace WorigoApp.Api.Controllers.Mobile
         }
 
 
-        [HttpGet("my-requests/{sessionToken}")]
+        /// <summary>
+        /// GetMyRequests işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("my-requests/{sessionToken}")]
         public async Task<ResponseDto<IList<GetServiceRequestsByGuestStayQueryResponse>>> GetMyRequests(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -595,7 +633,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             };
         }
 
-        [HttpGet("folio/{sessionToken}")]
+        /// <summary>
+        /// GetFolio işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("folio/{sessionToken}")]
         public async Task<ResponseDto<MobileFolioResponse>> GetFolio(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -703,7 +744,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
-        [HttpPost("checkout")]
+        /// <summary>
+        /// Checkout işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("checkout")]
         public async Task<ResponseDto<MobileCheckoutResultDto>> Checkout(MobileCheckoutRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -816,7 +860,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
-        [HttpGet("iot/{sessionToken}")]
+        /// <summary>
+        /// GetRoomIotState işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("iot/{sessionToken}")]
         public async Task<ResponseDto<MobileRoomIotResponse>> GetRoomIotState(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -839,7 +886,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             });
         }
 
-        [HttpPost("iot/update")]
+        /// <summary>
+        /// UpdateRoomIotState işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("iot/update")]
         public async Task<ResponseDto<bool>> UpdateRoomIotState(MobileRoomIotUpdateRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -863,7 +913,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpGet("spa/services/{sessionToken}")]
+        /// <summary>
+        /// GetSpaServices işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("spa/services/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileSpaServiceResponse>>> GetSpaServices(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -883,7 +936,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileSpaServiceResponse>>().Success(services);
         }
 
-        [HttpGet("spa/slots/{sessionToken}")]
+        /// <summary>
+        /// GetSpaSlots işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("spa/slots/{sessionToken}")]
         public async Task<ResponseDto<IList<string>>> GetSpaSlots(string sessionToken, [FromQuery] DateTime date, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -896,7 +952,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<string>>().Success(slots);
         }
 
-        [HttpPost("spa/book")]
+        /// <summary>
+        /// BookSpaAppointment işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("spa/book")]
         public async Task<ResponseDto<bool>> BookSpaAppointment(MobileSpaBookRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -940,7 +999,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpGet("spa/my-appointments/{sessionToken}")]
+        /// <summary>
+        /// GetSpaAppointments işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("spa/my-appointments/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileSpaAppointmentResponse>>> GetSpaAppointments(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -969,7 +1031,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileSpaAppointmentResponse>>().Success(list);
         }
 
-        [HttpPost("pay-folio")]
+        /// <summary>
+        /// PayFolio işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("pay-folio")]
         public async Task<ResponseDto<bool>> PayFolio(MobileFolioPaymentRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1023,7 +1088,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("ai-assist")]
+        /// <summary>
+        /// AskAiAssistant işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("ai-assist")]
         public async Task<ResponseDto<MobileAiResponse>> AskAiAssistant(MobileAiRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1146,7 +1214,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<MobileAiResponse>().Success(new MobileAiResponse { Response = responseText });
         }
 
-        [HttpGet("service-request/{serviceRequestId:int}/messages/{sessionToken}")]
+        /// <summary>
+        /// GetServiceRequestMessages işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("service-request/{serviceRequestId:int}/messages/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileChatMessageResponse>>> GetServiceRequestMessages(int serviceRequestId, string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -1192,7 +1263,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileChatMessageResponse>>().Success(mappedList);
         }
 
-        [HttpPost("service-request/message")]
+        /// <summary>
+        /// SendServiceRequestMessage işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("service-request/message")]
         public async Task<ResponseDto<bool>> SendServiceRequestMessage(MobileSendChatMessageRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1247,7 +1321,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("spa/cancel")]
+        /// <summary>
+        /// CancelSpaAppointment işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("spa/cancel")]
         public async Task<ResponseDto<bool>> CancelSpaAppointment([FromBody] MobileSpaCancelRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1281,7 +1358,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("rate")]
+        /// <summary>
+        /// SubmitRating işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("rate")]
         public async Task<ResponseDto<bool>> SubmitRating([FromBody] MobileRatingRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1318,7 +1398,10 @@ namespace WorigoApp.Api.Controllers.Mobile
 
         private static readonly List<MobileRestaurantReservationDto> _reservations = new();
 
-        [HttpGet("restaurants/{sessionToken}")]
+        /// <summary>
+        /// GetRestaurants işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("restaurants/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileRestaurantDto>>> GetRestaurants(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -1329,7 +1412,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileRestaurantDto>>().Success(_restaurants);
         }
 
-        [HttpGet("restaurants/my-reservations/{sessionToken}")]
+        /// <summary>
+        /// GetRestaurantReservations işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("restaurants/my-reservations/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileRestaurantReservationDto>>> GetRestaurantReservations(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -1343,7 +1429,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileRestaurantReservationDto>>().Success(list);
         }
 
-        [HttpPost("restaurants/book")]
+        /// <summary>
+        /// BookRestaurantTable işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("restaurants/book")]
         public async Task<ResponseDto<bool>> BookRestaurantTable([FromBody] MobileRestaurantBookRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1375,7 +1464,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("restaurants/cancel")]
+        /// <summary>
+        /// CancelRestaurantReservation işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("restaurants/cancel")]
         public async Task<ResponseDto<bool>> CancelRestaurantReservation([FromBody] MobileRestaurantCancelRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1394,7 +1486,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpGet("transfer/tracking/{sessionToken}")]
+        /// <summary>
+        /// GetTransferTracking işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("transfer/tracking/{sessionToken}")]
         public async Task<ResponseDto<MobileTransferTrackingDto>> GetTransferTracking(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -1514,7 +1609,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             }
         };
 
-        [HttpGet("discover/{sessionToken}")]
+        /// <summary>
+        /// GetDiscoverList işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("discover/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileDiscoverPoiCategoryDto>>> GetDiscoverList(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -1532,7 +1630,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             new MobileNotificationDto { Id = 3, Title = "Taksi Çağrınız Alındı 🚖", Message = "Lara Taksi durağından aracınız yönlendirilmiştir.", Type = "ServiceRequest", IsRead = true, CreatedDate = DateTime.Now.AddDays(-1) }
         };
 
-        [HttpGet("notifications/{sessionToken}")]
+        /// <summary>
+        /// GetNotifications işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("notifications/{sessionToken}")]
         public async Task<ResponseDto<IList<MobileNotificationDto>>> GetNotifications(string sessionToken, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: sessionToken, cancellationToken);
@@ -1543,7 +1644,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<IList<MobileNotificationDto>>().Success(_notifications);
         }
 
-        [HttpPost("notifications/read")]
+        /// <summary>
+        /// MarkNotificationAsRead işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("notifications/read")]
         public async Task<ResponseDto<bool>> MarkNotificationAsRead([FromBody] MobileNotificationReadRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1561,106 +1665,316 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        public class MobileSpaCancelRequest
+/// <summary>
+/// MobileSpaCancelRequest sınıfını temsil eder.
+/// </summary>
+public class MobileSpaCancelRequest
         {
-            public string SessionToken { get; set; } = string.Empty;
-            public int AppointmentId { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// AppointmentId değerini alır veya ayarlar.
+/// </summary>
+public int AppointmentId { get; set; }
         }
 
-        public class MobileRatingRequest
+/// <summary>
+/// MobileRatingRequest sınıfını temsil eder.
+/// </summary>
+public class MobileRatingRequest
         {
-            public string SessionToken { get; set; } = string.Empty;
-            public int? ServiceRequestId { get; set; }
-            public int? OrderId { get; set; }
-            public decimal SpeedScore { get; set; }
-            public decimal QualityScore { get; set; }
-            public decimal StaffScore { get; set; }
-            public string? Comment { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceRequestId { get; set; }
+/// <summary>
+/// OrderId değerini alır veya ayarlar.
+/// </summary>
+public int? OrderId { get; set; }
+/// <summary>
+/// SpeedScore değerini alır veya ayarlar.
+/// </summary>
+public decimal SpeedScore { get; set; }
+/// <summary>
+/// QualityScore değerini alır veya ayarlar.
+/// </summary>
+public decimal QualityScore { get; set; }
+/// <summary>
+/// StaffScore değerini alır veya ayarlar.
+/// </summary>
+public decimal StaffScore { get; set; }
+/// <summary>
+/// Comment değerini alır veya ayarlar.
+/// </summary>
+public string? Comment { get; set; }
         }
 
-        public class MobileRestaurantDto
+/// <summary>
+/// MobileRestaurantDto sınıfını temsil eder.
+/// </summary>
+public class MobileRestaurantDto
         {
-            public int Id { get; set; }
-            public string Name { get; set; } = string.Empty;
-            public string CuisineType { get; set; } = string.Empty;
-            public string ImageUrl { get; set; } = string.Empty;
-            public double Rating { get; set; }
-            public string Hours { get; set; } = string.Empty;
-            public string Description { get; set; } = string.Empty;
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; } = string.Empty;
+/// <summary>
+/// CuisineType değerini alır veya ayarlar.
+/// </summary>
+public string CuisineType { get; set; } = string.Empty;
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string ImageUrl { get; set; } = string.Empty;
+/// <summary>
+/// Rating değerini alır veya ayarlar.
+/// </summary>
+public double Rating { get; set; }
+/// <summary>
+/// Hours değerini alır veya ayarlar.
+/// </summary>
+public string Hours { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
         }
 
-        public class MobileRestaurantReservationDto
+/// <summary>
+/// MobileRestaurantReservationDto sınıfını temsil eder.
+/// </summary>
+public class MobileRestaurantReservationDto
         {
-            public int Id { get; set; }
-            public int GuestStayId { get; set; }
-            public int RestaurantId { get; set; }
-            public string RestaurantName { get; set; } = string.Empty;
-            public DateTime ReservationDate { get; set; }
-            public string TimeSlot { get; set; } = string.Empty;
-            public int GuestsCount { get; set; }
-            public string? Note { get; set; }
-            public string Status { get; set; } = "Confirmed";
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// RestaurantId değerini alır veya ayarlar.
+/// </summary>
+public int RestaurantId { get; set; }
+/// <summary>
+/// RestaurantName değerini alır veya ayarlar.
+/// </summary>
+public string RestaurantName { get; set; } = string.Empty;
+/// <summary>
+/// ReservationDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime ReservationDate { get; set; }
+/// <summary>
+/// TimeSlot değerini alır veya ayarlar.
+/// </summary>
+public string TimeSlot { get; set; } = string.Empty;
+/// <summary>
+/// GuestsCount değerini alır veya ayarlar.
+/// </summary>
+public int GuestsCount { get; set; }
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = "Confirmed";
         }
 
-        public class MobileRestaurantBookRequest
+/// <summary>
+/// MobileRestaurantBookRequest sınıfını temsil eder.
+/// </summary>
+public class MobileRestaurantBookRequest
         {
-            public string SessionToken { get; set; } = string.Empty;
-            public int RestaurantId { get; set; }
-            public DateTime Date { get; set; }
-            public string TimeSlot { get; set; } = string.Empty;
-            public int GuestsCount { get; set; }
-            public string? Note { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// RestaurantId değerini alır veya ayarlar.
+/// </summary>
+public int RestaurantId { get; set; }
+/// <summary>
+/// Date değerini alır veya ayarlar.
+/// </summary>
+public DateTime Date { get; set; }
+/// <summary>
+/// TimeSlot değerini alır veya ayarlar.
+/// </summary>
+public string TimeSlot { get; set; } = string.Empty;
+/// <summary>
+/// GuestsCount değerini alır veya ayarlar.
+/// </summary>
+public int GuestsCount { get; set; }
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
         }
 
-        public class MobileRestaurantCancelRequest
+/// <summary>
+/// MobileRestaurantCancelRequest sınıfını temsil eder.
+/// </summary>
+public class MobileRestaurantCancelRequest
         {
-            public string SessionToken { get; set; } = string.Empty;
-            public int ReservationId { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// ReservationId değerini alır veya ayarlar.
+/// </summary>
+public int ReservationId { get; set; }
         }
 
-        public class MobileTransferTrackingDto
+/// <summary>
+/// MobileTransferTrackingDto sınıfını temsil eder.
+/// </summary>
+public class MobileTransferTrackingDto
         {
-            public int ServiceRequestId { get; set; }
-            public string Status { get; set; } = string.Empty;
-            public string StatusKey { get; set; } = string.Empty;
-            public string DriverName { get; set; } = string.Empty;
-            public string DriverPhone { get; set; } = string.Empty;
-            public string VehiclePlate { get; set; } = string.Empty;
-            public string VehicleModel { get; set; } = string.Empty;
-            public string PickupLocation { get; set; } = string.Empty;
-            public string DropoffLocation { get; set; } = string.Empty;
-            public DateTime RequestedAt { get; set; }
-            public DateTime EstimatedArrival { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = string.Empty;
+/// <summary>
+/// StatusKey değerini alır veya ayarlar.
+/// </summary>
+public string StatusKey { get; set; } = string.Empty;
+/// <summary>
+/// DriverName değerini alır veya ayarlar.
+/// </summary>
+public string DriverName { get; set; } = string.Empty;
+/// <summary>
+/// DriverPhone değerini alır veya ayarlar.
+/// </summary>
+public string DriverPhone { get; set; } = string.Empty;
+/// <summary>
+/// VehiclePlate değerini alır veya ayarlar.
+/// </summary>
+public string VehiclePlate { get; set; } = string.Empty;
+/// <summary>
+/// VehicleModel değerini alır veya ayarlar.
+/// </summary>
+public string VehicleModel { get; set; } = string.Empty;
+/// <summary>
+/// PickupLocation değerini alır veya ayarlar.
+/// </summary>
+public string PickupLocation { get; set; } = string.Empty;
+/// <summary>
+/// DropoffLocation değerini alır veya ayarlar.
+/// </summary>
+public string DropoffLocation { get; set; } = string.Empty;
+/// <summary>
+/// RequestedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime RequestedAt { get; set; }
+/// <summary>
+/// EstimatedArrival değerini alır veya ayarlar.
+/// </summary>
+public DateTime EstimatedArrival { get; set; }
         }
 
-        public class MobileDiscoverPoiCategoryDto
+/// <summary>
+/// MobileDiscoverPoiCategoryDto sınıfını temsil eder.
+/// </summary>
+public class MobileDiscoverPoiCategoryDto
         {
-            public string CategoryKey { get; set; } = string.Empty;
-            public IList<MobileDiscoverPoiItemDto> Items { get; set; } = new List<MobileDiscoverPoiItemDto>();
+/// <summary>
+/// CategoryKey değerini alır veya ayarlar.
+/// </summary>
+public string CategoryKey { get; set; } = string.Empty;
+/// <summary>
+/// Items değerini alır veya ayarlar.
+/// </summary>
+public IList<MobileDiscoverPoiItemDto> Items { get; set; } = new List<MobileDiscoverPoiItemDto>();
         }
 
-        public class MobileDiscoverPoiItemDto
+/// <summary>
+/// MobileDiscoverPoiItemDto sınıfını temsil eder.
+/// </summary>
+public class MobileDiscoverPoiItemDto
         {
-            public string Title { get; set; } = string.Empty;
-            public string Description { get; set; } = string.Empty;
-            public string ImageUrl { get; set; } = string.Empty;
-            public string Address { get; set; } = string.Empty;
-            public string Phone { get; set; } = string.Empty;
-            public double Latitude { get; set; }
-            public double Longitude { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string ImageUrl { get; set; } = string.Empty;
+/// <summary>
+/// Address değerini alır veya ayarlar.
+/// </summary>
+public string Address { get; set; } = string.Empty;
+/// <summary>
+/// Phone değerini alır veya ayarlar.
+/// </summary>
+public string Phone { get; set; } = string.Empty;
+/// <summary>
+/// Latitude değerini alır veya ayarlar.
+/// </summary>
+public double Latitude { get; set; }
+/// <summary>
+/// Longitude değerini alır veya ayarlar.
+/// </summary>
+public double Longitude { get; set; }
         }
 
-        public class MobileNotificationDto
+/// <summary>
+/// MobileNotificationDto sınıfını temsil eder.
+/// </summary>
+public class MobileNotificationDto
         {
-            public int Id { get; set; }
-            public string Title { get; set; } = string.Empty;
-            public string Message { get; set; } = string.Empty;
-            public string Type { get; set; } = string.Empty;
-            public bool IsRead { get; set; }
-            public DateTime CreatedDate { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
+/// <summary>
+/// Type değerini alır veya ayarlar.
+/// </summary>
+public string Type { get; set; } = string.Empty;
+/// <summary>
+/// IsRead değerini alır veya ayarlar.
+/// </summary>
+public bool IsRead { get; set; }
+/// <summary>
+/// CreatedDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime CreatedDate { get; set; }
         }
 
-        [HttpPost("device-token")]
+        /// <summary>
+        /// RegisterDeviceToken işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("device-token")]
         public async Task<ResponseDto<bool>> RegisterDeviceToken([FromBody] MobileGuestDeviceTokenRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1687,7 +2001,10 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("update-dnd")]
+        /// <summary>
+        /// UpdateDnd işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("update-dnd")]
         public async Task<ResponseDto<bool>> UpdateDnd([FromBody] MobileGuestUpdateDndRequest request, CancellationToken cancellationToken)
         {
             var session = await FindActiveSessionAsync(qrCodeToken: null, sessionToken: request.SessionToken, cancellationToken);
@@ -1729,10 +2046,19 @@ namespace WorigoApp.Api.Controllers.Mobile
             return new ResponseDto<bool>().Fail(false, "Konaklama kaydı bulunamadı.", 404);
         }
 
-        public class MobileNotificationReadRequest
+/// <summary>
+/// MobileNotificationReadRequest sınıfını temsil eder.
+/// </summary>
+public class MobileNotificationReadRequest
         {
-            public string SessionToken { get; set; } = string.Empty;
-            public int NotificationId { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// NotificationId değerini alır veya ayarlar.
+/// </summary>
+public int NotificationId { get; set; }
         }
 
         private async Task<string?> CallGeminiApiAsync(string apiKey, string userMessage, string languageCode, CancellationToken cancellationToken)
@@ -1801,237 +2127,723 @@ namespace WorigoApp.Api.Controllers.Mobile
         }
     }
 
-    public class MobileFolioResponse
+/// <summary>
+/// MobileFolioResponse sınıfını temsil eder.
+/// </summary>
+public class MobileFolioResponse
     {
-        public int GuestStayId { get; set; }
-        public string RoomName { get; set; } = string.Empty;
-        public string GuestName { get; set; } = string.Empty;
-        public decimal TotalCharges { get; set; }
-        public decimal TotalPayments { get; set; }
-        public decimal RemainingBalance { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public List<MobileFolioItemDto> Items { get; set; } = new();
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// RoomName değerini alır veya ayarlar.
+/// </summary>
+public string RoomName { get; set; } = string.Empty;
+/// <summary>
+/// GuestName değerini alır veya ayarlar.
+/// </summary>
+public string GuestName { get; set; } = string.Empty;
+/// <summary>
+/// TotalCharges değerini alır veya ayarlar.
+/// </summary>
+public decimal TotalCharges { get; set; }
+/// <summary>
+/// TotalPayments değerini alır veya ayarlar.
+/// </summary>
+public decimal TotalPayments { get; set; }
+/// <summary>
+/// RemainingBalance değerini alır veya ayarlar.
+/// </summary>
+public decimal RemainingBalance { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Items değerini alır veya ayarlar.
+/// </summary>
+public List<MobileFolioItemDto> Items { get; set; } = new();
     }
 
-    public class MobileFolioItemDto
+/// <summary>
+/// MobileFolioItemDto sınıfını temsil eder.
+/// </summary>
+public class MobileFolioItemDto
     {
-        public string Description { get; set; } = string.Empty;
-        public decimal Amount { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public DateTime Date { get; set; }
-        public bool IsPayment { get; set; }
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// Amount değerini alır veya ayarlar.
+/// </summary>
+public decimal Amount { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Date değerini alır veya ayarlar.
+/// </summary>
+public DateTime Date { get; set; }
+/// <summary>
+/// IsPayment değerini alır veya ayarlar.
+/// </summary>
+public bool IsPayment { get; set; }
     }
 
-    public class MobileCheckoutRequest
+/// <summary>
+/// MobileCheckoutRequest sınıfını temsil eder.
+/// </summary>
+public class MobileCheckoutRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public bool Force { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// Force değerini alır veya ayarlar.
+/// </summary>
+public bool Force { get; set; }
     }
 
-    public class MobileCheckoutResultDto
+/// <summary>
+/// MobileCheckoutResultDto sınıfını temsil eder.
+/// </summary>
+public class MobileCheckoutResultDto
     {
-        public bool Success { get; set; }
-        public string? WarningCode { get; set; }
-        public string Message { get; set; } = string.Empty;
+/// <summary>
+/// Success değerini alır veya ayarlar.
+/// </summary>
+public bool Success { get; set; }
+/// <summary>
+/// WarningCode değerini alır veya ayarlar.
+/// </summary>
+public string? WarningCode { get; set; }
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
     }
 
-    public class MobileGuestQrLoginRequest
+/// <summary>
+/// MobileGuestQrLoginRequest sınıfını temsil eder.
+/// </summary>
+public class MobileGuestQrLoginRequest
     {
-        public string QrCodeToken { get; set; } = string.Empty;
+/// <summary>
+/// QrCodeToken değerini alır veya ayarlar.
+/// </summary>
+public string QrCodeToken { get; set; } = string.Empty;
     }
 
-    public class MobileGuestUpdateLanguageRequest
+/// <summary>
+/// MobileGuestUpdateLanguageRequest sınıfını temsil eder.
+/// </summary>
+public class MobileGuestUpdateLanguageRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public string LanguageCode { get; set; } = "tr-TR";
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// LanguageCode değerini alır veya ayarlar.
+/// </summary>
+public string LanguageCode { get; set; } = "tr-TR";
     }
 
-    public class MobileGuestCreateServiceRequest
+/// <summary>
+/// MobileGuestCreateServiceRequest sınıfını temsil eder.
+/// </summary>
+public class MobileGuestCreateServiceRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public ServicesEnum ServiceType { get; set; } = ServicesEnum.TechnicalNeed;
-        public int? ServiceItemId { get; set; }
-        public int? ServiceDefinitionId { get; set; }
-        public int? ConversationId { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public ServiceRequestPriorityEnum Priority { get; set; } = ServiceRequestPriorityEnum.Normal;
-        public IList<ServiceRequestFieldValueDto> FieldValues { get; set; } = new List<ServiceRequestFieldValueDto>();
-        public IList<ServiceRequestItemDto> Items { get; set; } = new List<ServiceRequestItemDto>();
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// ServiceType değerini alır veya ayarlar.
+/// </summary>
+public ServicesEnum ServiceType { get; set; } = ServicesEnum.TechnicalNeed;
+/// <summary>
+/// ServiceItemId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceItemId { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// ConversationId değerini alır veya ayarlar.
+/// </summary>
+public int? ConversationId { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
+/// <summary>
+/// Priority değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequestPriorityEnum Priority { get; set; } = ServiceRequestPriorityEnum.Normal;
+/// <summary>
+/// FieldValues değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequestFieldValueDto> FieldValues { get; set; } = new List<ServiceRequestFieldValueDto>();
+/// <summary>
+/// Items değerini alır veya ayarlar.
+/// </summary>
+public IList<ServiceRequestItemDto> Items { get; set; } = new List<ServiceRequestItemDto>();
     }
 
-    public class MobileGuestStartFlowRequest
+/// <summary>
+/// MobileGuestStartFlowRequest sınıfını temsil eder.
+/// </summary>
+public class MobileGuestStartFlowRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public int? ServiceCategoryId { get; set; }
-        public int? ServiceDefinitionId { get; set; }
-        public string FlowType { get; set; } = string.Empty;
-        public string CurrentStep { get; set; } = "start";
-        public string StateJson { get; set; } = "{}";
-        public string? Subject { get; set; }
-        public string OpeningMessage { get; set; } = string.Empty;
-        public ConversationMessageTypeEnum OpeningMessageType { get; set; } = ConversationMessageTypeEnum.OptionList;
-        public string? OpeningPayloadJson { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// ServiceCategoryId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceCategoryId { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// FlowType değerini alır veya ayarlar.
+/// </summary>
+public string FlowType { get; set; } = string.Empty;
+/// <summary>
+/// CurrentStep değerini alır veya ayarlar.
+/// </summary>
+public string CurrentStep { get; set; } = "start";
+/// <summary>
+/// StateJson değerini alır veya ayarlar.
+/// </summary>
+public string StateJson { get; set; } = "{}";
+/// <summary>
+/// Subject değerini alır veya ayarlar.
+/// </summary>
+public string? Subject { get; set; }
+/// <summary>
+/// OpeningMessage değerini alır veya ayarlar.
+/// </summary>
+public string OpeningMessage { get; set; } = string.Empty;
+/// <summary>
+/// OpeningMessageType değerini alır veya ayarlar.
+/// </summary>
+public ConversationMessageTypeEnum OpeningMessageType { get; set; } = ConversationMessageTypeEnum.OptionList;
+/// <summary>
+/// OpeningPayloadJson değerini alır veya ayarlar.
+/// </summary>
+public string? OpeningPayloadJson { get; set; }
     }
 
-    public class MobileGuestQuickActionResponse
+/// <summary>
+/// MobileGuestQuickActionResponse sınıfını temsil eder.
+/// </summary>
+public class MobileGuestQuickActionResponse
     {
-        public int? ServiceCategoryId { get; set; }
-        public int? ServiceDefinitionId { get; set; }
-        public string ServiceType { get; set; } = string.Empty;
-        public string DisplayName { get; set; } = string.Empty;
-        public string? IconKey { get; set; }
-        public bool ShowOnHome { get; set; }
-        public bool IsPopular { get; set; }
-        public int? HomeDisplayOrder { get; set; }
-        public string? PreviewImageUrl { get; set; }
-        public int DisplayOrder { get; set; }
-        public ConversationMessageTypeEnum OpeningMessageType { get; set; }
-        public string OpeningMessage { get; set; } = string.Empty;
-        public string? OpeningPayloadJson { get; set; }
-        public int ItemCount { get; set; }
+/// <summary>
+/// ServiceCategoryId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceCategoryId { get; set; }
+/// <summary>
+/// ServiceDefinitionId değerini alır veya ayarlar.
+/// </summary>
+public int? ServiceDefinitionId { get; set; }
+/// <summary>
+/// ServiceType değerini alır veya ayarlar.
+/// </summary>
+public string ServiceType { get; set; } = string.Empty;
+/// <summary>
+/// DisplayName değerini alır veya ayarlar.
+/// </summary>
+public string DisplayName { get; set; } = string.Empty;
+/// <summary>
+/// IconKey değerini alır veya ayarlar.
+/// </summary>
+public string? IconKey { get; set; }
+/// <summary>
+/// ShowOnHome değerini alır veya ayarlar.
+/// </summary>
+public bool ShowOnHome { get; set; }
+/// <summary>
+/// IsPopular değerini alır veya ayarlar.
+/// </summary>
+public bool IsPopular { get; set; }
+/// <summary>
+/// HomeDisplayOrder değerini alır veya ayarlar.
+/// </summary>
+public int? HomeDisplayOrder { get; set; }
+/// <summary>
+/// PreviewImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string? PreviewImageUrl { get; set; }
+/// <summary>
+/// DisplayOrder değerini alır veya ayarlar.
+/// </summary>
+public int DisplayOrder { get; set; }
+/// <summary>
+/// OpeningMessageType değerini alır veya ayarlar.
+/// </summary>
+public ConversationMessageTypeEnum OpeningMessageType { get; set; }
+/// <summary>
+/// OpeningMessage değerini alır veya ayarlar.
+/// </summary>
+public string OpeningMessage { get; set; } = string.Empty;
+/// <summary>
+/// OpeningPayloadJson değerini alır veya ayarlar.
+/// </summary>
+public string? OpeningPayloadJson { get; set; }
+/// <summary>
+/// ItemCount değerini alır veya ayarlar.
+/// </summary>
+public int ItemCount { get; set; }
     }
 
-    public class MobileGuestServiceCategoryResponse
+/// <summary>
+/// MobileGuestServiceCategoryResponse sınıfını temsil eder.
+/// </summary>
+public class MobileGuestServiceCategoryResponse
     {
-        public int ServiceCategoryId { get; set; }
-        public string DisplayName { get; set; } = string.Empty;
-        public string? Description { get; set; }
-        public string? IconKey { get; set; }
-        public string? IconUrl { get; set; }
-        public int DisplayOrder { get; set; }
-        public bool ShowOnHome { get; set; }
-        public bool IsPopular { get; set; }
-        public int? HomeDisplayOrder { get; set; }
-        public int ItemCount { get; set; }
-        public bool ContainsChargeableItems { get; set; }
-        public string? PreviewImageUrl { get; set; }
+/// <summary>
+/// ServiceCategoryId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceCategoryId { get; set; }
+/// <summary>
+/// DisplayName değerini alır veya ayarlar.
+/// </summary>
+public string DisplayName { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
+/// <summary>
+/// IconKey değerini alır veya ayarlar.
+/// </summary>
+public string? IconKey { get; set; }
+/// <summary>
+/// IconUrl değerini alır veya ayarlar.
+/// </summary>
+public string? IconUrl { get; set; }
+/// <summary>
+/// DisplayOrder değerini alır veya ayarlar.
+/// </summary>
+public int DisplayOrder { get; set; }
+/// <summary>
+/// ShowOnHome değerini alır veya ayarlar.
+/// </summary>
+public bool ShowOnHome { get; set; }
+/// <summary>
+/// IsPopular değerini alır veya ayarlar.
+/// </summary>
+public bool IsPopular { get; set; }
+/// <summary>
+/// HomeDisplayOrder değerini alır veya ayarlar.
+/// </summary>
+public int? HomeDisplayOrder { get; set; }
+/// <summary>
+/// ItemCount değerini alır veya ayarlar.
+/// </summary>
+public int ItemCount { get; set; }
+/// <summary>
+/// ContainsChargeableItems değerini alır veya ayarlar.
+/// </summary>
+public bool ContainsChargeableItems { get; set; }
+/// <summary>
+/// PreviewImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string? PreviewImageUrl { get; set; }
     }
 
-    public class MobileGuestAnnouncementResponse
+/// <summary>
+/// MobileGuestAnnouncementResponse sınıfını temsil eder.
+/// </summary>
+public class MobileGuestAnnouncementResponse
     {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string? ImageUrl { get; set; }
-        public string Type { get; set; } = string.Empty;
-        public DateTime StartAt { get; set; }
-        public DateTime? EndAt { get; set; }
-        public string? Location { get; set; }
-        public bool IsPinned { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string? ImageUrl { get; set; }
+/// <summary>
+/// Type değerini alır veya ayarlar.
+/// </summary>
+public string Type { get; set; } = string.Empty;
+/// <summary>
+/// StartAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime StartAt { get; set; }
+/// <summary>
+/// EndAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? EndAt { get; set; }
+/// <summary>
+/// Location değerini alır veya ayarlar.
+/// </summary>
+public string? Location { get; set; }
+/// <summary>
+/// IsPinned değerini alır veya ayarlar.
+/// </summary>
+public bool IsPinned { get; set; }
     }
 
-    public class MobileGuestSessionResponse
+/// <summary>
+/// MobileGuestSessionResponse sınıfını temsil eder.
+/// </summary>
+public class MobileGuestSessionResponse
     {
-        public int GuestSessionId { get; set; }
-        public int GuestStayId { get; set; }
-        public int CustomerId { get; set; }
-        public int HotelId { get; set; }
-        public string HotelName { get; set; } = string.Empty;
-        public string RoomName { get; set; } = string.Empty;
-        public string GuestName { get; set; } = string.Empty;
-        public string SessionToken { get; set; } = string.Empty;
-        public string LanguageCode { get; set; } = "tr-TR";
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
-        public bool DoNotDisturb { get; set; }
+/// <summary>
+/// GuestSessionId değerini alır veya ayarlar.
+/// </summary>
+public int GuestSessionId { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// CustomerId değerini alır veya ayarlar.
+/// </summary>
+public int CustomerId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// HotelName değerini alır veya ayarlar.
+/// </summary>
+public string HotelName { get; set; } = string.Empty;
+/// <summary>
+/// RoomName değerini alır veya ayarlar.
+/// </summary>
+public string RoomName { get; set; } = string.Empty;
+/// <summary>
+/// GuestName değerini alır veya ayarlar.
+/// </summary>
+public string GuestName { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// LanguageCode değerini alır veya ayarlar.
+/// </summary>
+public string LanguageCode { get; set; } = "tr-TR";
+/// <summary>
+/// CheckInDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime CheckInDate { get; set; }
+/// <summary>
+/// CheckOutDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime CheckOutDate { get; set; }
+/// <summary>
+/// DoNotDisturb değerini alır veya ayarlar.
+/// </summary>
+public bool DoNotDisturb { get; set; }
     }
 
-    public class MobileRoomIotResponse
+/// <summary>
+/// MobileRoomIotResponse sınıfını temsil eder.
+/// </summary>
+public class MobileRoomIotResponse
     {
-        public double TargetTemperature { get; set; }
-        public int LightsIntensity { get; set; }
-        public bool AreCurtainsOpen { get; set; }
+/// <summary>
+/// TargetTemperature değerini alır veya ayarlar.
+/// </summary>
+public double TargetTemperature { get; set; }
+/// <summary>
+/// LightsIntensity değerini alır veya ayarlar.
+/// </summary>
+public int LightsIntensity { get; set; }
+/// <summary>
+/// AreCurtainsOpen değerini alır veya ayarlar.
+/// </summary>
+public bool AreCurtainsOpen { get; set; }
     }
 
-    public class MobileRoomIotUpdateRequest
+/// <summary>
+/// MobileRoomIotUpdateRequest sınıfını temsil eder.
+/// </summary>
+public class MobileRoomIotUpdateRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public double TargetTemperature { get; set; }
-        public int LightsIntensity { get; set; }
-        public bool AreCurtainsOpen { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// TargetTemperature değerini alır veya ayarlar.
+/// </summary>
+public double TargetTemperature { get; set; }
+/// <summary>
+/// LightsIntensity değerini alır veya ayarlar.
+/// </summary>
+public int LightsIntensity { get; set; }
+/// <summary>
+/// AreCurtainsOpen değerini alır veya ayarlar.
+/// </summary>
+public bool AreCurtainsOpen { get; set; }
     }
 
-    public class MobileSpaServiceResponse
+/// <summary>
+/// MobileSpaServiceResponse sınıfını temsil eder.
+/// </summary>
+public class MobileSpaServiceResponse
     {
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public decimal Price { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public string Duration { get; set; } = string.Empty;
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal Price { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Duration değerini alır veya ayarlar.
+/// </summary>
+public string Duration { get; set; } = string.Empty;
     }
 
-    public class MobileSpaBookRequest
+/// <summary>
+/// MobileSpaBookRequest sınıfını temsil eder.
+/// </summary>
+public class MobileSpaBookRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public string ServiceName { get; set; } = string.Empty;
-        public string TherapistName { get; set; } = string.Empty;
-        public DateTime Date { get; set; }
-        public string TimeSlot { get; set; } = string.Empty;
-        public decimal Price { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// ServiceName değerini alır veya ayarlar.
+/// </summary>
+public string ServiceName { get; set; } = string.Empty;
+/// <summary>
+/// TherapistName değerini alır veya ayarlar.
+/// </summary>
+public string TherapistName { get; set; } = string.Empty;
+/// <summary>
+/// Date değerini alır veya ayarlar.
+/// </summary>
+public DateTime Date { get; set; }
+/// <summary>
+/// TimeSlot değerini alır veya ayarlar.
+/// </summary>
+public string TimeSlot { get; set; } = string.Empty;
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal Price { get; set; }
     }
 
-    public class MobileSpaAppointmentResponse
+/// <summary>
+/// MobileSpaAppointmentResponse sınıfını temsil eder.
+/// </summary>
+public class MobileSpaAppointmentResponse
     {
-        public int Id { get; set; }
-        public string ServiceName { get; set; } = string.Empty;
-        public string TherapistName { get; set; } = string.Empty;
-        public DateTime AppointmentDate { get; set; }
-        public string TimeSlot { get; set; } = string.Empty;
-        public decimal Price { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public string Status { get; set; } = "Confirmed";
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ServiceName değerini alır veya ayarlar.
+/// </summary>
+public string ServiceName { get; set; } = string.Empty;
+/// <summary>
+/// TherapistName değerini alır veya ayarlar.
+/// </summary>
+public string TherapistName { get; set; } = string.Empty;
+/// <summary>
+/// AppointmentDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime AppointmentDate { get; set; }
+/// <summary>
+/// TimeSlot değerini alır veya ayarlar.
+/// </summary>
+public string TimeSlot { get; set; } = string.Empty;
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal Price { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = "Confirmed";
     }
 
-    public class MobileFolioPaymentRequest
+/// <summary>
+/// MobileFolioPaymentRequest sınıfını temsil eder.
+/// </summary>
+public class MobileFolioPaymentRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public string PaymentMethod { get; set; } = "OnlineCard";
-        public string? CardNumber { get; set; }
-        public string? CardHolder { get; set; }
-        public string? ExpiryDate { get; set; }
-        public string? Cvv { get; set; }
-        public decimal Amount { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// PaymentMethod değerini alır veya ayarlar.
+/// </summary>
+public string PaymentMethod { get; set; } = "OnlineCard";
+/// <summary>
+/// CardNumber değerini alır veya ayarlar.
+/// </summary>
+public string? CardNumber { get; set; }
+/// <summary>
+/// CardHolder değerini alır veya ayarlar.
+/// </summary>
+public string? CardHolder { get; set; }
+/// <summary>
+/// ExpiryDate değerini alır veya ayarlar.
+/// </summary>
+public string? ExpiryDate { get; set; }
+/// <summary>
+/// Cvv değerini alır veya ayarlar.
+/// </summary>
+public string? Cvv { get; set; }
+/// <summary>
+/// Amount değerini alır veya ayarlar.
+/// </summary>
+public decimal Amount { get; set; }
     }
 
-    public class MobileAiRequest
+/// <summary>
+/// MobileAiRequest sınıfını temsil eder.
+/// </summary>
+public class MobileAiRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public string Message { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
     }
 
-    public class MobileAiResponse
+/// <summary>
+/// MobileAiResponse sınıfını temsil eder.
+/// </summary>
+public class MobileAiResponse
     {
-        public string Response { get; set; } = string.Empty;
+/// <summary>
+/// Response değerini alır veya ayarlar.
+/// </summary>
+public string Response { get; set; } = string.Empty;
     }
 
-    public class MobileSendChatMessageRequest
+/// <summary>
+/// MobileSendChatMessageRequest sınıfını temsil eder.
+/// </summary>
+public class MobileSendChatMessageRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public int ServiceRequestId { get; set; }
-        public string Message { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
     }
 
-    public class MobileChatMessageResponse
+/// <summary>
+/// MobileChatMessageResponse sınıfını temsil eder.
+/// </summary>
+public class MobileChatMessageResponse
     {
-        public int Id { get; set; }
-        public int ServiceRequestId { get; set; }
-        public string SenderType { get; set; } = string.Empty;
-        public string OriginalText { get; set; } = string.Empty;
-        public string? TranslatedText { get; set; }
-        public string SenderName { get; set; } = string.Empty;
-        public DateTime SentAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// SenderType değerini alır veya ayarlar.
+/// </summary>
+public string SenderType { get; set; } = string.Empty;
+/// <summary>
+/// OriginalText değerini alır veya ayarlar.
+/// </summary>
+public string OriginalText { get; set; } = string.Empty;
+/// <summary>
+/// TranslatedText değerini alır veya ayarlar.
+/// </summary>
+public string? TranslatedText { get; set; }
+/// <summary>
+/// SenderName değerini alır veya ayarlar.
+/// </summary>
+public string SenderName { get; set; } = string.Empty;
+/// <summary>
+/// SentAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime SentAt { get; set; }
     }
 
-    public class MobileGuestDeviceTokenRequest
+/// <summary>
+/// MobileGuestDeviceTokenRequest sınıfını temsil eder.
+/// </summary>
+public class MobileGuestDeviceTokenRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public string Token { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// Token değerini alır veya ayarlar.
+/// </summary>
+public string Token { get; set; } = string.Empty;
     }
 
-    public class MobileGuestUpdateDndRequest
+/// <summary>
+/// MobileGuestUpdateDndRequest sınıfını temsil eder.
+/// </summary>
+public class MobileGuestUpdateDndRequest
     {
-        public string SessionToken { get; set; } = string.Empty;
-        public bool DoNotDisturb { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// DoNotDisturb değerini alır veya ayarlar.
+/// </summary>
+public bool DoNotDisturb { get; set; }
     }
 }

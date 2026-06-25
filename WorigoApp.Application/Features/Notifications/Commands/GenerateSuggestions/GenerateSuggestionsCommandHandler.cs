@@ -7,16 +7,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Notifications.Commands.GenerateSuggestions
 {
-    public class GenerateSuggestionsCommandHandler : IRequestHandler<GenerateSuggestionsCommandRequest, ResponseDto<GenerateSuggestionsResponse>>
+/// <summary>
+/// GenerateSuggestionsCommandHandler sınıfını temsil eder.
+/// </summary>
+public class GenerateSuggestionsCommandHandler : IRequestHandler<GenerateSuggestionsCommandRequest, ResponseDto<GenerateSuggestionsResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GenerateSuggestionsCommandHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GenerateSuggestionsCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GenerateSuggestionsCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<GenerateSuggestionsResponse>> Handle(GenerateSuggestionsCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GenerateSuggestionsResponse>> Handle(GenerateSuggestionsCommandRequest request, CancellationToken cancellationToken)
         {
             var today = DateTime.Today;
             var now = DateTime.UtcNow;

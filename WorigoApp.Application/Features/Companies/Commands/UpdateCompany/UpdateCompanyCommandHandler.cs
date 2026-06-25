@@ -6,14 +6,22 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Companies.Commands.UpdateCompany
 {
-    public class UpdateCompanyCommandHandler : BaseHandler, IRequestHandler<UpdateCompanyCommandRequest, ResponseDto<UpdateCompanyCommandResponse>>
+/// <summary>
+/// UpdateCompanyCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateCompanyCommandHandler : BaseHandler, IRequestHandler<UpdateCompanyCommandRequest, ResponseDto<UpdateCompanyCommandResponse>>
     {
-        public UpdateCompanyCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateCompanyCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateCompanyCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
 
         }
-
-        public async Task<ResponseDto<UpdateCompanyCommandResponse>> Handle(UpdateCompanyCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateCompanyCommandResponse>> Handle(UpdateCompanyCommandRequest request, CancellationToken cancellationToken)
         {
             var dataFind = await unitOfWork.GetReadRepository<Company>().GetAsync(x => x.Id == request.Id);
 

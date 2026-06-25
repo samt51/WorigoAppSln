@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetAllFoodMenuCategories
 {
-    public class GetAllFoodMenuCategoriesQueryHandler : BaseHandler, IRequestHandler<GetAllFoodMenuCategoriesQueryRequest, ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>>
+/// <summary>
+/// GetAllFoodMenuCategoriesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetAllFoodMenuCategoriesQueryHandler : BaseHandler, IRequestHandler<GetAllFoodMenuCategoriesQueryRequest, ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>>
     {
-        public GetAllFoodMenuCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetAllFoodMenuCategoriesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllFoodMenuCategoriesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>> Handle(GetAllFoodMenuCategoriesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>> Handle(GetAllFoodMenuCategoriesQueryRequest request, CancellationToken cancellationToken)
         {
             var list = await unitOfWork.GetReadRepository<FoodMenuCategory>().GetAllAsync(x => x.HotelId == request.HotelId);
 

@@ -1,8 +1,14 @@
 ﻿namespace WorigoApp.Application.Features.ContentOfFoods.Commands.CreateContentOfFood
 {
-    public class CreateContentOfFoodResponse
+/// <summary>
+/// CreateContentOfFoodResponse sınıfını temsil eder.
+/// </summary>
+public class CreateContentOfFoodResponse
     {
-        public CreateContentOfFoodResponse()
+/// <summary>
+/// CreateContentOfFoodResponse sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateContentOfFoodResponse()
         {
             
         }

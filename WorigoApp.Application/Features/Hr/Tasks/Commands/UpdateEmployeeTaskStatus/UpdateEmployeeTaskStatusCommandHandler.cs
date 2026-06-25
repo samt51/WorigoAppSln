@@ -7,13 +7,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.Tasks.Commands.UpdateEmployeeTaskStatus
 {
-    public class UpdateEmployeeTaskStatusCommandHandler : BaseHandler, IRequestHandler<UpdateEmployeeTaskStatusCommandRequest, ResponseDto<UpdateEmployeeTaskStatusCommandResponse>>
+/// <summary>
+/// UpdateEmployeeTaskStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateEmployeeTaskStatusCommandHandler : BaseHandler, IRequestHandler<UpdateEmployeeTaskStatusCommandRequest, ResponseDto<UpdateEmployeeTaskStatusCommandResponse>>
     {
-        public UpdateEmployeeTaskStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateEmployeeTaskStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateEmployeeTaskStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateEmployeeTaskStatusCommandResponse>> Handle(UpdateEmployeeTaskStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateEmployeeTaskStatusCommandResponse>> Handle(UpdateEmployeeTaskStatusCommandRequest request, CancellationToken cancellationToken)
         {
             var task = await unitOfWork.GetReadRepository<EmployeeTask>().GetAsync(x => x.Id == request.EmployeeTaskId && !x.IsDeleted);
 

@@ -5,9 +5,15 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ServiceCategoryConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ServiceCategoryConfiguration : IEntityTypeConfiguration<ServiceCategory>
     {
-        public void Configure(EntityTypeBuilder<ServiceCategory> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<ServiceCategory> builder)
         {
             builder.HasData(
                 new ServiceCategory { Id = 1, HotelId = 1, Name = "Oda Hizmetleri", Description = "Oda ici misafir hizmetleri", IconKey = "housekeeping", DisplayOrder = 1, ShowOnHome = true, IsPopular = true, HomeDisplayOrder = 1, LegacyServiceType = ServicesEnum.HouseKeeping },

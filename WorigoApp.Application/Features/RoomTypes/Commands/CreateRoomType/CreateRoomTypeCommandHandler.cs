@@ -10,13 +10,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.RoomTypes.Commands.CreateRoomType
 {
-    public class CreateRoomTypeCommandHandler : BaseHandler, IRequestHandler<CreateRoomTypeCommandRequest, ResponseDto<CreateRoomTypeCommandResponse>>
+/// <summary>
+/// CreateRoomTypeCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateRoomTypeCommandHandler : BaseHandler, IRequestHandler<CreateRoomTypeCommandRequest, ResponseDto<CreateRoomTypeCommandResponse>>
     {
-        public CreateRoomTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateRoomTypeCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateRoomTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateRoomTypeCommandResponse>> Handle(CreateRoomTypeCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateRoomTypeCommandResponse>> Handle(CreateRoomTypeCommandRequest request, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(request.Name))
             {

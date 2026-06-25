@@ -3,10 +3,19 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Images.Queries.GetByIdImage
 {
-    public class GetByIdImageQueryRequest : IRequest<ResponseDto<GetByIdImageQueryResponse>>
+/// <summary>
+/// GetByIdImageQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdImageQueryRequest : IRequest<ResponseDto<GetByIdImageQueryResponse>>
     {
-        public int Id { get; }
-        public GetByIdImageQueryRequest(int id)
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; }
+/// <summary>
+/// GetByIdImageQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdImageQueryRequest(int id)
         {
             this.Id = id;
         }

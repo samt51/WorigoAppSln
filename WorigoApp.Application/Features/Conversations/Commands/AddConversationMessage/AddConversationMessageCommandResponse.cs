@@ -2,11 +2,26 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Conversations.Commands.AddConversationMessage
 {
-    public class AddConversationMessageCommandResponse
+/// <summary>
+/// AddConversationMessageCommandResponse sınıfını temsil eder.
+/// </summary>
+public class AddConversationMessageCommandResponse
     {
-        public int Id { get; set; }
-        public int ConversationId { get; set; }
-        public ConversationMessageTypeEnum MessageType { get; set; }
-        public DateTime SentAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// ConversationId değerini alır veya ayarlar.
+/// </summary>
+public int ConversationId { get; set; }
+/// <summary>
+/// MessageType değerini alır veya ayarlar.
+/// </summary>
+public ConversationMessageTypeEnum MessageType { get; set; }
+/// <summary>
+/// SentAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime SentAt { get; set; }
     }
 }

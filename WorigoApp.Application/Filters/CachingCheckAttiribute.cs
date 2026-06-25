@@ -4,14 +4,23 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace WorigoApp.Application.Filters
 {
+    /// <summary>
+    /// CachingCheckAttiribute sınıfını temsil eder.
+    /// </summary>
     public class CachingCheckAttiribute<T> : Attribute, IActionFilter
     {
         private readonly string _cacheKey;
-        public CachingCheckAttiribute(string cachekey)
+/// <summary>
+/// CachingCheckAttiribute sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CachingCheckAttiribute(string cachekey)
         {
             this._cacheKey = cachekey;
         }
-        public void OnActionExecuting(ActionExecutingContext context)
+/// <summary>
+/// OnActionExecuting işlemini gerçekleştirir.
+/// </summary>
+public void OnActionExecuting(ActionExecutingContext context)
         {
             var memoryCache = (IMemoryCache)context.HttpContext.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)
@@ -23,8 +32,10 @@ namespace WorigoApp.Application.Filters
                 }
             }
         }
-
-        public void OnActionExecuted(ActionExecutedContext context)
+/// <summary>
+/// OnActionExecuted işlemini gerçekleştirir.
+/// </summary>
+public void OnActionExecuted(ActionExecutedContext context)
         {
             var memoryCache = (IMemoryCache)context.HttpContext.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)

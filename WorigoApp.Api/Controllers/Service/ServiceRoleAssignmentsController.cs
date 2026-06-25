@@ -8,19 +8,27 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize(Roles = "SystemAdmin,HotelAdmin")]
+    /// <summary>
+    /// ServiceRoleAssignmentsController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin,HotelAdmin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ServiceRoleAssignmentsController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
-
-        public ServiceRoleAssignmentsController(AppDbContext dbContext)
+/// <summary>
+/// ServiceRoleAssignmentsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceRoleAssignmentsController(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        [HttpGet("{hotelId}")]
+        /// <summary>
+        /// GetByHotel işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("{hotelId}")]
         public async Task<ResponseDto<IList<ServiceRoleAssignmentDto>>> GetByHotel(int hotelId, [FromQuery] ServicesEnum? serviceType)
         {
             var query =
@@ -55,7 +63,10 @@ namespace WorigoApp.Api.Controllers.Service
             return new ResponseDto<IList<ServiceRoleAssignmentDto>>().Success(assignments);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Create işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost]
         public async Task<ResponseDto<ServiceRoleAssignmentDto>> Create(CreateServiceRoleAssignmentRequest request)
         {
             await ValidateReferencesAsync(request.HotelId, request.DepartmentId, request.EmployeeTypeRoleId);
@@ -95,7 +106,10 @@ namespace WorigoApp.Api.Controllers.Service
             return new ResponseDto<ServiceRoleAssignmentDto>().Success(dto);
         }
 
-        [HttpPut("{id}")]
+        /// <summary>
+        /// Update işlemini gerçekleştirir.
+        /// </summary>
+[HttpPut("{id}")]
         public async Task<ResponseDto<ServiceRoleAssignmentDto>> Update(int id, UpdateServiceRoleAssignmentRequest request)
         {
             var entity = await _dbContext.ServiceRoleAssignment.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
@@ -123,7 +137,10 @@ namespace WorigoApp.Api.Controllers.Service
             return new ResponseDto<ServiceRoleAssignmentDto>().Success(dto);
         }
 
-        [HttpDelete("{id}")]
+        /// <summary>
+        /// Delete işlemini gerçekleştirir.
+        /// </summary>
+[HttpDelete("{id}")]
         public async Task<ResponseDto<bool>> Delete(int id)
         {
             var entity = await _dbContext.ServiceRoleAssignment.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
@@ -201,36 +218,108 @@ namespace WorigoApp.Api.Controllers.Service
         }
     }
 
-    public class CreateServiceRoleAssignmentRequest
+/// <summary>
+/// CreateServiceRoleAssignmentRequest sınıfını temsil eder.
+/// </summary>
+public class CreateServiceRoleAssignmentRequest
     {
-        public int HotelId { get; set; }
-        public int? DepartmentId { get; set; }
-        public ServicesEnum ServicesEnumId { get; set; }
-        public int EmployeeTypeRoleId { get; set; }
-        public bool IsPrimaryAssignment { get; set; } = true;
-        public int Priority { get; set; } = 1;
-        public int? SlaMinutes { get; set; }
-        public bool IsActive { get; set; } = true;
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
+/// <summary>
+/// ServicesEnumId değerini alır veya ayarlar.
+/// </summary>
+public ServicesEnum ServicesEnumId { get; set; }
+/// <summary>
+/// EmployeeTypeRoleId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeTypeRoleId { get; set; }
+/// <summary>
+/// IsPrimaryAssignment değerini alır veya ayarlar.
+/// </summary>
+public bool IsPrimaryAssignment { get; set; } = true;
+/// <summary>
+/// Priority değerini alır veya ayarlar.
+/// </summary>
+public int Priority { get; set; } = 1;
+/// <summary>
+/// SlaMinutes değerini alır veya ayarlar.
+/// </summary>
+public int? SlaMinutes { get; set; }
+/// <summary>
+/// IsActive değerini alır veya ayarlar.
+/// </summary>
+public bool IsActive { get; set; } = true;
     }
 
-    public class UpdateServiceRoleAssignmentRequest : CreateServiceRoleAssignmentRequest
+/// <summary>
+/// UpdateServiceRoleAssignmentRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateServiceRoleAssignmentRequest : CreateServiceRoleAssignmentRequest
     {
     }
 
-    public class ServiceRoleAssignmentDto
+/// <summary>
+/// ServiceRoleAssignmentDto sınıfını temsil eder.
+/// </summary>
+public class ServiceRoleAssignmentDto
     {
-        public int Id { get; set; }
-        public int? HotelId { get; set; }
-        public int? DepartmentId { get; set; }
-        public string? DepartmentName { get; set; }
-        public int ServiceId { get; set; }
-        public ServicesEnum ServicesEnumId { get; set; }
-        public string ServiceName { get; set; } = string.Empty;
-        public int EmployeeTypeRoleId { get; set; }
-        public string EmployeeTypeName { get; set; } = string.Empty;
-        public bool IsPrimaryAssignment { get; set; }
-        public int Priority { get; set; }
-        public int? SlaMinutes { get; set; }
-        public bool IsActive { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int? HotelId { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
+/// <summary>
+/// DepartmentName değerini alır veya ayarlar.
+/// </summary>
+public string? DepartmentName { get; set; }
+/// <summary>
+/// ServiceId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceId { get; set; }
+/// <summary>
+/// ServicesEnumId değerini alır veya ayarlar.
+/// </summary>
+public ServicesEnum ServicesEnumId { get; set; }
+/// <summary>
+/// ServiceName değerini alır veya ayarlar.
+/// </summary>
+public string ServiceName { get; set; } = string.Empty;
+/// <summary>
+/// EmployeeTypeRoleId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeTypeRoleId { get; set; }
+/// <summary>
+/// EmployeeTypeName değerini alır veya ayarlar.
+/// </summary>
+public string EmployeeTypeName { get; set; } = string.Empty;
+/// <summary>
+/// IsPrimaryAssignment değerini alır veya ayarlar.
+/// </summary>
+public bool IsPrimaryAssignment { get; set; }
+/// <summary>
+/// Priority değerini alır veya ayarlar.
+/// </summary>
+public int Priority { get; set; }
+/// <summary>
+/// SlaMinutes değerini alır veya ayarlar.
+/// </summary>
+public int? SlaMinutes { get; set; }
+/// <summary>
+/// IsActive değerini alır veya ayarlar.
+/// </summary>
+public bool IsActive { get; set; }
     }
 }

@@ -2,18 +2,33 @@
 
 namespace WorigoApp.Domain.Entites
 {
-    public class Roles : EntityBase
+/// <summary>
+/// Roles sınıfını temsil eder.
+/// </summary>
+public class Roles : EntityBase
     {
-        public Roles()
+/// <summary>
+/// Roles sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Roles()
         {
 
         }
-        public Roles(string name, int id)
+/// <summary>
+/// Roles sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public Roles(string name, int id)
         {
             this.Name = name;
             this.Id = id;
         }
-        public string Name { get; set; }
-        public IList<Users> Users { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// Users değerini alır veya ayarlar.
+/// </summary>
+public IList<Users> Users { get; set; }
     }
 }

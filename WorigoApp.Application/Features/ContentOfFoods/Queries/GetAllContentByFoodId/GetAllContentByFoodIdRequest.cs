@@ -3,10 +3,19 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ContentOfFoods.Queries.GetAllContentByFoodId
 {
-    public class GetAllContentByFoodIdRequest : IRequest<ResponseDto<IList<GetAllContentByFoodIdResponse>>>
+/// <summary>
+/// GetAllContentByFoodIdRequest sınıfını temsil eder.
+/// </summary>
+public class GetAllContentByFoodIdRequest : IRequest<ResponseDto<IList<GetAllContentByFoodIdResponse>>>
     {
-        public int FoodId { get; }
-        public GetAllContentByFoodIdRequest(int foodId)
+/// <summary>
+/// FoodId değerini alır veya ayarlar.
+/// </summary>
+public int FoodId { get; }
+/// <summary>
+/// GetAllContentByFoodIdRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllContentByFoodIdRequest(int foodId)
         {
             this.FoodId = foodId;
         }

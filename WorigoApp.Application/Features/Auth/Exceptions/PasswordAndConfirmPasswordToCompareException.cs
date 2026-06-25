@@ -2,8 +2,14 @@
 
 namespace WorigoApp.Application.Features.Auth.Exceptions
 {
-    public class PasswordAndConfirmPasswordToCompareException : BaseException
+/// <summary>
+/// PasswordAndConfirmPasswordToCompareException sınıfını temsil eder.
+/// </summary>
+public class PasswordAndConfirmPasswordToCompareException : BaseException
     {
-        public PasswordAndConfirmPasswordToCompareException() : base("Şifreler Uyuşmuyor.") { }  
+/// <summary>
+/// PasswordAndConfirmPasswordToCompareException sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public PasswordAndConfirmPasswordToCompareException() : base("Şifreler Uyuşmuyor.") { }  
     }
 }

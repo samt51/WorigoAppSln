@@ -3,10 +3,19 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.FoodMenuCategories.Queries.GetAllFoodMenuCategories
 {
-    public class GetAllFoodMenuCategoriesQueryRequest : IRequest<ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>>
+/// <summary>
+/// GetAllFoodMenuCategoriesQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetAllFoodMenuCategoriesQueryRequest : IRequest<ResponseDto<IList<GetAllFoodMenuCategoriesQueryResponse>>>
     {
-        public int HotelId { get; }
-        public GetAllFoodMenuCategoriesQueryRequest(int hotelId)
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; }
+/// <summary>
+/// GetAllFoodMenuCategoriesQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllFoodMenuCategoriesQueryRequest(int hotelId)
         {
             this.HotelId = hotelId;
         }

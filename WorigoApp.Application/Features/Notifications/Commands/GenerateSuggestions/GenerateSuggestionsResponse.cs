@@ -2,9 +2,18 @@ using WorigoApp.Application.Features.Notifications.Dtos;
 
 namespace WorigoApp.Application.Features.Notifications.Commands.GenerateSuggestions
 {
-    public class GenerateSuggestionsResponse
+/// <summary>
+/// GenerateSuggestionsResponse sınıfını temsil eder.
+/// </summary>
+public class GenerateSuggestionsResponse
     {
-        public int GeneratedCount { get; set; }
-        public IList<SuggestionNotificationDto> NotificationsToBroadcast { get; set; } = new List<SuggestionNotificationDto>();
+/// <summary>
+/// GeneratedCount değerini alır veya ayarlar.
+/// </summary>
+public int GeneratedCount { get; set; }
+/// <summary>
+/// NotificationsToBroadcast değerini alır veya ayarlar.
+/// </summary>
+public IList<SuggestionNotificationDto> NotificationsToBroadcast { get; set; } = new List<SuggestionNotificationDto>();
     }
 }

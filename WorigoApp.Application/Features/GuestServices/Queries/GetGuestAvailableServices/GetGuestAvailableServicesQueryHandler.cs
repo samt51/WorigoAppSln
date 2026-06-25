@@ -11,13 +11,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.GuestServices.Queries.GetGuestAvailableServices
 {
-    public class GetGuestAvailableServicesQueryHandler : BaseHandler, IRequestHandler<GetGuestAvailableServicesQueryRequest, ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>>
+/// <summary>
+/// GetGuestAvailableServicesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetGuestAvailableServicesQueryHandler : BaseHandler, IRequestHandler<GetGuestAvailableServicesQueryRequest, ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>>
     {
-        public GetGuestAvailableServicesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetGuestAvailableServicesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetGuestAvailableServicesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>> Handle(GetGuestAvailableServicesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetGuestAvailableServicesQueryResponse>>> Handle(GetGuestAvailableServicesQueryRequest request, CancellationToken cancellationToken)
         {
             var guestStay = await unitOfWork.GetReadRepository<GuestStay>()
                 .GetAsync(x => x.Id == request.GuestStayId && x.IsActive && !x.IsDeleted);

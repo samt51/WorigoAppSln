@@ -7,13 +7,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Queries.GetInternalAnnouncements
 {
-    public class GetInternalAnnouncementsQueryHandler : BaseHandler, IRequestHandler<GetInternalAnnouncementsQueryRequest, ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>>
+/// <summary>
+/// GetInternalAnnouncementsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetInternalAnnouncementsQueryHandler : BaseHandler, IRequestHandler<GetInternalAnnouncementsQueryRequest, ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>>
     {
-        public GetInternalAnnouncementsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetInternalAnnouncementsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetInternalAnnouncementsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>> Handle(GetInternalAnnouncementsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetInternalAnnouncementsQueryResponse>>> Handle(GetInternalAnnouncementsQueryRequest request, CancellationToken cancellationToken)
         {
             var announcements = await unitOfWork.GetReadRepository<Announcement>().GetAllAsync(
                 x => x.HotelId == request.HotelId &&

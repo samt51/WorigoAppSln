@@ -2,9 +2,18 @@
 
 namespace WorigoApp.Application.Features.Images.Queries.GetImages
 {
-    public class GetImagesQueryResponse
+/// <summary>
+/// GetImagesQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetImagesQueryResponse
     {
-        public string ImageUrl { get; set; }
-        public int ImageCategoryId { get; set; }
+/// <summary>
+/// ImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string ImageUrl { get; set; }
+/// <summary>
+/// ImageCategoryId değerini alır veya ayarlar.
+/// </summary>
+public int ImageCategoryId { get; set; }
     }
 }

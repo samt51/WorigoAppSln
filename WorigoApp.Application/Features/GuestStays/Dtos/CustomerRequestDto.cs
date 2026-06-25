@@ -1,9 +1,21 @@
 namespace WorigoApp.Application.Features.GuestStays.Dtos
 {
-    public class CustomerRequestDto
+/// <summary>
+/// CustomerRequestDto sınıfını temsil eder.
+/// </summary>
+public class CustomerRequestDto
     {
-        public string Name { get; set; }
-        public string SurName { get; set; }
-        public bool Gender { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// SurName değerini alır veya ayarlar.
+/// </summary>
+public string SurName { get; set; }
+/// <summary>
+/// Gender değerini alır veya ayarlar.
+/// </summary>
+public bool Gender { get; set; }
     }
 }

@@ -9,24 +9,35 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Hr
 {
-    [Authorize]
+    /// <summary>
+    /// PerformanceReviewsController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class PerformanceReviewsController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public PerformanceReviewsController(IMediator mediator) : base(mediator)
+/// <summary>
+/// PerformanceReviewsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public PerformanceReviewsController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Personel icin yonetici performans degerlendirmesi olusturur.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Personel icin yonetici performans degerlendirmesi olusturur.")]
         public async Task<ResponseDto<CreatePerformanceReviewCommandResponse>> Create(CreatePerformanceReviewCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpGet("employee/{employeeId}")]
+        /// <summary>
+        /// Personelin performans degerlendirmelerini listeler.
+        /// </summary>
+[HttpGet("employee/{employeeId}")]
         [SwaggerDescriptionAttirbute("Personelin performans degerlendirmelerini listeler.")]
         public async Task<ResponseDto<IList<GetPerformanceReviewsByEmployeeQueryResponse>>> GetByEmployee(int employeeId)
         {

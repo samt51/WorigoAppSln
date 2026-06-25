@@ -1,7 +1,13 @@
 namespace WorigoApp.Application.Features.RoomTypes.Commands.UpdateRoomType
 {
-    public class UpdateRoomTypeCommandResponse
+/// <summary>
+/// UpdateRoomTypeCommandResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateRoomTypeCommandResponse
     {
-        public bool Success { get; set; }
+/// <summary>
+/// Success değerini alır veya ayarlar.
+/// </summary>
+public bool Success { get; set; }
     }
 }

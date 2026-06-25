@@ -8,17 +8,25 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Orders
 {
-    [Authorize]
+    /// <summary>
+    /// OrdersController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class OrdersController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public OrdersController(IMediator mediator) : base(mediator)
+/// <summary>
+/// OrdersController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public OrdersController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Misafirin servis veya urun siparisini kaydeder.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Misafirin servis veya urun siparisini kaydeder.")]
         public async Task<ResponseDto<CreateOrderCommandResponse>> Create(CreateOrderCommandRequest request)
         {

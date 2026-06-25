@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ServiceRequestRatingConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ServiceRequestRatingConfiguration : IEntityTypeConfiguration<ServiceRequestRating>
     {
-        public void Configure(EntityTypeBuilder<ServiceRequestRating> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<ServiceRequestRating> builder)
         {
             builder.HasOne(x => x.ServiceRequest)
                 .WithMany(x => x.Ratings)

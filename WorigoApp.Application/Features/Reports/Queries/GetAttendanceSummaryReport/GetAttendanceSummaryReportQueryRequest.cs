@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetAttendanceSummaryReport
 {
-    public class GetAttendanceSummaryReportQueryRequest : IRequest<ResponseDto<GetAttendanceSummaryReportQueryResponse>>
+/// <summary>
+/// GetAttendanceSummaryReportQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetAttendanceSummaryReportQueryRequest : IRequest<ResponseDto<GetAttendanceSummaryReportQueryResponse>>
     {
-        public int HotelId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
     }
 }

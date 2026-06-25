@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.ServiceRequestMessages.Queries.GetServiceRequestMessages
 {
-    public class GetServiceRequestMessagesQueryRequest : IRequest<ResponseDto<IList<GetServiceRequestMessagesQueryResponse>>>
+/// <summary>
+/// GetServiceRequestMessagesQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetServiceRequestMessagesQueryRequest : IRequest<ResponseDto<IList<GetServiceRequestMessagesQueryResponse>>>
     {
-        public int ServiceRequestId { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
     }
 }

@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// FoodTypeConfiguration sınıfını temsil eder.
+    /// </summary>
     public class FoodTypeConfiguration : IEntityTypeConfiguration<FoodType>
     {
-        public void Configure(EntityTypeBuilder<FoodType> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<FoodType> builder)
         {
             FoodType foodType = new()
             {

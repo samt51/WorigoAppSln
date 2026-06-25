@@ -5,9 +5,15 @@ using System.Collections.Generic;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// RoomTypeConfiguration sınıfını temsil eder.
+    /// </summary>
     public class RoomTypeConfiguration : IEntityTypeConfiguration<RoomType>
     {
-        public void Configure(EntityTypeBuilder<RoomType> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<RoomType> builder)
         {
             builder.HasOne(x => x.Hotel)
                 .WithMany()

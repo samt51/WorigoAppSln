@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ServiceDefinitionFieldOptionConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ServiceDefinitionFieldOptionConfiguration : IEntityTypeConfiguration<ServiceDefinitionFieldOption>
     {
-        public void Configure(EntityTypeBuilder<ServiceDefinitionFieldOption> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<ServiceDefinitionFieldOption> builder)
         {
             builder.HasData(
                 Option(1, 62, "extra_pillow", "Ek yastik", 1),

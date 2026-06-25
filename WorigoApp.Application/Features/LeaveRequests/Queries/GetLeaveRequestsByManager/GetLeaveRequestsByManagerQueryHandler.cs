@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Queries.GetLeaveRequestsByManager
 {
-    public class GetLeaveRequestsByManagerQueryHandler : BaseHandler, IRequestHandler<GetLeaveRequestsByManagerQueryRequest, ResponseDto<IList<GetLeaveRequestsByManagerQueryResponse>>>
+/// <summary>
+/// GetLeaveRequestsByManagerQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetLeaveRequestsByManagerQueryHandler : BaseHandler, IRequestHandler<GetLeaveRequestsByManagerQueryRequest, ResponseDto<IList<GetLeaveRequestsByManagerQueryResponse>>>
     {
-        public GetLeaveRequestsByManagerQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetLeaveRequestsByManagerQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetLeaveRequestsByManagerQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetLeaveRequestsByManagerQueryResponse>>> Handle(GetLeaveRequestsByManagerQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetLeaveRequestsByManagerQueryResponse>>> Handle(GetLeaveRequestsByManagerQueryRequest request, CancellationToken cancellationToken)
         {
             var leaveRequests = await unitOfWork.GetReadRepository<LeaveRequest>().GetAllAsync(
                 x => (request.IsHrView ? x.HrEmployeeId == request.ManagerEmployeeId : x.ManagerEmployeeId == request.ManagerEmployeeId) && !x.IsDeleted,

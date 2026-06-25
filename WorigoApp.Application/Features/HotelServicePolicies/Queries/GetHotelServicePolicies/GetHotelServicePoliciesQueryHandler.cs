@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.HotelServicePolicies.Queries.GetHotelServicePolicies
 {
-    public class GetHotelServicePoliciesQueryHandler : BaseHandler, IRequestHandler<GetHotelServicePoliciesQueryRequest, ResponseDto<IList<GetHotelServicePoliciesQueryResponse>>>
+/// <summary>
+/// GetHotelServicePoliciesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetHotelServicePoliciesQueryHandler : BaseHandler, IRequestHandler<GetHotelServicePoliciesQueryRequest, ResponseDto<IList<GetHotelServicePoliciesQueryResponse>>>
     {
-        public GetHotelServicePoliciesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetHotelServicePoliciesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetHotelServicePoliciesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetHotelServicePoliciesQueryResponse>>> Handle(GetHotelServicePoliciesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetHotelServicePoliciesQueryResponse>>> Handle(GetHotelServicePoliciesQueryRequest request, CancellationToken cancellationToken)
         {
             var policies = await unitOfWork.GetReadRepository<HotelServicePolicy>()
                 .GetAllAsync(x =>

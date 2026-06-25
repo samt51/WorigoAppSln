@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Auth.Commands.Logout
 {
-    public class LogoutCommandResponse
+/// <summary>
+/// LogoutCommandResponse sınıfını temsil eder.
+/// </summary>
+public class LogoutCommandResponse
     {
     }
 }

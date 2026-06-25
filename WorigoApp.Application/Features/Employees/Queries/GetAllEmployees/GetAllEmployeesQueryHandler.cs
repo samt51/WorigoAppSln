@@ -4,21 +4,31 @@ using WorigoApp.Application.Interfaces.AutoMapper;
 using WorigoApp.Application.Interfaces.UnitOfWorks;
 using WorigoApp.Domain.Entites;
 using WorigoApp.Domain.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace WorigoApp.Application.Features.Employees.Queries.GetAllEmployees
 {
-    public class GetAllEmployeesQueryHandler : BaseHandler, IRequestHandler<GetAllEmployeesQueryRequest, ResponseDto<IList<GetAllEmployeesQueryResponse>>>
+/// <summary>
+/// GetAllEmployeesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetAllEmployeesQueryHandler : BaseHandler, IRequestHandler<GetAllEmployeesQueryRequest, ResponseDto<IList<GetAllEmployeesQueryResponse>>>
     {
-        public GetAllEmployeesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetAllEmployeesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllEmployeesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetAllEmployeesQueryResponse>>> Handle(GetAllEmployeesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetAllEmployeesQueryResponse>>> Handle(GetAllEmployeesQueryRequest request, CancellationToken cancellationToken)
         {
             var employeeList = await unitOfWork.GetReadRepository<Employee>()
-                .GetAllAsync(x => x.HotelId == request.HotelId && !x.IsDeleted);
+                .GetAllAsync(x => x.HotelId == request.HotelId && !x.IsDeleted,
+                             include: x => x.Include(y => y.EmployeeType));
 
             var serviceRequests = await unitOfWork.GetReadRepository<ServiceRequest>()
                 .GetAllAsync(x => x.HotelId == request.HotelId && !x.IsDeleted && 
@@ -36,6 +46,7 @@ namespace WorigoApp.Application.Features.Employees.Queries.GetAllEmployees
                     Surname = emp.Surname,
                     ImageUrl = emp.ImageUrl ?? string.Empty,
                     EmployeeTypeId = emp.EmployeeTypeId ?? 0,
+                    EmployeeTypeName = emp.EmployeeType?.Name ?? "Belirtilmemiş",
                     HotelId = emp.HotelId ?? 0,
                     IsAvailableForTask = emp.IsAvailableForTask,
                     Status = emp.Status,

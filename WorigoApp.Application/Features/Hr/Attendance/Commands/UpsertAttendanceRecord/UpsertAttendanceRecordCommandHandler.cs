@@ -8,13 +8,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.Attendance.Commands.UpsertAttendanceRecord
 {
-    public class UpsertAttendanceRecordCommandHandler : BaseHandler, IRequestHandler<UpsertAttendanceRecordCommandRequest, ResponseDto<UpsertAttendanceRecordCommandResponse>>
+/// <summary>
+/// UpsertAttendanceRecordCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpsertAttendanceRecordCommandHandler : BaseHandler, IRequestHandler<UpsertAttendanceRecordCommandRequest, ResponseDto<UpsertAttendanceRecordCommandResponse>>
     {
-        public UpsertAttendanceRecordCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpsertAttendanceRecordCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpsertAttendanceRecordCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpsertAttendanceRecordCommandResponse>> Handle(UpsertAttendanceRecordCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpsertAttendanceRecordCommandResponse>> Handle(UpsertAttendanceRecordCommandRequest request, CancellationToken cancellationToken)
         {
             var employee = await unitOfWork.GetReadRepository<Employee>().GetAsync(
                 x => x.Id == request.EmployeeId && x.HotelId == request.HotelId && !x.IsDeleted,

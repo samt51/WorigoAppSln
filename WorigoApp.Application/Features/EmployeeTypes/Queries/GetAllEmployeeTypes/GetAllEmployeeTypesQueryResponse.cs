@@ -2,10 +2,22 @@
 
 namespace WorigoApp.Application.Features.EmployeeTypes.Queries.GetAllEmployeeTypes
 {
-    public class GetAllEmployeeTypesQueryResponse
+/// <summary>
+/// GetAllEmployeeTypesQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetAllEmployeeTypesQueryResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public GetAllDepartmentQueryResponse GetAllDepartmentQueryResponse { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// GetAllDepartmentQueryResponse değerini alır veya ayarlar.
+/// </summary>
+public GetAllDepartmentQueryResponse GetAllDepartmentQueryResponse { get; set; }
     }
 }

@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceRequestRatings.Commands.RateServiceRequest
 {
-    public class RateServiceRequestCommandHandler : IRequestHandler<RateServiceRequestCommandRequest, ResponseDto<bool>>
+/// <summary>
+/// RateServiceRequestCommandHandler sınıfını temsil eder.
+/// </summary>
+public class RateServiceRequestCommandHandler : IRequestHandler<RateServiceRequestCommandRequest, ResponseDto<bool>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public RateServiceRequestCommandHandler(IUnitOfWork _unitOfWork)
+/// <summary>
+/// RateServiceRequestCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public RateServiceRequestCommandHandler(IUnitOfWork _unitOfWork)
         {
             this._unitOfWork = _unitOfWork;
         }
-
-        public async Task<ResponseDto<bool>> Handle(RateServiceRequestCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<bool>> Handle(RateServiceRequestCommandRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

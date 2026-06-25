@@ -4,9 +4,18 @@ using WorigoApp.Application.Features.Orders.Dtos;
 
 namespace WorigoApp.Application.Features.Orders.Queries.GetFoodOrderTracking
 {
-    public class GetFoodOrderTrackingQueryRequest : IRequest<ResponseDto<OrderTrackingDto>>
+/// <summary>
+/// GetFoodOrderTrackingQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetFoodOrderTrackingQueryRequest : IRequest<ResponseDto<OrderTrackingDto>>
     {
-        public int OrderId { get; set; }
-        public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// OrderId değerini alır veya ayarlar.
+/// </summary>
+public int OrderId { get; set; }
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
     }
 }

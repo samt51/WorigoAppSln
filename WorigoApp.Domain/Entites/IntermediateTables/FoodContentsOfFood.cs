@@ -2,12 +2,30 @@
 
 namespace WorigoApp.Domain.Entites.IntermediateTables
 {
-    public class FoodContentsOfFood : IEntityBase
+/// <summary>
+/// FoodContentsOfFood sınıfını temsil eder.
+/// </summary>
+public class FoodContentsOfFood : IEntityBase
     {
-        public int FoodId { get; set; }
-        public Food Food { get; set; }
-        public int ContentsOfFoodId { get; set; }
-        public ContentsOfFood ContentsOfFood { get; set; }
-        public bool IsActive { get; set; }
+/// <summary>
+/// FoodId değerini alır veya ayarlar.
+/// </summary>
+public int FoodId { get; set; }
+/// <summary>
+/// Food değerini alır veya ayarlar.
+/// </summary>
+public Food Food { get; set; }
+/// <summary>
+/// ContentsOfFoodId değerini alır veya ayarlar.
+/// </summary>
+public int ContentsOfFoodId { get; set; }
+/// <summary>
+/// ContentsOfFood değerini alır veya ayarlar.
+/// </summary>
+public ContentsOfFood ContentsOfFood { get; set; }
+/// <summary>
+/// IsActive değerini alır veya ayarlar.
+/// </summary>
+public bool IsActive { get; set; }
     }
 }

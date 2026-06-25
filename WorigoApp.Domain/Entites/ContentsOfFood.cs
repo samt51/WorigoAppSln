@@ -3,15 +3,30 @@ using WorigoApp.Domain.Entites.IntermediateTables;
 
 namespace WorigoApp.Domain.Entites
 {
-    public class ContentsOfFood : EntityBase
+/// <summary>
+/// ContentsOfFood sınıfını temsil eder.
+/// </summary>
+public class ContentsOfFood : EntityBase
     {
-        public ContentsOfFood() { }
-        public ContentsOfFood(int id, string name)
+/// <summary>
+/// ContentsOfFood sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ContentsOfFood() { }
+/// <summary>
+/// ContentsOfFood sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ContentsOfFood(int id, string name)
         {
             this.Id = id;
             this.Name = name;
         }
-        public string Name { get; set; }
-        public ICollection<FoodContentsOfFood> FoodContentsOfFoods { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// FoodContentsOfFoods değerini alır veya ayarlar.
+/// </summary>
+public ICollection<FoodContentsOfFood> FoodContentsOfFoods { get; set; }
     }
 }

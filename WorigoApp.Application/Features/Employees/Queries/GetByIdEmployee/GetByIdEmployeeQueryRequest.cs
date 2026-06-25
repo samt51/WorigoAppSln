@@ -3,12 +3,21 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Employees.Queries.GetByIdEmployee
 {
-    public class GetByIdEmployeeQueryRequest : IRequest<ResponseDto<GetByIdEmployeeResponse>>
+/// <summary>
+/// GetByIdEmployeeQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetByIdEmployeeQueryRequest : IRequest<ResponseDto<GetByIdEmployeeResponse>>
     {
-        public GetByIdEmployeeQueryRequest(int employeeId)
+/// <summary>
+/// GetByIdEmployeeQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdEmployeeQueryRequest(int employeeId)
         {
             this.EmployeeId = employeeId;
         }
-        public int EmployeeId { get; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeId { get; }
     }
 }

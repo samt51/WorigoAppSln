@@ -4,7 +4,10 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Restaurants.Queries.GetRestaurantReservations
 {
-    public class GetRestaurantReservationsQueryRequest : IRequest<ResponseDto<IList<RestaurantReservation>>>
+/// <summary>
+/// GetRestaurantReservationsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetRestaurantReservationsQueryRequest : IRequest<ResponseDto<IList<RestaurantReservation>>>
     {
     }
 }

@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetDepartmentPerformanceReport
 {
-    public class GetDepartmentPerformanceReportQueryRequest : IRequest<ResponseDto<IList<GetDepartmentPerformanceReportQueryResponse>>>
+/// <summary>
+/// GetDepartmentPerformanceReportQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetDepartmentPerformanceReportQueryRequest : IRequest<ResponseDto<IList<GetDepartmentPerformanceReportQueryResponse>>>
     {
-        public int HotelId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
     }
 }

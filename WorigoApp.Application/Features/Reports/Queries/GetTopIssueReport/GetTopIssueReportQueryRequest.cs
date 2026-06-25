@@ -3,9 +3,18 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetTopIssueReport
 {
-    public class GetTopIssueReportQueryRequest : IRequest<ResponseDto<IList<GetTopIssueReportQueryResponse>>>
+/// <summary>
+/// GetTopIssueReportQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetTopIssueReportQueryRequest : IRequest<ResponseDto<IList<GetTopIssueReportQueryResponse>>>
     {
-        public int HotelId { get; set; }
-        public int Take { get; set; } = 10;
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// Take değerini alır veya ayarlar.
+/// </summary>
+public int Take { get; set; } = 10;
     }
 }

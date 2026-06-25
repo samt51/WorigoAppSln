@@ -1,9 +1,21 @@
 namespace WorigoApp.Application.Features.ServiceRequests.Dtos
 {
-    public class ServiceRequestFieldValueDto
+/// <summary>
+/// ServiceRequestFieldValueDto sınıfını temsil eder.
+/// </summary>
+public class ServiceRequestFieldValueDto
     {
-        public int ServiceDefinitionFieldId { get; set; }
-        public string FieldKey { get; set; } = string.Empty;
-        public string? Value { get; set; }
+/// <summary>
+/// ServiceDefinitionFieldId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceDefinitionFieldId { get; set; }
+/// <summary>
+/// FieldKey değerini alır veya ayarlar.
+/// </summary>
+public string FieldKey { get; set; } = string.Empty;
+/// <summary>
+/// Value değerini alır veya ayarlar.
+/// </summary>
+public string? Value { get; set; }
     }
 }

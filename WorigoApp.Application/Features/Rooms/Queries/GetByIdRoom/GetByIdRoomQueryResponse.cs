@@ -2,13 +2,34 @@
 
 namespace WorigoApp.Application.Features.Rooms.Queries.GetByIdRoom
 {
-    public class GetByIdRoomQueryResponse
+/// <summary>
+/// GetByIdRoomQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetByIdRoomQueryResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int RoomTypeId { get; set; }
-        public int RoomFoodTypeId { get; set; }
-        public GetAllFoodTypesQueryResponse RoomFoodTypeResponse { get; set; }
-        public int HotelId { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
+/// <summary>
+/// RoomTypeId değerini alır veya ayarlar.
+/// </summary>
+public int RoomTypeId { get; set; }
+/// <summary>
+/// RoomFoodTypeId değerini alır veya ayarlar.
+/// </summary>
+public int RoomFoodTypeId { get; set; }
+/// <summary>
+/// RoomFoodTypeResponse değerini alır veya ayarlar.
+/// </summary>
+public GetAllFoodTypesQueryResponse RoomFoodTypeResponse { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
     }
 }

@@ -1,7 +1,13 @@
 namespace WorigoApp.Application.Features.Services.Commands.UpdateServiceCategory
 {
-    public class UpdateServiceCategoryCommandResponse
+/// <summary>
+/// UpdateServiceCategoryCommandResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateServiceCategoryCommandResponse
     {
-        public int Id { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
     }
 }

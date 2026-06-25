@@ -4,15 +4,42 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Commands.CreateLeaveRequest
 {
-    public class CreateLeaveRequestCommandRequest : IRequest<ResponseDto<CreateLeaveRequestCommandResponse>>
+/// <summary>
+/// CreateLeaveRequestCommandRequest sınıfını temsil eder.
+/// </summary>
+public class CreateLeaveRequestCommandRequest : IRequest<ResponseDto<CreateLeaveRequestCommandResponse>>
     {
-        public int HotelId { get; set; }
-        public int EmployeeId { get; set; }
-        public int? HrEmployeeId { get; set; }
-        public LeaveRequestTypeEnum LeaveType { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string? Reason { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeId { get; set; }
+/// <summary>
+/// HrEmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? HrEmployeeId { get; set; }
+/// <summary>
+/// LeaveType değerini alır veya ayarlar.
+/// </summary>
+public LeaveRequestTypeEnum LeaveType { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Reason değerini alır veya ayarlar.
+/// </summary>
+public string? Reason { get; set; }
+/// <summary>
+/// StartDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime StartDate { get; set; }
+/// <summary>
+/// EndDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime EndDate { get; set; }
     }
 }

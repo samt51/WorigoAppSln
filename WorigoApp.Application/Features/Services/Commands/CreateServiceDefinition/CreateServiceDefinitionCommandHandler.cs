@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Services.Commands.CreateServiceDefinition
 {
-    public class CreateServiceDefinitionCommandHandler : BaseHandler, IRequestHandler<CreateServiceDefinitionCommandRequest, ResponseDto<CreateServiceDefinitionCommandResponse>>
+/// <summary>
+/// CreateServiceDefinitionCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateServiceDefinitionCommandHandler : BaseHandler, IRequestHandler<CreateServiceDefinitionCommandRequest, ResponseDto<CreateServiceDefinitionCommandResponse>>
     {
-        public CreateServiceDefinitionCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateServiceDefinitionCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateServiceDefinitionCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateServiceDefinitionCommandResponse>> Handle(CreateServiceDefinitionCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateServiceDefinitionCommandResponse>> Handle(CreateServiceDefinitionCommandRequest request, CancellationToken cancellationToken)
         {
             await ValidateReferencesAsync(request.HotelId, request.ServiceCategoryId, request.DepartmentId);
             ValidateFields(request.Fields);

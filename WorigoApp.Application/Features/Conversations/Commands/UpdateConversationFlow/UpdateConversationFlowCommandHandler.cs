@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Conversations.Commands.UpdateConversationFlow
 {
-    public class UpdateConversationFlowCommandHandler : BaseHandler, IRequestHandler<UpdateConversationFlowCommandRequest, ResponseDto<UpdateConversationFlowCommandResponse>>
+/// <summary>
+/// UpdateConversationFlowCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateConversationFlowCommandHandler : BaseHandler, IRequestHandler<UpdateConversationFlowCommandRequest, ResponseDto<UpdateConversationFlowCommandResponse>>
     {
-        public UpdateConversationFlowCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateConversationFlowCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateConversationFlowCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateConversationFlowCommandResponse>> Handle(UpdateConversationFlowCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateConversationFlowCommandResponse>> Handle(UpdateConversationFlowCommandRequest request, CancellationToken cancellationToken)
         {
             var flowSession = await unitOfWork.GetReadRepository<ConversationFlowSession>()
                 .GetAsync(x => x.Id == request.FlowSessionId && x.IsActive && !x.IsDeleted);

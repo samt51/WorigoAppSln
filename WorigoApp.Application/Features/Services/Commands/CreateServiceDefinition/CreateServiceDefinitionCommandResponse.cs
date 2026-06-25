@@ -1,7 +1,13 @@
 namespace WorigoApp.Application.Features.Services.Commands.CreateServiceDefinition
 {
-    public class CreateServiceDefinitionCommandResponse
+/// <summary>
+/// CreateServiceDefinitionCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateServiceDefinitionCommandResponse
     {
-        public int Id { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
     }
 }

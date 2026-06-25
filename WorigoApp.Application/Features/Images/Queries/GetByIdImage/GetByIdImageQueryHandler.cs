@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Images.Queries.GetByIdImage
 {
-    public class GetByIdImageQueryHandler : BaseHandler, IRequestHandler<GetByIdImageQueryRequest, ResponseDto<GetByIdImageQueryResponse>>
+/// <summary>
+/// GetByIdImageQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetByIdImageQueryHandler : BaseHandler, IRequestHandler<GetByIdImageQueryRequest, ResponseDto<GetByIdImageQueryResponse>>
     {
-        public GetByIdImageQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetByIdImageQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdImageQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetByIdImageQueryResponse>> Handle(GetByIdImageQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetByIdImageQueryResponse>> Handle(GetByIdImageQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<Image>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 

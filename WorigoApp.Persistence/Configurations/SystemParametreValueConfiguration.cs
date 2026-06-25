@@ -4,9 +4,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// SystemParametreValueConfiguration sınıfını temsil eder.
+    /// </summary>
     public class SystemParametreValueConfiguration : IEntityTypeConfiguration<SystemParametreValues>
     {
-        public void Configure(EntityTypeBuilder<SystemParametreValues> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<SystemParametreValues> builder)
         {
             #region PriceStatus
             var priceStatus = new SystemParametreValues(1, 1, "₺", 1, "Türk Lirası");

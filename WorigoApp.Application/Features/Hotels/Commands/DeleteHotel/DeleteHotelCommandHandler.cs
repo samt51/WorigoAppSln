@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hotels.Commands.DeleteHotel
 {
-    public class DeleteHotelCommandHandler : BaseHandler, IRequestHandler<DeleteHotelCommandRequest, ResponseDto<DeleteHotelCommandResponse>>
+/// <summary>
+/// DeleteHotelCommandHandler sınıfını temsil eder.
+/// </summary>
+public class DeleteHotelCommandHandler : BaseHandler, IRequestHandler<DeleteHotelCommandRequest, ResponseDto<DeleteHotelCommandResponse>>
     {
-        public DeleteHotelCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// DeleteHotelCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public DeleteHotelCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<DeleteHotelCommandResponse>> Handle(DeleteHotelCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<DeleteHotelCommandResponse>> Handle(DeleteHotelCommandRequest request, CancellationToken cancellationToken)
         {
             var hotel = await unitOfWork.GetReadRepository<Hotel>().FindAsync(
                 x => x.Id == request.Id && !x.IsDeleted,

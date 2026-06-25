@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetStockSummaryReport
 {
-    public class GetStockSummaryReportQueryRequest : IRequest<ResponseDto<GetStockSummaryReportQueryResponse>>
+/// <summary>
+/// GetStockSummaryReportQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetStockSummaryReportQueryRequest : IRequest<ResponseDto<GetStockSummaryReportQueryResponse>>
     {
-        public int HotelId { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
     }
 }

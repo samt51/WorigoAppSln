@@ -7,13 +7,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.ServiceRequestRatings.Commands.CreateServiceRequestRating
 {
-    public class CreateServiceRequestRatingCommandHandler : BaseHandler, IRequestHandler<CreateServiceRequestRatingCommandRequest, ResponseDto<CreateServiceRequestRatingCommandResponse>>
+/// <summary>
+/// CreateServiceRequestRatingCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateServiceRequestRatingCommandHandler : BaseHandler, IRequestHandler<CreateServiceRequestRatingCommandRequest, ResponseDto<CreateServiceRequestRatingCommandResponse>>
     {
-        public CreateServiceRequestRatingCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateServiceRequestRatingCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateServiceRequestRatingCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateServiceRequestRatingCommandResponse>> Handle(CreateServiceRequestRatingCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateServiceRequestRatingCommandResponse>> Handle(CreateServiceRequestRatingCommandRequest request, CancellationToken cancellationToken)
         {
             var serviceRequest = await unitOfWork.GetReadRepository<ServiceRequest>()
                 .GetAsync(x => x.Id == request.ServiceRequestId && !x.IsDeleted, enableTracking: true);

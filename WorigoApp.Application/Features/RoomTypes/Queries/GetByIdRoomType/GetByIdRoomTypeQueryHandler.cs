@@ -9,13 +9,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.RoomTypes.Queries.GetByIdRoomType
 {
-    public class GetByIdRoomTypeQueryHandler : BaseHandler, IRequestHandler<GetByIdRoomTypeQueryRequest, ResponseDto<GetByIdRoomTypeQueryResponse>>
+/// <summary>
+/// GetByIdRoomTypeQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetByIdRoomTypeQueryHandler : BaseHandler, IRequestHandler<GetByIdRoomTypeQueryRequest, ResponseDto<GetByIdRoomTypeQueryResponse>>
     {
-        public GetByIdRoomTypeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetByIdRoomTypeQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetByIdRoomTypeQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetByIdRoomTypeQueryResponse>> Handle(GetByIdRoomTypeQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetByIdRoomTypeQueryResponse>> Handle(GetByIdRoomTypeQueryRequest request, CancellationToken cancellationToken)
         {
             var data = await unitOfWork.GetReadRepository<RoomType>().GetAsync(
                 predicate: x => x.Id == request.Id && !x.IsDeleted,

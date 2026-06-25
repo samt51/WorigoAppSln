@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum PerformanceReviewStatusEnum
+/// <summary>
+/// PerformanceReviewStatusEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum PerformanceReviewStatusEnum
     {
         Draft = 1,
         Submitted = 2,

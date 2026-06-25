@@ -11,38 +11,55 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.Stock
 {
-    [Authorize]
+    /// <summary>
+    /// StockRequestsController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin,HotelAdmin,PurchasingManager,DepartmentManager,Employee")]
     public class StockRequestsController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public StockRequestsController(IMediator mediator) : base(mediator)
+/// <summary>
+/// StockRequestsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public StockRequestsController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Personel veya departman icin stok talebi olusturur.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Personel veya departman icin stok talebi olusturur.")]
         public async Task<ResponseDto<CreateStockRequestCommandResponse>> Create(CreateStockRequestCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Stok talebinin durumunu gunceller ve karsilandiysa stoktan dusum yapar.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Stok talebinin durumunu gunceller ve karsilandiysa stoktan dusum yapar.")]
         public async Task<ResponseDto<UpdateStockRequestStatusCommandResponse>> UpdateStatus(UpdateStockRequestStatusCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpGet("{hotelId}")]
+        /// <summary>
+        /// Otele ait stok taleplerini listeler.
+        /// </summary>
+[HttpGet("{hotelId}")]
         [SwaggerDescriptionAttirbute("Otele ait stok taleplerini listeler.")]
         public async Task<ResponseDto<IList<GetStockRequestsByHotelQueryResponse>>> GetByHotel(int hotelId)
         {
             return await _mediator.Send(new GetStockRequestsByHotelQueryRequest { HotelId = hotelId });
         }
 
-        [HttpGet("{managerEmployeeId}")]
+        /// <summary>
+        /// Satin alma yoneticisine dusen stok taleplerini listeler.
+        /// </summary>
+[HttpGet("{managerEmployeeId}")]
         [SwaggerDescriptionAttirbute("Satin alma yoneticisine dusen stok taleplerini listeler.")]
         public async Task<ResponseDto<IList<GetStockRequestsByManagerQueryResponse>>> GetByManager(int managerEmployeeId)
         {

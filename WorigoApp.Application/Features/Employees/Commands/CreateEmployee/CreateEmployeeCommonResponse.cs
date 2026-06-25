@@ -1,8 +1,14 @@
 ﻿namespace WorigoApp.Application.Features.Employees.Commands.CreateEmployee
 {
-    public class CreateEmployeeCommonResponse
+/// <summary>
+/// CreateEmployeeCommonResponse sınıfını temsil eder.
+/// </summary>
+public class CreateEmployeeCommonResponse
     {
-        public CreateEmployeeCommonResponse()
+/// <summary>
+/// CreateEmployeeCommonResponse sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateEmployeeCommonResponse()
         {
             
         }

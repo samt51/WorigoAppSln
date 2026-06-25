@@ -3,8 +3,14 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Queries.GetLeaveRequestsByEmployee
 {
-    public class GetLeaveRequestsByEmployeeQueryRequest : IRequest<ResponseDto<IList<GetLeaveRequestsByEmployeeQueryResponse>>>
+/// <summary>
+/// GetLeaveRequestsByEmployeeQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetLeaveRequestsByEmployeeQueryRequest : IRequest<ResponseDto<IList<GetLeaveRequestsByEmployeeQueryResponse>>>
     {
-        public int EmployeeId { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int EmployeeId { get; set; }
     }
 }

@@ -7,13 +7,21 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Commands.UpdateServiceRequestStatus
 {
-    public class UpdateServiceRequestStatusCommandHandler : BaseHandler, IRequestHandler<UpdateServiceRequestStatusCommandRequest, ResponseDto<UpdateServiceRequestStatusCommandResponse>>
+/// <summary>
+/// UpdateServiceRequestStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateServiceRequestStatusCommandHandler : BaseHandler, IRequestHandler<UpdateServiceRequestStatusCommandRequest, ResponseDto<UpdateServiceRequestStatusCommandResponse>>
     {
-        public UpdateServiceRequestStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateServiceRequestStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateServiceRequestStatusCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateServiceRequestStatusCommandResponse>> Handle(UpdateServiceRequestStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateServiceRequestStatusCommandResponse>> Handle(UpdateServiceRequestStatusCommandRequest request, CancellationToken cancellationToken)
         {
             var serviceRequest = await unitOfWork.GetReadRepository<ServiceRequest>()
                 .GetAsync(x => x.Id == request.ServiceRequestId && !x.IsDeleted, enableTracking: true);

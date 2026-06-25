@@ -9,24 +9,35 @@ using WorigoApp.Application.Filters;
 
 namespace WorigoApp.Api.Controllers.ServiceRequests
 {
-    [Authorize]
+    /// <summary>
+    /// ServiceRequestRatingsController sınıfını temsil eder.
+    /// </summary>
+[Authorize]
     public class ServiceRequestRatingsController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public ServiceRequestRatingsController(IMediator mediator) : base(mediator)
+/// <summary>
+/// ServiceRequestRatingsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceRequestRatingsController(IMediator mediator) : base(mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Tamamlanan servis talebi icin misafir puanlama olusturur.
+        /// </summary>
+[HttpPost]
         [SwaggerDescriptionAttirbute("Tamamlanan servis talebi icin misafir puanlama olusturur.")]
         public async Task<ResponseDto<CreateServiceRequestRatingCommandResponse>> Create(CreateServiceRequestRatingCommandRequest request)
         {
             return await _mediator.Send(request);
         }
 
-        [HttpGet("{serviceRequestId}")]
+        /// <summary>
+        /// Servis talebine ait puanlamalari listeler.
+        /// </summary>
+[HttpGet("{serviceRequestId}")]
         [SwaggerDescriptionAttirbute("Servis talebine ait puanlamalari listeler.")]
         public async Task<ResponseDto<IList<GetRatingsByServiceRequestQueryResponse>>> GetByServiceRequest(int serviceRequestId)
         {

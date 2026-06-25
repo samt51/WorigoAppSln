@@ -4,8 +4,14 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceRequestRatings.Queries.GetMyRatings
 {
-    public class GetMyRatingsQueryRequest : IRequest<ResponseDto<IList<ServiceRequestRating>>>
+/// <summary>
+/// GetMyRatingsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetMyRatingsQueryRequest : IRequest<ResponseDto<IList<ServiceRequestRating>>>
     {
-        public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
     }
 }

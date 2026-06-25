@@ -6,14 +6,27 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetTopIssueReport
 {
-    public class GetTopIssueReportQueryHandler : BaseHandler, IRequestHandler<GetTopIssueReportQueryRequest, ResponseDto<IList<GetTopIssueReportQueryResponse>>>
+/// <summary>
+/// GetTopIssueReportQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetTopIssueReportQueryHandler : BaseHandler, IRequestHandler<GetTopIssueReportQueryRequest, ResponseDto<IList<GetTopIssueReportQueryResponse>>>
     {
-        public GetTopIssueReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetTopIssueReportQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetTopIssueReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetTopIssueReportQueryResponse>>> Handle(GetTopIssueReportQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetTopIssueReportQueryResponse>>> Handle(GetTopIssueReportQueryRequest request, CancellationToken cancellationToken)
         {
+            if (!await CheckHotelAccessAsync(request.HotelId))
+            {
+                return new ResponseDto<IList<GetTopIssueReportQueryResponse>>().Fail("Bu işlem için yetkiniz bulunmamaktadır.", 403);
+            }
+
             var serviceRequests = await unitOfWork.GetReadRepository<Domain.Entites.ServiceRequest>().GetAllAsync(
                 x => x.HotelId == request.HotelId && !x.IsDeleted);
 

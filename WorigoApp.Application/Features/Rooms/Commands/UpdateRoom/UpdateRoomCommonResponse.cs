@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Rooms.Commands.UpdateRoom
 {
-    public class UpdateRoomCommonResponse
+/// <summary>
+/// UpdateRoomCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateRoomCommonResponse
     {
     }
 }

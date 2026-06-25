@@ -8,15 +8,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Register
 {
-    public class RegisterCommandHandler : BaseHandler, IRequestHandler<RegisterCommandRequest, ResponseDto<RegisterCommandResponse>>
+/// <summary>
+/// RegisterCommandHandler sınıfını temsil eder.
+/// </summary>
+public class RegisterCommandHandler : BaseHandler, IRequestHandler<RegisterCommandRequest, ResponseDto<RegisterCommandResponse>>
     {
         private readonly AuthRule _authRule;
-        public RegisterCommandHandler(AuthRule authRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// RegisterCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public RegisterCommandHandler(AuthRule authRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
             this._authRule = authRule;
         }
-
-        public async Task<ResponseDto<RegisterCommandResponse>> Handle(RegisterCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<RegisterCommandResponse>> Handle(RegisterCommandRequest request, CancellationToken cancellationToken)
         {
             var user = mapper.Map<Users, RegisterCommandRequest>(request);
 

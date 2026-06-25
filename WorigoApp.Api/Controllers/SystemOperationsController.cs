@@ -8,21 +8,29 @@ using WorigoApp.Application.Features.Notifications.Commands.GenerateSuggestions;
 
 namespace WorigoApp.Api.Controllers
 {
-    [ApiController]
+    /// <summary>
+    /// SystemOperationsController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [AllowAnonymous]
     [Route("system")]
     public class SystemOperationsController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IHubContext<HotelOperationsHub> _hubContext;
-
-        public SystemOperationsController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext)
+/// <summary>
+/// SystemOperationsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public SystemOperationsController(IMediator mediator, IHubContext<HotelOperationsHub> hubContext)
         {
             _mediator = mediator;
             _hubContext = hubContext;
         }
 
-        [HttpPost("guest-engagement/generate-suggestions")]
+        /// <summary>
+        /// GenerateSuggestions işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("guest-engagement/generate-suggestions")]
         public async Task<ResponseDto<int>> GenerateSuggestions(CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(new GenerateSuggestionsCommandRequest(), cancellationToken);

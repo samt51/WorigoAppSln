@@ -2,11 +2,26 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Stock.Commands.UpdateStockRequestStatus
 {
-    public class UpdateStockRequestStatusCommandResponse
+/// <summary>
+/// UpdateStockRequestStatusCommandResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateStockRequestStatusCommandResponse
     {
-        public int Id { get; set; }
-        public StockRequestStatusEnum Status { get; set; }
-        public DateTime? ApprovedAt { get; set; }
-        public DateTime? FulfilledAt { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public StockRequestStatusEnum Status { get; set; }
+/// <summary>
+/// ApprovedAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? ApprovedAt { get; set; }
+/// <summary>
+/// FulfilledAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? FulfilledAt { get; set; }
     }
 }

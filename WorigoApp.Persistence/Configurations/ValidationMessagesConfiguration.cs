@@ -5,9 +5,15 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Persistence.Configurations
 {
+    /// <summary>
+    /// ValidationMessagesConfiguration sınıfını temsil eder.
+    /// </summary>
     public class ValidationMessagesConfiguration : IEntityTypeConfiguration<ValidationMessages>
     {
-        public void Configure(EntityTypeBuilder<ValidationMessages> builder)
+/// <summary>
+/// Configure işlemini gerçekleştirir.
+/// </summary>
+public void Configure(EntityTypeBuilder<ValidationMessages> builder)
         {
             var isnullMessage = new ValidationMessages(1, Domain.Enums.ValidationMessageType.IsNull, "Mail alanı boş olamaz.", LanguageCodeEnum.TR);
             var isnullMessageUs = new ValidationMessages(2, Domain.Enums.ValidationMessageType.IsNull, "E-mail field cannot be empty.", LanguageCodeEnum.US);

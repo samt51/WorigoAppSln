@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Restaurants.Queries.GetMyRestaurantReservations
 {
-    public class GetMyRestaurantReservationsQueryHandler : IRequestHandler<GetMyRestaurantReservationsQueryRequest, ResponseDto<IList<RestaurantReservation>>>
+/// <summary>
+/// GetMyRestaurantReservationsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetMyRestaurantReservationsQueryHandler : IRequestHandler<GetMyRestaurantReservationsQueryRequest, ResponseDto<IList<RestaurantReservation>>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetMyRestaurantReservationsQueryHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GetMyRestaurantReservationsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetMyRestaurantReservationsQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<IList<RestaurantReservation>>> Handle(GetMyRestaurantReservationsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<RestaurantReservation>>> Handle(GetMyRestaurantReservationsQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

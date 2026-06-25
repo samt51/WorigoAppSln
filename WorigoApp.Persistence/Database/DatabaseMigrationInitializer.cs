@@ -10,9 +10,15 @@ using System.Linq;
 
 namespace WorigoApp.Persistence.Database
 {
+    /// <summary>
+    /// DatabaseMigrationInitializer sınıfını temsil eder.
+    /// </summary>
     public static class DatabaseMigrationInitializer
     {
-        public static void ApplyDatabaseMigrations(this IServiceProvider serviceProvider, IConfiguration configuration, ILogger logger)
+/// <summary>
+/// ApplyDatabaseMigrations işlemini gerçekleştirir.
+/// </summary>
+public static void ApplyDatabaseMigrations(this IServiceProvider serviceProvider, IConfiguration configuration, ILogger logger)
         {
             var options = configuration.GetSection("DatabaseInitialization").Get<DatabaseInitializationOptions>()
                 ?? new DatabaseInitializationOptions();
@@ -74,11 +80,11 @@ namespace WorigoApp.Persistence.Database
                 // 2. Ensure clear, distinct Service Staff accounts exist (Email, RoleId, Name, Surname, EmployeeTypeId, Phone)
                 var serviceStaff = new List<(string Email, int RoleId, string Name, string Surname, int EmployeeTypeId, string Phone)>
                 {
-                    ("resepsiyon@stayzora.com", 5, "Resepsiyon", "Görevlisi", 4, "+905001112233"),
-                    ("temizlik@stayzora.com", 5, "Temizlik", "Görevlisi", 12, "+905001112244"),
-                    ("teknik@stayzora.com", 5, "Teknik", "Servis", 22, "+905001112255"),
-                    ("yemek@stayzora.com", 5, "Yemek", "Servisi", 20, "+905001112266"),
-                    ("hoteladmin@stayzora.com", 2, "Otel", "Yöneticisi", 501, "+905001112277")
+                    ("resepsiyon@stayzora.com", 5, "Resepsiyon", "Görevlisi", 3, "+905001112233"),
+                    ("temizlik@stayzora.com", 5, "Temizlik", "Görevlisi", 5, "+905001112244"),
+                    ("teknik@stayzora.com", 5, "Teknik", "Servis", 9, "+905001112255"),
+                    ("yemek@stayzora.com", 5, "Yemek", "Servisi", 7, "+905001112266"),
+                    ("hoteladmin@stayzora.com", 2, "Otel", "Yöneticisi", 1, "+905001112277")
                 };
 
                 foreach (var staff in serviceStaff)
@@ -169,17 +175,13 @@ namespace WorigoApp.Persistence.Database
                         if (emp.EmployeeTypeId.HasValue)
                         {
                             var empTypeId = emp.EmployeeTypeId.Value;
-                            if (empTypeId == 1 || empTypeId == 9 || empTypeId == 14 || empTypeId == 21)
+                            if (empTypeId == 2 || empTypeId == 4 || empTypeId == 6 || empTypeId == 8)
                             {
                                 roleId = 4; // DepartmentManager
                             }
-                            else if (empTypeId == 501)
+                            else if (empTypeId == 1)
                             {
                                 roleId = 2; // HotelAdmin
-                            }
-                            else if (empTypeId == 500)
-                            {
-                                roleId = 3; // Management / CEO
                             }
                         }
 
@@ -228,8 +230,14 @@ namespace WorigoApp.Persistence.Database
         }
     }
 
+    /// <summary>
+    /// DatabaseInitializationOptions sınıfını temsil eder.
+    /// </summary>
     public class DatabaseInitializationOptions
     {
-        public bool AutoMigrate { get; set; } = true;
+/// <summary>
+/// AutoMigrate değerini alır veya ayarlar.
+/// </summary>
+public bool AutoMigrate { get; set; } = true;
     }
 }

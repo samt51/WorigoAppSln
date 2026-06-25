@@ -2,14 +2,38 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.InternalAnnouncements.Queries.GetInternalAnnouncements
 {
-    public class GetInternalAnnouncementsQueryResponse
+/// <summary>
+/// GetInternalAnnouncementsQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetInternalAnnouncementsQueryResponse
     {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Content { get; set; } = string.Empty;
-        public InternalAnnouncementAudienceEnum Audience { get; set; }
-        public DateTime PublishAt { get; set; }
-        public DateTime? ExpireAt { get; set; }
-        public bool IsPinned { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Title değerini alır veya ayarlar.
+/// </summary>
+public string Title { get; set; } = string.Empty;
+/// <summary>
+/// Content değerini alır veya ayarlar.
+/// </summary>
+public string Content { get; set; } = string.Empty;
+/// <summary>
+/// Audience değerini alır veya ayarlar.
+/// </summary>
+public InternalAnnouncementAudienceEnum Audience { get; set; }
+/// <summary>
+/// PublishAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime PublishAt { get; set; }
+/// <summary>
+/// ExpireAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? ExpireAt { get; set; }
+/// <summary>
+/// IsPinned değerini alır veya ayarlar.
+/// </summary>
+public bool IsPinned { get; set; }
     }
 }

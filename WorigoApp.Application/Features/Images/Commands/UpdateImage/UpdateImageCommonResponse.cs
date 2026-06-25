@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Features.Images.Commands.UpdateImage
 {
-    public class UpdateImageCommonResponse
+/// <summary>
+/// UpdateImageCommonResponse sınıfını temsil eder.
+/// </summary>
+public class UpdateImageCommonResponse
     {
     }
 }

@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Stock.Commands.CreateStockItem
 {
-    public class CreateStockItemCommandHandler : BaseHandler, IRequestHandler<CreateStockItemCommandRequest, ResponseDto<CreateStockItemCommandResponse>>
+/// <summary>
+/// CreateStockItemCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreateStockItemCommandHandler : BaseHandler, IRequestHandler<CreateStockItemCommandRequest, ResponseDto<CreateStockItemCommandResponse>>
     {
-        public CreateStockItemCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateStockItemCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateStockItemCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateStockItemCommandResponse>> Handle(CreateStockItemCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateStockItemCommandResponse>> Handle(CreateStockItemCommandRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Hotel>().GetAsync(x => x.Id == request.HotelId && x.IsActive && !x.IsDeleted);
 

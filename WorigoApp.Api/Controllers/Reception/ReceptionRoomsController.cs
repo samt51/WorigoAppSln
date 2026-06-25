@@ -8,19 +8,27 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.Reception
 {
-    [ApiController]
+    /// <summary>
+    /// ReceptionRoomsController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
     [Route("api/reception/rooms")]
     public class ReceptionRoomsController : ControllerBase
     {
         private readonly AppDbContext _dbContext;
-
-        public ReceptionRoomsController(AppDbContext dbContext)
+/// <summary>
+/// ReceptionRoomsController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ReceptionRoomsController(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Get işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet]
         public async Task<ResponseDto<IList<ReceptionRoomResponse>>> Get([FromQuery] int hotelId, CancellationToken cancellationToken)
         {
             if (hotelId <= 0)
@@ -130,31 +138,103 @@ namespace WorigoApp.Api.Controllers.Reception
         }
     }
  
-    public class ReceptionRoomResponse
+/// <summary>
+/// ReceptionRoomResponse sınıfını temsil eder.
+/// </summary>
+public class ReceptionRoomResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string? RoomNumber { get; set; }
-        public string DisplayName { get; set; } = string.Empty;
-        public int RoomTypeId { get; set; }
-        public string RoomType { get; set; } = string.Empty;
-        public int RoomTypeValue { get; set; }
-        public int? FloorNo { get; set; }
-        public int Capacity { get; set; }
-        public string? Description { get; set; }
-        public bool IsFull { get; set; }
-        public string CurrentStatus { get; set; } = string.Empty;
-        public decimal Price { get; set; }
-        public string? InternalPhoneNumber { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; } = string.Empty;
+/// <summary>
+/// RoomNumber değerini alır veya ayarlar.
+/// </summary>
+public string? RoomNumber { get; set; }
+/// <summary>
+/// DisplayName değerini alır veya ayarlar.
+/// </summary>
+public string DisplayName { get; set; } = string.Empty;
+/// <summary>
+/// RoomTypeId değerini alır veya ayarlar.
+/// </summary>
+public int RoomTypeId { get; set; }
+/// <summary>
+/// RoomType değerini alır veya ayarlar.
+/// </summary>
+public string RoomType { get; set; } = string.Empty;
+/// <summary>
+/// RoomTypeValue değerini alır veya ayarlar.
+/// </summary>
+public int RoomTypeValue { get; set; }
+/// <summary>
+/// FloorNo değerini alır veya ayarlar.
+/// </summary>
+public int? FloorNo { get; set; }
+/// <summary>
+/// Capacity değerini alır veya ayarlar.
+/// </summary>
+public int Capacity { get; set; }
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string? Description { get; set; }
+/// <summary>
+/// IsFull değerini alır veya ayarlar.
+/// </summary>
+public bool IsFull { get; set; }
+/// <summary>
+/// CurrentStatus değerini alır veya ayarlar.
+/// </summary>
+public string CurrentStatus { get; set; } = string.Empty;
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal Price { get; set; }
+/// <summary>
+/// InternalPhoneNumber değerini alır veya ayarlar.
+/// </summary>
+public string? InternalPhoneNumber { get; set; }
  
-        public bool IsVip { get; set; }
-        public bool HasAllergy { get; set; }
-        public bool DoNotDisturb { get; set; }
-        public bool IsLateCheckOut { get; set; }
-        public bool HasUnpaidFolio { get; set; }
-        public DateTime? CheckInDate { get; set; }
-        public DateTime? CheckOutDate { get; set; }
-        public string? GuestName { get; set; }
-        public string? AccommodationConcept { get; set; }
+/// <summary>
+/// IsVip değerini alır veya ayarlar.
+/// </summary>
+public bool IsVip { get; set; }
+/// <summary>
+/// HasAllergy değerini alır veya ayarlar.
+/// </summary>
+public bool HasAllergy { get; set; }
+/// <summary>
+/// DoNotDisturb değerini alır veya ayarlar.
+/// </summary>
+public bool DoNotDisturb { get; set; }
+/// <summary>
+/// IsLateCheckOut değerini alır veya ayarlar.
+/// </summary>
+public bool IsLateCheckOut { get; set; }
+/// <summary>
+/// HasUnpaidFolio değerini alır veya ayarlar.
+/// </summary>
+public bool HasUnpaidFolio { get; set; }
+/// <summary>
+/// CheckInDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime? CheckInDate { get; set; }
+/// <summary>
+/// CheckOutDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime? CheckOutDate { get; set; }
+/// <summary>
+/// GuestName değerini alır veya ayarlar.
+/// </summary>
+public string? GuestName { get; set; }
+/// <summary>
+/// AccommodationConcept değerini alır veya ayarlar.
+/// </summary>
+public string? AccommodationConcept { get; set; }
     }
 }

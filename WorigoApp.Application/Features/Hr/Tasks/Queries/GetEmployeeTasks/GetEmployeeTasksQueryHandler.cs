@@ -6,13 +6,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hr.Tasks.Queries.GetEmployeeTasks
 {
-    public class GetEmployeeTasksQueryHandler : BaseHandler, IRequestHandler<GetEmployeeTasksQueryRequest, ResponseDto<IList<GetEmployeeTasksQueryResponse>>>
+/// <summary>
+/// GetEmployeeTasksQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetEmployeeTasksQueryHandler : BaseHandler, IRequestHandler<GetEmployeeTasksQueryRequest, ResponseDto<IList<GetEmployeeTasksQueryResponse>>>
     {
-        public GetEmployeeTasksQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetEmployeeTasksQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetEmployeeTasksQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetEmployeeTasksQueryResponse>>> Handle(GetEmployeeTasksQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetEmployeeTasksQueryResponse>>> Handle(GetEmployeeTasksQueryRequest request, CancellationToken cancellationToken)
         {
             var tasks = await unitOfWork.GetReadRepository<EmployeeTask>().GetAllAsync(
                 x => !x.IsDeleted &&

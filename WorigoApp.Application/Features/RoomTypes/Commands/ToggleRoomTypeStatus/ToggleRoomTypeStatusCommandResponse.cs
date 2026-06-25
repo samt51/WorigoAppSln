@@ -1,8 +1,17 @@
 namespace WorigoApp.Application.Features.RoomTypes.Commands.ToggleRoomTypeStatus
 {
-    public class ToggleRoomTypeStatusCommandResponse
+/// <summary>
+/// ToggleRoomTypeStatusCommandResponse sınıfını temsil eder.
+/// </summary>
+public class ToggleRoomTypeStatusCommandResponse
     {
-        public bool Success { get; set; }
-        public bool NewStatus { get; set; }
+/// <summary>
+/// Success değerini alır veya ayarlar.
+/// </summary>
+public bool Success { get; set; }
+/// <summary>
+/// NewStatus değerini alır veya ayarlar.
+/// </summary>
+public bool NewStatus { get; set; }
     }
 }

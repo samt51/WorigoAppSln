@@ -6,14 +6,27 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Reports.Queries.GetStockSummaryReport
 {
-    public class GetStockSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetStockSummaryReportQueryRequest, ResponseDto<GetStockSummaryReportQueryResponse>>
+/// <summary>
+/// GetStockSummaryReportQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetStockSummaryReportQueryHandler : BaseHandler, IRequestHandler<GetStockSummaryReportQueryRequest, ResponseDto<GetStockSummaryReportQueryResponse>>
     {
-        public GetStockSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetStockSummaryReportQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetStockSummaryReportQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<GetStockSummaryReportQueryResponse>> Handle(GetStockSummaryReportQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<GetStockSummaryReportQueryResponse>> Handle(GetStockSummaryReportQueryRequest request, CancellationToken cancellationToken)
         {
+            if (!await CheckHotelAccessAsync(request.HotelId))
+            {
+                return new ResponseDto<GetStockSummaryReportQueryResponse>().Fail("Bu işlem için yetkiniz bulunmamaktadır.", 403);
+            }
+
             var stockItems = await unitOfWork.GetReadRepository<Domain.Entites.StockItem>().GetAllAsync(
                 x => x.HotelId == request.HotelId && !x.IsDeleted);
             var stockRequests = await unitOfWork.GetReadRepository<Domain.Entites.StockRequest>().GetAllAsync(

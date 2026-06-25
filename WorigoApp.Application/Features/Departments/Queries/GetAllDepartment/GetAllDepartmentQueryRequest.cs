@@ -3,9 +3,15 @@ using WorigoApp.Application.Bases;
 
 namespace WorigoApp.Application.Features.Departments.Queries.GetAllDepartment
 {
-    public class GetAllDepartmentQueryRequest : IRequest<ResponseDto<IList<GetAllDepartmentQueryResponse>>>
+/// <summary>
+/// GetAllDepartmentQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetAllDepartmentQueryRequest : IRequest<ResponseDto<IList<GetAllDepartmentQueryResponse>>>
     {
-        public GetAllDepartmentQueryRequest()
+/// <summary>
+/// GetAllDepartmentQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllDepartmentQueryRequest()
         {
             
         }

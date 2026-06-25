@@ -4,8 +4,14 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Spa.Queries.GetSpaServices
 {
-    public class GetSpaServicesQueryRequest : IRequest<ResponseDto<IList<SpaService>>>
+/// <summary>
+/// GetSpaServicesQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetSpaServicesQueryRequest : IRequest<ResponseDto<IList<SpaService>>>
     {
-        public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
     }
 }

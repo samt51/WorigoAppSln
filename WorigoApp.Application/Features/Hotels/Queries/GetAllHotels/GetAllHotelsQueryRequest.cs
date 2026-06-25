@@ -2,10 +2,19 @@
 
 namespace WorigoApp.Application.Features.Hotels.Queries.GetAllHotels
 {
-    public class GetAllHotelsQueryRequest : IRequest<IList<GetAllHotelsQueryResponse>>
+/// <summary>
+/// GetAllHotelsQueryRequest sınıfını temsil eder.
+/// </summary>
+public class GetAllHotelsQueryRequest : IRequest<IList<GetAllHotelsQueryResponse>>
     {
-        public int CompanyId { get; }
-        public GetAllHotelsQueryRequest(int companyId)
+/// <summary>
+/// CompanyId değerini alır veya ayarlar.
+/// </summary>
+public int CompanyId { get; }
+/// <summary>
+/// GetAllHotelsQueryRequest sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAllHotelsQueryRequest(int companyId)
         {
             this.CompanyId = companyId;
         }

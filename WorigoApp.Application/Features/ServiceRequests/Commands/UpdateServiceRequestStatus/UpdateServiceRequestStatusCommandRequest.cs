@@ -4,12 +4,30 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Commands.UpdateServiceRequestStatus
 {
-    public class UpdateServiceRequestStatusCommandRequest : IRequest<ResponseDto<UpdateServiceRequestStatusCommandResponse>>
+/// <summary>
+/// UpdateServiceRequestStatusCommandRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateServiceRequestStatusCommandRequest : IRequest<ResponseDto<UpdateServiceRequestStatusCommandResponse>>
     {
-        public int ServiceRequestId { get; set; }
-        public ServiceRequestStatusEnum NewStatus { get; set; }
-        public int? AssignedEmployeeId { get; set; }
-        public int? ChangedByUserId { get; set; }
-        public string? Note { get; set; }
+/// <summary>
+/// ServiceRequestId değerini alır veya ayarlar.
+/// </summary>
+public int ServiceRequestId { get; set; }
+/// <summary>
+/// NewStatus değerini alır veya ayarlar.
+/// </summary>
+public ServiceRequestStatusEnum NewStatus { get; set; }
+/// <summary>
+/// AssignedEmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? AssignedEmployeeId { get; set; }
+/// <summary>
+/// ChangedByUserId değerini alır veya ayarlar.
+/// </summary>
+public int? ChangedByUserId { get; set; }
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
     }
 }

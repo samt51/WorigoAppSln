@@ -4,12 +4,30 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.LeaveRequests.Commands.UpdateLeaveRequestStatus
 {
-    public class UpdateLeaveRequestStatusCommandRequest : IRequest<ResponseDto<UpdateLeaveRequestStatusCommandResponse>>
+/// <summary>
+/// UpdateLeaveRequestStatusCommandRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateLeaveRequestStatusCommandRequest : IRequest<ResponseDto<UpdateLeaveRequestStatusCommandResponse>>
     {
-        public int LeaveRequestId { get; set; }
-        public int ActionEmployeeId { get; set; }
-        public LeaveRequestStatusEnum Status { get; set; }
-        public string? Note { get; set; }
-        public bool IsHrAction { get; set; }
+/// <summary>
+/// LeaveRequestId değerini alır veya ayarlar.
+/// </summary>
+public int LeaveRequestId { get; set; }
+/// <summary>
+/// ActionEmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int ActionEmployeeId { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public LeaveRequestStatusEnum Status { get; set; }
+/// <summary>
+/// Note değerini alır veya ayarlar.
+/// </summary>
+public string? Note { get; set; }
+/// <summary>
+/// IsHrAction değerini alır veya ayarlar.
+/// </summary>
+public bool IsHrAction { get; set; }
     }
 }

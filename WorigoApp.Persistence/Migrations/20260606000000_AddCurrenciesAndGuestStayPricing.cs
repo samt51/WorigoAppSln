@@ -7,11 +7,17 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Persistence.Migrations
 {
+    /// <summary>
+    /// AddCurrenciesAndGuestStayPricing sınıfını temsil eder.
+    /// </summary>
     [DbContext(typeof(AppDbContext))]
     [Migration("20260606000000_AddCurrenciesAndGuestStayPricing")]
     public partial class AddCurrenciesAndGuestStayPricing : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+/// <summary>
+/// Up işlemini gerçekleştirir.
+/// </summary>
+protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<decimal>(
                 name: "TotalPrice",
@@ -62,8 +68,10 @@ VALUES
     (N'SAR', N'Saudi Riyal', N'SAR', N'Saudi Arabia', N'ar-SA', 2, 0, 1, 5, GETDATE(), GETDATE(), 0, 1);
 ");
         }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
+/// <summary>
+/// Down işlemini gerçekleştirir.
+/// </summary>
+protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(name: "Currency");
 

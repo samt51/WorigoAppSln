@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Domain.Enums
 {
-    public enum ValidationMessageType
+/// <summary>
+/// ValidationMessageType numaralandırma türünü temsil eder.
+/// </summary>
+public enum ValidationMessageType
     {
         IsNull = 1,
         MinCharacterLimit = 2,

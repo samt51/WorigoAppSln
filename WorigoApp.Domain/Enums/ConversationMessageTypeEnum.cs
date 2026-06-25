@@ -1,6 +1,9 @@
 namespace WorigoApp.Domain.Enums
 {
-    public enum ConversationMessageTypeEnum
+/// <summary>
+/// ConversationMessageTypeEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum ConversationMessageTypeEnum
     {
         Text = 1,
         QuickReply = 2,

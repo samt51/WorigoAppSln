@@ -2,7 +2,10 @@
 
 namespace WorigoApp.Application.Interfaces.Repositories
 {
-    public interface IWriteRepository<T> where T : class, IEntityBase, new()
+/// <summary>
+/// IWriteRepository arayüzünü tanımlar.
+/// </summary>
+public interface IWriteRepository<T> where T : class, IEntityBase, new()
     {
         Task<T> AddAsync(T entity);
         Task AddRangeAsync(IList<T> entities);

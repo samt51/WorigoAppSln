@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Application.Interfaces.AutoMapper
 {
-    public interface IMapper
+/// <summary>
+/// IMapper arayüzünü tanımlar.
+/// </summary>
+public interface IMapper
     {
         TDestination Map<TDestination, TSource>(TSource source, string? ignore = null);
         IList<TDestination> Map<TDestination, TSource>(IList<TSource> source, string? ignore = null);

@@ -1,8 +1,17 @@
 namespace WorigoApp.Application.Features.Departments.Commands.ToggleDepartmentStatus
 {
-    public class ToggleDepartmentStatusCommandResponse
+/// <summary>
+/// ToggleDepartmentStatusCommandResponse sınıfını temsil eder.
+/// </summary>
+public class ToggleDepartmentStatusCommandResponse
     {
-        public int DepartmentId { get; set; }
-        public bool IsActive { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int DepartmentId { get; set; }
+/// <summary>
+/// IsActive değerini alır veya ayarlar.
+/// </summary>
+public bool IsActive { get; set; }
     }
 }

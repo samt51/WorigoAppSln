@@ -13,7 +13,10 @@ using WorigoApp.Persistence.Context;
 
 namespace WorigoApp.Api.Controllers.Reception
 {
-    [ApiController]
+    /// <summary>
+    /// ReceptionMobileAccessController sınıfını temsil eder.
+    /// </summary>
+[ApiController]
     [Authorize(Roles = "SystemAdmin,HotelAdmin,Management,DepartmentManager,Employee")]
     [Route("api/reception")]
     public class ReceptionMobileAccessController : ControllerBase
@@ -21,15 +24,20 @@ namespace WorigoApp.Api.Controllers.Reception
         private readonly AppDbContext _dbContext;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
-
-        public ReceptionMobileAccessController(AppDbContext dbContext, IHttpClientFactory httpClientFactory, IConfiguration configuration)
+/// <summary>
+/// ReceptionMobileAccessController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ReceptionMobileAccessController(AppDbContext dbContext, IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _dbContext = dbContext;
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
         }
 
-        [HttpPost("mobile-check-in")]
+        /// <summary>
+        /// PrepareMobileCheckIn işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("mobile-check-in")]
         public async Task<ResponseDto<ReceptionMobileCheckInResponse>> PrepareMobileCheckIn(
             [FromBody] ReceptionMobileCheckInRequest request,
             CancellationToken cancellationToken)
@@ -60,6 +68,13 @@ namespace WorigoApp.Api.Controllers.Reception
             {
                 return new ResponseDto<ReceptionMobileCheckInResponse>()
                     .Fail($"Oda bulunamadi. HotelId={hotelId}, Oda={roomName}", 404);
+            }
+
+            var guestCount = Math.Max(1, request.AdultCount) + Math.Max(0, request.ChildCount);
+            if (guestCount > room.Capacity)
+            {
+                return new ResponseDto<ReceptionMobileCheckInResponse>()
+                    .Fail($"Oda kapasitesi {room.Capacity} kişi. Girilen misafir sayısı {guestCount}.", 400);
             }
 
             var currencyExists = await _dbContext.Set<Currency>()
@@ -123,7 +138,14 @@ namespace WorigoApp.Api.Controllers.Reception
                         Status = "Active",
                         AccommodationConceptType = ResolveConcept(request.AccommodationConceptType),
                         CurrencyCode = currencyCode,
-                        TotalPrice = conversion.ConvertedAmount
+                        TotalPrice = conversion.ConvertedAmount,
+                        ReservationNo = string.IsNullOrWhiteSpace(request.ReservationNo) ? $"WALK-{DateTime.UtcNow:yyyyMMddHHmmss}" : request.ReservationNo.Trim(),
+                        Channel = string.IsNullOrWhiteSpace(request.Channel) ? "WalkIn" : request.Channel.Trim(),
+                        AdultCount = Math.Max(1, request.AdultCount),
+                        ChildCount = Math.Max(0, request.ChildCount),
+                        DepositAmount = Math.Max(0, request.DepositAmount),
+                        SpecialRequests = request.SpecialRequests?.Trim(),
+                        GuestConsentAt = request.GuestConsent ? DateTime.UtcNow : null
                     };
 
                     await _dbContext.Set<GuestStay>().AddAsync(guestStay, cancellationToken);
@@ -138,6 +160,12 @@ namespace WorigoApp.Api.Controllers.Reception
                     guestStay.Status = "Active";
                     guestStay.CurrencyCode = currencyCode;
                     guestStay.TotalPrice = conversion.ConvertedAmount;
+                    guestStay.AccommodationConceptType = ResolveConcept(request.AccommodationConceptType);
+                    guestStay.AdultCount = Math.Max(1, request.AdultCount);
+                    guestStay.ChildCount = Math.Max(0, request.ChildCount);
+                    guestStay.DepositAmount = Math.Max(0, request.DepositAmount);
+                    guestStay.SpecialRequests = request.SpecialRequests?.Trim();
+                    if (request.GuestConsent) guestStay.GuestConsentAt ??= DateTime.UtcNow;
                     guestStay.ModifyDate = DateTime.Now;
                 }
 
@@ -155,11 +183,27 @@ namespace WorigoApp.Api.Controllers.Reception
                         Name = customerName,
                         SurName = customerSurname,
                         PreferredLanguageCode = languageCode,
+                        Email = request.Email?.Trim(),
+                        PhoneNumber = request.PhoneNumber?.Trim(),
+                        Nationality = request.Nationality?.Trim(),
+                        IdentityDocumentType = request.IdentityDocumentType?.Trim(),
+                        IdentityDocumentNumber = request.IdentityDocumentNumber?.Trim(),
+                        Address = request.Address?.Trim(),
                         IsPrimaryGuest = !guestStay.PrimaryCustomerId.HasValue
                     };
 
                     await _dbContext.Set<Customer>().AddAsync(customer, cancellationToken);
                     await _dbContext.SaveChangesAsync(cancellationToken);
+                }
+                else
+                {
+                    customer.Email = request.Email?.Trim();
+                    customer.PhoneNumber = request.PhoneNumber?.Trim();
+                    customer.Nationality = request.Nationality?.Trim();
+                    customer.IdentityDocumentType = request.IdentityDocumentType?.Trim();
+                    customer.IdentityDocumentNumber = request.IdentityDocumentNumber?.Trim();
+                    customer.Address = request.Address?.Trim();
+                    customer.ModifyDate = DateTime.Now;
                 }
 
                 if (!guestStay.PrimaryCustomerId.HasValue)
@@ -221,7 +265,10 @@ namespace WorigoApp.Api.Controllers.Reception
             });
         }
 
-        [HttpGet("mobile-check-in/by-room")]
+        /// <summary>
+        /// GetActiveMobileCheckInByRoom işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("mobile-check-in/by-room")]
         public async Task<ResponseDto<ReceptionMobileCheckInResponse>> GetActiveMobileCheckInByRoom(
             [FromQuery] int hotelId,
             [FromQuery] int roomId,
@@ -308,7 +355,10 @@ namespace WorigoApp.Api.Controllers.Reception
             });
         }
 
-        [AllowAnonymous]
+        /// <summary>
+        /// GetMobileCheckInQr işlemini gerçekleştirir.
+        /// </summary>
+[AllowAnonymous]
         [HttpGet("mobile-check-in/qr.png")]
         [Produces("image/png")]
         public async Task<IActionResult> GetMobileCheckInQr([FromQuery] string qrCodeToken, [FromQuery] string? guestAppUrl, CancellationToken cancellationToken)
@@ -418,7 +468,10 @@ namespace WorigoApp.Api.Controllers.Reception
             }
         }
 
-        [HttpGet("rooms/{roomId:int}/folio")]
+        /// <summary>
+        /// GetRoomFolio işlemini gerçekleştirir.
+        /// </summary>
+[HttpGet("rooms/{roomId:int}/folio")]
         public async Task<ResponseDto<ReceptionFolioResponse>> GetRoomFolio(
             int roomId,
             CancellationToken cancellationToken)
@@ -529,7 +582,10 @@ namespace WorigoApp.Api.Controllers.Reception
             });
         }
 
-        [HttpPost("rooms/{roomId:int}/post-payment")]
+        /// <summary>
+        /// PostPayment işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("rooms/{roomId:int}/post-payment")]
         public async Task<ResponseDto<bool>> PostPayment(
             int roomId,
             [FromBody] PostPaymentRequest request,
@@ -567,7 +623,10 @@ namespace WorigoApp.Api.Controllers.Reception
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("mobile-check-in/update-flags")]
+        /// <summary>
+        /// UpdateGuestFlags işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("mobile-check-in/update-flags")]
         public async Task<ResponseDto<bool>> UpdateGuestFlags(
             [FromBody] UpdateGuestFlagsRequest request,
             CancellationToken cancellationToken)
@@ -591,7 +650,10 @@ namespace WorigoApp.Api.Controllers.Reception
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("rooms/{roomId:int}/update-status")]
+        /// <summary>
+        /// UpdateRoomStatus işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("rooms/{roomId:int}/update-status")]
         public async Task<ResponseDto<bool>> UpdateRoomStatus(
             int roomId,
             [FromBody] UpdateRoomStatusRequest request,
@@ -642,7 +704,10 @@ namespace WorigoApp.Api.Controllers.Reception
             return new ResponseDto<bool>().Success(true);
         }
 
-        [HttpPost("checkout")]
+        /// <summary>
+        /// Checkout işlemini gerçekleştirir.
+        /// </summary>
+[HttpPost("checkout")]
         public async Task<ResponseDto<CheckoutResultDto>> Checkout(
             [FromBody] CheckoutRequest request,
             CancellationToken cancellationToken)
@@ -748,115 +813,406 @@ namespace WorigoApp.Api.Controllers.Reception
         }
     }
 
-    public class PostPaymentRequest
+/// <summary>
+/// PostPaymentRequest sınıfını temsil eder.
+/// </summary>
+public class PostPaymentRequest
     {
-        public decimal Amount { get; set; }
-        public string? PaymentMethod { get; set; }
+/// <summary>
+/// Amount değerini alır veya ayarlar.
+/// </summary>
+public decimal Amount { get; set; }
+/// <summary>
+/// PaymentMethod değerini alır veya ayarlar.
+/// </summary>
+public string? PaymentMethod { get; set; }
     }
 
-    public class UpdateGuestFlagsRequest
+/// <summary>
+/// UpdateGuestFlagsRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateGuestFlagsRequest
     {
-        public int GuestStayId { get; set; }
-        public bool IsVip { get; set; }
-        public bool HasAllergy { get; set; }
-        public bool DoNotDisturb { get; set; }
-        public bool IsLateCheckOut { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// IsVip değerini alır veya ayarlar.
+/// </summary>
+public bool IsVip { get; set; }
+/// <summary>
+/// HasAllergy değerini alır veya ayarlar.
+/// </summary>
+public bool HasAllergy { get; set; }
+/// <summary>
+/// DoNotDisturb değerini alır veya ayarlar.
+/// </summary>
+public bool DoNotDisturb { get; set; }
+/// <summary>
+/// IsLateCheckOut değerini alır veya ayarlar.
+/// </summary>
+public bool IsLateCheckOut { get; set; }
     }
 
-    public class UpdateRoomStatusRequest
+/// <summary>
+/// UpdateRoomStatusRequest sınıfını temsil eder.
+/// </summary>
+public class UpdateRoomStatusRequest
     {
-        public string Status { get; set; } = string.Empty;
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public string Status { get; set; } = string.Empty;
     }
 
-    public class CheckoutRequest
+/// <summary>
+/// CheckoutRequest sınıfını temsil eder.
+/// </summary>
+public class CheckoutRequest
     {
-        public int GuestStayId { get; set; }
-        public bool Force { get; set; }
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// Force değerini alır veya ayarlar.
+/// </summary>
+public bool Force { get; set; }
     }
 
-    public class CheckoutResultDto
+/// <summary>
+/// CheckoutResultDto sınıfını temsil eder.
+/// </summary>
+public class CheckoutResultDto
     {
-        public bool Success { get; set; }
-        public string? WarningCode { get; set; }
-        public string Message { get; set; } = string.Empty;
+/// <summary>
+/// Success değerini alır veya ayarlar.
+/// </summary>
+public bool Success { get; set; }
+/// <summary>
+/// WarningCode değerini alır veya ayarlar.
+/// </summary>
+public string? WarningCode { get; set; }
+/// <summary>
+/// Message değerini alır veya ayarlar.
+/// </summary>
+public string Message { get; set; } = string.Empty;
     }
 
-    public class ReceptionFolioResponse
+/// <summary>
+/// ReceptionFolioResponse sınıfını temsil eder.
+/// </summary>
+public class ReceptionFolioResponse
     {
-        public int GuestStayId { get; set; }
-        public string RoomName { get; set; } = string.Empty;
-        public string GuestName { get; set; } = string.Empty;
-        public decimal TotalCharges { get; set; }
-        public decimal TotalPayments { get; set; }
-        public decimal RemainingBalance { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public List<FolioItemDto> Items { get; set; } = new();
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// RoomName değerini alır veya ayarlar.
+/// </summary>
+public string RoomName { get; set; } = string.Empty;
+/// <summary>
+/// GuestName değerini alır veya ayarlar.
+/// </summary>
+public string GuestName { get; set; } = string.Empty;
+/// <summary>
+/// TotalCharges değerini alır veya ayarlar.
+/// </summary>
+public decimal TotalCharges { get; set; }
+/// <summary>
+/// TotalPayments değerini alır veya ayarlar.
+/// </summary>
+public decimal TotalPayments { get; set; }
+/// <summary>
+/// RemainingBalance değerini alır veya ayarlar.
+/// </summary>
+public decimal RemainingBalance { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Items değerini alır veya ayarlar.
+/// </summary>
+public List<FolioItemDto> Items { get; set; } = new();
     }
 
-    public class FolioItemDto
+/// <summary>
+/// FolioItemDto sınıfını temsil eder.
+/// </summary>
+public class FolioItemDto
     {
-        public string Type { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public decimal Amount { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public DateTime Date { get; set; }
-        public bool IsPayment { get; set; }
+/// <summary>
+/// Type değerini alır veya ayarlar.
+/// </summary>
+public string Type { get; set; } = string.Empty;
+/// <summary>
+/// Description değerini alır veya ayarlar.
+/// </summary>
+public string Description { get; set; } = string.Empty;
+/// <summary>
+/// Amount değerini alır veya ayarlar.
+/// </summary>
+public decimal Amount { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// Date değerini alır veya ayarlar.
+/// </summary>
+public DateTime Date { get; set; }
+/// <summary>
+/// IsPayment değerini alır veya ayarlar.
+/// </summary>
+public bool IsPayment { get; set; }
     }
 
-    public class ReceptionMobileCheckInRequest
+/// <summary>
+/// ReceptionMobileCheckInRequest sınıfını temsil eder.
+/// </summary>
+public class ReceptionMobileCheckInRequest
     {
-        public int HotelId { get; set; }
-        public string RoomName { get; set; } = "101";
-        public string CustomerName { get; set; } = "Mobil";
-        public string CustomerSurname { get; set; } = "Misafir";
-        public int AccommodationConceptType { get; set; } = 5;
-        public int StayDays { get; set; } = 1;
-        public DateTime? CheckInDate { get; set; }
-        public DateTime? CheckOutDate { get; set; }
-        public string LanguageCode { get; set; } = "tr-TR";
-        public decimal? Price { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// RoomName değerini alır veya ayarlar.
+/// </summary>
+public string RoomName { get; set; } = "101";
+/// <summary>
+/// CustomerName değerini alır veya ayarlar.
+/// </summary>
+public string CustomerName { get; set; } = "Mobil";
+/// <summary>
+/// CustomerSurname değerini alır veya ayarlar.
+/// </summary>
+public string CustomerSurname { get; set; } = "Misafir";
+/// <summary>
+/// AccommodationConceptType değerini alır veya ayarlar.
+/// </summary>
+public int AccommodationConceptType { get; set; } = 5;
+/// <summary>
+/// StayDays değerini alır veya ayarlar.
+/// </summary>
+public int StayDays { get; set; } = 1;
+/// <summary>
+/// CheckInDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime? CheckInDate { get; set; }
+/// <summary>
+/// CheckOutDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime? CheckOutDate { get; set; }
+/// <summary>
+/// LanguageCode değerini alır veya ayarlar.
+/// </summary>
+public string LanguageCode { get; set; } = "tr-TR";
+/// <summary>
+/// Price değerini alır veya ayarlar.
+/// </summary>
+public decimal? Price { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// ReservationNo değerini alır veya ayarlar.
+/// </summary>
+public string? ReservationNo { get; set; }
+/// <summary>
+/// Channel değerini alır veya ayarlar.
+/// </summary>
+public string? Channel { get; set; }
+/// <summary>
+/// Email değerini alır veya ayarlar.
+/// </summary>
+public string? Email { get; set; }
+/// <summary>
+/// PhoneNumber değerini alır veya ayarlar.
+/// </summary>
+public string? PhoneNumber { get; set; }
+/// <summary>
+/// Nationality değerini alır veya ayarlar.
+/// </summary>
+public string? Nationality { get; set; }
+/// <summary>
+/// IdentityDocumentType değerini alır veya ayarlar.
+/// </summary>
+public string? IdentityDocumentType { get; set; }
+/// <summary>
+/// IdentityDocumentNumber değerini alır veya ayarlar.
+/// </summary>
+public string? IdentityDocumentNumber { get; set; }
+/// <summary>
+/// Address değerini alır veya ayarlar.
+/// </summary>
+public string? Address { get; set; }
+/// <summary>
+/// AdultCount değerini alır veya ayarlar.
+/// </summary>
+public int AdultCount { get; set; } = 1;
+/// <summary>
+/// ChildCount değerini alır veya ayarlar.
+/// </summary>
+public int ChildCount { get; set; }
+/// <summary>
+/// DepositAmount değerini alır veya ayarlar.
+/// </summary>
+public decimal DepositAmount { get; set; }
+/// <summary>
+/// SpecialRequests değerini alır veya ayarlar.
+/// </summary>
+public string? SpecialRequests { get; set; }
+/// <summary>
+/// GuestConsent değerini alır veya ayarlar.
+/// </summary>
+public bool GuestConsent { get; set; }
     }
 
-    public class ReceptionMobileCheckInResponse
+/// <summary>
+/// ReceptionMobileCheckInResponse sınıfını temsil eder.
+/// </summary>
+public class ReceptionMobileCheckInResponse
     {
-        public int HotelId { get; set; }
-        public string HotelName { get; set; } = string.Empty;
-        public int RoomId { get; set; }
-        public string RoomName { get; set; } = string.Empty;
-        public int GuestStayId { get; set; }
-        public int CustomerId { get; set; }
-        public int GuestSessionId { get; set; }
-        public string GuestName { get; set; } = string.Empty;
-        public string VerificationCode { get; set; } = string.Empty;
-        public string SessionToken { get; set; } = string.Empty;
-        public string QrCodeToken { get; set; } = string.Empty;
-        public string MobileLoginUrl { get; set; } = string.Empty;
-        public string QrImageUrl { get; set; } = string.Empty;
-        public string LanguageCode { get; set; } = "tr-TR";
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
-        public DateTime ExpiresAt { get; set; }
-        public decimal BasePrice { get; set; }
-        public decimal TotalPrice { get; set; }
-        public string CurrencyCode { get; set; } = "TRY";
-        public decimal ExchangeRate { get; set; }
-        public DateTime ExchangeRateDate { get; set; }
-        public bool IsVip { get; set; }
-        public bool HasAllergy { get; set; }
-        public bool DoNotDisturb { get; set; }
-        public bool IsLateCheckOut { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// HotelName değerini alır veya ayarlar.
+/// </summary>
+public string HotelName { get; set; } = string.Empty;
+/// <summary>
+/// RoomId değerini alır veya ayarlar.
+/// </summary>
+public int RoomId { get; set; }
+/// <summary>
+/// RoomName değerini alır veya ayarlar.
+/// </summary>
+public string RoomName { get; set; } = string.Empty;
+/// <summary>
+/// GuestStayId değerini alır veya ayarlar.
+/// </summary>
+public int GuestStayId { get; set; }
+/// <summary>
+/// CustomerId değerini alır veya ayarlar.
+/// </summary>
+public int CustomerId { get; set; }
+/// <summary>
+/// GuestSessionId değerini alır veya ayarlar.
+/// </summary>
+public int GuestSessionId { get; set; }
+/// <summary>
+/// GuestName değerini alır veya ayarlar.
+/// </summary>
+public string GuestName { get; set; } = string.Empty;
+/// <summary>
+/// VerificationCode değerini alır veya ayarlar.
+/// </summary>
+public string VerificationCode { get; set; } = string.Empty;
+/// <summary>
+/// SessionToken değerini alır veya ayarlar.
+/// </summary>
+public string SessionToken { get; set; } = string.Empty;
+/// <summary>
+/// QrCodeToken değerini alır veya ayarlar.
+/// </summary>
+public string QrCodeToken { get; set; } = string.Empty;
+/// <summary>
+/// MobileLoginUrl değerini alır veya ayarlar.
+/// </summary>
+public string MobileLoginUrl { get; set; } = string.Empty;
+/// <summary>
+/// QrImageUrl değerini alır veya ayarlar.
+/// </summary>
+public string QrImageUrl { get; set; } = string.Empty;
+/// <summary>
+/// LanguageCode değerini alır veya ayarlar.
+/// </summary>
+public string LanguageCode { get; set; } = "tr-TR";
+/// <summary>
+/// CheckInDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime CheckInDate { get; set; }
+/// <summary>
+/// CheckOutDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime CheckOutDate { get; set; }
+/// <summary>
+/// ExpiresAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime ExpiresAt { get; set; }
+/// <summary>
+/// BasePrice değerini alır veya ayarlar.
+/// </summary>
+public decimal BasePrice { get; set; }
+/// <summary>
+/// TotalPrice değerini alır veya ayarlar.
+/// </summary>
+public decimal TotalPrice { get; set; }
+/// <summary>
+/// CurrencyCode değerini alır veya ayarlar.
+/// </summary>
+public string CurrencyCode { get; set; } = "TRY";
+/// <summary>
+/// ExchangeRate değerini alır veya ayarlar.
+/// </summary>
+public decimal ExchangeRate { get; set; }
+/// <summary>
+/// ExchangeRateDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime ExchangeRateDate { get; set; }
+/// <summary>
+/// IsVip değerini alır veya ayarlar.
+/// </summary>
+public bool IsVip { get; set; }
+/// <summary>
+/// HasAllergy değerini alır veya ayarlar.
+/// </summary>
+public bool HasAllergy { get; set; }
+/// <summary>
+/// DoNotDisturb değerini alır veya ayarlar.
+/// </summary>
+public bool DoNotDisturb { get; set; }
+/// <summary>
+/// IsLateCheckOut değerini alır veya ayarlar.
+/// </summary>
+public bool IsLateCheckOut { get; set; }
     }
 
-    public class CurrencyConversionResult
+/// <summary>
+/// CurrencyConversionResult sınıfını temsil eder.
+/// </summary>
+public class CurrencyConversionResult
     {
-        public bool IsSuccess { get; set; }
-        public decimal ConvertedAmount { get; set; }
-        public decimal Rate { get; set; }
-        public DateTime RateDate { get; set; }
-        public string ErrorMessage { get; set; } = string.Empty;
-
-        public static CurrencyConversionResult Success(decimal convertedAmount, decimal rate, DateTime rateDate)
+/// <summary>
+/// IsSuccess değerini alır veya ayarlar.
+/// </summary>
+public bool IsSuccess { get; set; }
+/// <summary>
+/// ConvertedAmount değerini alır veya ayarlar.
+/// </summary>
+public decimal ConvertedAmount { get; set; }
+/// <summary>
+/// Rate değerini alır veya ayarlar.
+/// </summary>
+public decimal Rate { get; set; }
+/// <summary>
+/// RateDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime RateDate { get; set; }
+/// <summary>
+/// ErrorMessage değerini alır veya ayarlar.
+/// </summary>
+public string ErrorMessage { get; set; } = string.Empty;
+/// <summary>
+/// Success işlemini gerçekleştirir.
+/// </summary>
+public static CurrencyConversionResult Success(decimal convertedAmount, decimal rate, DateTime rateDate)
         {
             return new CurrencyConversionResult
             {
@@ -866,8 +1222,10 @@ namespace WorigoApp.Api.Controllers.Reception
                 RateDate = rateDate
             };
         }
-
-        public static CurrencyConversionResult Fail(string errorMessage)
+/// <summary>
+/// Fail işlemini gerçekleştirir.
+/// </summary>
+public static CurrencyConversionResult Fail(string errorMessage)
         {
             return new CurrencyConversionResult
             {

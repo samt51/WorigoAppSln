@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Rooms.Queries.GetRoomAvailabilityStatus
 {
-    public class GetRoomAvailabilityStatusQueryHandler : IRequestHandler<GetRoomAvailabilityStatusQueryRequest, ResponseDto<RoomAvailabilityStatusResponse>>
+/// <summary>
+/// GetRoomAvailabilityStatusQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetRoomAvailabilityStatusQueryHandler : IRequestHandler<GetRoomAvailabilityStatusQueryRequest, ResponseDto<RoomAvailabilityStatusResponse>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetRoomAvailabilityStatusQueryHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GetRoomAvailabilityStatusQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetRoomAvailabilityStatusQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<RoomAvailabilityStatusResponse>> Handle(GetRoomAvailabilityStatusQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<RoomAvailabilityStatusResponse>> Handle(GetRoomAvailabilityStatusQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

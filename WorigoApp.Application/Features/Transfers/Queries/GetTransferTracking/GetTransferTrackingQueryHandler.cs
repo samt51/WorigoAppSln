@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Transfers.Queries.GetTransferTracking
 {
-    public class GetTransferTrackingQueryHandler : IRequestHandler<GetTransferTrackingQueryRequest, ResponseDto<TransferTracking>>
+/// <summary>
+/// GetTransferTrackingQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetTransferTrackingQueryHandler : IRequestHandler<GetTransferTrackingQueryRequest, ResponseDto<TransferTracking>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public GetTransferTrackingQueryHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// GetTransferTrackingQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetTransferTrackingQueryHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<TransferTracking>> Handle(GetTransferTrackingQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<TransferTracking>> Handle(GetTransferTrackingQueryRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

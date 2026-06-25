@@ -2,14 +2,38 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Hr.Performance.Queries.GetPerformanceReviewsByEmployee
 {
-    public class GetPerformanceReviewsByEmployeeQueryResponse
+/// <summary>
+/// GetPerformanceReviewsByEmployeeQueryResponse sınıfını temsil eder.
+/// </summary>
+public class GetPerformanceReviewsByEmployeeQueryResponse
     {
-        public int Id { get; set; }
-        public decimal Score { get; set; }
-        public string? Strengths { get; set; }
-        public string? ImprovementAreas { get; set; }
-        public string? ManagerNote { get; set; }
-        public PerformanceReviewStatusEnum Status { get; set; }
-        public DateTime ReviewDate { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Score değerini alır veya ayarlar.
+/// </summary>
+public decimal Score { get; set; }
+/// <summary>
+/// Strengths değerini alır veya ayarlar.
+/// </summary>
+public string? Strengths { get; set; }
+/// <summary>
+/// ImprovementAreas değerini alır veya ayarlar.
+/// </summary>
+public string? ImprovementAreas { get; set; }
+/// <summary>
+/// ManagerNote değerini alır veya ayarlar.
+/// </summary>
+public string? ManagerNote { get; set; }
+/// <summary>
+/// Status değerini alır veya ayarlar.
+/// </summary>
+public PerformanceReviewStatusEnum Status { get; set; }
+/// <summary>
+/// ReviewDate değerini alır veya ayarlar.
+/// </summary>
+public DateTime ReviewDate { get; set; }
     }
 }

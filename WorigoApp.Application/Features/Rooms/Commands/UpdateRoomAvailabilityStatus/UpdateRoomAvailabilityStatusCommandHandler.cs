@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Rooms.Commands.UpdateRoomAvailabilityStatus
 {
-    public class UpdateRoomAvailabilityStatusCommandHandler : IRequestHandler<UpdateRoomAvailabilityStatusCommandRequest, ResponseDto<bool>>
+/// <summary>
+/// UpdateRoomAvailabilityStatusCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateRoomAvailabilityStatusCommandHandler : IRequestHandler<UpdateRoomAvailabilityStatusCommandRequest, ResponseDto<bool>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public UpdateRoomAvailabilityStatusCommandHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// UpdateRoomAvailabilityStatusCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateRoomAvailabilityStatusCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<bool>> Handle(UpdateRoomAvailabilityStatusCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<bool>> Handle(UpdateRoomAvailabilityStatusCommandRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

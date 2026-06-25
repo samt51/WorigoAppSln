@@ -1,6 +1,9 @@
 ﻿namespace WorigoApp.Domain.Enums
 {
-    public enum RoomFoodTypeEnum
+/// <summary>
+/// RoomFoodTypeEnum numaralandırma türünü temsil eder.
+/// </summary>
+public enum RoomFoodTypeEnum
     {
         Breakfast = 1,
         HalfPension = 2,

@@ -6,16 +6,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Spa.Commands.CancelSpaAppointment
 {
-    public class CancelSpaAppointmentCommandHandler : IRequestHandler<CancelSpaAppointmentCommandRequest, ResponseDto<bool>>
+/// <summary>
+/// CancelSpaAppointmentCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CancelSpaAppointmentCommandHandler : IRequestHandler<CancelSpaAppointmentCommandRequest, ResponseDto<bool>>
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public CancelSpaAppointmentCommandHandler(IUnitOfWork unitOfWork)
+/// <summary>
+/// CancelSpaAppointmentCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CancelSpaAppointmentCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        public async Task<ResponseDto<bool>> Handle(CancelSpaAppointmentCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<bool>> Handle(CancelSpaAppointmentCommandRequest request, CancellationToken cancellationToken)
         {
             var now = DateTime.UtcNow;
             var today = DateTime.Today;

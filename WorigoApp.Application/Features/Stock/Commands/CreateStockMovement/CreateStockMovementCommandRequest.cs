@@ -4,18 +4,54 @@ using WorigoApp.Domain.Enums;
 
 namespace WorigoApp.Application.Features.Stock.Commands.CreateStockMovement
 {
-    public class CreateStockMovementCommandRequest : IRequest<ResponseDto<CreateStockMovementCommandResponse>>
+/// <summary>
+/// CreateStockMovementCommandRequest sınıfını temsil eder.
+/// </summary>
+public class CreateStockMovementCommandRequest : IRequest<ResponseDto<CreateStockMovementCommandResponse>>
     {
-        public int HotelId { get; set; }
-        public int StockItemId { get; set; }
-        public int? DepartmentId { get; set; }
-        public int? EmployeeId { get; set; }
-        public StockMovementTypeEnum MovementType { get; set; }
-        public decimal Quantity { get; set; }
-        public decimal UnitPrice { get; set; }
-        public string? Reason { get; set; }
-        public string? ReferenceType { get; set; }
-        public int? ReferenceId { get; set; }
-        public DateTime? OccurredAt { get; set; }
+/// <summary>
+/// HotelId değerini alır veya ayarlar.
+/// </summary>
+public int HotelId { get; set; }
+/// <summary>
+/// StockItemId değerini alır veya ayarlar.
+/// </summary>
+public int StockItemId { get; set; }
+/// <summary>
+/// DepartmentId değerini alır veya ayarlar.
+/// </summary>
+public int? DepartmentId { get; set; }
+/// <summary>
+/// EmployeeId değerini alır veya ayarlar.
+/// </summary>
+public int? EmployeeId { get; set; }
+/// <summary>
+/// MovementType değerini alır veya ayarlar.
+/// </summary>
+public StockMovementTypeEnum MovementType { get; set; }
+/// <summary>
+/// Quantity değerini alır veya ayarlar.
+/// </summary>
+public decimal Quantity { get; set; }
+/// <summary>
+/// UnitPrice değerini alır veya ayarlar.
+/// </summary>
+public decimal UnitPrice { get; set; }
+/// <summary>
+/// Reason değerini alır veya ayarlar.
+/// </summary>
+public string? Reason { get; set; }
+/// <summary>
+/// ReferenceType değerini alır veya ayarlar.
+/// </summary>
+public string? ReferenceType { get; set; }
+/// <summary>
+/// ReferenceId değerini alır veya ayarlar.
+/// </summary>
+public int? ReferenceId { get; set; }
+/// <summary>
+/// OccurredAt değerini alır veya ayarlar.
+/// </summary>
+public DateTime? OccurredAt { get; set; }
     }
 }

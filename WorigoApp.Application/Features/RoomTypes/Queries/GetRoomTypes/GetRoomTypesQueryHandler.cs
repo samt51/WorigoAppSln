@@ -11,13 +11,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.RoomTypes.Queries.GetRoomTypes
 {
-    public class GetRoomTypesQueryHandler : BaseHandler, IRequestHandler<GetRoomTypesQueryRequest, IList<GetRoomTypesQueryResponse>>
+/// <summary>
+/// GetRoomTypesQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetRoomTypesQueryHandler : BaseHandler, IRequestHandler<GetRoomTypesQueryRequest, IList<GetRoomTypesQueryResponse>>
     {
-        public GetRoomTypesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetRoomTypesQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetRoomTypesQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<IList<GetRoomTypesQueryResponse>> Handle(GetRoomTypesQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<IList<GetRoomTypesQueryResponse>> Handle(GetRoomTypesQueryRequest request, CancellationToken cancellationToken)
         {
             var list = await unitOfWork.GetReadRepository<RoomType>().GetAllAsync(
                 predicate: x => x.HotelId == request.HotelId && !x.IsDeleted && (request.ActiveOnly == null || !request.ActiveOnly.Value || x.IsActive),

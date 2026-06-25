@@ -9,15 +9,23 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Middleware
 {
+    /// <summary>
+    /// JwtExpirationMiddleware sınıfını temsil eder.
+    /// </summary>
     public class JwtExpirationMiddleware
     {
         private readonly RequestDelegate _next;
-        public JwtExpirationMiddleware(RequestDelegate next)
+/// <summary>
+/// JwtExpirationMiddleware sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public JwtExpirationMiddleware(RequestDelegate next)
         {
             _next = next;
         }
-
-        public async Task Invoke(HttpContext context)
+/// <summary>
+/// Invoke işlemini gerçekleştirir.
+/// </summary>
+public async Task Invoke(HttpContext context)
         {
             var request = context.GetRouteValue("action");
 
@@ -86,8 +94,10 @@ namespace WorigoApp.Application.Middleware
                 }
             }
         }
-
-        public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
+/// <summary>
+/// UnixTimeStampToDateTime işlemini gerçekleştirir.
+/// </summary>
+public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
         {
             // Unix zaman damgası 1970-01-01 00:00:00 UTC tarihinden itibaren geçen saniye sayısını temsil eder
             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -110,8 +120,10 @@ namespace WorigoApp.Application.Middleware
                 logger?.LogWarning(exception, "Cache warm-up failed for {CacheName}. Request will continue.", cacheName);
             }
         }
-
-        public async Task TransactionAddOrControllToCache(HttpContext context)
+/// <summary>
+/// TransactionAddOrControllToCache işlemini gerçekleştirir.
+/// </summary>
+public async Task TransactionAddOrControllToCache(HttpContext context)
         {
             var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)
@@ -132,8 +144,10 @@ namespace WorigoApp.Application.Middleware
                 }
             }
         }
-
-        public async Task CacheSetContentsOfFoodDatas(HttpContext context)
+/// <summary>
+/// CacheSetContentsOfFoodDatas işlemini gerçekleştirir.
+/// </summary>
+public async Task CacheSetContentsOfFoodDatas(HttpContext context)
         {
             var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)
@@ -154,7 +168,10 @@ namespace WorigoApp.Application.Middleware
                 }
             }
         }
-        public async Task SetCacheValidationMessages(HttpContext context)
+/// <summary>
+/// SetCacheValidationMessages işlemini gerçekleştirir.
+/// </summary>
+public async Task SetCacheValidationMessages(HttpContext context)
         {
             var memoryCache = (IMemoryCache)context.RequestServices.GetService(typeof(IMemoryCache));
             if (memoryCache != null)

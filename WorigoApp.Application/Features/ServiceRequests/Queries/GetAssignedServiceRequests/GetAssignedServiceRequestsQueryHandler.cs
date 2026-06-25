@@ -8,13 +8,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.ServiceRequests.Queries.GetAssignedServiceRequests
 {
-    public class GetAssignedServiceRequestsQueryHandler : BaseHandler, IRequestHandler<GetAssignedServiceRequestsQueryRequest, ResponseDto<IList<GetAssignedServiceRequestsQueryResponse>>>
+/// <summary>
+/// GetAssignedServiceRequestsQueryHandler sınıfını temsil eder.
+/// </summary>
+public class GetAssignedServiceRequestsQueryHandler : BaseHandler, IRequestHandler<GetAssignedServiceRequestsQueryRequest, ResponseDto<IList<GetAssignedServiceRequestsQueryResponse>>>
     {
-        public GetAssignedServiceRequestsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// GetAssignedServiceRequestsQueryHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public GetAssignedServiceRequestsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<IList<GetAssignedServiceRequestsQueryResponse>>> Handle(GetAssignedServiceRequestsQueryRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<IList<GetAssignedServiceRequestsQueryResponse>>> Handle(GetAssignedServiceRequestsQueryRequest request, CancellationToken cancellationToken)
         {
             var serviceRequests = await unitOfWork.GetReadRepository<ServiceRequest>().GetAllAsync(
                 x => x.AssignedEmployeeId == request.EmployeeId &&

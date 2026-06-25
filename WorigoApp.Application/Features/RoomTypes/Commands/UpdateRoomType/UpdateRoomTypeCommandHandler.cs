@@ -10,13 +10,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.RoomTypes.Commands.UpdateRoomType
 {
-    public class UpdateRoomTypeCommandHandler : BaseHandler, IRequestHandler<UpdateRoomTypeCommandRequest, ResponseDto<UpdateRoomTypeCommandResponse>>
+/// <summary>
+/// UpdateRoomTypeCommandHandler sınıfını temsil eder.
+/// </summary>
+public class UpdateRoomTypeCommandHandler : BaseHandler, IRequestHandler<UpdateRoomTypeCommandRequest, ResponseDto<UpdateRoomTypeCommandResponse>>
     {
-        public UpdateRoomTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// UpdateRoomTypeCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public UpdateRoomTypeCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<UpdateRoomTypeCommandResponse>> Handle(UpdateRoomTypeCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<UpdateRoomTypeCommandResponse>> Handle(UpdateRoomTypeCommandRequest request, CancellationToken cancellationToken)
         {
             var roomType = await unitOfWork.GetReadRepository<RoomType>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
             if (roomType == null)

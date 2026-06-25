@@ -7,15 +7,22 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hotels.Commands.CreateHotel
 {
-    public class CreateHotelCommonHandler : BaseHandler, IRequestHandler<CreateHotelCommonRequest, ResponseDto<CreateHotelCommonResponse>>
+/// <summary>
+/// CreateHotelCommonHandler sınıfını temsil eder.
+/// </summary>
+public class CreateHotelCommonHandler : BaseHandler, IRequestHandler<CreateHotelCommonRequest, ResponseDto<CreateHotelCommonResponse>>
     {
         private const int TemplateHotelId = 1;
-
-        public CreateHotelCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreateHotelCommonHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreateHotelCommonHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreateHotelCommonResponse>> Handle(CreateHotelCommonRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreateHotelCommonResponse>> Handle(CreateHotelCommonRequest request, CancellationToken cancellationToken)
         {
             await unitOfWork.GetReadRepository<Company>().GetAsync(x => x.Id == request.Companyid && !x.IsDeleted);
 

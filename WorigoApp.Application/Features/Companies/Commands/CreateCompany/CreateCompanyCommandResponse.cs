@@ -1,8 +1,17 @@
 ﻿namespace WorigoApp.Application.Features.Companies.Commands.CreateCompany
 {
-    public class CreateCompanyCommandResponse
+/// <summary>
+/// CreateCompanyCommandResponse sınıfını temsil eder.
+/// </summary>
+public class CreateCompanyCommandResponse
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+/// <summary>
+/// Id değerini alır veya ayarlar.
+/// </summary>
+public int Id { get; set; }
+/// <summary>
+/// Name değerini alır veya ayarlar.
+/// </summary>
+public string Name { get; set; }
     }
 }

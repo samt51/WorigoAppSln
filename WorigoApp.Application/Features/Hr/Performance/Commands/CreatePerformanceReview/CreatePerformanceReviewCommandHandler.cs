@@ -7,13 +7,21 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Hr.Performance.Commands.CreatePerformanceReview
 {
-    public class CreatePerformanceReviewCommandHandler : BaseHandler, IRequestHandler<CreatePerformanceReviewCommandRequest, ResponseDto<CreatePerformanceReviewCommandResponse>>
+/// <summary>
+/// CreatePerformanceReviewCommandHandler sınıfını temsil eder.
+/// </summary>
+public class CreatePerformanceReviewCommandHandler : BaseHandler, IRequestHandler<CreatePerformanceReviewCommandRequest, ResponseDto<CreatePerformanceReviewCommandResponse>>
     {
-        public CreatePerformanceReviewCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// CreatePerformanceReviewCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public CreatePerformanceReviewCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
         }
-
-        public async Task<ResponseDto<CreatePerformanceReviewCommandResponse>> Handle(CreatePerformanceReviewCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<CreatePerformanceReviewCommandResponse>> Handle(CreatePerformanceReviewCommandRequest request, CancellationToken cancellationToken)
         {
             var employee = await unitOfWork.GetReadRepository<Employee>().GetAsync(
                 x => x.Id == request.EmployeeId && x.HotelId == request.HotelId && !x.IsDeleted,

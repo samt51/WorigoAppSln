@@ -6,9 +6,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<InvariantGlobalization>false</InvariantGlobalization>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-	</PropertyGroup>
+	  <UserSecretsId>6ed8c56f-0d54-4893-b56d-d24dda608e4c</UserSecretsId>
+  </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Hangfire.AspNetCore" Version="1.8.23" />
 		<PackageReference Include="MediatR" Version="12.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
 			<PrivateAssets>all</PrivateAssets>

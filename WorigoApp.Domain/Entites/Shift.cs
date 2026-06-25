@@ -27,7 +27,10 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public int? HotelId { get; set; }
 
-        public Hotel? Hotel { get; set; }
+/// <summary>
+/// Hotel değerini alır veya ayarlar.
+/// </summary>
+public Hotel? Hotel { get; set; }
 
         /// <summary>
         /// Vardiya açıklaması.
@@ -39,7 +42,13 @@ namespace WorigoApp.Domain.Entites
         /// </summary>
         public bool IsNightShift { get; set; }
 
-        public IList<Employee> Employees { get; set; } = new List<Employee>();
-        public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
+/// <summary>
+/// Employees değerini alır veya ayarlar.
+/// </summary>
+public IList<Employee> Employees { get; set; } = new List<Employee>();
+/// <summary>
+/// AttendanceRecords değerini alır veya ayarlar.
+/// </summary>
+public IList<AttendanceRecord> AttendanceRecords { get; set; } = new List<AttendanceRecord>();
     }
 }

@@ -4,12 +4,17 @@ using WorigoApp.Api.Controllers.CommonBase;
 
 namespace WorigoApp.Api.Controllers.Service
 {
-    [Authorize(Roles = "SystemAdmin")]
+    /// <summary>
+    /// ServiceController sınıfını temsil eder.
+    /// </summary>
+[Authorize(Roles = "SystemAdmin")]
     public class ServiceController : BaseController
     {
         private readonly IMediator _mediator;
-
-        public ServiceController(IMediator mediator) : base(mediator)
+/// <summary>
+/// ServiceController sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public ServiceController(IMediator mediator) : base(mediator)
         {
             this._mediator = mediator;
         }

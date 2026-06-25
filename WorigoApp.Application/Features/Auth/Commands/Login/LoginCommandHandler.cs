@@ -11,18 +11,25 @@ using WorigoApp.Domain.Entites;
 
 namespace WorigoApp.Application.Features.Auth.Commands.Login
 {
-    public class LoginCommandHandler : BaseHandler, IRequestHandler<LoginCommandRequest, ResponseDto<LoginCommandResponse>>
+/// <summary>
+/// LoginCommandHandler sınıfını temsil eder.
+/// </summary>
+public class LoginCommandHandler : BaseHandler, IRequestHandler<LoginCommandRequest, ResponseDto<LoginCommandResponse>>
     {
         private readonly AuthRule _authRule;
         private readonly ITokenService _tokenService;
-
-        public LoginCommandHandler(ITokenService tokenService, AuthRule authRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+/// <summary>
+/// LoginCommandHandler sınıfının yeni bir örneğini başlatır.
+/// </summary>
+public LoginCommandHandler(ITokenService tokenService, AuthRule authRule, IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
         {
             this._authRule = authRule;
             this._tokenService = tokenService;
         }
-
-        public async Task<ResponseDto<LoginCommandResponse>> Handle(LoginCommandRequest request, CancellationToken cancellationToken)
+/// <summary>
+/// Handle işlemini gerçekleştirir.
+/// </summary>
+public async Task<ResponseDto<LoginCommandResponse>> Handle(LoginCommandRequest request, CancellationToken cancellationToken)
         {
             var user = await unitOfWork.GetReadRepository<Users>().GetAsync(x => x.Email == request.Email && x.Password == PasswordHash.HashPassword(request.Password) && !x.IsDeleted,
                 y => y.Include(x => x.Role));

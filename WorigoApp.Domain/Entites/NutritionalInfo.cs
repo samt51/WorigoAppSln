@@ -31,7 +31,13 @@ namespace WorigoApp.Domain.Entites
         /// Lif miktarı (gram)
         /// </summary>
         public decimal Fiber { get; set; }
-        public int FoodId { get; set; }
-        public Food Food { get; set; }              // Bu besin bilgilerine sahip yemek
+/// <summary>
+/// FoodId değerini alır veya ayarlar.
+/// </summary>
+public int FoodId { get; set; }
+/// <summary>
+/// Food değerini alır veya ayarlar.
+/// </summary>
+public Food Food { get; set; }              // Bu besin bilgilerine sahip yemek
     }
 }
